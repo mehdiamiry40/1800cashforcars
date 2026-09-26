@@ -1,26 +1,52 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-navy-950: #061229;
+  --color-navy-900: #0a1f44;
+  --color-navy-800: #0f2d5f;
+  --color-navy-700: #173f80;
+  --color-brand-500: #1d6fe0;
+  --color-brand-600: #155bc0;
+  --color-cash-300: #ffe066;
+  --color-cash-400: #ffd21f;
+  --color-cash-500: #f5c000;
+  --color-money-500: #16a34a;
+  --color-money-600: #15803d;
+  --color-ink: #0b1324;
+  --color-muted: #55607a;
+  --color-line: #e3e8f2;
+  --color-paper: #f5f7fb;
+
+  --font-sans: var(--font-inter);
+  --font-display: var(--font-archivo);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: #ffffff;
+  color: var(--color-ink);
+}
+
+.font-display {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+}
+
+.btn-cash {
+  @apply inline-flex items-center justify-center gap-2 rounded-full bg-cash-400 px-6 py-3.5 font-bold text-navy-950 shadow-[0_6px_0_0_#c79b00] transition hover:bg-cash-300 active:translate-y-[3px] active:shadow-[0_3px_0_0_#c79b00];
+}
+
+.btn-outline {
+  @apply inline-flex items-center justify-center gap-2 rounded-full border-2 border-white/80 px-6 py-3 font-bold text-white transition hover:bg-white hover:text-navy-900;
+}
+
+.field {
+  @apply w-full rounded-xl border-2 border-line bg-white px-4 py-3 text-base text-ink outline-none transition placeholder:text-muted/60 focus:border-brand-500;
+}
+
+.label {
+  @apply mb-1.5 block text-sm font-semibold text-ink;
 }
