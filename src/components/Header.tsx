@@ -5,89 +5,96 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { site } from "@/lib/site";
 import { Logo } from "./Logo";
-import { HomeIcon, MenuIcon, PhoneIcon } from "./icons";
+import { ClockIcon, MenuIcon, PhoneIcon, SmsIcon, TruckIcon } from "./icons";
 
 export const nav = [
+  { href: "/", label: "Home" },
   { href: "/cash-for-cars", label: "Cash For Cars" },
   { href: "/car-removals", label: "Car Removals" },
   { href: "/services", label: "Services" },
   { href: "/#areas", label: "Areas" },
-  { href: "/contact-us", label: "Contact Us" },
+  { href: "/contact-us", label: "Contact" },
 ];
 
 export function Header() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
-  const { facebook, instagram } = site.social;
 
   return (
-    <header>
-      <div className="container-site flex items-center justify-between gap-4 py-4">
-        <Link href="/" aria-label={`${site.name} home`}>
-          <Logo />
-        </Link>
-        <div className="hidden items-center gap-3 md:flex">
-          {facebook && (
-            <a href={facebook} aria-label="Facebook" className="grid h-11 w-11 place-items-center rounded-full bg-[#3b5998] font-bold text-white">f</a>
-          )}
-          {instagram && (
-            <a href={instagram} aria-label="Instagram" className="grid h-11 w-11 place-items-center rounded-full bg-[#c13584] text-sm font-bold text-white">ig</a>
-          )}
-          {!facebook && !instagram && (
-            <p className="text-right font-heading text-sm leading-snug text-body">
-              Free towing · Paid on pickup
-              <br />
-              <span className="font-bold text-green">{site.hours}</span>
-            </p>
-          )}
+    <header className="sticky top-0 z-40">
+      <div className="bg-navy-950 text-[13px] text-white/80">
+        <div className="container-site flex items-center justify-between gap-4 py-2">
+          <p className="flex items-center gap-4">
+            <span className="flex items-center gap-1.5"><ClockIcon className="h-4 w-4 text-brand-light" /> Open {site.hours}</span>
+            <span className="hidden items-center gap-1.5 sm:flex"><TruckIcon className="h-4 w-4 text-brand-light" /> Free towing across South East QLD</span>
+          </p>
+          <p className="flex items-center gap-4">
+            {site.smsNumber && (
+              <a href={`sms:${site.smsNumber}`} className="hidden items-center gap-1.5 hover:text-white md:flex">
+                <SmsIcon className="h-4 w-4 text-brand-light" /> Text us
+              </a>
+            )}
+            <a href={site.phoneHref} className="flex items-center gap-1.5 font-semibold text-white">
+              <PhoneIcon className="h-4 w-4 text-brand-light" /> {site.phoneDisplay}
+            </a>
+          </p>
         </div>
       </div>
 
-      <nav className="container-site">
-        <div className="flex items-stretch bg-charcoal">
-          <Link href="/" aria-label="Home" className="grid place-items-center px-5 py-4">
-            <span className="grid h-9 w-9 place-items-center rounded-full bg-green text-white">
-              <HomeIcon className="h-5 w-5" />
-            </span>
+      <div className="border-b border-line bg-white/95 backdrop-blur">
+        <div className="container-site flex items-center justify-between gap-4 py-3">
+          <Link href="/" aria-label={`${site.name} home`}>
+            <Logo />
           </Link>
-          <ul className="hidden flex-1 items-center gap-6 font-heading text-[15px] uppercase lg:flex">
-            <li>
-              <Link href="/" className={pathname === "/" ? "text-green-light" : "text-white hover:text-green-light"}>Home</Link>
-            </li>
-            {nav.map((n) => (
-              <li key={n.href}>
-                <Link href={n.href} className={pathname === n.href ? "text-green-light" : "text-white hover:text-green-light"}>
-                  {n.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-          <button
-            type="button"
-            onClick={() => setOpen((o) => !o)}
-            aria-expanded={open}
-            aria-label="Menu"
-            className="flex flex-1 items-center px-2 text-white lg:hidden"
-          >
-            <MenuIcon className="h-7 w-7" />
-          </button>
-          <a href={site.phoneHref} className="flex items-center gap-3 bg-phone px-4 py-4 font-heading text-white sm:px-7">
-            <PhoneIcon className="h-6 w-6 sm:h-7 sm:w-7" />
-            <span className="text-[15px] sm:text-lg">{site.phoneDisplay}</span>
-          </a>
+          <nav aria-label="Main" className="hidden lg:block">
+            <ul className="flex items-center gap-7 font-heading text-[17px] font-semibold uppercase tracking-wide">
+              {nav.map((n) => {
+                const active = n.href === pathname;
+                return (
+                  <li key={n.href}>
+                    <Link
+                      href={n.href}
+                      className={`border-b-2 pb-1 transition ${active ? "border-brand text-brand" : "border-transparent text-navy hover:text-brand"}`}
+                    >
+                      {n.label}
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          </nav>
+          <div className="flex items-center gap-2">
+            <a href={site.phoneHref} className="hidden items-center gap-2 rounded-xl border-2 border-navy px-4 py-2.5 font-heading text-lg font-bold text-navy transition hover:bg-navy hover:text-white xl:flex">
+              <PhoneIcon className="h-5 w-5" /> {site.phoneDisplay}
+            </a>
+            <Link href="/#ask-for-our-price" className="btn-brand hidden whitespace-nowrap !px-5 !py-2.5 !text-base sm:inline-flex">
+              Get a quote
+            </Link>
+            <button
+              type="button"
+              onClick={() => setOpen((o) => !o)}
+              aria-expanded={open}
+              aria-label="Menu"
+              className="grid h-11 w-11 place-items-center rounded-xl border border-line text-navy lg:hidden"
+            >
+              <MenuIcon className="h-6 w-6" />
+            </button>
+          </div>
         </div>
         {open && (
-          <ul className="bg-charcoal-dark font-heading uppercase lg:hidden">
-            {[{ href: "/", label: "Home" }, ...nav].map((n) => (
-              <li key={n.href} className="border-t border-white/10">
-                <Link href={n.href} onClick={() => setOpen(false)} className="block px-5 py-3 text-white">
-                  {n.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
+          <nav aria-label="Mobile" className="border-t border-line bg-white lg:hidden">
+            <ul className="container-site py-2 font-heading text-lg font-semibold uppercase">
+              {nav.map((n) => (
+                <li key={n.href}>
+                  <Link href={n.href} onClick={() => setOpen(false)} className="block border-b border-line/60 py-3 text-navy last:border-0">
+                    {n.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
         )}
-      </nav>
+      </div>
     </header>
   );
 }

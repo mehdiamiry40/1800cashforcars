@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { AskForPrice, CallUsAndTerms, ContentBlocks, MakesRow, ReviewsBand, ServiceTiles } from "@/components/Blocks";
-import { HeroSlider } from "@/components/HeroSlider";
+import { AskForPrice, CallUsAndTerms, ContentBlocks, FinalCta, MakesRow, ReviewsBand, SectionHead, ServiceTiles, TrustStrip } from "@/components/Blocks";
+import { PinIcon } from "@/components/icons";
+import { Hero } from "@/components/Hero";
 import { areas, site } from "@/lib/site";
-import { heroSlides } from "@/lib/slides";
 
 export const dynamicParams = false;
 
@@ -30,57 +30,71 @@ export default async function LocationPage({ params }: PageProps<"/locations/[sl
 
   return (
     <>
-      <HeroSlider slides={heroSlides(area.name)} />
-      <ServiceTiles />
+      <Hero place={area.name} />
+      <TrustStrip />
 
-      <section className="mt-10 bg-band py-10">
-        <div className="container-site prose-site">
-          <h2 className="h-section">Cash for cars {area.name} car removal</h2>
-          <p>
-            Need to sell a car in {area.name}? {site.name} buys cars, utes, vans and 4WDs in any condition, and our local tow
-            trucks pick up free from anywhere in {area.name} — your driveway, workplace or the roadside.
-          </p>
-          <p>
-            Call <a href={site.phoneHref}>{site.phoneDisplay}</a> or send your car&apos;s details in the form below for a
-            fast cash offer.
-          </p>
+      <section className="py-16 sm:py-20">
+        <div className="container-site grid gap-12 lg:grid-cols-[1.2fr_0.8fr]">
+          <div>
+            <SectionHead center={false} eyebrow={`Car removal ${area.name}`} title={`Cash for cars ${area.name}`} />
+            <div className="prose-site text-[17px]">
+              <p>
+                Need to sell a car in {area.name}? {site.name} buys cars, utes, vans and 4WDs in any condition, and our tow
+                trucks pick up free from anywhere in {area.name} — your driveway, workplace or the roadside.
+              </p>
+              <p>
+                Call <a href={site.phoneHref}>{site.phoneDisplay}</a> or send your car&apos;s details in the form below for a fast
+                cash offer.
+              </p>
+            </div>
+            <div className="mt-10">
+              <ContentBlocks
+                blocks={[
+                  {
+                    heading: "How it works",
+                    list: [
+                      { bold: "Ask for our price", text: "tell us the make, model, year and condition of your car." },
+                      { bold: "Accept the offer", text: "no obligation — you're free to say no." },
+                      { bold: "Get paid and towed", text: `we pay you on pickup and tow the car away free, anywhere in ${area.name}.` },
+                    ],
+                  },
+                ]}
+              />
+            </div>
+          </div>
+          <div className="card h-fit p-7">
+            <h2 className="font-heading text-2xl font-bold uppercase text-navy">Suburbs we cover</h2>
+            <ul className="mt-4 flex flex-wrap gap-2">
+              {area.suburbs.map((s) => (
+                <li key={s} className="flex items-center gap-1.5 rounded-full bg-cream px-3 py-1.5 text-sm font-semibold text-navy">
+                  <PinIcon className="h-3.5 w-3.5 text-brand" /> {s}
+                </li>
+              ))}
+            </ul>
+            <p className="mt-4 text-sm">Don&apos;t see yours? Call us — we probably still cover it.</p>
+            <p className="mt-5 border-t border-line pt-4 text-sm">
+              Also servicing{" "}
+              {areas.filter((a) => a.slug !== area.slug).map((a, i, arr) => (
+                <span key={a.slug}>
+                  <Link href={`/locations/${a.slug}`} className="font-semibold text-brand-dark hover:underline">{a.name}</Link>
+                  {i < arr.length - 1 ? ", " : "."}
+                </span>
+              ))}
+            </p>
+          </div>
         </div>
       </section>
 
-      <section className="container-site py-12">
-        <ContentBlocks
-          blocks={[
-            {
-              heading: `Suburbs we cover in ${area.name}`,
-              paras: [`${area.suburbs.join(", ")} and surrounding suburbs. Don't see yours? Call us — we probably still cover it.`],
-            },
-            {
-              heading: "How it works",
-              list: [
-                { bold: "Ask for our price", text: "tell us the make, model, year and condition of your car." },
-                { bold: "Accept the offer", text: "no obligation — you're free to say no." },
-                { bold: "Get paid and towed", text: `we pay you on pickup and tow the car away free, anywhere in ${area.name}.` },
-              ],
-            },
-          ]}
-        />
-        <p className="mt-8">
-          Also servicing{" "}
-          {areas.filter((a) => a.slug !== area.slug).map((a, i, arr) => (
-            <span key={a.slug}>
-              <Link href={`/locations/${a.slug}`} className="font-semibold text-green hover:underline">{a.name}</Link>
-              {i < arr.length - 1 ? ", " : "."}
-            </span>
-          ))}
-        </p>
-        <div className="mt-12">
+      <ServiceTiles />
+      <ReviewsBand />
+      <section className="py-16">
+        <div className="container-site">
           <CallUsAndTerms />
         </div>
       </section>
-
       <AskForPrice />
-      <ReviewsBand />
       <MakesRow />
+      <FinalCta />
     </>
   );
 }

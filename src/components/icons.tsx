@@ -57,3 +57,9 @@ export const SmsIcon = (p: P) => (
 export const StarIcon = (p: P) => (
   <svg viewBox="0 0 24 24" fill="currentColor" {...p}><path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z" /></svg>
 );
+export const MailIcon = (p: P) => (
+  <svg {...base} {...p}><rect x="2" y="4" width="20" height="16" rx="2" /><path d="m22 7-10 6L2 7" /></svg>
+);
+export const QuoteIcon = (p: P) => (
+  <svg {...base} {...p}><path d="M9 11H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v5a4 4 0 0 1-4 4M20 11h-4a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v5a4 4 0 0 1-4 4" /></svg>
+);

@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function QuotePage() {
   return (
-    <PageShell title="Get a Free Quote">
+    <PageShell title="Get a Free Quote" intro="Tell us about your car and get a no-obligation cash offer — usually within the hour." image="/images/hero-towing.jpg">
       <h2 className="h-section">Your cash offer, fast</h2>
       <p className="mt-3">
         Fill in the &quot;Ask for our price&quot; form below with your car&apos;s make, model, year, kilometres and condition.
@@ -23,7 +23,7 @@ export default function QuotePage() {
         <li>Paid on pickup</li>
       </ul>
       <p className="mt-4">
-        Rather talk to someone? Call <a href={site.phoneHref} className="font-bold text-green hover:underline">{site.phoneDisplay}</a>.
+        Rather talk to someone? Call <a href={site.phoneHref} className="font-bold text-brand-dark hover:underline">{site.phoneDisplay}</a>.
       </p>
     </PageShell>
   );

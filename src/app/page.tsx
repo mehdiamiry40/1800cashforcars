@@ -1,9 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
-import { AskForPrice, CallUsAndTerms, ContentBlocks, Faq, MakesRow, ReviewsBand, ServiceTiles } from "@/components/Blocks";
-import { HeroSlider } from "@/components/HeroSlider";
-import { areas, faqs, site } from "@/lib/site";
-import { heroSlides } from "@/lib/slides";
+import {
+  AreasGrid, AskForPrice, CallUsAndTerms, ConditionChips, Faq, FinalCta, HowItWorks, MakesRow, ReviewsBand, SectionHead,
+  ServiceTiles, TrustStrip,
+} from "@/components/Blocks";
+import { Hero } from "@/components/Hero";
+import { CheckIcon } from "@/components/icons";
+import { faqs, site } from "@/lib/site";
 
 const faqLd = {
   "@context": "https://schema.org",
@@ -11,105 +14,89 @@ const faqLd = {
   mainEntity: faqs.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
 };
 
+const removalTypes = [
+  { title: "Scrap car removal", text: "End-of-life vehicles collected and recycled, however old or rusty.", href: "/scrap-car-removal" },
+  { title: "Accident car removal", text: "Repairs cost more than the car is worth? We buy crashed cars as they are." },
+  { title: "Damaged car removal", text: "Flood, hail and fire-damaged vehicles removed and paid for." },
+  { title: "Junk car removal", text: "Whether it stopped last week or last decade, we'll collect it." },
+  { title: "Used car removal", text: "Skip the trade-in lowball and get a fair cash price for your used car." },
+  { title: "Ute, van & 4WD removal", text: "Work vehicles, 4WDs and light trucks — single vehicles or whole fleets." },
+];
+
 export default function Home() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd).replace(/</g, "\\u003c") }} />
-      <HeroSlider slides={heroSlides()} />
-      <ServiceTiles />
+      <Hero />
+      <TrustStrip />
 
-      <section className="mt-10 bg-band py-10">
-        <div className="container-site prose-site">
-          <h2 className="h-section">Cash for cars Gold Coast &amp; Brisbane car removal</h2>
-          <p>
-            Got a broken, old, unwanted, crashed or scrap car you need gone? {site.name} makes it simple: one call, a fair
-            cash offer, and a free tow away at a time that suits you. We buy <Link href="/cash-for-cars">cars for cash</Link>{" "}
-            right across the Gold Coast, Brisbane, Logan, Ipswich, the Sunshine Coast and the Tweed.
-          </p>
-          <p>
-            Call us on <a href={site.phoneHref}>{site.phoneDisplay}</a> or send us your car&apos;s details below, and we&apos;ll
-            come back with an offer — usually within the hour.
-          </p>
+      <section className="py-16 sm:py-20">
+        <div className="container-site grid items-center gap-12 lg:grid-cols-2">
+          <div>
+            <SectionHead center={false} eyebrow="Cash for cars Gold Coast & Brisbane" title="Free car removal. Real cash. Zero hassle." />
+            <div className="prose-site mt-2 text-[17px]">
+              <p>
+                Got a broken, old, unwanted, crashed or scrap car you need gone? {site.name} makes it simple: one call, a fair
+                cash offer, and a free tow away at a time that suits you. We buy <Link href="/cash-for-cars">cars for cash</Link>{" "}
+                right across the Gold Coast, Brisbane, Logan, Ipswich, the Sunshine Coast and the Tweed.
+              </p>
+              <p>
+                Unlike junkyards that charge you to take a car away, <Link href="/car-removals">our car removal</Link> is free and we
+                pay you for it. Every vehicle has value in its parts and metal, and we pass that value on to you.
+              </p>
+            </div>
+            <h3 className="mt-8 font-heading text-xl font-bold uppercase text-navy">We accept cars in any condition</h3>
+            <ConditionChips />
+          </div>
+          <div className="relative">
+            <div className="absolute -right-3 -top-3 h-full w-full rounded-3xl bg-brand" aria-hidden />
+            <div className="relative aspect-[4/3] overflow-hidden rounded-3xl shadow-xl">
+              <Image src="/images/cash.jpg" alt="Australian banknotes" fill sizes="(min-width: 1024px) 560px, 100vw" className="object-cover" />
+            </div>
+            <div className="absolute -bottom-6 left-6 rounded-2xl bg-navy px-6 py-4 text-white shadow-xl">
+              <p className="font-heading text-3xl font-extrabold text-brand-light">$0</p>
+              <p className="text-sm font-semibold">towing fees — ever</p>
+            </div>
+          </div>
         </div>
       </section>
 
-      <section className="container-site py-12">
-        <div className="grid items-center gap-8 lg:grid-cols-[1.4fr_1fr]">
-          <div className="prose-site">
-            <h2 className="h-section">Free car removal services across South East QLD</h2>
-            <p>
-              Our <Link href="/car-removals">car removal service</Link> is completely free. We never charge for towing and we
-              never deduct it from your offer — even if the car doesn&apos;t start, has flat tyres or has been sitting for years.
-            </p>
-            <p>
-              Unlike junkyards that charge you to take a car away, we pay you for it. Every vehicle has value in its parts and
-              metal, and we pass that value on to you.
-            </p>
-          </div>
-          <div className="relative mx-auto aspect-[3/2] w-full max-w-[440px] overflow-hidden shadow-md">
-            <Image src="/images/cash.jpg" alt="Australian banknotes" fill sizes="(min-width: 1024px) 440px, 100vw" className="object-cover" />
-          </div>
-        </div>
+      <HowItWorks />
+      <ServiceTiles />
 
-        <div className="mt-12">
-          <ContentBlocks
-            blocks={[
-              {
-                heading: "Simple, fast car removal process",
-                paras: ["Selling your car to us takes three easy steps:"],
-                list: [
-                  { bold: "Ask for our price", text: "call us or fill in the quote form with your car's make, model, year and condition." },
-                  { bold: "Accept or decline the offer", text: "we'll work out what your car is worth and give you a no-obligation offer. You're free to say no." },
-                  { bold: "Get paid and towed", text: "accept the offer and we'll book a pickup time. We pay you on the spot and tow the car away for free." },
-                ],
-              },
-              {
-                heading: "We accept cars in any condition",
-                paras: [
-                  "Every make, every model, every condition. Whether it's roadworthy or not, running or not, registered or not — your car is worth something to us, and we'll make you an offer.",
-                ],
-              },
-            ]}
-          />
-        </div>
-
-        <div className="mt-10">
-          <h2 className="h-sub">Car removal services we offer</h2>
-          <ul className="mt-4 list-disc space-y-2 pl-5">
-            <li><b className="text-ink">Scrap car removal</b> – end-of-life vehicles collected and recycled, however old or rusty. <Link className="font-semibold text-green hover:underline" href="/scrap-car-removal">Learn more</Link></li>
-            <li><b className="text-ink">Accident car removal</b> – repairs cost more than the car is worth? We buy crashed cars as they are.</li>
-            <li><b className="text-ink">Damaged car removal</b> – flood, hail and fire-damaged vehicles removed and paid for.</li>
-            <li><b className="text-ink">Junk car removal</b> – whether it stopped last week or last decade, we&apos;ll collect it.</li>
-            <li><b className="text-ink">Used car removal</b> – skip the trade-in lowball and get a fair cash price for your used car.</li>
-          </ul>
-        </div>
-
-        <div id="areas" className="mt-10 scroll-mt-6">
-          <h2 className="h-sub">Areas we service</h2>
-          <p className="mt-2">Free car removal and cash for cars in:</p>
-          <ul className="mt-3 grid gap-x-6 gap-y-1.5 sm:grid-cols-2 lg:grid-cols-3">
-            {areas.map((a) => (
-              <li key={a.slug}>
-                <Link href={`/locations/${a.slug}`} className="font-semibold text-green hover:underline">
-                  Cash for cars {a.name}
-                </Link>{" "}
-                <span className="text-sm">({a.suburbs.slice(0, 3).join(", ")} &amp; more)</span>
+      <section className="bg-cream py-16 sm:py-20">
+        <div className="container-site">
+          <SectionHead eyebrow="Every kind of vehicle" title="Car removal services we offer" />
+          <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {removalTypes.map((r) => (
+              <li key={r.title} className="card flex gap-4 p-6">
+                <span className="mt-1 grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-brand text-white"><CheckIcon className="h-5 w-5" /></span>
+                <span>
+                  <span className="block font-heading text-xl font-bold uppercase text-navy">{r.title}</span>
+                  <span className="mt-1 block text-[15px]">{r.text}</span>
+                  {r.href && <Link href={r.href} className="mt-2 inline-block text-sm font-semibold text-brand-dark hover:underline">Learn more →</Link>}
+                </span>
               </li>
             ))}
           </ul>
         </div>
+      </section>
 
-        <div className="mt-12">
+      <AreasGrid />
+      <ReviewsBand />
+
+      <section className="py-16 sm:py-20">
+        <div className="container-site grid gap-12 lg:grid-cols-[1.2fr_0.8fr]">
           <Faq />
-        </div>
-        <div className="mt-12">
-          <CallUsAndTerms />
+          <div className="lg:pt-24">
+            <CallUsAndTerms stacked />
+          </div>
         </div>
       </section>
 
       <AskForPrice />
-      <ReviewsBand />
       <MakesRow />
+      <FinalCta />
     </>
   );
 }
