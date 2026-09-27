@@ -47,7 +47,7 @@ export function Header() {
           <div className="flex items-center gap-3">
             <a href={site.phoneHref} className="hidden text-right leading-tight sm:block">
               <span className="block text-[13px] text-body">Call for a price</span>
-              <span className="block font-heading text-[22px] font-extrabold text-ink">{site.phoneDisplay}</span>
+              <span className="block font-display text-[26px] font-extrabold tracking-[0.01em] text-ink">{site.phoneDisplay}</span>
             </a>
             <button
               type="button"
@@ -71,7 +71,7 @@ export function Header() {
                 </li>
               ))}
               <li className="py-3">
-                <a href={site.phoneHref} className="flex items-center gap-2 font-heading text-xl font-extrabold text-brand-dark">
+                <a href={site.phoneHref} className="flex items-center gap-2 font-display text-2xl font-extrabold text-brand-dark">
                   <PhoneIcon className="h-5 w-5" /> {site.phoneDisplay}
                 </a>
               </li>

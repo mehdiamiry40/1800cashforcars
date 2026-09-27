@@ -15,7 +15,7 @@ export function PageShell({ title, intro, image = "/images/hero-truck.jpg", chil
             <p className="text-[15px]">
               <Link href="/" className="underline underline-offset-2">Home</Link> <span className="mx-1 text-body/60">/</span> {title}
             </p>
-            <h1 className="mt-3 font-heading text-[40px] font-black leading-[1.05] tracking-[-0.02em] text-ink sm:text-[52px]">{title}</h1>
+            <h1 className="mt-3 font-heading text-[40px] font-extrabold leading-[1.04] tracking-[-0.02em] text-ink sm:text-[56px]">{title}</h1>
             {intro && <p className="mt-4 max-w-2xl text-[19px]">{intro}</p>}
           </div>
           <div className="relative hidden aspect-[4/3] lg:block">
@@ -30,7 +30,7 @@ export function PageShell({ title, intro, image = "/images/hero-truck.jpg", chil
           <div className="space-y-8 lg:sticky lg:top-36">
             <div className="border-t-4 border-brand bg-paper p-6">
               <p className="font-heading text-[20px] font-bold text-ink">Get a price</p>
-              <a href={site.phoneHref} className="mt-2 flex items-center gap-2 font-heading text-[28px] font-black text-ink">
+              <a href={site.phoneHref} className="mt-2 flex items-center gap-2 font-display text-[32px] font-extrabold text-ink">
                 <PhoneIcon className="h-6 w-6 text-brand-dark" /> {site.phoneDisplay}
               </a>
               <p className="text-[15px]">Open {site.hours}</p>

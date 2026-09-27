@@ -13,8 +13,9 @@
   --color-body: #3f4652;
   --color-line: #d9d5cd;
 
-  --font-sans: var(--font-source);
-  --font-heading: var(--font-archivo);
+  --font-sans: var(--font-plex);
+  --font-heading: var(--font-barlow);
+  --font-display: var(--font-barlow-semi);
 }
 
 html {
@@ -26,10 +27,37 @@ body {
   color: var(--color-body);
   font-size: 17px;
   line-height: 1.65;
+  font-feature-settings: "kern", "liga";
+}
+
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+}
+
+p,
+li {
+  text-wrap: pretty;
+}
+
+::selection {
+  background: #ffd9c2;
+  color: #111827;
+}
+
+:focus-visible {
+  outline: 3px solid #e8590c;
+  outline-offset: 2px;
 }
 
 .font-heading {
   font-family: var(--font-heading);
+}
+
+.font-display {
+  font-family: var(--font-display);
+  font-variant-numeric: tabular-nums;
 }
 
 @utility container-site {
@@ -37,7 +65,7 @@ body {
 }
 
 @utility btn {
-  @apply inline-flex items-center justify-center gap-2 rounded-[4px] px-5 py-3 font-heading text-[16px] font-bold transition-colors;
+  @apply inline-flex items-center justify-center gap-2 rounded-[4px] px-5 py-3 font-heading text-[17px] font-bold tracking-[0.005em] transition-colors;
 }
 
 @utility btn-brand {
@@ -53,11 +81,11 @@ body {
 }
 
 @utility h-section {
-  @apply font-heading text-[30px] font-extrabold leading-[1.1] tracking-[-0.01em] text-ink sm:text-[38px];
+  @apply font-heading text-[32px] font-bold leading-[1.08] tracking-[-0.015em] text-ink sm:text-[42px];
 }
 
 @utility h-sub {
-  @apply font-heading text-[22px] font-bold leading-snug text-ink;
+  @apply font-heading text-[23px] font-bold leading-snug tracking-[-0.005em] text-ink;
 }
 
 @utility field {

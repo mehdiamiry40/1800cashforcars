@@ -32,7 +32,7 @@ export function HowItWorks() {
         <ol className="mt-10 grid gap-10 md:grid-cols-3 md:gap-8">
           {steps.map((s, i) => (
             <li key={s.title} className="border-t-4 border-navy pt-5">
-              <span className="font-heading text-[56px] font-black leading-none text-brand">{i + 1}</span>
+              <span className="font-display text-[64px] font-extrabold leading-none text-brand">{i + 1}</span>
               <h3 className="h-sub mt-3">{s.title}</h3>
               <p className="mt-2">{s.text}</p>
             </li>
@@ -120,14 +120,14 @@ export function AreasGrid() {
   );
 }
 
-export function Faq() {
+export function Faq({ bare = false }: { bare?: boolean }) {
   return (
-    <div id="faq" className="scroll-mt-32">
-      <SectionHead title="Common questions" />
-      <div className="mt-6 border-t border-line">
+    <div id={bare ? undefined : "faq"} className="scroll-mt-32">
+      {!bare && <SectionHead title="Common questions" />}
+      <div className={`border-t border-line ${bare ? "" : "mt-6"}`}>
         {faqs.map((f) => (
           <details key={f.q} className="group border-b border-line">
-            <summary className="flex cursor-pointer list-none items-center justify-between gap-4 py-4 font-heading text-[18px] font-bold text-ink">
+            <summary className="flex cursor-pointer list-none items-center justify-between gap-4 py-4 font-heading text-[19px] font-semibold text-ink hover:text-brand-dark">
               {f.q}
               <span className="text-2xl font-normal text-brand-dark transition group-open:rotate-45">+</span>
             </summary>
@@ -171,7 +171,7 @@ export function AskForPrice() {
           <p className="mt-4 text-[19px] text-white/80">
             The quickest way is to call. You can also text us a couple of photos, or fill in the form and we&apos;ll get back to you.
           </p>
-          <a href={site.phoneHref} className="mt-8 flex items-center gap-3 font-heading text-[34px] font-black text-white sm:text-[40px]">
+          <a href={site.phoneHref} className="mt-8 flex items-center gap-3 font-display text-[40px] font-extrabold tracking-[0.01em] text-white sm:text-[48px]">
             <PhoneIcon className="h-8 w-8 text-brand-light" /> {site.phoneDisplay}
           </a>
           <p className="mt-1 text-white/70">Open {site.hours}</p>

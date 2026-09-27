@@ -1,12 +1,13 @@
 import type { Metadata, Viewport } from "next";
-import { Archivo, Source_Sans_3 } from "next/font/google";
+import { Barlow, Barlow_Semi_Condensed, IBM_Plex_Sans } from "next/font/google";
 import { FloatingContact, Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { areas, site } from "@/lib/site";
 import "./globals.css";
 
-const source = Source_Sans_3({ variable: "--font-source", subsets: ["latin"] });
-const archivo = Archivo({ variable: "--font-archivo", subsets: ["latin"], weight: ["600", "700", "800", "900"] });
+const plex = IBM_Plex_Sans({ variable: "--font-plex", subsets: ["latin"], weight: ["400", "500", "600", "700"] });
+const barlow = Barlow({ variable: "--font-barlow", subsets: ["latin"], weight: ["500", "600", "700", "800"] });
+const barlowSemi = Barlow_Semi_Condensed({ variable: "--font-barlow-semi", subsets: ["latin"], weight: ["700", "800"] });
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -45,11 +46,12 @@ const jsonLd = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en-AU" className={`${source.variable} ${archivo.variable} antialiased`}>
+    <html lang="en-AU" className={`${plex.variable} ${barlow.variable} ${barlowSemi.variable} antialiased`}>
       <body className="flex min-h-screen flex-col font-sans">
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }} />
+        <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-3 focus:top-3 focus:z-[60] focus:bg-white focus:px-4 focus:py-2 focus:font-semibold focus:text-ink">Skip to content</a>
         <Header />
-        <main className="flex-1">{children}</main>
+        <main id="main" className="flex-1">{children}</main>
         <Footer />
         <FloatingContact />
       </body>

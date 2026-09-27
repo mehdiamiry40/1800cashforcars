@@ -11,7 +11,7 @@ export function Footer() {
         <div>
           <Logo light />
           <p className="mt-5">
-            <a href={site.phoneHref} className="font-heading text-[26px] font-extrabold text-white">{site.phoneDisplay}</a>
+            <a href={site.phoneHref} className="font-display text-[30px] font-extrabold tracking-[0.01em] text-white">{site.phoneDisplay}</a>
           </p>
           <p>Open {site.hours}</p>
           <p className="mt-3"><a href={`mailto:${site.email}`} className="underline underline-offset-2 hover:text-white">{site.email}</a></p>

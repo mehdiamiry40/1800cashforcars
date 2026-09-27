@@ -83,12 +83,16 @@ export default function Home() {
       <AreasGrid />
       <ReviewsBand />
 
-      <section className="bg-paper py-16 sm:py-20">
-        <div className="container-site max-w-3xl">
-          <Faq />
-          <p className="mt-6">
-            Something else? Call <a href={site.phoneHref} className="font-semibold text-brand-dark underline">{site.phoneDisplay}</a>.
-          </p>
+      <section id="faq" className="scroll-mt-32 bg-paper py-16 sm:py-20">
+        <div className="container-site grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:gap-16">
+          <div>
+            <h2 className="h-section">Common questions</h2>
+            <p className="mt-4 text-[19px]">
+              Can&apos;t see yours? Call <a href={site.phoneHref} className="font-semibold text-brand-dark underline underline-offset-2">{site.phoneDisplay}</a> and
+              ask.
+            </p>
+          </div>
+          <Faq bare />
         </div>
       </section>
 

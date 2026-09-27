@@ -10,7 +10,7 @@ export function Hero({ place }: { place?: string }) {
     <section className="bg-paper">
       <div className="container-site grid gap-10 py-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-start lg:py-16">
         <div className="lg:pt-4">
-          <h1 className="font-heading text-[40px] font-black leading-[1.04] tracking-[-0.02em] text-ink sm:text-[52px]">
+          <h1 className="font-heading text-[42px] font-extrabold leading-[1.02] tracking-[-0.025em] text-ink sm:text-[60px]">
             {copy.title} <span className="block text-brand-dark">{copy.lead}</span>
           </h1>
           <p className="mt-5 max-w-xl text-[19px]">{copy.sub}</p>
@@ -34,7 +34,7 @@ export function Hero({ place }: { place?: string }) {
         </div>
 
         <div id="hero-quote" className="scroll-mt-32 border border-line bg-white p-6 sm:p-8">
-          <h2 className="font-heading text-[26px] font-extrabold text-ink">Get a price for your car</h2>
+          <h2 className="font-heading text-[28px] font-bold tracking-[-0.01em] text-ink">Get a price for your car</h2>
           <p className="mt-1 text-[15px]">We usually reply within the hour during opening hours.</p>
           <div className="mt-5">
             <QuoteForm variant="compact" />
