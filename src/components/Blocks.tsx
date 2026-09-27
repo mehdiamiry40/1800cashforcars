@@ -1,4 +1,8 @@
 import Image from "next/image";
+import {
+  siAudi, siBmw, siFord, siHonda, siHyundai, siJeep, siKia, siMazda, siMitsubishi, siNissan,
+  siSubaru, siSuzuki, siTesla, siToyota, siVolkswagen, siVolvo,
+} from "simple-icons";
 import Link from "next/link";
 import type { Block } from "@/lib/content";
 import { services } from "@/lib/content";
@@ -160,15 +164,30 @@ export function ReviewsBand() {
   );
 }
 
+const makes = [
+  siToyota, siMazda, siFord, siHyundai, siMitsubishi, siNissan, siKia, siSubaru,
+  siVolkswagen, siHonda, siSuzuki, siBmw, siAudi, siJeep, siTesla, siVolvo,
+];
+
 export function MakesRow() {
-  const makes = ["Toyota", "Mazda", "Ford", "Holden", "Hyundai", "Nissan", "Mitsubishi", "Kia", "Subaru", "Volkswagen"];
   return (
-    <section className="border-b border-line py-8">
+    <section id="makes" className="border-b border-line py-10">
       <div className="container-site">
         <p className="text-center font-heading text-sm font-bold uppercase tracking-widest text-body/70">We buy all makes and models</p>
-        <ul className="mt-4 flex flex-wrap justify-center gap-x-8 gap-y-3 font-heading text-xl font-bold uppercase text-[#9a9ea3] sm:text-2xl">
-          {makes.map((m) => <li key={m}>{m}</li>)}
+        <ul className="mt-6 grid grid-cols-4 gap-3 sm:grid-cols-8">
+          {makes.map((m) => (
+            <li key={m.slug} className="flex flex-col items-center justify-center gap-2 border border-line bg-white px-2 py-4" title={m.title}>
+              <svg role="img" viewBox="0 0 24 24" className="h-12 w-12 sm:h-14 sm:w-14" fill={`#${m.hex}`} aria-label={`${m.title} logo`}>
+                <path d={m.path} />
+              </svg>
+              <span className="text-xs font-semibold text-body">{m.title}</span>
+            </li>
+          ))}
         </ul>
+        <p className="mt-4 text-center text-xs text-body/60">
+          Plus Holden, Isuzu, Lexus, Land Rover, Great Wall, LDV and every other make. Logos are trademarks of their
+          respective owners and are shown only to identify the vehicles we buy; no affiliation is implied.
+        </p>
       </div>
     </section>
   );
