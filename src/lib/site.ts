@@ -4,9 +4,8 @@ export const site = {
   domain: "1800cashforcars.com.au",
   url: "https://1800cashforcars.com.au",
   tagline: "Top cash for any car. Free pickup, paid on the spot.",
-  // TODO: replace with your real 1800 number before launch.
-  phoneDisplay: "1800 CASH 4 CARS",
-  phoneHref: "tel:1800000000",
+  phoneDisplay: "0481 438 444",
+  phoneHref: "tel:+61481438444",
   email: "quotes@1800cashforcars.com.au",
   hours: "7 days, 7am – 7pm",
   hoursSchema: "Mo-Su 07:00-19:00",
@@ -16,7 +15,7 @@ export const site = {
   // Only use a figure you genuinely pay — it's an advertised claim under Australian Consumer Law.
   maxPayout: "",
   // Mobile number that can receive texts, e.g. "0400000000". Blank hides the SMS button.
-  smsNumber: "",
+  smsNumber: "+61481438444",
   social: {
     facebook: "",
     instagram: "",
