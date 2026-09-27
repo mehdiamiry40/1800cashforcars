@@ -1,12 +1,12 @@
 import type { Metadata, Viewport } from "next";
-import { Archivo, Inter } from "next/font/google";
-import { Footer, MobileCallBar } from "@/components/Footer";
+import { Open_Sans, Ubuntu } from "next/font/google";
+import { FloatingContact, Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { areas, site } from "@/lib/site";
 import "./globals.css";
 
-const inter = Inter({ variable: "--font-inter", subsets: ["latin"] });
-const archivo = Archivo({ variable: "--font-archivo", subsets: ["latin"], weight: ["800", "900"] });
+const openSans = Open_Sans({ variable: "--font-open-sans", subsets: ["latin"] });
+const ubuntu = Ubuntu({ variable: "--font-ubuntu", subsets: ["latin"], weight: ["400", "500", "700"] });
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0a1f44",
+  themeColor: "#3a3b3d",
 };
 
 const jsonLd = {
@@ -45,13 +45,13 @@ const jsonLd = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en-AU" className={`${inter.variable} ${archivo.variable} antialiased`}>
+    <html lang="en-AU" className={`${openSans.variable} ${ubuntu.variable} antialiased`}>
       <body className="flex min-h-screen flex-col font-sans">
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }} />
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />
-        <MobileCallBar />
+        <FloatingContact />
       </body>
     </html>
   );

@@ -3,7 +3,7 @@
 Website for [1800cashforcars.com.au](https://1800cashforcars.com.au). It's a Next.js (App Router) + Tailwind site, deployed on Vercel from GitHub.
 
 ## Edit business details
-Everything (phone number, hours, email, ABN, service areas, FAQs) lives in `src/lib/site.ts`. Change it there, commit, and push. Vercel redeploys automatically.
+Business details (phone, hours, email, ABN, address, headline payout, social links, reviews, service areas, FAQs) live in `src/lib/site.ts`. Inner page copy (Cash For Cars, Car Removals, Services, Scrap Car Removal, Car Wreckers, Car Disposal) lives in `src/lib/content.ts`. Change it there, commit, and push. Vercel redeploys automatically.
 
 ## Quote requests
 The 3-step quote form posts to a server action (`src/app/actions.ts`), which emails each lead via **Resend** (provisioned through the Vercel Marketplace).

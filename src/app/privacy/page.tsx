@@ -8,8 +8,8 @@ export const metadata: Metadata = {
 
 export default function PrivacyPage() {
   return (
-    <article className="mx-auto max-w-3xl px-4 py-16 leading-relaxed text-ink [&_h2]:mt-8 [&_h2]:font-display [&_h2]:text-xl [&_h2]:font-black [&_p]:mt-3 [&_p]:text-muted">
-      <h1 className="font-display text-4xl font-black">Privacy Policy</h1>
+    <article className="mx-auto max-w-3xl px-4 py-16 leading-relaxed text-ink [&_h2]:mt-8 [&_h2]:font-heading [&_h2]:text-xl [&_h2]:font-black [&_p]:mt-3 [&_p]:text-body">
+      <h1 className="font-heading text-4xl font-black">Privacy Policy</h1>
       <p>
         {site.name} (&quot;we&quot;, &quot;us&quot;) respects your privacy and handles personal information in line with the
         Australian Privacy Principles under the Privacy Act 1988 (Cth).
@@ -32,7 +32,7 @@ export default function PrivacyPage() {
       <h2>Access and correction</h2>
       <p>
         You can ask to see or correct the information we hold about you, or make a privacy complaint, by emailing{" "}
-        <a className="font-semibold text-brand-600" href={`mailto:${site.email}`}>{site.email}</a>.
+        <a className="font-semibold text-green" href={`mailto:${site.email}`}>{site.email}</a>.
       </p>
     </article>
   );

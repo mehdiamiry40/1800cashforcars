@@ -36,3 +36,24 @@ export const ArrowIcon = (p: P) => (
 export const CarIcon = (p: P) => (
   <svg {...base} {...p}><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2" /><circle cx="7" cy="17" r="2" /><path d="M9 17h6" /><circle cx="17" cy="17" r="2" /></svg>
 );
+export const HomeIcon = (p: P) => (
+  <svg {...base} {...p}><path d="M3 10.5 12 3l9 7.5" /><path d="M5 9.5V21h5v-6h4v6h5V9.5" /></svg>
+);
+export const MenuIcon = (p: P) => (
+  <svg {...base} {...p}><path d="M4 6h16M4 12h16M4 18h16" /></svg>
+);
+export const ChevronRight = (p: P) => (
+  <svg {...base} strokeWidth={3} {...p}><path d="m9 6 6 6-6 6" /></svg>
+);
+export const ChevronLeft = (p: P) => (
+  <svg {...base} strokeWidth={3} {...p}><path d="m15 6-6 6 6 6" /></svg>
+);
+export const ArrowDownCircle = (p: P) => (
+  <svg {...base} {...p}><circle cx="12" cy="12" r="10" /><path d="M12 7v10M8 13l4 4 4-4" /></svg>
+);
+export const SmsIcon = (p: P) => (
+  <svg {...base} {...p}><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" /><path d="M8 10h.01M12 10h.01M16 10h.01" /></svg>
+);
+export const StarIcon = (p: P) => (
+  <svg viewBox="0 0 24 24" fill="currentColor" {...p}><path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z" /></svg>
+);

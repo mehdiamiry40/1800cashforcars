@@ -6,16 +6,12 @@ import { site } from "@/lib/site";
 export type QuoteState = { ok: boolean; message: string } | null;
 
 const FIELDS = [
-  ["year", "Year"],
-  ["make", "Make"],
-  ["model", "Model"],
-  ["condition", "Condition"],
-  ["rego", "Rego / VIN"],
-  ["postcode", "Suburb / postcode"],
   ["name", "Name"],
   ["phone", "Phone"],
   ["email", "Email"],
-  ["notes", "Notes"],
+  ["address", "Suburb / address"],
+  ["vehicle", "Vehicle details"],
+  ["page", "Sent from"],
 ] as const;
 
 const escape = (s: string) =>
@@ -26,19 +22,19 @@ export async function submitQuote(_prev: QuoteState, formData: FormData): Promis
   if (formData.get("company")) return { ok: true, message: "Thanks!" };
 
   const lead = Object.fromEntries(
-    FIELDS.map(([key]) => [key, String(formData.get(key) ?? "").trim().slice(0, 1000)]),
+    FIELDS.map(([key]) => [key, String(formData.get(key) ?? "").trim().slice(0, 2000)]),
   ) as Record<(typeof FIELDS)[number][0], string>;
 
-  if (!lead.make || !lead.model || !lead.name || !lead.phone || !lead.postcode) {
-    return { ok: false, message: "Please fill in your car, location, name and phone number." };
+  if (!lead.name || !lead.phone || !lead.vehicle) {
+    return { ok: false, message: "Please enter your name, phone number and vehicle details." };
   }
   if (!/^[\d\s()+-]{8,}$/.test(lead.phone)) {
     return { ok: false, message: "Please enter a valid phone number." };
   }
 
-  const subject = `New quote: ${lead.year} ${lead.make} ${lead.model} — ${lead.postcode}`;
+  const subject = `New quote request: ${lead.vehicle.split("\n")[0].slice(0, 60)}${lead.address ? ` — ${lead.address}` : ""}`;
   const rows = FIELDS.filter(([k]) => lead[k])
-    .map(([k, label]) => `<tr><td style="padding:6px 12px;color:#55607a">${label}</td><td style="padding:6px 12px;font-weight:600">${escape(lead[k])}</td></tr>`)
+    .map(([k, label]) => `<tr><td style="padding:6px 12px;color:#555;vertical-align:top">${label}</td><td style="padding:6px 12px;font-weight:600;white-space:pre-wrap">${escape(lead[k])}</td></tr>`)
     .join("");
   const text = FIELDS.filter(([k]) => lead[k]).map(([k, label]) => `${label}: ${lead[k]}`).join("\n");
 

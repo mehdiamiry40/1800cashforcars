@@ -1,42 +1,93 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useState } from "react";
 import { site } from "@/lib/site";
 import { Logo } from "./Logo";
-import { PhoneIcon } from "./icons";
+import { HomeIcon, MenuIcon, PhoneIcon } from "./icons";
 
-const nav = [
-  { href: "/#how-it-works", label: "How it works" },
-  { href: "/#what-we-buy", label: "Cars we buy" },
+export const nav = [
+  { href: "/cash-for-cars", label: "Cash For Cars" },
+  { href: "/car-removals", label: "Car Removals" },
+  { href: "/services", label: "Services" },
   { href: "/#areas", label: "Areas" },
-  { href: "/#faq", label: "FAQ" },
+  { href: "/contact-us", label: "Contact Us" },
 ];
 
 export function Header() {
+  const pathname = usePathname();
+  const [open, setOpen] = useState(false);
+  const { facebook, instagram } = site.social;
+
   return (
-    <header className="sticky top-0 z-40 border-b border-white/10 bg-navy-900/95 backdrop-blur">
-      <div className="bg-cash-400 text-center text-xs font-bold text-navy-950 sm:text-sm">
-        <p className="mx-auto max-w-6xl px-4 py-1.5">Free car removal · Paid on the spot · {site.hours}</p>
-      </div>
-      <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3">
+    <header>
+      <div className="container-site flex items-center justify-between gap-4 py-4">
         <Link href="/" aria-label={`${site.name} home`}>
-          <Logo light />
+          <Logo />
         </Link>
-        <nav className="hidden items-center gap-7 text-sm font-semibold text-white/85 lg:flex">
-          {nav.map((n) => (
-            <Link key={n.href} href={n.href} className="hover:text-cash-400">
-              {n.label}
-            </Link>
-          ))}
-        </nav>
-        <div className="flex items-center gap-3">
-          <a href={site.phoneHref} className="hidden items-center gap-2 font-display text-lg font-black text-white hover:text-cash-400 md:flex">
-            <PhoneIcon className="h-5 w-5 text-cash-400" />
-            {site.phoneDisplay}
-          </a>
-          <Link href="/quote" className="btn-cash whitespace-nowrap !px-4 !py-2 text-sm sm:!px-5 sm:!py-2.5">
-            Get my offer
-          </Link>
+        <div className="hidden items-center gap-3 md:flex">
+          {facebook && (
+            <a href={facebook} aria-label="Facebook" className="grid h-11 w-11 place-items-center rounded-full bg-[#3b5998] font-bold text-white">f</a>
+          )}
+          {instagram && (
+            <a href={instagram} aria-label="Instagram" className="grid h-11 w-11 place-items-center rounded-full bg-[#c13584] text-sm font-bold text-white">ig</a>
+          )}
+          {!facebook && !instagram && (
+            <p className="text-right font-heading text-sm leading-snug text-body">
+              Free towing · Paid on pickup
+              <br />
+              <span className="font-bold text-green">{site.hours}</span>
+            </p>
+          )}
         </div>
       </div>
+
+      <nav className="container-site">
+        <div className="flex items-stretch bg-charcoal">
+          <Link href="/" aria-label="Home" className="grid place-items-center px-5 py-4">
+            <span className="grid h-9 w-9 place-items-center rounded-full bg-green text-white">
+              <HomeIcon className="h-5 w-5" />
+            </span>
+          </Link>
+          <ul className="hidden flex-1 items-center gap-6 font-heading text-[15px] uppercase lg:flex">
+            <li>
+              <Link href="/" className={pathname === "/" ? "text-green-light" : "text-white hover:text-green-light"}>Home</Link>
+            </li>
+            {nav.map((n) => (
+              <li key={n.href}>
+                <Link href={n.href} className={pathname === n.href ? "text-green-light" : "text-white hover:text-green-light"}>
+                  {n.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <button
+            type="button"
+            onClick={() => setOpen((o) => !o)}
+            aria-expanded={open}
+            aria-label="Menu"
+            className="flex flex-1 items-center px-2 text-white lg:hidden"
+          >
+            <MenuIcon className="h-7 w-7" />
+          </button>
+          <a href={site.phoneHref} className="flex items-center gap-3 bg-phone px-4 py-4 font-heading text-white sm:px-7">
+            <PhoneIcon className="h-6 w-6 sm:h-7 sm:w-7" />
+            <span className="text-[15px] sm:text-lg">{site.phoneDisplay}</span>
+          </a>
+        </div>
+        {open && (
+          <ul className="bg-charcoal-dark font-heading uppercase lg:hidden">
+            {[{ href: "/", label: "Home" }, ...nav].map((n) => (
+              <li key={n.href} className="border-t border-white/10">
+                <Link href={n.href} onClick={() => setOpen(false)} className="block px-5 py-3 text-white">
+                  {n.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        )}
+      </nav>
     </header>
   );
 }

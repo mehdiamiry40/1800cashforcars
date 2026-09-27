@@ -11,7 +11,21 @@ export const site = {
   hours: "7 days, 7am – 7pm",
   hoursSchema: "Mo-Su 07:00-19:00",
   abn: "", // e.g. "12 345 678 901"
+  address: "", // e.g. "12 Example St, Molendinar QLD 4214" (shown in footer + contact page)
+  // Headline figure, e.g. "$15,000" → "GET UP TO $15,000". Leave blank to show "GET TOP CASH".
+  // Only use a figure you genuinely pay — it's an advertised claim under Australian Consumer Law.
+  maxPayout: "",
+  // Mobile number that can receive texts, e.g. "0400000000". Blank hides the SMS button.
+  smsNumber: "",
+  social: {
+    facebook: "",
+    instagram: "",
+  },
 };
+
+// Real customer reviews only (e.g. copied from your Google Business profile with permission).
+// While this is empty the reviews band shows "why choose us" cards instead.
+export const reviews: { name: string; text: string; suburb?: string }[] = [];
 
 export type Area = {
   slug: string;
