@@ -56,10 +56,10 @@ export function HeroSlider({ slides, h1 = true }: { slides: Slide[]; h1?: boolea
         ))}
         {slides.length > 1 && (
           <>
-            <button type="button" onClick={() => go(-1)} aria-label="Previous slide" className="absolute left-2 top-1/2 hidden h-11 w-11 -translate-y-1/2 place-items-center rounded-full border-2 border-ink/70 bg-white/70 text-ink sm:grid">
+            <button type="button" onClick={() => go(-1)} aria-label="Previous slide" className="absolute left-2 top-1/2 hidden h-11 w-11 -translate-y-1/2 place-items-center rounded-full border-2 border-ink/70 bg-white/70 text-ink lg:grid">
               <ChevronLeft className="h-5 w-5" />
             </button>
-            <button type="button" onClick={() => go(1)} aria-label="Next slide" className="absolute right-2 top-1/2 hidden h-11 w-11 -translate-y-1/2 place-items-center rounded-full border-2 border-ink/70 bg-white/70 text-ink sm:grid">
+            <button type="button" onClick={() => go(1)} aria-label="Next slide" className="absolute right-2 top-1/2 hidden h-11 w-11 -translate-y-1/2 place-items-center rounded-full border-2 border-ink/70 bg-white/70 text-ink lg:grid">
               <ChevronRight className="h-5 w-5" />
             </button>
             <div className="mt-6 flex justify-center gap-2">
