@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import type { Block } from "@/lib/content";
 import { services } from "@/lib/content";
@@ -6,24 +7,10 @@ import { QuoteForm } from "./QuoteForm";
 import { CashIcon, ClockIcon, LeafIcon, StarIcon } from "./icons";
 
 const tileStyles = [
-  { overlay: "bg-[#2b2c2e]/45", band: "bg-black/55", cars: ["#6b7075", "#8d4a3c", "#5a6f86"] },
-  { overlay: "bg-green/70", band: "bg-green-dark/70", cars: ["#2f5d2a", "#556b52", "#3e4a3c"] },
-  { overlay: "bg-[#8a8f94]/50", band: "bg-black/45", cars: ["#c9ccd0", "#a5aab0", "#7b8187"] },
+  { image: "/images/tile-scrap.jpg", alt: "Pile of crushed scrap cars", overlay: "bg-black/45", band: "bg-black/60" },
+  { image: "/images/tile-wreckers.jpg", alt: "Salvaged car engines and parts", overlay: "bg-green/60", band: "bg-green-dark/75" },
+  { image: "/images/tile-disposal.jpg", alt: "Old rusted car awaiting disposal", overlay: "bg-black/35", band: "bg-black/55" },
 ];
-
-// Stylised pile of car silhouettes used behind each service tile.
-function TileArt({ cars }: { cars: string[] }) {
-  const car = "M8 34Q7 26 16 24L34 22 46 12Q49 9 55 9H82Q88 9 91 13L102 22 114 24Q122 26 122 33V38Q122 41 119 41H11Q8 41 8 38Z";
-  return (
-    <svg viewBox="0 0 260 180" preserveAspectRatio="xMidYMid slice" className="absolute inset-0 h-full w-full" aria-hidden>
-      <rect width="260" height="180" fill="#6d737a" />
-      <g transform="translate(-10 110) scale(1.2)"><path d={car} fill={cars[0]} /></g>
-      <g transform="translate(120 118) scale(1.15)"><path d={car} fill={cars[1]} /></g>
-      <g transform="translate(55 62) scale(1.05) rotate(-4)"><path d={car} fill={cars[2]} /></g>
-      <rect y="150" width="260" height="30" fill="#000" opacity=".25" />
-    </svg>
-  );
-}
 
 export function ServiceTiles() {
   return (
@@ -33,7 +20,7 @@ export function ServiceTiles() {
           const st = tileStyles[i];
           return (
             <div key={s.slug} className="relative flex min-h-[250px] flex-col justify-end overflow-hidden text-white">
-              <TileArt cars={st.cars} />
+              <Image src={st.image} alt={st.alt} fill sizes="(min-width: 768px) 400px, 100vw" className="object-cover" />
               <div className={`absolute inset-0 ${st.overlay} mix-blend-multiply`} />
               <div className="relative">
                 <h2 className="px-4 text-center font-heading text-[28px] font-bold leading-tight drop-shadow sm:text-[30px]">{s.tile}</h2>

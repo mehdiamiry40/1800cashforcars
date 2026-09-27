@@ -8,7 +8,8 @@ export function heroSlides(place = "South East QLD"): Slide[] {
       pre: payout ? "Get up to" : "Get",
       highlight: payout || "top cash",
       post: `for your car in ${place}`,
-      car: "#26282b",
+      image: "/images/hero-towing.jpg",
+      alt: "Car being loaded onto a flatbed tow truck",
       bullets: [
         payout ? (
           <span key="payout">Instant cash offers up to <b>{payout}</b></span>
@@ -24,14 +25,16 @@ export function heroSlides(place = "South East QLD"): Slide[] {
       pre: "Free car",
       highlight: "removal",
       post: "7 days a week",
-      car: "#c0392b",
+      image: "/images/hero-truck.jpg",
+      alt: "Tow truck carrying a car on the road",
       bullets: ["Same-day pickups available", `Serving ${place} & surrounds`, "Running or not — we tow it free", "Paid before we leave"],
     },
     {
       pre: "Scrap, damaged or",
       highlight: "unwanted",
       post: "car? We buy them all",
-      car: "#e9ecef",
+      image: "/images/hero-damaged.jpg",
+      alt: "Accident-damaged car",
       bullets: ["Accident, flood & hail damaged", "Unregistered & no roadworthy", "Old, rusty & scrap vehicles", "Cars, utes, vans, 4WDs & trucks"],
     },
   ];

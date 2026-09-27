@@ -1,6 +1,6 @@
+import Image from "next/image";
 import Link from "next/link";
 import { AskForPrice, CallUsAndTerms, ContentBlocks, Faq, MakesRow, ReviewsBand, ServiceTiles } from "@/components/Blocks";
-import { HeroArt } from "@/components/HeroArt";
 import { HeroSlider } from "@/components/HeroSlider";
 import { areas, faqs, site } from "@/lib/site";
 import { heroSlides } from "@/lib/slides";
@@ -46,7 +46,9 @@ export default function Home() {
               metal, and we pass that value on to you.
             </p>
           </div>
-          <HeroArt cashOnly className="mx-auto w-full max-w-[380px]" />
+          <div className="relative mx-auto aspect-[3/2] w-full max-w-[440px] overflow-hidden shadow-md">
+            <Image src="/images/cash.jpg" alt="Australian banknotes" fill sizes="(min-width: 1024px) 440px, 100vw" className="object-cover" />
+          </div>
         </div>
 
         <div className="mt-12">

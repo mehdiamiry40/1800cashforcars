@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { HeroArt } from "./HeroArt";
+import Image from "next/image";
 import { ArrowDownCircle, ChevronLeft, ChevronRight } from "./icons";
 
 export type Slide = {
@@ -10,7 +10,8 @@ export type Slide = {
   highlight: string;
   post: string;
   bullets: React.ReactNode[];
-  car: string;
+  image: string;
+  alt: string;
 };
 
 export function HeroSlider({ slides, h1 = true }: { slides: Slide[]; h1?: boolean }) {
@@ -30,7 +31,9 @@ export function HeroSlider({ slides, h1 = true }: { slides: Slide[]; h1?: boolea
       <div className="relative bg-hero px-4 py-8 sm:px-14 lg:py-10">
         {slides.map((s, idx) => (
           <div key={idx} className={idx === i ? "grid items-center gap-6 lg:grid-cols-2" : "hidden"} aria-hidden={idx !== i}>
-            <HeroArt car={s.car} className="mx-auto w-full max-w-[520px]" />
+            <div className="relative mx-auto aspect-[4/3] w-full max-w-[540px] overflow-hidden shadow-lg">
+              <Image src={s.image} alt={s.alt} fill priority={idx === 0} sizes="(min-width: 1024px) 540px, 100vw" className="object-cover" />
+            </div>
             <div>
               {idx === 0 ? (
                 <Heading className="font-heading text-[28px] font-bold uppercase leading-tight text-ink sm:text-[34px]">
