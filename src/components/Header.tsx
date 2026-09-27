@@ -2,91 +2,107 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { site } from "@/lib/site";
 import { Logo } from "./Logo";
-import { HomeIcon, MenuIcon, PhoneIcon } from "./icons";
+import { MenuIcon, PhoneIcon } from "./icons";
 
 export const nav = [
-  { href: "/cash-for-cars", label: "Cash For Cars" },
-  { href: "/car-removals", label: "Car Removals" },
+  { href: "/", label: "Home" },
+  { href: "/cash-for-cars", label: "Cash for cars" },
+  { href: "/car-removals", label: "Car removals" },
   { href: "/services", label: "Services" },
-  { href: "/#areas", label: "Areas" },
-  { href: "/contact-us", label: "Contact Us" },
+  { href: "/#areas", label: "Service areas" },
+  { href: "/contact-us", label: "Contact" },
 ];
 
 export function Header() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
-  const { facebook, instagram } = site.social;
-
+  const toggle = useRef<HTMLButtonElement>(null);
   return (
-    <header>
-      <div className="container-site flex items-center justify-between gap-4 py-4">
+    <header
+      className="border-b border-line bg-white"
+      onKeyDown={(event) => {
+        if (event.key === "Escape" && open) {
+          setOpen(false);
+          toggle.current?.focus();
+        }
+      }}
+    >
+      <div className="container-site flex items-center justify-between gap-4 py-5">
         <Link href="/" aria-label={`${site.name} home`}>
           <Logo />
         </Link>
-        <div className="hidden items-center gap-3 md:flex">
-          {facebook && (
-            <a href={facebook} aria-label="Facebook" className="grid h-11 w-11 place-items-center rounded-full bg-[#3b5998] font-bold text-white">f</a>
-          )}
-          {instagram && (
-            <a href={instagram} aria-label="Instagram" className="grid h-11 w-11 place-items-center rounded-full bg-[#c13584] text-sm font-bold text-white">ig</a>
-          )}
-          {!facebook && !instagram && (
-            <p className="text-right font-heading text-sm leading-snug text-body">
-              Free towing · Paid on pickup
-              <br />
-              <span className="font-bold text-green">{site.hours}</span>
-            </p>
-          )}
-        </div>
-      </div>
-
-      <nav className="container-site">
-        <div className="flex items-stretch bg-charcoal">
-          <Link href="/" aria-label="Home" className="grid place-items-center px-5 py-4">
-            <span className="grid h-9 w-9 place-items-center rounded-full bg-green text-white">
-              <HomeIcon className="h-5 w-5" />
-            </span>
-          </Link>
-          <ul className="hidden flex-1 items-center gap-6 font-heading text-[15px] uppercase lg:flex">
-            <li>
-              <Link href="/" className={pathname === "/" ? "text-green-light" : "text-white hover:text-green-light"}>Home</Link>
-            </li>
-            {nav.map((n) => (
-              <li key={n.href}>
-                <Link href={n.href} className={pathname === n.href ? "text-green-light" : "text-white hover:text-green-light"}>
-                  {n.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-          <button
-            type="button"
-            onClick={() => setOpen((o) => !o)}
-            aria-expanded={open}
-            aria-label="Menu"
-            className="flex flex-1 items-center px-2 text-white lg:hidden"
-          >
-            <MenuIcon className="h-7 w-7" />
-          </button>
-          <a href={site.phoneHref} className="flex items-center gap-3 bg-phone px-4 py-4 font-heading text-white sm:px-7">
-            <PhoneIcon className="h-6 w-6 sm:h-7 sm:w-7" />
-            <span className="text-[15px] sm:text-lg">{site.phoneDisplay}</span>
+        <div className="hidden items-center gap-6 md:flex">
+          <p className="text-right text-xs">
+            Free towing · Paid on pickup
+            <br />
+            <span className="font-semibold text-green">{site.hours}</span>
+          </p>
+          <a className="btn-green" href={site.phoneHref}>
+            <PhoneIcon className="h-5 w-5" />
+            {site.phoneDisplay}
           </a>
         </div>
-        {open && (
-          <ul className="bg-charcoal-dark font-heading uppercase lg:hidden">
-            {[{ href: "/", label: "Home" }, ...nav].map((n) => (
-              <li key={n.href} className="border-t border-white/10">
-                <Link href={n.href} onClick={() => setOpen(false)} className="block px-5 py-3 text-white">
-                  {n.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        )}
+        <button
+          ref={toggle}
+          type="button"
+          onClick={() => setOpen(!open)}
+          aria-expanded={open}
+          aria-controls="mobile-navigation"
+          aria-label={open ? "Close navigation menu" : "Open navigation menu"}
+          className="flex min-h-11 min-w-11 items-center justify-center rounded-lg border border-line text-ink lg:hidden"
+        >
+          <MenuIcon className="h-6 w-6" />
+        </button>
+      </div>
+      <nav aria-label="Main navigation" className="container-site">
+        <ul className="hidden items-center gap-8 border-t border-line py-1 text-sm font-semibold lg:flex">
+          {nav.map((n) => (
+            <li key={n.href}>
+              <Link
+                href={n.href}
+                aria-current={pathname === n.href ? "page" : undefined}
+                className={`inline-flex min-h-12 items-center border-b-2 ${pathname === n.href ? "border-green text-green" : "border-transparent text-body hover:text-green"}`}
+              >
+                {n.label}
+              </Link>
+            </li>
+          ))}
+          <li className="ml-auto">
+            <Link
+              href="/quote"
+              className="inline-flex min-h-12 items-center text-green underline underline-offset-4"
+            >
+              Get a free quote →
+            </Link>
+          </li>
+        </ul>
+        <ul
+          id="mobile-navigation"
+          hidden={!open}
+          className="border-t border-line pb-4 lg:!hidden"
+        >
+          {nav.map((n) => (
+            <li key={n.href}>
+              <Link
+                href={n.href}
+                aria-current={pathname === n.href ? "page" : undefined}
+                onClick={() => setOpen(false)}
+                className="block rounded px-2 py-3 font-semibold text-ink hover:bg-hero"
+              >
+                {n.label}
+              </Link>
+            </li>
+          ))}
+          <li>
+            <a href={site.phoneHref} className="btn-green mt-2 w-full">
+              <PhoneIcon className="h-5 w-5" />
+              {site.phoneDisplay}
+            </a>
+          </li>
+        </ul>
       </nav>
     </header>
   );

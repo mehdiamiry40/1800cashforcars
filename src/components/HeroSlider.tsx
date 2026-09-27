@@ -1,9 +1,7 @@
-"use client";
-
+import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import { HeroArt } from "./HeroArt";
-import { ArrowDownCircle, ChevronLeft, ChevronRight } from "./icons";
+import { site } from "@/lib/site";
+import { ArrowIcon, CheckIcon, PhoneIcon } from "./icons";
 
 export type Slide = {
   pre: string;
@@ -13,62 +11,75 @@ export type Slide = {
   car: string;
 };
 
-export function HeroSlider({ slides, h1 = true }: { slides: Slide[]; h1?: boolean }) {
-  const [i, setI] = useState(0);
-  const go = (d: number) => setI((x) => (x + d + slides.length) % slides.length);
-
-  useEffect(() => {
-    if (slides.length < 2) return;
-    const t = setInterval(() => setI((x) => (x + 1) % slides.length), 7000);
-    return () => clearInterval(t);
-  }, [slides.length, i]);
-
+// Keep the existing page API, but use one stable message: no rotating H1 or motion.
+export function HeroSlider({
+  slides,
+  h1 = true,
+}: {
+  slides: Slide[];
+  h1?: boolean;
+}) {
+  const slide = slides[0];
+  if (!slide) return null;
   const Heading = h1 ? "h1" : "h2";
-
   return (
-    <section className="container-site mt-8">
-      <div className="relative bg-hero px-4 py-8 sm:px-14 lg:py-10">
-        {slides.map((s, idx) => (
-          <div key={idx} className={idx === i ? "grid items-center gap-6 lg:grid-cols-2" : "hidden"} aria-hidden={idx !== i}>
-            <HeroArt car={s.car} className="mx-auto w-full max-w-[520px]" />
-            <div>
-              {idx === 0 ? (
-                <Heading className="font-heading text-[28px] font-bold uppercase leading-tight text-ink sm:text-[34px]">
-                  {s.pre} <span className="text-green">{s.highlight}</span> <span className="normal-case">{s.post}</span>
-                </Heading>
-              ) : (
-                <p className="font-heading text-[28px] font-bold uppercase leading-tight text-ink sm:text-[34px]">
-                  {s.pre} <span className="text-green">{s.highlight}</span> <span className="normal-case">{s.post}</span>
-                </p>
-              )}
-              <Link href="#ask-for-our-price" className="btn-green mt-6 w-full max-w-[360px] justify-between whitespace-nowrap !py-3.5 text-xl sm:text-[22px]">
-                Ask for our price <ArrowDownCircle className="h-10 w-10" />
-              </Link>
-              <ul className="mt-6 space-y-3 text-lg text-ink sm:text-xl">
-                {s.bullets.map((b, bi) => (
-                  <li key={bi} className="flex gap-3">
-                    <ChevronRight className="mt-1.5 h-4 w-4 shrink-0" /> <span>{b}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
+    <section className="hero-section">
+      <div className="container-site grid items-center gap-10 py-10 lg:grid-cols-[1.05fr_1fr] lg:py-16">
+        <div>
+          <p className="eyebrow">A fresh start for your driveway</p>
+          <Heading className="mt-4 font-heading text-[clamp(2.4rem,4.5vw,4.1rem)] font-bold leading-[1.08] tracking-tight text-ink">
+            {slide.pre} <span className="text-green">{slide.highlight}</span>{" "}
+            {slide.post}.
+          </Heading>
+          <p className="mt-6 max-w-xl text-lg">
+            Old, damaged or simply unwanted? Get a fair offer, free pickup and
+            payment on collection. We make moving on easy.
+          </p>
+          <div className="mt-7 flex flex-wrap gap-3">
+            <Link href="#ask-for-our-price" className="btn-green">
+              Get my free quote <ArrowIcon className="h-5 w-5" />
+            </Link>
+            <a href={site.phoneHref} className="btn-outline">
+              <PhoneIcon className="h-5 w-5" /> {site.phoneDisplay}
+            </a>
           </div>
-        ))}
-        {slides.length > 1 && (
-          <>
-            <button type="button" onClick={() => go(-1)} aria-label="Previous slide" className="absolute left-2 top-1/2 hidden h-11 w-11 -translate-y-1/2 place-items-center rounded-full border-2 border-ink/70 bg-white/70 text-ink lg:grid">
-              <ChevronLeft className="h-5 w-5" />
-            </button>
-            <button type="button" onClick={() => go(1)} aria-label="Next slide" className="absolute right-2 top-1/2 hidden h-11 w-11 -translate-y-1/2 place-items-center rounded-full border-2 border-ink/70 bg-white/70 text-ink lg:grid">
-              <ChevronRight className="h-5 w-5" />
-            </button>
-            <div className="mt-6 flex justify-center gap-2">
-              {slides.map((_, idx) => (
-                <button key={idx} type="button" aria-label={`Slide ${idx + 1}`} onClick={() => setI(idx)} className={`h-2.5 w-2.5 rounded-full ${idx === i ? "bg-green" : "bg-ink/25"}`} />
-              ))}
-            </div>
-          </>
-        )}
+          <ul className="mt-7 flex flex-wrap gap-x-5 gap-y-2 text-sm font-semibold text-ink">
+            {["Free towing", "No obligation", "Any condition"].map((text) => (
+              <li key={text} className="flex items-center gap-2">
+                <CheckIcon className="h-4 w-4 text-green" />
+                {text}
+              </li>
+            ))}
+          </ul>
+        </div>
+        <figure className="hero-photo">
+          <Image
+            src="/images/car-removal-truck.webp"
+            alt="Illustration of a silver car secured on a flatbed tow truck on a leafy Queensland street"
+            width={1536}
+            height={1024}
+            sizes="(max-width: 1023px) 100vw, 560px"
+            preload
+            className="aspect-[6/5] w-full object-cover"
+          />
+          <figcaption className="flex items-center justify-between gap-3 bg-charcoal px-5 py-4 text-sm text-white">
+            <span>From your driveway to its next chapter.</span>
+            <span className="shrink-0 text-xs text-white/80">
+              AI illustration
+            </span>
+          </figcaption>
+        </figure>
+      </div>
+      <div className="border-y border-green/15 bg-white/70">
+        <div className="container-site flex flex-wrap items-center justify-between gap-x-8 gap-y-3 py-4 text-sm text-ink">
+          <span className="font-semibold">
+            Gold Coast · Brisbane · South East QLD
+          </span>
+          <span>{site.hours}</span>
+          <span className="font-semibold text-green">
+            You get paid. We take care of the tow.
+          </span>
+        </div>
       </div>
     </section>
   );

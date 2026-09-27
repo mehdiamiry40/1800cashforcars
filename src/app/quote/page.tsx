@@ -1,30 +1,24 @@
 import type { Metadata } from "next";
-import { PageShell } from "@/components/PageShell";
-import { site } from "@/lib/site";
+import { AskForPrice } from "@/components/Blocks";
 
 export const metadata: Metadata = {
   title: "Get a Free Cash Offer For Your Car",
-  description: "Tell us about your car and get a free, no-obligation cash offer. Free removal and paid on pickup.",
+  description:
+    "Tell us about your car and get a free, no-obligation cash offer. Free removal and paid on pickup.",
   alternates: { canonical: "/quote" },
 };
 
 export default function QuotePage() {
   return (
-    <PageShell title="Get a Free Quote">
-      <h2 className="h-section">Your cash offer, fast</h2>
-      <p className="mt-3">
-        Fill in the &quot;Ask for our price&quot; form below with your car&apos;s make, model, year, kilometres and condition.
-        We&apos;ll call or text you with a no-obligation offer — usually within the hour.
-      </p>
-      <ul className="mt-4 list-disc space-y-1 pl-5">
-        <li>No obligation — say no if it&apos;s not right</li>
-        <li>The price we quote is the price we pay</li>
-        <li>Free towing, even if the car doesn&apos;t run</li>
-        <li>Paid on pickup</li>
-      </ul>
-      <p className="mt-4">
-        Rather talk to someone? Call <a href={site.phoneHref} className="font-bold text-green hover:underline">{site.phoneDisplay}</a>.
-      </p>
-    </PageShell>
+    <>
+      <div className="container-site pb-6 pt-10">
+        <h1 className="h-section">Get a free car quote</h1>
+        <p className="mt-3">
+          Your car’s next chapter starts here. Fill in the details below and
+          we’ll be in touch.
+        </p>
+      </div>
+      <AskForPrice />
+    </>
   );
 }

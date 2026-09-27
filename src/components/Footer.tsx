@@ -19,61 +19,147 @@ export function Footer() {
       <div className="container-site grid gap-10 py-12 sm:grid-cols-2 lg:grid-cols-4">
         <FooterCol title="Sitemap">
           {sitemap.map((l) => (
-            <li key={l.href}><Link href={l.href} className="underline hover:text-green-light">{l.label}</Link></li>
+            <li key={l.href}>
+              <Link href={l.href} className="underline hover:text-green-light">
+                {l.label}
+              </Link>
+            </li>
           ))}
         </FooterCol>
         <FooterCol title="Services">
           {services.map((s) => (
-            <li key={s.slug}><Link href={`/${s.slug}`} className="underline hover:text-green-light">{s.tile}</Link></li>
+            <li key={s.slug}>
+              <Link
+                href={`/${s.slug}`}
+                className="underline hover:text-green-light"
+              >
+                {s.tile}
+              </Link>
+            </li>
           ))}
-          <li><Link href="/cash-for-cars" className="underline hover:text-green-light">Cash For Cars</Link></li>
-          <li><Link href="/car-removals" className="underline hover:text-green-light">Free Car Removals</Link></li>
+          <li>
+            <Link
+              href="/cash-for-cars"
+              className="underline hover:text-green-light"
+            >
+              Cash For Cars
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="/car-removals"
+              className="underline hover:text-green-light"
+            >
+              Free Car Removals
+            </Link>
+          </li>
         </FooterCol>
         <FooterCol title="Service Areas">
           {areas.map((a) => (
-            <li key={a.slug}><Link href={`/locations/${a.slug}`} className="underline hover:text-green-light">Cash For Cars {a.name}</Link></li>
+            <li key={a.slug}>
+              <Link
+                href={`/locations/${a.slug}`}
+                className="underline hover:text-green-light"
+              >
+                Cash For Cars {a.name}
+              </Link>
+            </li>
           ))}
         </FooterCol>
         <FooterCol title="Contact Us">
-          <li><b className="text-white">Company:</b> {site.name}</li>
-          <li><b className="text-white">Website:</b> <a href={site.url} className="underline">{site.domain}</a></li>
-          {site.address && <li><b className="text-white">Address:</b> {site.address}</li>}
-          <li><b className="text-white">Email:</b> <a href={`mailto:${site.email}`} className="underline">{site.email}</a></li>
-          <li><b className="text-white">Phone:</b> <a href={site.phoneHref} className="underline">{site.phoneDisplay}</a></li>
-          <li><b className="text-white">Hours:</b> {site.hours}</li>
-          {site.abn && <li><b className="text-white">ABN:</b> {site.abn}</li>}
+          <li>
+            <b className="text-white">Company:</b> {site.name}
+          </li>
+          <li>
+            <b className="text-white">Website:</b>{" "}
+            <a href={site.url} className="underline">
+              {site.domain}
+            </a>
+          </li>
+          {site.address && (
+            <li>
+              <b className="text-white">Address:</b> {site.address}
+            </li>
+          )}
+          <li>
+            <b className="text-white">Email:</b>{" "}
+            <a href={`mailto:${site.email}`} className="underline">
+              {site.email}
+            </a>
+          </li>
+          <li>
+            <b className="text-white">Phone:</b>{" "}
+            <a href={site.phoneHref} className="underline">
+              {site.phoneDisplay}
+            </a>
+          </li>
+          <li>
+            <b className="text-white">Hours:</b> {site.hours}
+          </li>
+          {site.abn && (
+            <li>
+              <b className="text-white">ABN:</b> {site.abn}
+            </li>
+          )}
         </FooterCol>
       </div>
       <div className="border-t border-white/10">
         <p className="container-site py-5 text-center text-xs">
-          Copyright © {new Date().getFullYear()} {site.name}. All Rights Reserved.
+          Copyright © {new Date().getFullYear()} {site.name}. All Rights
+          Reserved.
         </p>
       </div>
     </footer>
   );
 }
 
-function FooterCol({ title, children }: { title: string; children: React.ReactNode }) {
+function FooterCol({
+  title,
+  children,
+}: {
+  title: string;
+  children: React.ReactNode;
+}) {
   return (
     <div>
-      <h3 className="mb-4 font-heading text-lg font-bold uppercase text-white">{title}</h3>
+      <h3 className="mb-4 font-heading text-lg font-bold uppercase text-white">
+        {title}
+      </h3>
       <ul className="space-y-1.5">{children}</ul>
     </div>
   );
 }
 
-// Floating contact bubbles (bottom-right), like the SMS button on the reference design.
+// Mobile actions reserve space in the page so they never cover the footer.
 export function FloatingContact() {
   return (
-    <div className="fixed bottom-4 right-4 z-50 flex flex-col gap-3">
-      {site.smsNumber && (
-        <a href={`sms:${site.smsNumber}`} aria-label="Send us a text" className="grid h-14 w-14 place-items-center rounded-full bg-phone text-white shadow-lg ring-4 ring-white">
-          <SmsIcon className="h-7 w-7" />
+    <>
+      <div className="fixed inset-x-0 bottom-0 z-40 flex gap-3 border-t border-line bg-white p-3 pb-[max(12px,env(safe-area-inset-bottom))] shadow-lg sm:hidden">
+        <a href={site.phoneHref} className="btn-outline flex-1 !px-3">
+          <PhoneIcon className="h-5 w-5" /> Call us
         </a>
-      )}
-      <a href={site.phoneHref} aria-label="Call us" className="grid h-14 w-14 place-items-center rounded-full bg-green text-white shadow-lg ring-4 ring-white">
-        <PhoneIcon className="h-7 w-7" />
-      </a>
-    </div>
+        <Link href="/quote" className="btn-green flex-1 !px-3">
+          Free quote
+        </Link>
+      </div>
+      <div className="fixed bottom-5 right-5 z-40 hidden flex-col gap-3 sm:flex">
+        {site.smsNumber && (
+          <a
+            href={`sms:${site.smsNumber}`}
+            aria-label="Send us a text"
+            className="grid h-14 w-14 place-items-center rounded-full bg-phone text-white shadow-lg ring-4 ring-white"
+          >
+            <SmsIcon className="h-7 w-7" />
+          </a>
+        )}
+        <a
+          href={site.phoneHref}
+          aria-label={`Call ${site.phoneDisplay}`}
+          className="grid h-14 w-14 place-items-center rounded-full bg-green text-white shadow-lg ring-4 ring-white"
+        >
+          <PhoneIcon className="h-7 w-7" />
+        </a>
+      </div>
+    </>
   );
 }

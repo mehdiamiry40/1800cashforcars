@@ -1,112 +1,173 @@
+import Image from "next/image";
 import Link from "next/link";
-import { AskForPrice, CallUsAndTerms, ContentBlocks, Faq, MakesRow, ReviewsBand, ServiceTiles } from "@/components/Blocks";
-import { HeroArt } from "@/components/HeroArt";
+import {
+  AskForPrice,
+  CallUsAndTerms,
+  Faq,
+  MakesRow,
+  ReviewsBand,
+  ServiceTiles,
+} from "@/components/Blocks";
 import { HeroSlider } from "@/components/HeroSlider";
+import { ArrowIcon, PinIcon } from "@/components/icons";
 import { areas, faqs, site } from "@/lib/site";
 import { heroSlides } from "@/lib/slides";
 
 const faqLd = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  mainEntity: faqs.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
+  mainEntity: faqs.map((f) => ({
+    "@type": "Question",
+    name: f.q,
+    acceptedAnswer: { "@type": "Answer", text: f.a },
+  })),
 };
+const steps = [
+  {
+    title: "Tell us about your car",
+    text: "Share the make, model and condition online, or give us a call. No long forms or appointments.",
+  },
+  {
+    title: "Choose what works for you",
+    text: "Review your no-obligation offer. Happy with the price? We’ll arrange a convenient pickup time.",
+  },
+  {
+    title: "Get paid. Get your space back.",
+    text: "We confirm the details, pay you on collection and tow your car away. The towing is free.",
+  },
+];
 
 export default function Home() {
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd).replace(/</g, "\\u003c") }} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(faqLd).replace(/</g, "\\u003c"),
+        }}
+      />
       <HeroSlider slides={heroSlides()} />
+      <section
+        className="container-site py-14 sm:py-20"
+        aria-labelledby="steps-title"
+      >
+        <div className="flex flex-wrap items-end justify-between gap-5">
+          <div>
+            <p className="eyebrow">Less hassle. More driveway.</p>
+            <h2 id="steps-title" className="h-section mt-3">
+              Three steps. One less thing to worry about.
+            </h2>
+          </div>
+        </div>
+        <ol className="mt-9 grid gap-8 md:grid-cols-3">
+          {steps.map((step, i) => (
+            <li key={step.title} className="border-t border-line pt-5">
+              <span className="font-heading text-3xl font-bold text-green">
+                0{i + 1}
+              </span>
+              <h3 className="mt-4 font-heading text-xl font-bold text-ink">
+                {step.title}
+              </h3>
+              <p className="mt-3 text-sm">{step.text}</p>
+            </li>
+          ))}
+        </ol>
+      </section>
+      <AskForPrice />
       <ServiceTiles />
-
-      <section className="mt-10 bg-band py-10">
-        <div className="container-site prose-site">
-          <h2 className="h-section">Cash for cars Gold Coast &amp; Brisbane car removal</h2>
-          <p>
-            Got a broken, old, unwanted, crashed or scrap car you need gone? {site.name} makes it simple: one call, a fair
-            cash offer, and a free tow away at a time that suits you. We buy <Link href="/cash-for-cars">cars for cash</Link>{" "}
-            right across the Gold Coast, Brisbane, Logan, Ipswich, the Sunshine Coast and the Tweed.
-          </p>
-          <p>
-            Call us on <a href={site.phoneHref}>{site.phoneDisplay}</a> or send us your car&apos;s details below, and we&apos;ll
-            come back with an offer — usually within the hour.
-          </p>
+      <section className="bg-band py-14 sm:py-20">
+        <div className="container-site grid items-center gap-10 lg:grid-cols-2">
+          <figure>
+            <Image
+              src="/images/vehicle-recycling.webp"
+              alt="Illustration of an older white sedan beside neatly stored reusable wheels and car parts"
+              width={1200}
+              height={800}
+              sizes="(max-width: 1023px) 100vw, 560px"
+              className="aspect-[4/3] w-full rounded-2xl object-cover"
+            />
+            <figcaption className="mt-2 text-xs">
+              AI-generated vehicle recycling illustration.
+            </figcaption>
+          </figure>
+          <div className="prose-site">
+            <p className="eyebrow">There’s value in moving on</p>
+            <h2 className="h-section mt-3">Old car. New possibilities.</h2>
+            <p>
+              Got a broken, old, unwanted or accident-damaged car? {site.name}{" "}
+              buys vehicles in any condition across the Gold Coast, Brisbane and
+              South East Queensland.
+            </p>
+            <p>
+              We arrange <Link href="/car-removals">free car removal</Link>,
+              even if your vehicle doesn’t start. Usable parts get another life,
+              and materials are recovered through vehicle recycling.
+            </p>
+            <p>
+              Cars, utes, vans and 4WDs — registered or not. Tell us what you
+              have and we’ll talk you through the next step.
+            </p>
+            <Link
+              href="/car-wreckers"
+              className="mt-5 inline-flex min-h-11 items-center gap-2"
+            >
+              Learn about car recycling <ArrowIcon className="h-4 w-4" />
+            </Link>
+          </div>
         </div>
       </section>
-
-      <section className="container-site py-12">
-        <div className="grid items-center gap-8 lg:grid-cols-[1.4fr_1fr]">
-          <div className="prose-site">
-            <h2 className="h-section">Free car removal services across South East QLD</h2>
-            <p>
-              Our <Link href="/car-removals">car removal service</Link> is completely free. We never charge for towing and we
-              never deduct it from your offer — even if the car doesn&apos;t start, has flat tyres or has been sitting for years.
-            </p>
-            <p>
-              Unlike junkyards that charge you to take a car away, we pay you for it. Every vehicle has value in its parts and
-              metal, and we pass that value on to you.
-            </p>
-          </div>
-          <HeroArt cashOnly className="mx-auto w-full max-w-[380px]" />
-        </div>
-
-        <div className="mt-12">
-          <ContentBlocks
-            blocks={[
-              {
-                heading: "Simple, fast car removal process",
-                paras: ["Selling your car to us takes three easy steps:"],
-                list: [
-                  { bold: "Ask for our price", text: "call us or fill in the quote form with your car's make, model, year and condition." },
-                  { bold: "Accept or decline the offer", text: "we'll work out what your car is worth and give you a no-obligation offer. You're free to say no." },
-                  { bold: "Get paid and towed", text: "accept the offer and we'll book a pickup time. We pay you on the spot and tow the car away for free." },
-                ],
-              },
-              {
-                heading: "We accept cars in any condition",
-                paras: [
-                  "Every make, every model, every condition. Whether it's roadworthy or not, running or not, registered or not — your car is worth something to us, and we'll make you an offer.",
-                ],
-              },
-            ]}
-          />
-        </div>
-
-        <div className="mt-10">
-          <h2 className="h-sub">Car removal services we offer</h2>
-          <ul className="mt-4 list-disc space-y-2 pl-5">
-            <li><b className="text-ink">Scrap car removal</b> – end-of-life vehicles collected and recycled, however old or rusty. <Link className="font-semibold text-green hover:underline" href="/scrap-car-removal">Learn more</Link></li>
-            <li><b className="text-ink">Accident car removal</b> – repairs cost more than the car is worth? We buy crashed cars as they are.</li>
-            <li><b className="text-ink">Damaged car removal</b> – flood, hail and fire-damaged vehicles removed and paid for.</li>
-            <li><b className="text-ink">Junk car removal</b> – whether it stopped last week or last decade, we&apos;ll collect it.</li>
-            <li><b className="text-ink">Used car removal</b> – skip the trade-in lowball and get a fair cash price for your used car.</li>
-          </ul>
-        </div>
-
-        <div id="areas" className="mt-10 scroll-mt-6">
-          <h2 className="h-sub">Areas we service</h2>
-          <p className="mt-2">Free car removal and cash for cars in:</p>
-          <ul className="mt-3 grid gap-x-6 gap-y-1.5 sm:grid-cols-2 lg:grid-cols-3">
-            {areas.map((a) => (
-              <li key={a.slug}>
-                <Link href={`/locations/${a.slug}`} className="font-semibold text-green hover:underline">
-                  Cash for cars {a.name}
-                </Link>{" "}
-                <span className="text-sm">({a.suburbs.slice(0, 3).join(", ")} &amp; more)</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div className="mt-12">
-          <Faq />
-        </div>
-        <div className="mt-12">
+      <section
+        id="areas"
+        className="container-site py-14 sm:py-20"
+        aria-labelledby="areas-title"
+      >
+        <p className="eyebrow">Local pickups, made simple</p>
+        <h2 id="areas-title" className="h-section mt-3">
+          From Brisbane to the coast. We come to you.
+        </h2>
+        <p className="mt-4">
+          Free car removal across South East Queensland and Tweed Heads. Select
+          your area for local details.
+        </p>
+        <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {areas.map((area) => (
+            <li key={area.slug}>
+              <Link
+                href={`/locations/${area.slug}`}
+                className="group flex h-full items-start gap-4 rounded-xl border border-line p-5 transition hover:border-green hover:bg-hero"
+              >
+                <PinIcon className="mt-1 h-6 w-6 shrink-0 text-green" />
+                <span>
+                  <span className="font-heading text-xl font-bold text-ink group-hover:underline">
+                    {area.name}
+                  </span>
+                  <span className="mt-1 block text-sm">
+                    {area.suburbs.slice(0, 3).join(", ")} &amp; surrounds
+                  </span>
+                </span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </section>
+      <ReviewsBand />
+      <section className="container-site py-14 sm:py-20">
+        <Faq />
+        <div className="mt-12 rounded-xl bg-band p-6 sm:p-8">
           <CallUsAndTerms />
         </div>
       </section>
-
-      <AskForPrice />
-      <ReviewsBand />
+      <section className="bg-hero py-12">
+        <div className="container-site flex flex-wrap items-center justify-between gap-6">
+          <div>
+            <h2 className="h-section">Ready to make some space?</h2>
+            <p className="mt-2">A fair offer and a free pickup start here.</p>
+          </div>
+          <Link href="#ask-for-our-price" className="btn-green">
+            Get my free quote <ArrowIcon className="h-5 w-5" />
+          </Link>
+        </div>
+      </section>
       <MakesRow />
     </>
   );
