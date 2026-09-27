@@ -10,14 +10,14 @@ export const metadata: Metadata = {
 
 export default function QuotePage() {
   return (
-    <PageShell title="Get a Free Quote" intro="Tell us about your car and get a no-obligation cash offer — usually within the hour." image="/images/hero-towing.jpg">
-      <h2 className="h-section">Your cash offer, fast</h2>
+    <PageShell title="Get a Free Quote" intro="Tell us about your car and we'll give you a price. No obligation." image="/images/hero-towing.jpg">
+      <h2 className="h-section">How to get a price</h2>
       <p className="mt-3">
-        Fill in the &quot;Ask for our price&quot; form below with your car&apos;s make, model, year, kilometres and condition.
-        We&apos;ll call or text you with a no-obligation offer — usually within the hour.
+        Fill in the form below with the year, make, model, kilometres and condition of the car. We&apos;ll call or text you
+        with a price, usually within the hour during opening hours.
       </p>
       <ul className="mt-4 list-disc space-y-1 pl-5">
-        <li>No obligation — say no if it&apos;s not right</li>
+        <li>No obligation. If the price isn&apos;t right, say no.</li>
         <li>The price we quote is the price we pay</li>
         <li>Free towing, even if the car doesn&apos;t run</li>
         <li>Paid on pickup</li>

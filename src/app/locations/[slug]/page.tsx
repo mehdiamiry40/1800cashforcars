@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { AskForPrice, CallUsAndTerms, ContentBlocks, FinalCta, MakesRow, ReviewsBand, SectionHead, ServiceTiles, TrustStrip } from "@/components/Blocks";
-import { PinIcon } from "@/components/icons";
+import { AskForPrice, CallUsAndTerms, HowItWorks, MakesRow, ReviewsBand, SectionHead, ServiceTiles } from "@/components/Blocks";
 import { Hero } from "@/components/Hero";
 import { areas, site } from "@/lib/site";
 
@@ -31,53 +30,31 @@ export default async function LocationPage({ params }: PageProps<"/locations/[sl
   return (
     <>
       <Hero place={area.name} />
-      <TrustStrip />
+      <HowItWorks />
 
-      <section className="py-16 sm:py-20">
-        <div className="container-site grid gap-12 lg:grid-cols-[1.2fr_0.8fr]">
+      <section className="bg-paper py-16 sm:py-20">
+        <div className="container-site grid gap-12 lg:grid-cols-[1.1fr_0.9fr]">
           <div>
-            <SectionHead center={false} eyebrow={`Car removal ${area.name}`} title={`Cash for cars ${area.name}`} />
-            <div className="prose-site text-[17px]">
+            <SectionHead title={`Car removal in ${area.name}`} />
+            <div className="prose-site">
               <p>
-                Need to sell a car in {area.name}? {site.name} buys cars, utes, vans and 4WDs in any condition, and our tow
-                trucks pick up free from anywhere in {area.name} — your driveway, workplace or the roadside.
+                We buy cars, utes, vans and 4WDs anywhere in {area.name}, in any condition. We&apos;ll pick it up from your
+                driveway, your work, a mechanic&apos;s yard or the side of the road, and the towing is free.
               </p>
               <p>
-                Call <a href={site.phoneHref}>{site.phoneDisplay}</a> or send your car&apos;s details in the form below for a fast
-                cash offer.
+                Call <a href={site.phoneHref}>{site.phoneDisplay}</a> or send us the details below and we&apos;ll give you a price.
               </p>
-            </div>
-            <div className="mt-10">
-              <ContentBlocks
-                blocks={[
-                  {
-                    heading: "How it works",
-                    list: [
-                      { bold: "Ask for our price", text: "tell us the make, model, year and condition of your car." },
-                      { bold: "Accept the offer", text: "no obligation — you're free to say no." },
-                      { bold: "Get paid and towed", text: `we pay you on pickup and tow the car away free, anywhere in ${area.name}.` },
-                    ],
-                  },
-                ]}
-              />
             </div>
           </div>
-          <div className="card h-fit p-7">
-            <h2 className="font-heading text-2xl font-bold uppercase text-navy">Suburbs we cover</h2>
-            <ul className="mt-4 flex flex-wrap gap-2">
-              {area.suburbs.map((s) => (
-                <li key={s} className="flex items-center gap-1.5 rounded-full bg-cream px-3 py-1.5 text-sm font-semibold text-navy">
-                  <PinIcon className="h-3.5 w-3.5 text-brand" /> {s}
-                </li>
-              ))}
-            </ul>
-            <p className="mt-4 text-sm">Don&apos;t see yours? Call us — we probably still cover it.</p>
-            <p className="mt-5 border-t border-line pt-4 text-sm">
-              Also servicing{" "}
+          <div>
+            <h2 className="h-sub">Suburbs we cover</h2>
+            <p className="mt-2">{area.suburbs.join(", ")}, and everywhere in between.</p>
+            <p className="mt-6 text-[15px]">
+              We also pick up in{" "}
               {areas.filter((a) => a.slug !== area.slug).map((a, i, arr) => (
                 <span key={a.slug}>
-                  <Link href={`/locations/${a.slug}`} className="font-semibold text-brand-dark hover:underline">{a.name}</Link>
-                  {i < arr.length - 1 ? ", " : "."}
+                  <Link href={`/locations/${a.slug}`} className="font-semibold text-brand-dark underline underline-offset-2">{a.name}</Link>
+                  {i < arr.length - 2 ? ", " : i === arr.length - 2 ? " and " : "."}
                 </span>
               ))}
             </p>
@@ -86,15 +63,14 @@ export default async function LocationPage({ params }: PageProps<"/locations/[sl
       </section>
 
       <ServiceTiles />
-      <ReviewsBand />
-      <section className="py-16">
+      <section className="py-16 sm:py-20">
         <div className="container-site">
           <CallUsAndTerms />
         </div>
       </section>
+      <ReviewsBand />
       <AskForPrice />
       <MakesRow />
-      <FinalCta />
     </>
   );
 }

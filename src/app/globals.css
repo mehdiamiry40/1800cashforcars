@@ -1,23 +1,20 @@
 @import "tailwindcss";
 
 @theme {
-  /* Brand: deep navy (trust) + tow-truck orange (action) */
-  --color-navy: #0d1b34;
-  --color-navy-800: #13284a;
-  --color-navy-700: #1c3761;
-  --color-navy-950: #081225;
-  --color-brand: #ea580c;
+  --color-navy: #0f1d33;
+  --color-navy-800: #182a47;
+  --color-navy-950: #0a1424;
+  --color-brand: #e8590c;
   --color-brand-dark: #c2410c;
-  --color-brand-light: #ff8a3d;
-  --color-brand-soft: #fff1e8;
+  --color-brand-light: #ff9150;
   --color-money: #15803d;
-  --color-cream: #f6f4ef;
-  --color-ink: #0d1b34;
-  --color-body: #4a5568;
-  --color-line: #e4e1da;
+  --color-paper: #f4f2ee;
+  --color-ink: #111827;
+  --color-body: #3f4652;
+  --color-line: #d9d5cd;
 
-  --font-sans: var(--font-inter);
-  --font-heading: var(--font-barlow);
+  --font-sans: var(--font-source);
+  --font-heading: var(--font-archivo);
 }
 
 html {
@@ -27,8 +24,8 @@ html {
 body {
   background: #ffffff;
   color: var(--color-body);
-  font-size: 16px;
-  line-height: 1.7;
+  font-size: 17px;
+  line-height: 1.65;
 }
 
 .font-heading {
@@ -36,49 +33,41 @@ body {
 }
 
 @utility container-site {
-  @apply mx-auto w-full max-w-[1200px] px-4 sm:px-6;
+  @apply mx-auto w-full max-w-[1180px] px-4 sm:px-6;
 }
 
 @utility btn {
-  @apply inline-flex items-center justify-center gap-2 rounded-xl px-6 py-3.5 font-heading text-lg font-bold uppercase tracking-wide transition;
+  @apply inline-flex items-center justify-center gap-2 rounded-[4px] px-5 py-3 font-heading text-[16px] font-bold transition-colors;
 }
 
 @utility btn-brand {
-  @apply btn bg-brand text-white shadow-[0_8px_24px_-8px_rgba(234,88,12,0.6)] hover:bg-brand-dark;
+  @apply btn bg-brand text-white hover:bg-brand-dark;
 }
 
 @utility btn-navy {
   @apply btn bg-navy text-white hover:bg-navy-800;
 }
 
-@utility btn-ghost {
-  @apply btn border-2 border-white/70 text-white hover:bg-white hover:text-navy;
-}
-
-@utility eyebrow {
-  @apply font-heading text-sm font-bold uppercase tracking-[0.18em] text-brand;
+@utility btn-line {
+  @apply btn border-2 border-navy text-navy hover:bg-navy hover:text-white;
 }
 
 @utility h-section {
-  @apply font-heading text-3xl font-extrabold uppercase leading-[1.05] text-ink sm:text-4xl;
+  @apply font-heading text-[30px] font-extrabold leading-[1.1] tracking-[-0.01em] text-ink sm:text-[38px];
 }
 
 @utility h-sub {
-  @apply font-heading text-2xl font-bold uppercase leading-tight text-ink;
-}
-
-.prose-site p {
-  @apply mt-3;
-}
-
-.prose-site a {
-  @apply font-semibold text-brand-dark underline decoration-brand/30 underline-offset-2 hover:decoration-brand;
+  @apply font-heading text-[22px] font-bold leading-snug text-ink;
 }
 
 @utility field {
-  @apply w-full rounded-xl border border-line bg-white px-4 py-3 text-[15px] text-ink outline-none transition placeholder:text-[#8a94a6] focus:border-brand focus:ring-4 focus:ring-brand/15;
+  @apply w-full rounded-[4px] border border-[#b9b4aa] bg-white px-3.5 py-3 text-[16px] text-ink outline-none placeholder:text-[#8b8f97] focus:border-navy focus:ring-2 focus:ring-navy/20;
 }
 
-@utility card {
-  @apply rounded-2xl border border-line bg-white;
+.prose-site p {
+  @apply mt-4;
+}
+
+.prose-site a {
+  @apply font-semibold text-brand-dark underline underline-offset-2;
 }

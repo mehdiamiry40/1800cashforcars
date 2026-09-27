@@ -17,16 +17,16 @@ export default function ContactPage() {
     ...(site.abn ? [{ label: "ABN", value: site.abn }] : []),
   ];
   return (
-    <PageShell title="Contact Us" intro="Call, text or send us your car's details for a fast cash offer.">
+    <PageShell title="Contact Us" intro="Call, text, or send us the details of your car and we'll give you a price.">
       <h2 className="h-section">Get in touch</h2>
       <p className="mt-3">
-        The fastest way to get an offer is to call us. You can also email us or fill in the &quot;Ask for our price&quot; form
-        below with your car&apos;s details, and we&apos;ll get back to you with a cash offer — usually within the hour.
+        Calling is quickest. You can also text us photos of the car, email us, or use the form below and we&apos;ll get back to
+        you, usually within the hour during opening hours.
       </p>
-      <dl className="card mt-6 divide-y divide-line px-6">
+      <dl className="mt-6 divide-y divide-line border-y border-line">
         {rows.map((r) => (
           <div key={r.label} className="grid grid-cols-[110px_1fr] gap-4 py-3">
-            <dt className="font-heading text-lg font-bold uppercase text-navy">{r.label}</dt>
+            <dt className="font-heading font-bold text-ink">{r.label}</dt>
             <dd>{r.value}</dd>
           </div>
         ))}

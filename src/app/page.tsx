@@ -1,11 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import {
-  AreasGrid, AskForPrice, CallUsAndTerms, ConditionChips, Faq, FinalCta, HowItWorks, MakesRow, ReviewsBand, SectionHead,
-  ServiceTiles, TrustStrip,
+  AreasGrid, AskForPrice, CallUsAndTerms, Faq, HowItWorks, MakesRow, ReviewsBand, SectionHead, ServiceTiles,
 } from "@/components/Blocks";
 import { Hero } from "@/components/Hero";
-import { CheckIcon } from "@/components/icons";
 import { faqs, site } from "@/lib/site";
 
 const faqLd = {
@@ -14,13 +12,16 @@ const faqLd = {
   mainEntity: faqs.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
 };
 
-const removalTypes = [
-  { title: "Scrap car removal", text: "End-of-life vehicles collected and recycled, however old or rusty.", href: "/scrap-car-removal" },
-  { title: "Accident car removal", text: "Repairs cost more than the car is worth? We buy crashed cars as they are." },
-  { title: "Damaged car removal", text: "Flood, hail and fire-damaged vehicles removed and paid for." },
-  { title: "Junk car removal", text: "Whether it stopped last week or last decade, we'll collect it." },
-  { title: "Used car removal", text: "Skip the trade-in lowball and get a fair cash price for your used car." },
-  { title: "Ute, van & 4WD removal", text: "Work vehicles, 4WDs and light trucks — single vehicles or whole fleets." },
+const conditions = [
+  "Cars that don't start", "Crashed or written off", "Flood, hail or fire damage", "Unregistered",
+  "Failed roadworthy", "High kilometres", "Rusted out or scrap", "Lost keys",
+];
+
+const priceFactors = [
+  { bold: "Make, model and year", text: "Popular and newer models are worth more for resale and parts." },
+  { bold: "Condition", text: "A car that runs is worth more, but we still pay for ones that don't." },
+  { bold: "Parts", text: "A good engine, gearbox or panels can add a fair bit." },
+  { bold: "Metal prices", text: "For cars at the end of the road, the scrap metal price sets the floor." },
 ];
 
 export default function Home() {
@@ -28,75 +29,71 @@ export default function Home() {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd).replace(/</g, "\\u003c") }} />
       <Hero />
-      <TrustStrip />
+      <HowItWorks />
 
-      <section className="py-16 sm:py-20">
-        <div className="container-site grid items-center gap-12 lg:grid-cols-2">
-          <div>
-            <SectionHead center={false} eyebrow="Cash for cars Gold Coast & Brisbane" title="Free car removal. Real cash. Zero hassle." />
-            <div className="prose-site mt-2 text-[17px]">
-              <p>
-                Got a broken, old, unwanted, crashed or scrap car you need gone? {site.name} makes it simple: one call, a fair
-                cash offer, and a free tow away at a time that suits you. We buy <Link href="/cash-for-cars">cars for cash</Link>{" "}
-                right across the Gold Coast, Brisbane, Logan, Ipswich, the Sunshine Coast and the Tweed.
-              </p>
-              <p>
-                Unlike junkyards that charge you to take a car away, <Link href="/car-removals">our car removal</Link> is free and we
-                pay you for it. Every vehicle has value in its parts and metal, and we pass that value on to you.
-              </p>
-            </div>
-            <h3 className="mt-8 font-heading text-xl font-bold uppercase text-navy">We accept cars in any condition</h3>
-            <ConditionChips />
+      <section className="bg-paper py-16 sm:py-20">
+        <div className="container-site grid items-center gap-10 lg:grid-cols-2">
+          <div className="relative aspect-[4/3]">
+            <Image src="/images/cash.jpg" alt="Australian banknotes" fill sizes="(min-width: 1024px) 560px, 100vw" className="object-cover" />
           </div>
-          <div className="relative">
-            <div className="absolute -right-3 -top-3 h-full w-full rounded-3xl bg-brand" aria-hidden />
-            <div className="relative aspect-[4/3] overflow-hidden rounded-3xl shadow-xl">
-              <Image src="/images/cash.jpg" alt="Australian banknotes" fill sizes="(min-width: 1024px) 560px, 100vw" className="object-cover" />
+          <div>
+            <SectionHead title="Cars we buy" />
+            <div className="prose-site">
+              <p>
+                Pretty much anything. Cars, utes, vans, 4WDs and light trucks, from nearly new to completely stuffed. We buy{" "}
+                <Link href="/cash-for-cars">cars for cash</Link> across the Gold Coast, Brisbane, Logan, Ipswich, the Sunshine
+                Coast and the Tweed.
+              </p>
             </div>
-            <div className="absolute -bottom-6 left-6 rounded-2xl bg-navy px-6 py-4 text-white shadow-xl">
-              <p className="font-heading text-3xl font-extrabold text-brand-light">$0</p>
-              <p className="text-sm font-semibold">towing fees — ever</p>
-            </div>
+            <ul className="mt-5 grid grid-cols-1 gap-x-8 gap-y-2 sm:grid-cols-2">
+              {conditions.map((c) => (
+                <li key={c} className="flex gap-2.5 text-ink before:mt-[0.6em] before:h-2 before:w-2 before:shrink-0 before:bg-brand before:content-['']">
+                  {c}
+                </li>
+              ))}
+            </ul>
+            <p className="mt-6">
+              Unlike a wrecking yard that charges you to take it, <Link href="/car-removals" className="font-semibold text-brand-dark underline underline-offset-2">our car removal</Link> is free. We pay you for the car.
+            </p>
           </div>
         </div>
       </section>
 
-      <HowItWorks />
       <ServiceTiles />
 
-      <section className="bg-cream py-16 sm:py-20">
-        <div className="container-site">
-          <SectionHead eyebrow="Every kind of vehicle" title="Car removal services we offer" />
-          <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {removalTypes.map((r) => (
-              <li key={r.title} className="card flex gap-4 p-6">
-                <span className="mt-1 grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-brand text-white"><CheckIcon className="h-5 w-5" /></span>
-                <span>
-                  <span className="block font-heading text-xl font-bold uppercase text-navy">{r.title}</span>
-                  <span className="mt-1 block text-[15px]">{r.text}</span>
-                  {r.href && <Link href={r.href} className="mt-2 inline-block text-sm font-semibold text-brand-dark hover:underline">Learn more →</Link>}
-                </span>
-              </li>
-            ))}
-          </ul>
+      <section className="bg-paper py-16 sm:py-20">
+        <div className="container-site grid gap-12 lg:grid-cols-[1.1fr_0.9fr]">
+          <div>
+            <SectionHead title="What decides your price" intro="Every car is different, so we price each one on its own. These are the main things we look at." />
+            <ul className="mt-6 divide-y divide-line border-y border-line">
+              {priceFactors.map((f) => (
+                <li key={f.bold} className="py-3.5"><b className="text-ink">{f.bold}.</b> {f.text}</li>
+              ))}
+            </ul>
+            <p className="mt-5">
+              The price we quote is the price we pay, as long as the car is as described. We don&apos;t take anything off for towing.
+            </p>
+          </div>
+          <div className="lg:border-l lg:border-line lg:pl-12">
+            <CallUsAndTerms stacked />
+          </div>
         </div>
       </section>
 
       <AreasGrid />
       <ReviewsBand />
 
-      <section className="py-16 sm:py-20">
-        <div className="container-site grid gap-12 lg:grid-cols-[1.2fr_0.8fr]">
+      <section className="bg-paper py-16 sm:py-20">
+        <div className="container-site max-w-3xl">
           <Faq />
-          <div className="lg:pt-24">
-            <CallUsAndTerms stacked />
-          </div>
+          <p className="mt-6">
+            Something else? Call <a href={site.phoneHref} className="font-semibold text-brand-dark underline">{site.phoneDisplay}</a>.
+          </p>
         </div>
       </section>
 
       <AskForPrice />
       <MakesRow />
-      <FinalCta />
     </>
   );
 }

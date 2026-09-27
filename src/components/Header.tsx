@@ -5,12 +5,11 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { site } from "@/lib/site";
 import { Logo } from "./Logo";
-import { ClockIcon, MenuIcon, PhoneIcon, SmsIcon, TruckIcon } from "./icons";
+import { MenuIcon, PhoneIcon } from "./icons";
 
 export const nav = [
-  { href: "/", label: "Home" },
-  { href: "/cash-for-cars", label: "Cash For Cars" },
-  { href: "/car-removals", label: "Car Removals" },
+  { href: "/cash-for-cars", label: "Cash for cars" },
+  { href: "/car-removals", label: "Car removals" },
   { href: "/services", label: "Services" },
   { href: "/#areas", label: "Areas" },
   { href: "/contact-us", label: "Contact" },
@@ -21,76 +20,61 @@ export function Header() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-40">
-      <div className="bg-navy-950 text-[13px] text-white/80">
-        <div className="container-site flex items-center justify-between gap-4 py-2">
-          <p className="flex items-center gap-4">
-            <span className="flex items-center gap-1.5"><ClockIcon className="h-4 w-4 text-brand-light" /> Open {site.hours}</span>
-            <span className="hidden items-center gap-1.5 sm:flex"><TruckIcon className="h-4 w-4 text-brand-light" /> Free towing across South East QLD</span>
-          </p>
-          <p className="flex items-center gap-4">
-            {site.smsNumber && (
-              <a href={`sms:${site.smsNumber}`} className="hidden items-center gap-1.5 hover:text-white md:flex">
-                <SmsIcon className="h-4 w-4 text-brand-light" /> Text us
-              </a>
-            )}
-            <a href={site.phoneHref} className="flex items-center gap-1.5 font-semibold text-white">
-              <PhoneIcon className="h-4 w-4 text-brand-light" /> {site.phoneDisplay}
-            </a>
-          </p>
+    <header className="sticky top-0 z-40 bg-white">
+      <div className="bg-navy text-[14px] text-white/85">
+        <div className="container-site flex items-center justify-between gap-4 py-1.5">
+          <p className="hidden truncate sm:block">Gold Coast, Brisbane, Logan, Ipswich, Sunshine Coast and the Tweed</p>
+          <p className="shrink-0">Open {site.hours}</p>
         </div>
       </div>
 
-      <div className="border-b border-line bg-white/95 backdrop-blur">
-        <div className="container-site flex items-center justify-between gap-4 py-3">
+      <div className="border-b border-line">
+        <div className="container-site flex items-center justify-between gap-4 py-3.5">
           <Link href="/" aria-label={`${site.name} home`}>
             <Logo />
           </Link>
           <nav aria-label="Main" className="hidden lg:block">
-            <ul className="flex items-center gap-7 font-heading text-[17px] font-semibold uppercase tracking-wide">
-              {nav.map((n) => {
-                const active = n.href === pathname;
-                return (
-                  <li key={n.href}>
-                    <Link
-                      href={n.href}
-                      className={`border-b-2 pb-1 transition ${active ? "border-brand text-brand" : "border-transparent text-navy hover:text-brand"}`}
-                    >
-                      {n.label}
-                    </Link>
-                  </li>
-                );
-              })}
+            <ul className="flex items-center gap-7 font-heading text-[15px] font-semibold">
+              {nav.map((n) => (
+                <li key={n.href}>
+                  <Link href={n.href} className={n.href === pathname ? "text-brand-dark underline underline-offset-8" : "text-ink hover:text-brand-dark"}>
+                    {n.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </nav>
-          <div className="flex items-center gap-2">
-            <a href={site.phoneHref} className="hidden items-center gap-2 rounded-xl border-2 border-navy px-4 py-2.5 font-heading text-lg font-bold text-navy transition hover:bg-navy hover:text-white xl:flex">
-              <PhoneIcon className="h-5 w-5" /> {site.phoneDisplay}
+          <div className="flex items-center gap-3">
+            <a href={site.phoneHref} className="hidden text-right leading-tight sm:block">
+              <span className="block text-[13px] text-body">Call for a price</span>
+              <span className="block font-heading text-[22px] font-extrabold text-ink">{site.phoneDisplay}</span>
             </a>
-            <Link href="/#ask-for-our-price" className="btn-brand hidden whitespace-nowrap !px-5 !py-2.5 !text-base sm:inline-flex">
-              Get a quote
-            </Link>
             <button
               type="button"
               onClick={() => setOpen((o) => !o)}
               aria-expanded={open}
               aria-label="Menu"
-              className="grid h-11 w-11 place-items-center rounded-xl border border-line text-navy lg:hidden"
+              className="grid h-11 w-11 place-items-center border border-line text-ink lg:hidden"
             >
               <MenuIcon className="h-6 w-6" />
             </button>
           </div>
         </div>
         {open && (
-          <nav aria-label="Mobile" className="border-t border-line bg-white lg:hidden">
-            <ul className="container-site py-2 font-heading text-lg font-semibold uppercase">
-              {nav.map((n) => (
-                <li key={n.href}>
-                  <Link href={n.href} onClick={() => setOpen(false)} className="block border-b border-line/60 py-3 text-navy last:border-0">
+          <nav aria-label="Mobile" className="border-t border-line lg:hidden">
+            <ul className="container-site py-1 font-heading font-semibold">
+              {[{ href: "/", label: "Home" }, ...nav].map((n) => (
+                <li key={n.href} className="border-b border-line last:border-0">
+                  <Link href={n.href} onClick={() => setOpen(false)} className="block py-3 text-ink">
                     {n.label}
                   </Link>
                 </li>
               ))}
+              <li className="py-3">
+                <a href={site.phoneHref} className="flex items-center gap-2 font-heading text-xl font-extrabold text-brand-dark">
+                  <PhoneIcon className="h-5 w-5" /> {site.phoneDisplay}
+                </a>
+              </li>
             </ul>
           </nav>
         )}

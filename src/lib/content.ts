@@ -17,168 +17,168 @@ export type ContentPage = {
 export const services = [
   {
     slug: "scrap-car-removal",
-    tile: "Scrap Car Removal",
-    blurb: "Old wreck sitting in the yard? We tow scrap cars away free and pay you for the metal and parts.",
+    tile: "Scrap car removal",
+    blurb: "Old wreck sitting in the yard? We'll tow it away for free and pay you for the metal and parts.",
   },
   {
     slug: "car-wreckers",
-    tile: "Car Wreckers",
-    blurb: "We wreck and recycle cars responsibly — and pay you top dollar for the parts that still have life.",
+    tile: "Car wreckers",
+    blurb: "We strip and recycle cars properly, and pay you for the parts that still have some life in them.",
   },
   {
     slug: "car-disposal",
-    tile: "Car Disposal",
-    blurb: "The easy way to dispose of an unwanted vehicle: one call, a fair offer and a free pickup.",
+    tile: "Car disposal",
+    blurb: "Moving, upgrading, or just sick of looking at it. One call, a fair price and a free pickup.",
   },
 ] as const;
 
 export const pages: ContentPage[] = [
   {
     slug: "cash-for-cars",
-    title: "Cash For Cars",
-    metaTitle: "Cash For Cars Gold Coast & Brisbane | Top Cash Paid Today",
+    title: "Cash for cars",
+    metaTitle: "Cash For Cars Gold Coast & Brisbane | Sell Your Car Today",
     description:
-      "Get top cash for your car today. We buy cars, utes, vans and 4WDs in any condition across the Gold Coast, Brisbane and South East QLD — free pickup and paid on the spot.",
+      "Sell your car for cash. We buy cars, utes, vans and 4WDs in any condition across the Gold Coast, Brisbane and South East QLD, with free pickup and payment on the day.",
     blocks: [
       {
-        heading: "Sell your car for cash — the easy way",
+        heading: "Selling your car to us",
         paras: [
-          "Selling a car privately means ads, phone calls, no-shows and haggling. We skip all of that. Tell us what you're driving (or what's sitting in the driveway not driving), and we'll make you a fair cash offer the same day.",
-          "Accept the offer and we'll book a pickup time that suits you. Our driver checks the car matches the description, pays you on the spot and tows it away at no cost.",
+          "Selling privately means ads, phone calls, people not turning up and haggling over the price. We skip all of that. Tell us what you've got, running or not, and we'll give you a price the same day.",
+          "If you're happy with it, we book a pickup time that suits you. The driver checks the car matches what you told us, pays you by bank transfer, and tows it away. There's no charge for the tow.",
         ],
       },
       {
-        heading: "What affects your cash offer?",
+        heading: "What decides the price",
         list: [
-          { bold: "Make, model and year", text: "popular models and newer vehicles have more resale and parts value." },
-          { bold: "Condition", text: "running cars are worth more, but we still pay for non-runners, crashed and scrap vehicles." },
-          { bold: "Parts demand", text: "engines, gearboxes, panels and catalytic converters all add value." },
-          { bold: "Metal prices", text: "for end-of-life vehicles, the current scrap-metal price sets the floor of your offer." },
+          { bold: "Make, model and year", text: "popular and newer models are worth more for resale and parts." },
+          { bold: "Condition", text: "a car that runs is worth more, but we still pay for ones that don't." },
+          { bold: "Parts", text: "a good engine, gearbox or panels can add a fair bit." },
+          { bold: "Metal prices", text: "for cars at the end of the road, the scrap metal price sets the floor." },
         ],
       },
       {
-        heading: "No hidden fees — ever",
+        heading: "No hidden fees",
         paras: [
-          "The price we quote is the price we pay. There are no towing fees, admin charges or last-minute deductions, as long as the car matches the details you gave us.",
+          "The price we quote is the price we pay, as long as the car is as described. We don't charge for towing and we don't take anything off at pickup.",
         ],
       },
     ],
   },
   {
     slug: "car-removals",
-    title: "Free Car Removals",
-    metaTitle: "Free Car Removals Gold Coast & Brisbane | Same-Day Pickup",
+    title: "Free car removal",
+    metaTitle: "Free Car Removal Gold Coast & Brisbane | Same-Day Pickup",
     description:
-      "Free car removal across the Gold Coast, Brisbane, Logan, Ipswich and the Sunshine Coast. Same-day pickups, any condition, and we pay you for your car.",
+      "Free car removal across the Gold Coast, Brisbane, Logan, Ipswich and the Sunshine Coast. Same-day pickups, any condition, and we pay you for the car.",
     blocks: [
       {
-        heading: "Free car removal, 7 days a week",
+        heading: "We come to you, 7 days a week",
         paras: [
-          "Our tow trucks cover South East Queensland and the Tweed. Whether the car is in your garage, on the street, at a workshop or broken down on the roadside, we'll come to you — and the towing is always free.",
-          "Most removals happen within 24 hours of your call, and often the same day.",
+          "We pick up across South East Queensland and the Tweed. The car can be in your garage, on the street, at a mechanic's or broken down on the side of the road. Wherever it is, the towing is free.",
+          "Most pickups happen within a day of your call, and often the same day.",
         ],
       },
       {
-        heading: "Vehicles we remove",
+        heading: "What we pick up",
         list: [
           { bold: "Cars and hatchbacks", text: "any make, any age." },
-          { bold: "4WDs and SUVs", text: "including high-kilometre and damaged vehicles." },
-          { bold: "Utes, vans and light trucks", text: "work vehicles and fleet disposals welcome." },
-          { bold: "Unregistered vehicles", text: "no rego? No problem — we can still remove it." },
+          { bold: "4WDs and SUVs", text: "including high-kilometre and damaged ones." },
+          { bold: "Utes, vans and light trucks", text: "work vehicles and whole fleets." },
+          { bold: "Unregistered vehicles", text: "no rego is fine, we can still take it." },
         ],
       },
       {
         heading: "What to have ready",
         paras: [
-          "Photo ID (driver's licence or passport), proof of ownership such as your registration papers, and the keys if you have them. We'll handle the rest and give you a receipt for your records.",
+          "Photo ID (driver's licence or passport), proof of ownership such as the rego papers, and the keys if you've got them. We'll give you a receipt for your records.",
         ],
       },
     ],
   },
   {
     slug: "services",
-    title: "Our Services",
+    title: "Our services",
     metaTitle: "Car Removal & Cash For Cars Services | 1800 Cash For Cars",
     description:
       "Cash for cars, free car removal, scrap car removal, car wrecking and vehicle disposal across South East Queensland.",
     blocks: [
       {
-        heading: "Everything you need to get rid of a car",
+        heading: "Getting rid of a car, sorted",
         paras: [
-          "From a near-new trade-in alternative to a rusted-out wreck, we have a service that fits. Every service includes a free quote, free towing and payment on pickup.",
+          "Whether it's a near-new car you don't want to trade in or a rusted-out wreck, we'll make you an offer. Every job includes a free quote, free towing and payment at pickup.",
         ],
         list: [
-          { bold: "Cash for cars", text: "sell any car, ute, van or 4WD for an instant cash offer." },
-          { bold: "Free car removals", text: "we tow your vehicle away at no cost, 7 days a week." },
-          { bold: "Scrap car removal", text: "end-of-life vehicles collected and recycled responsibly." },
-          { bold: "Car wreckers", text: "we dismantle vehicles and reuse the parts that still work." },
-          { bold: "Accident and damaged cars", text: "crashed, hail, flood and fire-damaged vehicles bought as-is." },
-          { bold: "Fleet and commercial disposal", text: "multiple vehicles removed on a schedule that suits your business." },
+          { bold: "Cash for cars", text: "sell any car, ute, van or 4WD to us for a fair price." },
+          { bold: "Free car removal", text: "we tow it away at no cost, 7 days a week." },
+          { bold: "Scrap car removal", text: "end-of-life cars collected and recycled properly." },
+          { bold: "Car wreckers", text: "we strip cars and reuse the parts that still work." },
+          { bold: "Accident and damaged cars", text: "crashed, hail, flood and fire-damaged cars bought as they are." },
+          { bold: "Fleet and business vehicles", text: "several vehicles picked up on a schedule that suits you." },
         ],
       },
     ],
   },
   {
     slug: "scrap-car-removal",
-    title: "Scrap Car Removal",
+    title: "Scrap car removal",
     metaTitle: "Scrap Car Removal Gold Coast & Brisbane | Cash For Scrap Cars",
     description: "Free scrap car removal across South East QLD. We pay cash for scrap and junk cars in any condition.",
     blocks: [
       {
-        heading: "Turn your scrap car into cash",
+        heading: "Your scrap car is still worth something",
         paras: [
-          "A car that's no longer worth repairing still has value in its metal and parts. We'll give you an offer based on today's prices, tow the car away for free, and make sure it's recycled properly.",
-          "Rust, missing parts, flat tyres, no keys — tell us about it and we'll still make you an offer.",
+          "A car that isn't worth fixing still has value in its metal and parts. We'll give you a price based on what it's worth today, tow it away for free, and make sure it's recycled properly.",
+          "Rust, missing parts, flat tyres, no keys. Tell us about it and we'll still make you an offer.",
         ],
       },
       {
-        heading: "How scrap car removal works",
+        heading: "How it works",
         list: [
-          { bold: "Get a quote", text: "call us or send the quote form with the car's details." },
-          { bold: "Book a pickup", text: "choose a time; we bring the right truck for the job." },
-          { bold: "Get paid", text: "we pay you at pickup and give you a disposal receipt." },
+          { bold: "Get a price", text: "call us or send the form with the car's details." },
+          { bold: "Book a pickup", text: "pick a time and we'll bring the right truck." },
+          { bold: "Get paid", text: "we pay you at pickup and give you a receipt." },
         ],
       },
     ],
   },
   {
     slug: "car-wreckers",
-    title: "Car Wreckers",
+    title: "Car wreckers",
     metaTitle: "Car Wreckers Gold Coast & Brisbane | We Buy Wrecked Cars",
-    description: "Local car wreckers buying wrecked, damaged and unwanted cars across South East QLD. Free removal and cash on pickup.",
+    description: "Local car wreckers buying wrecked, damaged and unwanted cars across South East QLD. Free removal and payment on pickup.",
     blocks: [
       {
-        heading: "Car wreckers who pay you",
+        heading: "Wreckers who pay you",
         paras: [
-          "As wreckers, we can see value other buyers miss. Working engines, gearboxes, panels, lights and interiors are salvaged and reused, which means we can often offer more for a damaged car than a dealer or private buyer.",
+          "Because we wreck cars ourselves, we can see value other buyers miss. A working engine, gearbox, panels, lights or interior all get pulled and reused, so we can often pay more for a damaged car than a dealer or private buyer would.",
         ],
       },
       {
-        heading: "Responsible recycling",
+        heading: "Recycled properly",
         list: [
           { bold: "Fluids", text: "oil, coolant and fuel are drained and disposed of safely." },
-          { bold: "Parts", text: "usable parts are cleaned, tested and resold." },
-          { bold: "Metal", text: "the remaining shell is recycled into new steel." },
+          { bold: "Parts", text: "anything usable is cleaned, tested and resold." },
+          { bold: "Metal", text: "the shell goes to a metal recycler." },
         ],
       },
     ],
   },
   {
     slug: "car-disposal",
-    title: "Car Disposal",
+    title: "Car disposal",
     metaTitle: "Car Disposal Gold Coast & Brisbane | Free Vehicle Disposal",
     description: "Fast, free car disposal across South East QLD. We collect unwanted vehicles and pay you for them.",
     blocks: [
       {
-        heading: "Hassle-free vehicle disposal",
+        heading: "Getting rid of a car you don't want",
         paras: [
-          "Moving house, upgrading, or just tired of looking at it? We make disposing of an unwanted vehicle simple: one call, a fair offer and a free pickup at a time that suits you.",
+          "Moving house, upgrading, or just tired of looking at it? One call, a fair price and a free pickup at a time that suits you.",
         ],
       },
       {
-        heading: "After we collect your car",
+        heading: "After we pick it up",
         paras: [
-          "Once we've collected your car, cancel your registration and insurance. In Queensland you can cancel your rego online and may be entitled to a refund for the unused period.",
+          "Once we've collected the car, cancel the registration and insurance. In Queensland you can cancel your rego online, and you may get a refund for the time left on it.",
         ],
       },
     ],

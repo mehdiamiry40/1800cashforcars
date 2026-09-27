@@ -6,18 +6,12 @@ export const heroImages = [
   { src: "/images/hero-damaged.jpg", alt: "Accident-damaged car" },
 ];
 
-export function heroCopy(place = "South East QLD") {
+export function heroCopy(place?: string) {
+  const where = place ? ` in ${place}` : "";
   return {
-    eyebrow: `Cash for cars · ${place}`,
-    pre: site.maxPayout ? "Get up to" : "Get",
-    highlight: site.maxPayout || "top cash",
-    post: `for your car in ${place}`,
-    sub: "Old, damaged, broken down or just unwanted — get a firm offer fast, choose a pickup time, and get paid on pickup.",
-    bullets: [
-      site.maxPayout ? `Offers up to ${site.maxPayout}` : "Instant cash offer",
-      "No hidden charges",
-      "Free towing & paperwork",
-      "Any make, any condition",
-    ],
+    title: site.maxPayout ? `We pay up to ${site.maxPayout} for cars${where}.` : `We buy cars for cash${where}.`,
+    lead: "Any condition, free towing.",
+    sub: `Running or not, registered or not, anywhere ${place ? `in ${place}` : "across South East Queensland"}. Tell us what you've got and we'll give you a price. If you're happy with it, we pick the car up when it suits you and pay you before it leaves.`,
+    points: ["Free towing", "Paid before we tow", "Same-day pickups", "Any make or model"],
   };
 }

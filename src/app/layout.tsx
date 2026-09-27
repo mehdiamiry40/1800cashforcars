@@ -1,12 +1,12 @@
 import type { Metadata, Viewport } from "next";
-import { Barlow_Condensed, Inter } from "next/font/google";
+import { Archivo, Source_Sans_3 } from "next/font/google";
 import { FloatingContact, Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { areas, site } from "@/lib/site";
 import "./globals.css";
 
-const inter = Inter({ variable: "--font-inter", subsets: ["latin"] });
-const barlow = Barlow_Condensed({ variable: "--font-barlow", subsets: ["latin"], weight: ["500", "600", "700", "800"] });
+const source = Source_Sans_3({ variable: "--font-source", subsets: ["latin"] });
+const archivo = Archivo({ variable: "--font-archivo", subsets: ["latin"], weight: ["600", "700", "800", "900"] });
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0d1b34",
+  themeColor: "#0f1d33",
 };
 
 const jsonLd = {
@@ -45,7 +45,7 @@ const jsonLd = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en-AU" className={`${inter.variable} ${barlow.variable} antialiased`}>
+    <html lang="en-AU" className={`${source.variable} ${archivo.variable} antialiased`}>
       <body className="flex min-h-screen flex-col font-sans">
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }} />
         <Header />
