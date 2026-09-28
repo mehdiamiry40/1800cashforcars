@@ -231,7 +231,7 @@ export function MakesRow() {
             </li>
           ))}
         </ul>
-        <p className="mx-auto mt-8 max-w-2xl text-center text-[13px] text-body/70">
+        <p className="mx-auto mt-8 max-w-2xl text-center text-[13px] text-body">
           Logos are trademarks of their owners and only show which vehicles we buy. We&apos;re not affiliated with any manufacturer.
         </p>
       </div>

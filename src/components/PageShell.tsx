@@ -28,7 +28,7 @@ export function PageShell({
           <div className="pb-10 sm:pb-14">
             <p className="text-[15px]">
               <Link href="/" className="font-bold text-brand underline underline-offset-2">Home</Link>
-              <span className="mx-1.5 text-body/50">/</span> {title}
+              <span aria-hidden className="mx-1.5 text-body/50">/</span> {title}
             </p>
             <h1 className="mt-3 font-heading text-[40px] font-black leading-[1.04] tracking-[-0.03em] text-ink sm:text-[56px]">{title}</h1>
             {intro && <p className="mt-4 max-w-xl text-[18px] sm:text-[19px]">{intro}</p>}
