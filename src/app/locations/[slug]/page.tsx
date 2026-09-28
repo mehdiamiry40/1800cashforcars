@@ -38,7 +38,7 @@ export default async function LocationPage({ params }: PageProps<"/locations/[sl
             <SectionHead title={`Car removal ${area.where}`} />
             <div className="prose-site">
               <p>
-                We buy cars, utes, vans and 4WDs anywhere {area.where}, in any condition. We&apos;ll pick it up from your
+                We buy cars, utes, vans, 4WDs and trucks anywhere {area.where}, in any condition. We&apos;ll pick it up from your
                 driveway, your work, a mechanic&apos;s yard or the side of the road, and the towing is free.
               </p>
               <p>

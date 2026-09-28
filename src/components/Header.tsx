@@ -24,7 +24,7 @@ export function Header() {
       <div className="bg-navy text-[14px] text-white/85">
         <div className="container-site flex items-center justify-between gap-4 py-1.5">
           <p className="hidden truncate sm:block">Gold Coast, Brisbane, Logan, Ipswich, Sunshine Coast and the Tweed</p>
-          <p className="shrink-0">Open {site.hours}</p>
+          <p className="shrink-0">{site.hours}</p>
         </div>
       </div>
 

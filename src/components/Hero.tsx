@@ -35,7 +35,7 @@ export function Hero({ where }: { where?: string }) {
 
         <div id="hero-quote" className="scroll-mt-32 border border-line bg-white p-5 sm:p-8">
           <h2 className="font-heading text-[28px] font-bold tracking-[-0.01em] text-ink">Get a price for your car</h2>
-          <p className="mt-1 text-[15px]">We usually reply within the hour during opening hours.</p>
+          <p className="mt-1 text-[15px]">We usually reply within the hour.</p>
           <div className="mt-5">
             <QuoteForm variant="compact" />
           </div>

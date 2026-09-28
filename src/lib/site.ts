@@ -7,8 +7,9 @@ export const site = {
   phoneDisplay: "0481 438 444",
   phoneHref: "tel:+61481438444",
   email: "quotes@1800cashforcars.com.au",
-  hours: "7 days, 7am – 7pm",
-  hoursSchema: "Mo-Su 07:00-19:00",
+  hours: "Calls answered 24/7",
+  pickups: "Pickups 7 days, at a time that suits you",
+  hoursSchema: "Mo-Su 00:00-23:59",
   abn: "", // e.g. "12 345 678 901"
   address: "", // e.g. "12 Example St, Molendinar QLD 4214" (shown in footer + contact page)
   // Headline figure, e.g. "$15,000" → "GET UP TO $15,000". Leave blank to show "GET TOP CASH".
@@ -86,7 +87,7 @@ export const faqs = [
   },
   {
     q: "Do you buy cars that don't run?",
-    a: "Yes. We buy cars that run and cars that don't, plus crashed, flood-damaged, unregistered, rusty and scrap cars.",
+    a: "Yes. We buy cars that run and cars that don't, plus crashed, flood-damaged, unregistered, rusty and scrap cars. We buy trucks too, from light trucks to heavy rigids.",
   },
   {
     q: "Is the towing really free?",
@@ -94,7 +95,7 @@ export const faqs = [
   },
   {
     q: "How do I get paid?",
-    a: "By bank transfer when we pick the car up, before it leaves.",
+    a: "In cash or by bank transfer, your choice, when we pick the car up and before it leaves. In NSW (including Tweed Heads) the law doesn't allow cash for scrap vehicles, so it's bank transfer there.",
   },
   {
     q: "What paperwork do I need?",

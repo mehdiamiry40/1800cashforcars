@@ -10,6 +10,7 @@ const images: Record<string, string> = {
   "cash-for-cars": "/images/cash.jpg",
   "car-removals": "/images/hero-truck.jpg",
   services: "/images/hero-towing.jpg",
+  "truck-removal": "/images/hero-truck.jpg",
   "scrap-car-removal": "/images/tile-scrap.jpg",
   "car-wreckers": "/images/tile-wreckers.jpg",
   "car-disposal": "/images/tile-disposal.jpg",

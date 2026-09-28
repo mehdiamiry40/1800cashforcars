@@ -23,7 +23,7 @@ export function HowItWorks() {
   const steps = [
     { title: "Tell us about the car", text: `Call ${site.phoneDisplay}, send a text, or fill in the form. Year, make, model and what's wrong with it is enough.` },
     { title: "Get a price", text: "We'll give you a firm price. No obligation, and the price we quote is the price we pay." },
-    { title: "We pick it up and pay you", text: "Choose a time. We check the car, pay you by bank transfer, and tow it away. No towing fee." },
+    { title: "We pick it up and pay you", text: "Choose a time. We check the car, pay you in cash or by bank transfer, and tow it away. No towing fee." },
   ];
   return (
     <section className="py-12 sm:py-20">
@@ -145,17 +145,17 @@ export function CallUsAndTerms({ stacked = false }: { stacked?: boolean }) {
       <div>
         <h2 className="h-sub">Getting paid</h2>
         <p className="mt-2">
-          We pay by bank transfer when we pick the car up, before it leaves your place. The money usually lands straight away,
-          depending on your bank.
+          Cash or bank transfer, your choice, paid when we pick the car up and before it leaves your place. In NSW (including
+          Tweed Heads) the law doesn&apos;t allow cash for scrap vehicles, so we pay by bank transfer there.
         </p>
       </div>
       <div>
         <h2 className="h-sub">What you&apos;ll need</h2>
         <ol className="mt-2 list-decimal space-y-1.5 pl-5 marker:font-semibold marker:text-brand">
-          <li>You need to own the car, and it can&apos;t have finance owing on it.</li>
+          <li>You need to own the vehicle, and it can&apos;t have finance owing on it.</li>
           <li>Proof of ownership, like the rego papers.</li>
           <li>Photo ID (driver&apos;s licence or passport).</li>
-          <li>Your BSB and account number so we can pay you.</li>
+          <li>For a bank transfer, your BSB and account number.</li>
         </ol>
       </div>
     </div>
@@ -174,7 +174,7 @@ export function AskForPrice() {
           <a href={site.phoneHref} className="mt-7 flex items-center gap-3 font-display text-[34px] font-extrabold tracking-[0.01em] text-white min-[400px]:text-[40px] sm:text-[48px]">
             <PhoneIcon className="h-7 w-7 shrink-0 text-brand-light sm:h-8 sm:w-8" /> {site.phoneDisplay}
           </a>
-          <p className="mt-1 text-white/70">Open {site.hours}</p>
+          <p className="mt-1 text-white/70">{site.hours}. {site.pickups}.</p>
           {site.smsNumber && (
             <a href={`sms:${site.smsNumber}`} className="mt-3 inline-flex items-center gap-2 py-2.5 font-semibold text-white underline underline-offset-4">
               <SmsIcon className="h-5 w-5" /> Text photos to {site.phoneDisplay}

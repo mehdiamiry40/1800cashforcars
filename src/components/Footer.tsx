@@ -13,7 +13,8 @@ export function Footer() {
           <p className="mt-5">
             <a href={site.phoneHref} className="font-display text-[30px] font-extrabold tracking-[0.01em] text-white">{site.phoneDisplay}</a>
           </p>
-          <p>Open {site.hours}</p>
+          <p>{site.hours}</p>
+          <p>{site.pickups}</p>
           <p className="mt-3"><a href={`mailto:${site.email}`} className="underline underline-offset-2 hover:text-white">{site.email}</a></p>
           {site.address && <p className="mt-1">{site.address}</p>}
           {site.abn && <p className="mt-1">ABN {site.abn}</p>}
@@ -21,6 +22,7 @@ export function Footer() {
         <FooterCol title="Services">
           <FooterLink href="/cash-for-cars">Cash for cars</FooterLink>
           <FooterLink href="/car-removals">Free car removal</FooterLink>
+          <FooterLink href="/truck-removal">Cash for trucks</FooterLink>
           {services.map((s) => <FooterLink key={s.slug} href={`/${s.slug}`}>{s.tile}</FooterLink>)}
         </FooterCol>
         <FooterCol title="Areas">

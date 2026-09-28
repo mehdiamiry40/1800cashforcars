@@ -38,13 +38,13 @@ export const pages: ContentPage[] = [
     title: "Cash for cars",
     metaTitle: "Cash For Cars Gold Coast & Brisbane | Sell Your Car Today",
     description:
-      "Sell your car for cash. We buy cars, utes, vans and 4WDs in any condition across the Gold Coast, Brisbane and South East QLD, with free pickup and payment on the day.",
+      "Sell your car for cash. We buy cars, utes, vans, 4WDs and trucks in any condition across the Gold Coast, Brisbane and South East QLD, with free pickup and payment on the day.",
     blocks: [
       {
         heading: "Selling your car to us",
         paras: [
           "Selling privately means ads, phone calls, people not turning up and haggling over the price. We skip all of that. Tell us what you've got, running or not, and we'll give you a price the same day.",
-          "If you're happy with it, we book a pickup time that suits you. The driver checks the car matches what you told us, pays you by bank transfer, and tows it away. There's no charge for the tow.",
+          "If you're happy with it, we book a pickup time that suits you. The driver checks the car matches what you told us, pays you in cash or by bank transfer, and tows it away. There's no charge for the tow.",
         ],
       },
       {
@@ -83,7 +83,8 @@ export const pages: ContentPage[] = [
         list: [
           { bold: "Cars and hatchbacks", text: "any make, any age." },
           { bold: "4WDs and SUVs", text: "including high-kilometre and damaged ones." },
-          { bold: "Utes, vans and light trucks", text: "work vehicles and whole fleets." },
+          { bold: "Utes and vans", text: "work vehicles and whole fleets." },
+          { bold: "Trucks", text: "light, medium and heavy. See cash for trucks." },
           { bold: "Unregistered vehicles", text: "no rego is fine, we can still take it." },
         ],
       },
@@ -113,7 +114,40 @@ export const pages: ContentPage[] = [
           { bold: "Scrap car removal", text: "end-of-life cars collected and recycled properly." },
           { bold: "Car wreckers", text: "we strip cars and reuse the parts that still work." },
           { bold: "Accident and damaged cars", text: "crashed, hail, flood and fire-damaged cars bought as they are." },
+          { bold: "Cash for trucks", text: "light, medium and heavy trucks, running or not." },
           { bold: "Fleet and business vehicles", text: "several vehicles picked up on a schedule that suits you." },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "truck-removal",
+    title: "Cash for trucks",
+    metaTitle: "Cash For Trucks Gold Coast & Brisbane | Truck Removal & Wreckers",
+    description:
+      "We buy light, medium and heavy trucks in any condition across South East QLD. Tippers, tray tops, pantechs and rigids, running or not. Paid on pickup.",
+    blocks: [
+      {
+        heading: "We buy trucks of all sizes",
+        paras: [
+          "Light, medium or heavy, running or not. Whether it's a retired work truck, one that's failed its inspection, or a wreck that's been sitting in the yard, we'll give you a price for it.",
+          "Tell us the make, model, year, kilometres or hours, and what's wrong with it. Photos help a lot with trucks, so text a few through if you can.",
+        ],
+      },
+      {
+        heading: "Trucks we buy",
+        list: [
+          { bold: "Light trucks", text: "Isuzu NPR, Hino 300, Fuso Canter, Iveco Daily and similar." },
+          { bold: "Medium and heavy rigids", text: "tippers, tray tops, pantechs, curtainsiders and refrigerated trucks." },
+          { bold: "Damaged or non-running", text: "blown engines, crash damage, flood damage and trucks off the road for years." },
+          { bold: "Fleets", text: "several trucks from one business, picked up on a schedule that suits you." },
+        ],
+      },
+      {
+        heading: "Pickup and payment",
+        paras: [
+          "We arrange the right tow truck or tilt tray for the job. Pickup is free for most trucks; for large heavy vehicles we'll confirm any pickup details when we give you the price, so there are no surprises.",
+          "You're paid in cash or by bank transfer when we collect the truck. In NSW it's bank transfer only.",
         ],
       },
     ],

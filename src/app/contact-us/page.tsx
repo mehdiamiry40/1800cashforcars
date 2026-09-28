@@ -12,7 +12,7 @@ export default function ContactPage() {
   const rows = [
     { label: "Phone", value: <a href={site.phoneHref} className="font-semibold text-brand hover:underline">{site.phoneDisplay}</a> },
     { label: "Email", value: <a href={`mailto:${site.email}`} className="font-semibold text-brand hover:underline">{site.email}</a> },
-    { label: "Hours", value: site.hours },
+    { label: "Hours", value: `${site.hours}. ${site.pickups}.` },
     ...(site.address ? [{ label: "Address", value: site.address }] : []),
     ...(site.abn ? [{ label: "ABN", value: site.abn }] : []),
   ];
@@ -21,7 +21,7 @@ export default function ContactPage() {
       <h2 className="h-section">Get in touch</h2>
       <p className="mt-3">
         Calling is quickest. You can also text us photos of the car, email us, or use the form below and we&apos;ll get back to
-        you, usually within the hour during opening hours.
+        you, usually within the hour.
       </p>
       <dl className="mt-6 divide-y divide-line border-y border-line">
         {rows.map((r) => (

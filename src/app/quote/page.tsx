@@ -14,7 +14,7 @@ export default function QuotePage() {
       <h2 className="h-section">How to get a price</h2>
       <p className="mt-3">
         Fill in the form below with the year, make, model, kilometres and condition of the car. We&apos;ll call or text you
-        with a price, usually within the hour during opening hours.
+        with a price, usually within the hour.
       </p>
       <ul className="mt-4 list-disc space-y-1 pl-5">
         <li>No obligation. If the price isn&apos;t right, say no.</li>

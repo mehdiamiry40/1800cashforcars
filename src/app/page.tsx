@@ -40,7 +40,7 @@ export default function Home() {
             <SectionHead title="Cars we buy" />
             <div className="prose-site">
               <p>
-                Pretty much anything. Cars, utes, vans, 4WDs and light trucks, from nearly new to completely stuffed. We buy{" "}
+                Pretty much anything. Cars, utes, vans, 4WDs and <Link href="/truck-removal">trucks</Link>, from nearly new to completely stuffed. We buy{" "}
                 <Link href="/cash-for-cars">cars for cash</Link> across the Gold Coast, Brisbane, Logan, Ipswich, the Sunshine
                 Coast and the Tweed.
               </p>

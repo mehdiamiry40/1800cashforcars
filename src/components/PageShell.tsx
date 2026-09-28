@@ -33,7 +33,7 @@ export function PageShell({ title, intro, image = "/images/hero-truck.jpg", chil
               <a href={site.phoneHref} className="mt-2 flex items-center gap-2 font-display text-[32px] font-extrabold text-ink">
                 <PhoneIcon className="h-6 w-6 text-brand" /> {site.phoneDisplay}
               </a>
-              <p className="text-[15px]">Open {site.hours}</p>
+              <p className="text-[15px]">{site.hours}</p>
               {site.smsNumber && (
                 <a href={`sms:${site.smsNumber}`} className="mt-2 flex items-center gap-2 py-2.5 font-semibold text-ink underline underline-offset-2">
                   <SmsIcon className="h-5 w-5" /> Text us photos of the car
@@ -47,6 +47,7 @@ export function PageShell({ title, intro, image = "/images/hero-truck.jpg", chil
                 {[
                   { href: "/cash-for-cars", label: "Cash for cars" },
                   { href: "/car-removals", label: "Free car removal" },
+                  { href: "/truck-removal", label: "Cash for trucks" },
                   ...services.map((s) => ({ href: `/${s.slug}`, label: s.tile })),
                 ].map((l) => (
                   <li key={l.href} className="border-b border-line">
