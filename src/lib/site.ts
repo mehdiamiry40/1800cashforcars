@@ -12,8 +12,10 @@ export const site = {
   hours: "Calls answered 24/7",
   pickups: "Pickups 7 days, at a time that suits you",
   hoursSchema: "Mo-Su 00:00-23:59",
-  abn: "", // e.g. "12 345 678 901"
-  address: "", // e.g. "12 Example St, Molendinar QLD 4214" (shown in footer + contact page)
+  abn: "62 351 619 456",
+  address: "79 Breadwell St, Rocklea QLD 4106", // shown in footer + contact page
+  addressParts: { street: "79 Breadwell St", locality: "Rocklea", region: "QLD", postcode: "4106", country: "AU" },
+  mapsUrl: "https://www.google.com/maps/search/?api=1&query=79+Breadwell+St+Rocklea+QLD+4106",
   // Headline figure, e.g. "$15,000" → "GET UP TO $15,000". Leave blank to show "GET TOP CASH".
   // Only use a figure you genuinely pay; it's an advertised claim under Australian Consumer Law.
   maxPayout: "",

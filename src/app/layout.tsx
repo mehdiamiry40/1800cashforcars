@@ -43,7 +43,19 @@ const jsonLd = {
   image: `${site.url}/opengraph-image`,
   paymentAccepted: "Cash, Bank transfer",
   currenciesAccepted: "AUD",
-  ...(site.address ? { address: site.address } : {}),
+  ...(site.address
+    ? {
+        address: {
+          "@type": "PostalAddress",
+          streetAddress: site.addressParts.street,
+          addressLocality: site.addressParts.locality,
+          addressRegion: site.addressParts.region,
+          postalCode: site.addressParts.postcode,
+          addressCountry: site.addressParts.country,
+        },
+        hasMap: site.mapsUrl,
+      }
+    : {}),
   ...(site.abn ? { taxID: site.abn } : {}),
   telephone: site.phoneHref.replace("tel:", ""),
   ...(site.showEmail ? { email: site.email } : {}),

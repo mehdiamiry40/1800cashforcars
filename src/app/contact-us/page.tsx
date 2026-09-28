@@ -13,7 +13,22 @@ export default function ContactPage() {
     { label: "Phone", value: <a href={site.phoneHref} className="font-semibold text-brand hover:underline">{site.phoneDisplay}</a> },
     ...(site.showEmail ? [{ label: "Email", value: <a href={`mailto:${site.email}`} className="font-semibold text-brand hover:underline">{site.email}</a> }] : []),
     { label: "Hours", value: `${site.hours}. ${site.pickups}.` },
-    ...(site.address ? [{ label: "Address", value: site.address }] : []),
+    ...(site.address
+      ? [
+          {
+            label: "Address",
+            value: (
+              <>
+                {site.address}
+                <br />
+                <a href={site.mapsUrl} target="_blank" rel="noopener noreferrer" className="font-semibold text-brand underline underline-offset-2">
+                  Get directions
+                </a>
+              </>
+            ),
+          },
+        ]
+      : []),
     ...(site.abn ? [{ label: "ABN", value: site.abn }] : []),
   ];
   return (

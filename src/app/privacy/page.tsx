@@ -11,7 +11,7 @@ export default function PrivacyPage() {
     <article className="mx-auto max-w-3xl px-4 py-16 leading-relaxed text-ink [&_h2]:mt-8 [&_h2]:font-heading [&_h2]:text-xl [&_h2]:font-bold [&_h2]:uppercase [&_h2]:text-2xl [&_p]:mt-3 [&_p]:text-body">
       <h1 className="font-heading text-5xl font-extrabold uppercase text-navy">Privacy Policy</h1>
       <p>
-        {site.name} (&quot;we&quot;, &quot;us&quot;) respects your privacy and handles personal information in line with the
+        {site.name}{site.abn ? ` (ABN ${site.abn})` : ""} (&quot;we&quot;, &quot;us&quot;) respects your privacy and handles personal information in line with the
         Australian Privacy Principles under the Privacy Act 1988 (Cth).
       </p>
       <h2>What we collect</h2>

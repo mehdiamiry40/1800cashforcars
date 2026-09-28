@@ -18,7 +18,11 @@ export function Footer() {
           {site.showEmail && (
             <p className="mt-3"><a href={`mailto:${site.email}`} className="underline underline-offset-2 hover:text-white">{site.email}</a></p>
           )}
-          {site.address && <p className="mt-1">{site.address}</p>}
+          {site.address && (
+            <p className="mt-3">
+              <a href={site.mapsUrl} target="_blank" rel="noopener noreferrer" className="hover:text-white hover:underline">{site.address}</a>
+            </p>
+          )}
           {site.abn && <p className="mt-1">ABN {site.abn}</p>}
         </div>
         <FooterCol title="Services">
