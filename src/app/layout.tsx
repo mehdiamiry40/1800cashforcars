@@ -5,7 +5,8 @@ import { Header } from "@/components/Header";
 import { areas, site } from "@/lib/site";
 import "./globals.css";
 
-const plex = IBM_Plex_Sans({ variable: "--font-plex", subsets: ["latin"], weight: ["400", "600"] });
+// Body text: "optional" keeps the fallback if Plex is not ready almost immediately, so it never delays first paint.
+const plex = IBM_Plex_Sans({ variable: "--font-plex", subsets: ["latin"], weight: ["400", "600"], display: "optional" });
 const barlow = Barlow({ variable: "--font-barlow", subsets: ["latin"], weight: ["600", "700", "800"] });
 const barlowSemi = Barlow_Semi_Condensed({ variable: "--font-barlow-semi", subsets: ["latin"], weight: ["800"] });
 
