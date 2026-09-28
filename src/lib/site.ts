@@ -29,6 +29,7 @@ export const reviews: { name: string; text: string; suburb?: string }[] = [];
 export type Area = {
   slug: string;
   name: string;
+  where: string; // e.g. "on the Gold Coast", "in Brisbane"
   state: string;
   suburbs: string[];
 };
@@ -37,36 +38,42 @@ export const areas: Area[] = [
   {
     slug: "gold-coast",
     name: "Gold Coast",
+    where: "on the Gold Coast",
     state: "QLD",
     suburbs: ["Southport", "Surfers Paradise", "Robina", "Nerang", "Coomera", "Burleigh Heads", "Helensvale", "Coolangatta", "Mudgeeraba", "Ormeau"],
   },
   {
     slug: "brisbane",
     name: "Brisbane",
+    where: "in Brisbane",
     state: "QLD",
     suburbs: ["Brisbane City", "Chermside", "Carindale", "Indooroopilly", "Sunnybank", "Wynnum", "Aspley", "Mt Gravatt", "Kenmore", "Nundah"],
   },
   {
     slug: "logan",
     name: "Logan",
+    where: "in Logan",
     state: "QLD",
     suburbs: ["Springwood", "Beenleigh", "Browns Plains", "Shailer Park", "Logan Central", "Slacks Creek", "Jimboomba", "Loganholme"],
   },
   {
     slug: "ipswich",
     name: "Ipswich",
+    where: "in Ipswich",
     state: "QLD",
     suburbs: ["Ipswich Central", "Springfield", "Goodna", "Redbank Plains", "Booval", "Rosewood", "Yamanto", "Ripley"],
   },
   {
     slug: "sunshine-coast",
     name: "Sunshine Coast",
+    where: "on the Sunshine Coast",
     state: "QLD",
     suburbs: ["Maroochydore", "Caloundra", "Noosa", "Nambour", "Mooloolaba", "Buderim", "Kawana", "Coolum Beach"],
   },
   {
     slug: "tweed-heads",
     name: "Tweed Heads",
+    where: "in Tweed Heads",
     state: "NSW",
     suburbs: ["Tweed Heads", "Kingscliff", "Banora Point", "Murwillumbah", "Pottsville", "Terranora"],
   },

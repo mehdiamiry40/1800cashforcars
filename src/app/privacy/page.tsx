@@ -32,7 +32,7 @@ export default function PrivacyPage() {
       <h2>Access and correction</h2>
       <p>
         You can ask to see or correct the information we hold about you, or make a privacy complaint, by emailing{" "}
-        <a className="font-semibold text-brand-dark" href={`mailto:${site.email}`}>{site.email}</a>.
+        <a className="font-semibold text-brand" href={`mailto:${site.email}`}>{site.email}</a>.
       </p>
     </article>
   );

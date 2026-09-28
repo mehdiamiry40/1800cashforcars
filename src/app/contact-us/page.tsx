@@ -10,8 +10,8 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
   const rows = [
-    { label: "Phone", value: <a href={site.phoneHref} className="font-bold text-brand-dark hover:underline">{site.phoneDisplay}</a> },
-    { label: "Email", value: <a href={`mailto:${site.email}`} className="font-bold text-brand-dark hover:underline">{site.email}</a> },
+    { label: "Phone", value: <a href={site.phoneHref} className="font-semibold text-brand hover:underline">{site.phoneDisplay}</a> },
+    { label: "Email", value: <a href={`mailto:${site.email}`} className="font-semibold text-brand hover:underline">{site.email}</a> },
     { label: "Hours", value: site.hours },
     ...(site.address ? [{ label: "Address", value: site.address }] : []),
     ...(site.abn ? [{ label: "ABN", value: site.abn }] : []),
@@ -25,9 +25,9 @@ export default function ContactPage() {
       </p>
       <dl className="mt-6 divide-y divide-line border-y border-line">
         {rows.map((r) => (
-          <div key={r.label} className="grid grid-cols-[110px_1fr] gap-4 py-3">
+          <div key={r.label} className="grid grid-cols-[80px_minmax(0,1fr)] gap-3 py-3 sm:grid-cols-[110px_minmax(0,1fr)] sm:gap-4">
             <dt className="font-heading font-bold text-ink">{r.label}</dt>
-            <dd>{r.value}</dd>
+            <dd className="break-words [overflow-wrap:anywhere]">{r.value}</dd>
           </div>
         ))}
       </dl>

@@ -20,7 +20,7 @@ export function Header() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-40 bg-white">
+    <header className="relative z-40 bg-white md:sticky md:top-0">
       <div className="bg-navy text-[14px] text-white/85">
         <div className="container-site flex items-center justify-between gap-4 py-1.5">
           <p className="hidden truncate sm:block">Gold Coast, Brisbane, Logan, Ipswich, Sunshine Coast and the Tweed</p>
@@ -29,15 +29,15 @@ export function Header() {
       </div>
 
       <div className="border-b border-line">
-        <div className="container-site flex items-center justify-between gap-4 py-3.5">
-          <Link href="/" aria-label={`${site.name} home`}>
+        <div className="container-site flex items-center justify-between gap-3 py-3 sm:py-3.5">
+          <Link href="/">
             <Logo />
           </Link>
           <nav aria-label="Main" className="hidden lg:block">
             <ul className="flex items-center gap-7 font-heading text-[15px] font-semibold">
               {nav.map((n) => (
                 <li key={n.href}>
-                  <Link href={n.href} className={n.href === pathname ? "text-brand-dark underline underline-offset-8" : "text-ink hover:text-brand-dark"}>
+                  <Link href={n.href} className={n.href === pathname ? "text-brand underline underline-offset-8" : "text-ink hover:text-brand"}>
                     {n.label}
                   </Link>
                 </li>
@@ -71,7 +71,7 @@ export function Header() {
                 </li>
               ))}
               <li className="py-3">
-                <a href={site.phoneHref} className="flex items-center gap-2 font-display text-2xl font-extrabold text-brand-dark">
+                <a href={site.phoneHref} className="flex items-center gap-2 font-display text-2xl font-extrabold text-brand">
                   <PhoneIcon className="h-5 w-5" /> {site.phoneDisplay}
                 </a>
               </li>

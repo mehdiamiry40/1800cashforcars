@@ -14,7 +14,7 @@ export function SectionHead({ title, intro, light = false }: { title: string; in
   return (
     <div className="max-w-2xl">
       <h2 className={`h-section ${light ? "!text-white" : ""}`}>{title}</h2>
-      {intro && <p className={`mt-3 text-[19px] ${light ? "text-white/80" : ""}`}>{intro}</p>}
+      {intro && <p className={`mt-3 text-[17px] sm:text-[19px] ${light ? "text-white/80" : ""}`}>{intro}</p>}
     </div>
   );
 }
@@ -26,7 +26,7 @@ export function HowItWorks() {
     { title: "We pick it up and pay you", text: "Choose a time. We check the car, pay you by bank transfer, and tow it away. No towing fee." },
   ];
   return (
-    <section className="py-16 sm:py-20">
+    <section className="py-12 sm:py-20">
       <div className="container-site">
         <SectionHead title="How it works" />
         <ol className="mt-10 grid gap-10 md:grid-cols-3 md:gap-8">
@@ -51,7 +51,7 @@ const tileImages: Record<string, { image: string; alt: string }> = {
 
 export function ServiceTiles() {
   return (
-    <section className="py-16 sm:py-20">
+    <section className="py-12 sm:py-20">
       <div className="container-site">
         <SectionHead title="Scrap, wrecked or just unwanted" intro="If it's taking up space, we'll make you an offer on it." />
         <div className="mt-10 grid gap-8 md:grid-cols-3">
@@ -60,11 +60,11 @@ export function ServiceTiles() {
             return (
               <Link key={s.slug} href={`/${s.slug}`} className="group block">
                 <div className="relative aspect-[4/3] overflow-hidden">
-                  <Image src={img.image} alt={img.alt} fill sizes="(min-width: 768px) 380px, 100vw" className="object-cover transition duration-300 group-hover:scale-[1.03]" />
+                  <Image src={img.image} alt={img.alt} fill quality={55} sizes="(min-width: 768px) 380px, 100vw" className="object-cover transition duration-300 group-hover:scale-[1.03]" />
                 </div>
-                <h3 className="h-sub mt-4 group-hover:text-brand-dark">{s.tile}</h3>
+                <h3 className="h-sub mt-4 group-hover:text-brand">{s.tile}</h3>
                 <p className="mt-1.5">{s.blurb}</p>
-                <span className="mt-2 inline-flex items-center gap-1.5 font-semibold text-brand-dark underline underline-offset-2">
+                <span className="mt-2 inline-flex items-center gap-1.5 font-semibold text-brand underline underline-offset-2">
                   Read more <ArrowIcon className="h-4 w-4" />
                 </span>
               </Link>
@@ -102,13 +102,13 @@ export function ContentBlocks({ blocks }: { blocks: Block[] }) {
 
 export function AreasGrid() {
   return (
-    <section id="areas" className="scroll-mt-32 py-16 sm:py-20">
+    <section id="areas" className="scroll-mt-32 py-12 sm:py-20">
       <div className="container-site">
         <SectionHead title="Where we pick up" intro="Free towing anywhere in these areas. If you're just outside them, call us anyway." />
         <ul className="mt-8 grid border-t border-line sm:grid-cols-2">
           {areas.map((a) => (
             <li key={a.slug} className="border-b border-line py-4 sm:odd:pr-8 sm:even:pl-8">
-              <Link href={`/locations/${a.slug}`} className="font-heading text-[20px] font-bold text-ink underline decoration-line underline-offset-4 hover:text-brand-dark hover:decoration-brand">
+              <Link href={`/locations/${a.slug}`} className="font-heading text-[20px] font-bold text-ink underline decoration-line underline-offset-4 hover:text-brand hover:decoration-brand">
                 {a.name}, {a.state}
               </Link>
               <p className="mt-1 text-[15px]">{a.suburbs.join(", ")}</p>
@@ -127,9 +127,9 @@ export function Faq({ bare = false }: { bare?: boolean }) {
       <div className={`border-t border-line ${bare ? "" : "mt-6"}`}>
         {faqs.map((f) => (
           <details key={f.q} className="group border-b border-line">
-            <summary className="flex cursor-pointer list-none items-center justify-between gap-4 py-4 font-heading text-[19px] font-semibold text-ink hover:text-brand-dark">
+            <summary className="flex cursor-pointer list-none items-center justify-between gap-4 py-4 font-heading text-[19px] font-semibold text-ink hover:text-brand">
               {f.q}
-              <span className="text-2xl font-normal text-brand-dark transition group-open:rotate-45">+</span>
+              <span className="text-2xl font-normal text-brand transition group-open:rotate-45">+</span>
             </summary>
             <p className="pb-5 pr-8">{f.a}</p>
           </details>
@@ -151,7 +151,7 @@ export function CallUsAndTerms({ stacked = false }: { stacked?: boolean }) {
       </div>
       <div>
         <h2 className="h-sub">What you&apos;ll need</h2>
-        <ol className="mt-2 list-decimal space-y-1.5 pl-5 marker:font-bold marker:text-brand-dark">
+        <ol className="mt-2 list-decimal space-y-1.5 pl-5 marker:font-semibold marker:text-brand">
           <li>You need to own the car, and it can&apos;t have finance owing on it.</li>
           <li>Proof of ownership, like the rego papers.</li>
           <li>Photo ID (driver&apos;s licence or passport).</li>
@@ -168,20 +168,20 @@ export function AskForPrice() {
       <div className="container-site grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
         <div>
           <h2 className="h-section !text-white">Want a price for your car?</h2>
-          <p className="mt-4 text-[19px] text-white/80">
+          <p className="mt-4 text-[17px] text-white/80 sm:text-[19px]">
             The quickest way is to call. You can also text us a couple of photos, or fill in the form and we&apos;ll get back to you.
           </p>
-          <a href={site.phoneHref} className="mt-8 flex items-center gap-3 font-display text-[40px] font-extrabold tracking-[0.01em] text-white sm:text-[48px]">
-            <PhoneIcon className="h-8 w-8 text-brand-light" /> {site.phoneDisplay}
+          <a href={site.phoneHref} className="mt-7 flex items-center gap-3 font-display text-[34px] font-extrabold tracking-[0.01em] text-white min-[400px]:text-[40px] sm:text-[48px]">
+            <PhoneIcon className="h-7 w-7 shrink-0 text-brand-light sm:h-8 sm:w-8" /> {site.phoneDisplay}
           </a>
           <p className="mt-1 text-white/70">Open {site.hours}</p>
           {site.smsNumber && (
-            <a href={`sms:${site.smsNumber}`} className="mt-5 inline-flex items-center gap-2 font-semibold text-white underline underline-offset-4">
+            <a href={`sms:${site.smsNumber}`} className="mt-3 inline-flex items-center gap-2 py-2.5 font-semibold text-white underline underline-offset-4">
               <SmsIcon className="h-5 w-5" /> Text photos to {site.phoneDisplay}
             </a>
           )}
         </div>
-        <div className="bg-white p-6 text-body sm:p-8">
+        <div className="bg-white p-5 text-body sm:p-8">
           <QuoteForm />
         </div>
       </div>
@@ -192,7 +192,7 @@ export function AskForPrice() {
 export function ReviewsBand() {
   if (reviews.length === 0) return null;
   return (
-    <section className="bg-paper py-16 sm:py-20">
+    <section className="bg-paper py-12 sm:py-20">
       <div className="container-site">
         <SectionHead title="What customers say" />
         <div className="mt-8 grid gap-8 md:grid-cols-3">

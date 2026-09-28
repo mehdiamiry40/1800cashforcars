@@ -5,9 +5,9 @@ import { Header } from "@/components/Header";
 import { areas, site } from "@/lib/site";
 import "./globals.css";
 
-const plex = IBM_Plex_Sans({ variable: "--font-plex", subsets: ["latin"], weight: ["400", "500", "600", "700"] });
-const barlow = Barlow({ variable: "--font-barlow", subsets: ["latin"], weight: ["500", "600", "700", "800"] });
-const barlowSemi = Barlow_Semi_Condensed({ variable: "--font-barlow-semi", subsets: ["latin"], weight: ["700", "800"] });
+const plex = IBM_Plex_Sans({ variable: "--font-plex", subsets: ["latin"], weight: ["400", "600"] });
+const barlow = Barlow({ variable: "--font-barlow", subsets: ["latin"], weight: ["600", "700", "800"] });
+const barlowSemi = Barlow_Semi_Condensed({ variable: "--font-barlow-semi", subsets: ["latin"], weight: ["800"] });
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -29,6 +29,7 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: "#0f1d33",
+  viewportFit: "cover",
 };
 
 const jsonLd = {

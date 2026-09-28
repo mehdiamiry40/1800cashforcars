@@ -4,8 +4,8 @@
   --color-navy: #0f1d33;
   --color-navy-800: #182a47;
   --color-navy-950: #0a1424;
-  --color-brand: #e8590c;
-  --color-brand-dark: #c2410c;
+  --color-brand: #c2410c;
+  --color-brand-dark: #a3360a;
   --color-brand-light: #ff9150;
   --color-money: #15803d;
   --color-paper: #f4f2ee;
@@ -41,13 +41,18 @@ li {
   text-wrap: pretty;
 }
 
+b,
+strong {
+  font-weight: 600;
+}
+
 ::selection {
   background: #ffd9c2;
   color: #111827;
 }
 
 :focus-visible {
-  outline: 3px solid #e8590c;
+  outline: 3px solid #c2410c;
   outline-offset: 2px;
 }
 

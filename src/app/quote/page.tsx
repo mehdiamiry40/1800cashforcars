@@ -23,7 +23,7 @@ export default function QuotePage() {
         <li>Paid on pickup</li>
       </ul>
       <p className="mt-4">
-        Rather talk to someone? Call <a href={site.phoneHref} className="font-bold text-brand-dark hover:underline">{site.phoneDisplay}</a>.
+        Rather talk to someone? Call <a href={site.phoneHref} className="font-semibold text-brand hover:underline">{site.phoneDisplay}</a>.
       </p>
     </PageShell>
   );

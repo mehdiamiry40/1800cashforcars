@@ -31,10 +31,10 @@ export default function Home() {
       <Hero />
       <HowItWorks />
 
-      <section className="bg-paper py-16 sm:py-20">
+      <section className="bg-paper py-12 sm:py-20">
         <div className="container-site grid items-center gap-10 lg:grid-cols-2">
           <div className="relative aspect-[4/3]">
-            <Image src="/images/cash.jpg" alt="Australian banknotes" fill sizes="(min-width: 1024px) 560px, 100vw" className="object-cover" />
+            <Image src="/images/cash.jpg" alt="Australian banknotes" fill quality={55} sizes="(min-width: 1024px) 560px, 100vw" className="object-cover" />
           </div>
           <div>
             <SectionHead title="Cars we buy" />
@@ -53,7 +53,7 @@ export default function Home() {
               ))}
             </ul>
             <p className="mt-6">
-              Unlike a wrecking yard that charges you to take it, <Link href="/car-removals" className="font-semibold text-brand-dark underline underline-offset-2">our car removal</Link> is free. We pay you for the car.
+              Unlike a wrecking yard that charges you to take it, <Link href="/car-removals" className="font-semibold text-brand underline underline-offset-2">our car removal</Link> is free. We pay you for the car.
             </p>
           </div>
         </div>
@@ -61,7 +61,7 @@ export default function Home() {
 
       <ServiceTiles />
 
-      <section className="bg-paper py-16 sm:py-20">
+      <section className="bg-paper py-12 sm:py-20">
         <div className="container-site grid gap-12 lg:grid-cols-[1.1fr_0.9fr]">
           <div>
             <SectionHead title="What decides your price" intro="Every car is different, so we price each one on its own. These are the main things we look at." />
@@ -83,12 +83,12 @@ export default function Home() {
       <AreasGrid />
       <ReviewsBand />
 
-      <section id="faq" className="scroll-mt-32 bg-paper py-16 sm:py-20">
+      <section id="faq" className="scroll-mt-32 bg-paper py-12 sm:py-20">
         <div className="container-site grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:gap-16">
           <div>
             <h2 className="h-section">Common questions</h2>
             <p className="mt-4 text-[19px]">
-              Can&apos;t see yours? Call <a href={site.phoneHref} className="font-semibold text-brand-dark underline underline-offset-2">{site.phoneDisplay}</a> and
+              Can&apos;t see yours? Call <a href={site.phoneHref} className="font-semibold text-brand underline underline-offset-2">{site.phoneDisplay}</a> and
               ask.
             </p>
           </div>

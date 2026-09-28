@@ -29,16 +29,16 @@ export default async function LocationPage({ params }: PageProps<"/locations/[sl
 
   return (
     <>
-      <Hero place={area.name} />
+      <Hero where={area.where} />
       <HowItWorks />
 
-      <section className="bg-paper py-16 sm:py-20">
+      <section className="bg-paper py-12 sm:py-20">
         <div className="container-site grid gap-12 lg:grid-cols-[1.1fr_0.9fr]">
           <div>
-            <SectionHead title={`Car removal in ${area.name}`} />
+            <SectionHead title={`Car removal ${area.where}`} />
             <div className="prose-site">
               <p>
-                We buy cars, utes, vans and 4WDs anywhere in {area.name}, in any condition. We&apos;ll pick it up from your
+                We buy cars, utes, vans and 4WDs anywhere {area.where}, in any condition. We&apos;ll pick it up from your
                 driveway, your work, a mechanic&apos;s yard or the side of the road, and the towing is free.
               </p>
               <p>
@@ -53,7 +53,7 @@ export default async function LocationPage({ params }: PageProps<"/locations/[sl
               We also pick up in{" "}
               {areas.filter((a) => a.slug !== area.slug).map((a, i, arr) => (
                 <span key={a.slug}>
-                  <Link href={`/locations/${a.slug}`} className="font-semibold text-brand-dark underline underline-offset-2">{a.name}</Link>
+                  <Link href={`/locations/${a.slug}`} className="font-semibold text-brand underline underline-offset-2">{a.name}</Link>
                   {i < arr.length - 2 ? ", " : i === arr.length - 2 ? " and " : "."}
                 </span>
               ))}
@@ -63,7 +63,7 @@ export default async function LocationPage({ params }: PageProps<"/locations/[sl
       </section>
 
       <ServiceTiles />
-      <section className="py-16 sm:py-20">
+      <section className="py-12 sm:py-20">
         <div className="container-site">
           <CallUsAndTerms />
         </div>

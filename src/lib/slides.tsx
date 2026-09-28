@@ -6,12 +6,13 @@ export const heroImages = [
   { src: "/images/hero-damaged.jpg", alt: "Accident-damaged car" },
 ];
 
-export function heroCopy(place?: string) {
-  const where = place ? ` in ${place}` : "";
+// `where` is a place phrase such as "on the Gold Coast" or "in Brisbane".
+export function heroCopy(where?: string) {
+  const suffix = where ? ` ${where}` : "";
   return {
-    title: site.maxPayout ? `We pay up to ${site.maxPayout} for cars${where}.` : `We buy cars for cash${where}.`,
+    title: site.maxPayout ? `We pay up to ${site.maxPayout} for cars${suffix}.` : `We buy cars for cash${suffix}.`,
     lead: "Any condition, free towing.",
-    sub: `Running or not, registered or not, anywhere ${place ? `in ${place}` : "across South East Queensland"}. Tell us what you've got and we'll give you a price. If you're happy with it, we pick the car up when it suits you and pay you before it leaves.`,
+    sub: `Running or not, registered or not, anywhere ${where ?? "across South East Queensland"}. Tell us what you've got and we'll give you a price. If you're happy with it, we pick the car up when it suits you and pay you before it leaves.`,
     points: ["Free towing", "Paid before we tow", "Same-day pickups", "Any make or model"],
   };
 }

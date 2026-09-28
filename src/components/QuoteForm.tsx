@@ -17,7 +17,7 @@ export function QuoteForm({ variant = "full" }: { variant?: "full" | "compact" }
         <p className="font-heading text-[20px] font-bold text-ink">Thanks, we&apos;ve got your details.</p>
         <p className="mt-1">
           We&apos;ll call or text you shortly with a price. If you need it sooner, call us on{" "}
-          <a href={site.phoneHref} className="font-bold text-brand-dark underline">{site.phoneDisplay}</a>.
+          <a href={site.phoneHref} className="font-semibold text-brand underline">{site.phoneDisplay}</a>.
         </p>
       </div>
     );
@@ -33,7 +33,7 @@ export function QuoteForm({ variant = "full" }: { variant?: "full" | "compact" }
         <div className="grid gap-4">
           <label>
             <span className={label}>Your car</span>
-            <input name="vehicle" className="field" placeholder="e.g. 2009 Toyota Corolla, doesn't start" required />
+            <input name="vehicle" className="field" placeholder="e.g. 2009 Corolla, won't start" required />
           </label>
           <label>
             <span className={label}>Suburb</span>
