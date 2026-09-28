@@ -35,10 +35,13 @@ export function QuoteForm({ variant = "full" }: { variant?: "full" | "compact" }
             <span className={label}>Your car</span>
             <input name="vehicle" className="field" placeholder="e.g. 2009 Corolla, won't start" required />
           </label>
-          <label>
-            <span className={label}>Suburb</span>
-            <input name="address" className="field" placeholder="Where is the car?" autoComplete="address-level2" />
-          </label>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <label>
+              <span className={label}>Suburb</span>
+              <input name="address" className="field" placeholder="Where is the car?" autoComplete="address-level2" />
+            </label>
+            <PriceField labelClass={label} />
+          </div>
           <div className="grid gap-4 sm:grid-cols-2">
             <label>
               <span className={label}>Name</span>
@@ -68,6 +71,7 @@ export function QuoteForm({ variant = "full" }: { variant?: "full" | "compact" }
             <span className={label}>Suburb</span>
             <input name="address" className="field" autoComplete="address-level2" />
           </label>
+          <PriceField labelClass={label} />
           <label className="sm:col-span-2">
             <span className={label}>About the car</span>
             <textarea
@@ -88,5 +92,28 @@ export function QuoteForm({ variant = "full" }: { variant?: "full" | "compact" }
         No obligation. We only use your details to give you a price (<Link href="/privacy" className="underline">privacy policy</Link>).
       </p>
     </form>
+  );
+}
+
+function PriceField({ labelClass }: { labelClass: string }) {
+  return (
+    <label>
+      <span className={labelClass}>
+        Expected price <span className="font-normal text-body">(optional)</span>
+      </span>
+      <span className="relative block">
+        <span className="pointer-events-none absolute inset-y-0 left-3.5 flex items-center font-semibold text-ink" aria-hidden>
+          $
+        </span>
+        <input
+          name="expected"
+          inputMode="decimal"
+          className="field !pl-7"
+          placeholder="e.g. 2,500"
+          maxLength={40}
+          autoComplete="off"
+        />
+      </span>
+    </label>
   );
 }

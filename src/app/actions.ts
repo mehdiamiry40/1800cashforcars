@@ -11,8 +11,18 @@ const FIELDS = [
   ["email", "Email"],
   ["address", "Suburb / address"],
   ["vehicle", "Vehicle details"],
+  ["expected", "Expected price"],
   ["page", "Sent from"],
 ] as const;
+
+// "2500", "$2,500" or "2.5k" -> "$2,500". Anything else (e.g. "make an offer") is kept as typed.
+function formatPrice(raw: string): string {
+  const v = raw.slice(0, 40).trim();
+  const m = v.replace(/[$,\s]/g, "").match(/^(\d+(?:\.\d+)?)(k)?$/i);
+  if (!m) return v;
+  const n = Math.round(parseFloat(m[1]) * (m[2] ? 1000 : 1));
+  return `$${n.toLocaleString("en-AU")}`;
+}
 
 const escape = (s: string) =>
   s.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]!);
@@ -25,6 +35,8 @@ export async function submitQuote(_prev: QuoteState, formData: FormData): Promis
     FIELDS.map(([key]) => [key, String(formData.get(key) ?? "").trim().slice(0, 2000)]),
   ) as Record<(typeof FIELDS)[number][0], string>;
 
+  lead.expected = formatPrice(lead.expected);
+
   if (!lead.name || !lead.phone || !lead.vehicle) {
     return { ok: false, message: "Please enter your name, phone number and vehicle details." };
   }
@@ -32,7 +44,7 @@ export async function submitQuote(_prev: QuoteState, formData: FormData): Promis
     return { ok: false, message: "Please enter a valid phone number." };
   }
 
-  const subject = `New quote request: ${lead.vehicle.split("\n")[0].slice(0, 60)}${lead.address ? ` — ${lead.address}` : ""}`;
+  const subject = `New quote request: ${lead.vehicle.split("\n")[0].slice(0, 60)}${lead.address ? ` — ${lead.address}` : ""}${lead.expected ? ` (wants ${lead.expected})` : ""}`;
   const rows = FIELDS.filter(([k]) => lead[k])
     .map(([k, label]) => `<tr><td style="padding:6px 12px;color:#555;vertical-align:top">${label}</td><td style="padding:6px 12px;font-weight:600;white-space:pre-wrap">${escape(lead[k])}</td></tr>`)
     .join("");
