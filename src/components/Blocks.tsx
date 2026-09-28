@@ -1,40 +1,44 @@
-import Image from "next/image";
 import Link from "next/link";
 import {
   siAudi, siBmw, siFord, siHonda, siHyundai, siJeep, siKia, siMazda, siMitsubishi, siNissan,
   siSubaru, siSuzuki, siTesla, siToyota, siVolkswagen, siVolvo,
 } from "simple-icons";
 import type { Block } from "@/lib/content";
-import { services } from "@/lib/content";
 import { areas, faqs, reviews, site } from "@/lib/site";
 import { QuoteForm } from "./QuoteForm";
-import { ArrowIcon, PhoneIcon, SmsIcon } from "./icons";
+import { Roo } from "./Roo";
+import { VehicleIcon, vehicleTypes } from "./VehicleIcons";
+import { ArrowIcon, CheckIcon, PhoneIcon, PinIcon, SmsIcon } from "./icons";
 
-export function SectionHead({ title, intro, light = false }: { title: string; intro?: string; light?: boolean }) {
+export function SectionHead({ title, intro, light = false, center = true }: { title: string; intro?: string; light?: boolean; center?: boolean }) {
   return (
-    <div className="max-w-2xl">
+    <div className={center ? "mx-auto max-w-2xl text-center" : "max-w-2xl"}>
       <h2 className={`h-section ${light ? "!text-white" : ""}`}>{title}</h2>
-      {intro && <p className={`mt-3 text-[17px] sm:text-[19px] ${light ? "text-white/80" : ""}`}>{intro}</p>}
+      {intro && <p className={`mt-3 text-[18px] sm:text-[19px] ${light ? "text-white/80" : ""}`}>{intro}</p>}
     </div>
   );
 }
 
 export function HowItWorks() {
   const steps = [
-    { title: "Tell us about the car", text: `Call ${site.phoneDisplay}, send a text, or fill in the form. Year, make, model and what's wrong with it is enough.` },
-    { title: "Get a price", text: "We'll give you a firm price. No obligation, and the price we quote is the price we pay." },
-    { title: "We pick it up and pay you", text: "Choose a time. We check the car, pay you in cash or by bank transfer, and tow it away. No towing fee." },
+    { roo: <Roo hand="phone" className="relative h-64 w-auto" />, title: "Tell us about it", text: "Call, text a photo, or fill in the form." },
+    { roo: <Roo hand="cash" className="relative h-64 w-auto" />, title: "Get a firm price", text: "No obligation. What we quote is what we pay." },
+    { roo: <Roo pouchCar hop className="relative h-64 w-auto" />, title: "We hop over", text: "We pay you, then tow it away for free." },
   ];
   return (
-    <section className="py-12 sm:py-20">
+    <section className="py-16 sm:py-24">
       <div className="container-site">
-        <SectionHead title="How it works" />
-        <ol className="mt-10 grid gap-10 md:grid-cols-3 md:gap-8">
+        <SectionHead title="Easy as 1, 2, 3" />
+        <ol className="mt-12 grid gap-12 sm:grid-cols-3 sm:gap-8">
           {steps.map((s, i) => (
-            <li key={s.title} className="border-t-4 border-navy pt-5">
-              <span className="font-display text-[64px] font-extrabold leading-none text-brand">{i + 1}</span>
-              <h3 className="h-sub mt-3">{s.title}</h3>
-              <p className="mt-2">{s.text}</p>
+            <li key={s.title} className="flex flex-col items-center text-center">
+              <div className="relative flex h-64 w-60 items-end justify-center">
+                <span aria-hidden className="absolute bottom-2 left-1/2 h-48 w-48 -translate-x-1/2 rounded-full bg-sand" />
+                {s.roo}
+              </div>
+              <p className="mt-5 font-heading text-[15px] font-black uppercase tracking-[0.15em] text-brand">Step {i + 1}</p>
+              <h3 className="mt-1 font-heading text-[24px] font-black text-ink">{s.title}</h3>
+              <p className="mt-1 max-w-[260px]">{s.text}</p>
             </li>
           ))}
         </ol>
@@ -43,34 +47,24 @@ export function HowItWorks() {
   );
 }
 
-const tileImages: Record<string, { image: string; alt: string }> = {
-  "scrap-car-removal": { image: "/images/tile-scrap.jpg", alt: "Pile of crushed scrap cars" },
-  "car-wreckers": { image: "/images/tile-wreckers.jpg", alt: "Salvaged car engines and parts" },
-  "car-disposal": { image: "/images/tile-disposal.jpg", alt: "Old rusted car" },
-};
-
-export function ServiceTiles() {
+export function WhatWeBuy() {
   return (
-    <section className="py-12 sm:py-20">
+    <section className="bg-sand py-16 sm:py-24">
       <div className="container-site">
-        <SectionHead title="Scrap, wrecked or just unwanted" intro="If it's taking up space, we'll make you an offer on it." />
-        <div className="mt-10 grid gap-8 md:grid-cols-3">
-          {services.map((s) => {
-            const img = tileImages[s.slug];
-            return (
-              <Link key={s.slug} href={`/${s.slug}`} className="group block">
-                <div className="relative aspect-[4/3] overflow-hidden">
-                  <Image src={img.image} alt={img.alt} fill quality={55} sizes="(min-width: 768px) 380px, 100vw" className="object-cover transition duration-300 group-hover:scale-[1.03]" />
-                </div>
-                <h3 className="h-sub mt-4 group-hover:text-brand">{s.tile}</h3>
-                <p className="mt-1.5">{s.blurb}</p>
-                <span className="mt-2 inline-flex items-center gap-1.5 font-semibold text-brand underline underline-offset-2">
-                  Read more <ArrowIcon className="h-4 w-4" />
-                </span>
-              </Link>
-            );
-          })}
-        </div>
+        <SectionHead title="If it has wheels, we'll buy it" intro="Running or not, crashed, flooded, unregistered or rusted out." />
+        <ul className="mx-auto mt-10 grid max-w-4xl grid-cols-3 gap-4 sm:grid-cols-6">
+          {vehicleTypes.map((v) => (
+            <li key={v.key} className="flex flex-col items-center gap-2 rounded-3xl bg-white px-2 py-5 ring-1 ring-line">
+              <VehicleIcon type={v.key} className="h-12 w-auto" />
+              <span className="font-heading text-[15px] font-extrabold text-ink">{v.label}</span>
+            </li>
+          ))}
+        </ul>
+        <p className="mt-8 text-center">
+          <Link href="/truck-removal" className="font-heading font-extrabold text-brand underline underline-offset-4">Selling a truck?</Link>
+          <span className="mx-3 text-line">|</span>
+          <Link href="/scrap-car-removal" className="font-heading font-extrabold text-brand underline underline-offset-4">Got a wreck?</Link>
+        </p>
       </div>
     </section>
   );
@@ -81,15 +75,18 @@ export function ContentBlocks({ blocks }: { blocks: Block[] }) {
     <div className="space-y-12">
       {blocks.map((b) => (
         <div key={b.heading}>
-          <h2 className="h-section !text-[28px] sm:!text-[32px]">{b.heading}</h2>
-          <div className="prose-site">
+          <h2 className="font-heading text-[28px] font-black leading-tight tracking-[-0.02em] text-ink sm:text-[32px]">{b.heading}</h2>
+          <div className="prose-site text-[18px]">
             {b.paras?.map((p) => <p key={p}>{p}</p>)}
           </div>
           {b.list && (
-            <ul className="mt-5 divide-y divide-line border-y border-line">
+            <ul className="mt-5 grid gap-3">
               {b.list.map((l) => (
-                <li key={l.bold} className="py-3">
-                  <b className="text-ink">{l.bold}.</b> {l.text.charAt(0).toUpperCase() + l.text.slice(1)}
+                <li key={l.bold} className="flex gap-3 rounded-2xl bg-sand px-5 py-4">
+                  <CheckIcon className="mt-1 h-5 w-5 shrink-0 text-brand" />
+                  <span>
+                    <b className="text-ink">{l.bold}.</b> {l.text.charAt(0).toUpperCase() + l.text.slice(1)}
+                  </span>
                 </li>
               ))}
             </ul>
@@ -102,16 +99,18 @@ export function ContentBlocks({ blocks }: { blocks: Block[] }) {
 
 export function AreasGrid() {
   return (
-    <section id="areas" className="scroll-mt-32 py-12 sm:py-20">
+    <section id="areas" className="scroll-mt-24 py-16 sm:py-24">
       <div className="container-site">
-        <SectionHead title="Where we pick up" intro="Free towing anywhere in these areas. If you're just outside them, call us anyway." />
-        <ul className="mt-8 grid border-t border-line sm:grid-cols-2">
+        <SectionHead title="We hop all over South East Queensland" intro="Free pickup anywhere in these areas." />
+        <ul className="mx-auto mt-10 flex max-w-3xl flex-wrap justify-center gap-3">
           {areas.map((a) => (
-            <li key={a.slug} className="border-b border-line py-4 sm:odd:pr-8 sm:even:pl-8">
-              <Link href={`/locations/${a.slug}`} className="font-heading text-[20px] font-bold text-ink underline decoration-line underline-offset-4 hover:text-brand hover:decoration-brand">
-                {a.name}, {a.state}
+            <li key={a.slug}>
+              <Link
+                href={`/locations/${a.slug}`}
+                className="flex items-center gap-2 rounded-full bg-white px-5 py-3 font-heading text-[17px] font-extrabold text-ink ring-2 ring-line transition hover:ring-brand"
+              >
+                <PinIcon className="h-5 w-5 text-rust" /> {a.name}
               </Link>
-              <p className="mt-1 text-[15px]">{a.suburbs.join(", ")}</p>
             </li>
           ))}
         </ul>
@@ -120,18 +119,19 @@ export function AreasGrid() {
   );
 }
 
-export function Faq({ bare = false }: { bare?: boolean }) {
+export function Faq({ bare = false, limit }: { bare?: boolean; limit?: number }) {
+  const list = limit ? faqs.slice(0, limit) : faqs;
   return (
-    <div id={bare ? undefined : "faq"} className="scroll-mt-32">
-      {!bare && <SectionHead title="Common questions" />}
-      <div className={`border-t border-line ${bare ? "" : "mt-6"}`}>
-        {faqs.map((f) => (
-          <details key={f.q} className="group border-b border-line">
-            <summary className="flex cursor-pointer list-none items-center justify-between gap-4 py-4 font-heading text-[19px] font-semibold text-ink hover:text-brand">
+    <div id={bare ? undefined : "faq"} className="scroll-mt-24">
+      {!bare && <SectionHead title="Questions" center={false} />}
+      <div className={`space-y-3 ${bare ? "" : "mt-6"}`}>
+        {list.map((f) => (
+          <details key={f.q} className="group rounded-3xl bg-white px-6 ring-1 ring-line open:ring-2 open:ring-brand/40">
+            <summary className="flex cursor-pointer list-none items-center justify-between gap-4 py-5 font-heading text-[18px] font-extrabold text-ink">
               {f.q}
-              <span className="text-2xl font-normal text-brand transition group-open:rotate-45">+</span>
+              <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-sand text-xl font-black text-brand transition group-open:rotate-45">+</span>
             </summary>
-            <p className="pb-5 pr-8">{f.a}</p>
+            <p className="pb-5 pr-6">{f.a}</p>
           </details>
         ))}
       </div>
@@ -141,22 +141,23 @@ export function Faq({ bare = false }: { bare?: boolean }) {
 
 export function CallUsAndTerms({ stacked = false }: { stacked?: boolean }) {
   return (
-    <div className={`grid gap-10 ${stacked ? "" : "md:grid-cols-2"}`}>
-      <div>
+    <div className={`grid gap-5 ${stacked ? "" : "md:grid-cols-2"}`}>
+      <div className="rounded-3xl bg-sand p-7">
         <h2 className="h-sub">Getting paid</h2>
         <p className="mt-2">
-          Cash or bank transfer, your choice, paid when we pick the car up and before it leaves your place. In NSW (including
-          Tweed Heads) the law doesn&apos;t allow cash for scrap vehicles, so we pay by bank transfer there.
+          Cash or bank transfer, your choice, paid before the car leaves. In NSW (including Tweed Heads) it&apos;s bank transfer
+          only.
         </p>
       </div>
-      <div>
+      <div className="rounded-3xl bg-sand p-7">
         <h2 className="h-sub">What you&apos;ll need</h2>
-        <ol className="mt-2 list-decimal space-y-1.5 pl-5 marker:font-semibold marker:text-brand">
-          <li>You need to own the vehicle, and it can&apos;t have finance owing on it.</li>
-          <li>Proof of ownership, like the rego papers.</li>
-          <li>Photo ID (driver&apos;s licence or passport).</li>
-          <li>For a bank transfer, your BSB and account number.</li>
-        </ol>
+        <ul className="mt-2 space-y-1.5">
+          {["Proof you own it (e.g. rego papers), with no finance owing", "Photo ID", "Bank details if you'd like a transfer"].map((t) => (
+            <li key={t} className="flex gap-2">
+              <CheckIcon className="mt-1 h-4 w-4 shrink-0 text-brand" /> {t}
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );
@@ -164,24 +165,24 @@ export function CallUsAndTerms({ stacked = false }: { stacked?: boolean }) {
 
 export function AskForPrice() {
   return (
-    <section id="ask-for-our-price" className="scroll-mt-32 bg-navy py-16 text-white sm:py-20">
-      <div className="container-site grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
-        <div>
-          <h2 className="h-section !text-white">Want a price for your car?</h2>
-          <p className="mt-4 text-[17px] text-white/80 sm:text-[19px]">
-            The quickest way is to call. You can also text us a couple of photos, or fill in the form and we&apos;ll get back to you.
-          </p>
-          <a href={site.phoneHref} className="mt-7 flex items-center gap-3 font-display text-[34px] font-extrabold tracking-[0.01em] text-white min-[400px]:text-[40px] sm:text-[48px]">
-            <PhoneIcon className="h-7 w-7 shrink-0 text-brand-light sm:h-8 sm:w-8" /> {site.phoneDisplay}
+    <section id="ask-for-our-price" className="scroll-mt-24 bg-navy py-16 text-white sm:py-24">
+      <div className="container-site grid items-center gap-10 lg:grid-cols-[0.85fr_1.15fr]">
+        <div className="text-center lg:text-left">
+          <Roo hand="phone" className="mx-auto h-56 w-auto lg:mx-0" />
+          <h2 className="mt-6 h-section !text-white">Let&apos;s talk cars</h2>
+          <p className="mt-3 text-[18px] text-white/80">Calling is quickest. We answer 24/7.</p>
+          <a href={site.phoneHref} className="mt-5 inline-flex items-center gap-3 font-heading text-[36px] font-black text-white sm:text-[44px]">
+            <PhoneIcon className="h-8 w-8 text-brand-light" /> {site.phoneDisplay}
           </a>
-          <p className="mt-1 text-white/70">{site.hours}. {site.pickups}.</p>
           {site.smsNumber && (
-            <a href={`sms:${site.smsNumber}`} className="mt-3 inline-flex items-center gap-2 py-2.5 font-semibold text-white underline underline-offset-4">
-              <SmsIcon className="h-5 w-5" /> Text photos to {site.phoneDisplay}
-            </a>
+            <p>
+              <a href={`sms:${site.smsNumber}`} className="inline-flex items-center gap-2 py-2 font-bold text-brand-light underline underline-offset-4">
+                <SmsIcon className="h-5 w-5" /> Or text us a photo
+              </a>
+            </p>
           )}
         </div>
-        <div className="bg-white p-5 text-body sm:p-8">
+        <div className="rounded-[28px] bg-white p-6 text-body sm:p-9">
           <QuoteForm />
         </div>
       </div>
@@ -192,15 +193,16 @@ export function AskForPrice() {
 export function ReviewsBand() {
   if (reviews.length === 0) return null;
   return (
-    <section className="bg-paper py-12 sm:py-20">
+    <section className="bg-sand py-16 sm:py-24">
       <div className="container-site">
-        <SectionHead title="What customers say" />
-        <div className="mt-8 grid gap-8 md:grid-cols-3">
+        <SectionHead title="Happy sellers" />
+        <div className="mt-10 grid gap-6 md:grid-cols-3">
           {reviews.slice(0, 3).map((r) => (
-            <figure key={r.name + r.text.slice(0, 10)} className="border-l-4 border-brand pl-5">
+            <figure key={r.name + r.text.slice(0, 10)} className="rounded-3xl bg-white p-7 ring-1 ring-line">
               <blockquote className="text-[18px] text-ink">&ldquo;{r.text}&rdquo;</blockquote>
-              <figcaption className="mt-3 font-semibold">
-                {r.name}{r.suburb && `, ${r.suburb}`}
+              <figcaption className="mt-3 font-heading font-extrabold">
+                {r.name}
+                {r.suburb && `, ${r.suburb}`}
               </figcaption>
             </figure>
           ))}
@@ -217,23 +219,43 @@ const makes = [
 
 export function MakesRow() {
   return (
-    <section id="makes" className="border-t border-line py-14">
+    <section id="makes" className="py-14 sm:py-20">
       <div className="container-site">
-        <h2 className="h-sub">We buy every make and model</h2>
-        <ul className="mt-6 grid grid-cols-4 gap-y-6 sm:grid-cols-8">
+        <h2 className="text-center font-heading text-[22px] font-black text-ink">Every make, every model</h2>
+        <ul className="mx-auto mt-8 grid max-w-4xl grid-cols-4 gap-y-7 sm:grid-cols-8">
           {makes.map((m) => (
-            <li key={m.slug} className="flex flex-col items-center gap-2" title={m.title}>
-              <svg role="img" viewBox="0 0 24 24" className="h-11 w-11 sm:h-12 sm:w-12" fill={`#${m.hex}`} aria-label={`${m.title} logo`}>
+            <li key={m.slug} className="flex justify-center" title={m.title}>
+              <svg role="img" viewBox="0 0 24 24" className="h-10 w-10 opacity-80 transition hover:opacity-100 sm:h-11 sm:w-11" fill={`#${m.hex}`} aria-label={`${m.title} logo`}>
                 <path d={m.path} />
               </svg>
-              <span className="text-[13px]">{m.title}</span>
             </li>
           ))}
         </ul>
-        <p className="mt-6 text-[13px] text-body/80">
-          Also Holden, Isuzu, Lexus, Land Rover, Great Wall, LDV and anything else on four wheels. Logos are trademarks of their
-          owners and are only shown to identify the vehicles we buy. We&apos;re not affiliated with any manufacturer.
+        <p className="mx-auto mt-8 max-w-2xl text-center text-[13px] text-body/70">
+          Logos are trademarks of their owners and only show which vehicles we buy. We&apos;re not affiliated with any manufacturer.
         </p>
+      </div>
+    </section>
+  );
+}
+
+export function FinalCta() {
+  return (
+    <section className="relative overflow-hidden bg-sand">
+      <div className="container-site grid items-end gap-6 pt-12 sm:grid-cols-[1fr_auto] sm:pt-16">
+        <div className="pb-12 text-center sm:pb-16 sm:text-left">
+          <h2 className="h-section">Got a car to sell?</h2>
+          <p className="mt-3 text-[18px]">Roo&apos;s ready when you are.</p>
+          <div className="mt-6 flex flex-col justify-center gap-3 sm:flex-row sm:justify-start">
+            <a href={site.phoneHref} className="btn-brand !px-7 !py-4 !text-[18px]">
+              <PhoneIcon className="h-5 w-5" /> Call {site.phoneDisplay}
+            </a>
+            <Link href="/#quote" className="btn-line !px-7 !py-4 !text-[18px]">
+              Get a price online <ArrowIcon className="h-5 w-5" />
+            </Link>
+          </div>
+        </div>
+        <Roo hand="cash" pouchCar flip className="mx-auto h-64 w-auto sm:h-80" />
       </div>
     </section>
   );

@@ -7,7 +7,9 @@ Website for [1800cashforcars.com.au](https://1800cashforcars.com.au): Next.js (A
   - `showEmail`: keep `false` until the `quotes@` mailbox or forwarding exists. Otherwise customer emails bounce.
   - `reviews`: add real customer reviews only. The reviews section appears automatically when this has entries.
 - **Service pages** (`src/lib/content.ts`): Cash for cars, Car removals, Services, Cash for trucks, Scrap car removal, Car wreckers, Car disposal.
-- **Photos**: `public/images` (credits in `IMAGE-CREDITS.md`).
+- **Brand mascot, Roo**: `src/components/Roo.tsx` (poses: `pouchCar`, `hand="phone" | "cash" | "wave"`, `hop`, `confused`, `flip`) and `RooMark` for the logo. Vehicle icons are in `src/components/VehicleIcons.tsx`.
+  - If Roo's design changes, regenerate the share-image copy: `npx tsx scripts/export-roo.tsx`.
+- **Brand colours**: cash green `#1f7a4d` (buttons, links), Roo rust `#c8743a`, sand `#fbf3e6`, eucalyptus `#1e3a2f`. Fonts are Nunito (headings) and Nunito Sans (body).
 
 ## Quote requests
 Both quote forms post to a server action (`src/app/actions.ts`). It:

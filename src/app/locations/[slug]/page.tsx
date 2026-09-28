@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { AskForPrice, CallUsAndTerms, HowItWorks, MakesRow, ReviewsBand, SectionHead, ServiceTiles } from "@/components/Blocks";
+import { AskForPrice, FinalCta, HowItWorks, SectionHead, WhatWeBuy } from "@/components/Blocks";
+import { PinIcon } from "@/components/icons";
 import { Hero } from "@/components/Hero";
 import { Breadcrumbs } from "@/components/JsonLd";
 import { areas, site } from "@/lib/site";
@@ -34,45 +35,31 @@ export default async function LocationPage({ params }: PageProps<"/locations/[sl
       <Hero where={area.where} />
       <HowItWorks />
 
-      <section className="bg-paper py-12 sm:py-20">
-        <div className="container-site grid gap-12 lg:grid-cols-[1.1fr_0.9fr]">
-          <div>
-            <SectionHead title={`Car removal ${area.where}`} />
-            <div className="prose-site">
-              <p>
-                We buy cars, utes, vans, 4WDs and trucks anywhere {area.where}, in any condition. We&apos;ll pick it up from your
-                driveway, your work, a mechanic&apos;s yard or the side of the road, and the towing is free.
-              </p>
-              <p>
-                Call <a href={site.phoneHref}>{site.phoneDisplay}</a> or send us the details below and we&apos;ll give you a price.
-              </p>
-            </div>
-          </div>
-          <div>
-            <h2 className="h-sub">Suburbs we cover</h2>
-            <p className="mt-2">{area.suburbs.join(", ")}, and everywhere in between.</p>
-            <p className="mt-6 text-[15px]">
-              We also pick up in{" "}
-              {areas.filter((a) => a.slug !== area.slug).map((a, i, arr) => (
-                <span key={a.slug}>
-                  <Link href={`/locations/${a.slug}`} className="font-semibold text-brand underline underline-offset-2">{a.name}</Link>
-                  {i < arr.length - 2 ? ", " : i === arr.length - 2 ? " and " : "."}
-                </span>
-              ))}
-            </p>
-          </div>
+      <section className="bg-sand py-16 sm:py-24">
+        <div className="container-site">
+          <SectionHead title={`Suburbs we cover ${area.where}`} intro="Free pickup from your driveway, work, mechanic or the roadside." />
+          <ul className="mx-auto mt-10 flex max-w-3xl flex-wrap justify-center gap-2.5">
+            {area.suburbs.map((s) => (
+              <li key={s} className="flex items-center gap-1.5 rounded-full bg-white px-4 py-2 font-heading font-extrabold text-ink ring-1 ring-line">
+                <PinIcon className="h-4 w-4 text-rust" /> {s}
+              </li>
+            ))}
+          </ul>
+          <p className="mt-8 text-center">
+            Also:{" "}
+            {areas.filter((a) => a.slug !== area.slug).map((a, i, arr) => (
+              <span key={a.slug}>
+                <Link href={`/locations/${a.slug}`} className="font-bold text-brand underline underline-offset-2">{a.name}</Link>
+                {i < arr.length - 1 ? ", " : ""}
+              </span>
+            ))}
+          </p>
         </div>
       </section>
 
-      <ServiceTiles />
-      <section className="py-12 sm:py-20">
-        <div className="container-site">
-          <CallUsAndTerms />
-        </div>
-      </section>
-      <ReviewsBand />
+      <WhatWeBuy />
       <AskForPrice />
-      <MakesRow />
+      <FinalCta />
     </>
   );
 }

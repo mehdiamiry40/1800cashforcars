@@ -1,24 +1,41 @@
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 import { ImageResponse } from "next/og";
 
-export const alt = "1800 Cash For Cars. We buy cars in any condition, with free pickup.";
+export const alt = "1800 Cash For Cars. Sell your car, we'll hop right over.";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-export default function OgImage() {
+// Fetches a Nunito weight as TTF (Google Fonts serves TTF to non-browser clients), for next/og.
+async function nunito(weight: number) {
+  const css = await (await fetch(`https://fonts.googleapis.com/css2?family=Nunito:wght@${weight}`)).text();
+  const url = css.match(/src: url\((.+?)\) format\('(?:truetype|opentype)'\)/)?.[1];
+  if (!url) throw new Error("Nunito font URL not found");
+  return (await fetch(url)).arrayBuffer();
+}
+
+export default async function OgImage() {
+  // Static export of <Roo pouchCar /> (regenerate if the character changes).
+  const svg = readFileSync(join(process.cwd(), "src/assets/roo-pouch.svg"));
+  const src = `data:image/svg+xml;base64,${svg.toString("base64")}`;
   return new ImageResponse(
     (
-      <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column", justifyContent: "space-between", padding: 80, background: "#f4f2ee", color: "#111827" }}>
-        <div style={{ display: "flex", fontSize: 44, fontWeight: 900 }}>
-          <div style={{ display: "flex", background: "#e8590c", color: "#fff", padding: "10px 18px" }}>1800</div>
-          <div style={{ display: "flex", border: "6px solid #0f1d33", borderLeft: "none", padding: "4px 18px", color: "#0f1d33" }}>CASH FOR CARS</div>
+      <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 80px", background: "#FBF3E6", color: "#1D2433", fontFamily: "Nunito" }}>
+        <div style={{ display: "flex", flexDirection: "column", maxWidth: 640 }}>
+          <div style={{ fontSize: 30, fontWeight: 900, color: "#1f7a4d", letterSpacing: 4 }}>1800 CASH FOR CARS</div>
+          <div style={{ fontSize: 84, fontWeight: 900, lineHeight: 1.02, marginTop: 20 }}>Sell your car.</div>
+          <div style={{ fontSize: 84, fontWeight: 900, lineHeight: 1.02, color: "#A55A27" }}>We&apos;ll hop right over.</div>
+          <div style={{ fontSize: 32, fontWeight: 600, marginTop: 28, color: "#4B5263" }}>Free towing. Paid on pickup. South East QLD.</div>
         </div>
-        <div style={{ display: "flex", flexDirection: "column" }}>
-          <div style={{ fontSize: 76, fontWeight: 900, lineHeight: 1.05 }}>We buy cars for cash.</div>
-          <div style={{ fontSize: 76, fontWeight: 900, lineHeight: 1.05, color: "#c2410c" }}>Any condition, free towing.</div>
-        </div>
-        <div style={{ fontSize: 34, color: "#3f4652" }}>Gold Coast · Brisbane · Logan · Ipswich · Sunshine Coast · Tweed</div>
+        <img src={src} width={380} height={518} alt="" />
       </div>
     ),
-    size,
+    {
+      ...size,
+      fonts: [
+        { name: "Nunito", data: await nunito(900), weight: 900, style: "normal" },
+        { name: "Nunito", data: await nunito(600), weight: 600, style: "normal" },
+      ],
+    },
   );
 }

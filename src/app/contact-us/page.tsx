@@ -32,7 +32,7 @@ export default function ContactPage() {
     ...(site.abn ? [{ label: "ABN", value: site.abn }] : []),
   ];
   return (
-    <PageShell title="Contact Us" path="/contact-us" intro="Call, text, or send us the details of your car and we'll give you a price.">
+    <PageShell title="Contact Us" path="/contact-us" roo={{ hand: "phone" }} intro="Call, text, or send us the details of your car and we'll give you a price.">
       <h2 className="h-section">Get in touch</h2>
       <p className="mt-3">
         Calling is quickest. You can also text us photos of the car, or use the form below and we&apos;ll get back to

@@ -1,21 +1,25 @@
 @import "tailwindcss";
 
 @theme {
-  --color-navy: #0f1d33;
-  --color-navy-800: #182a47;
-  --color-navy-950: #0a1424;
-  --color-brand: #c2410c;
-  --color-brand-dark: #a3360a;
-  --color-brand-light: #ff9150;
-  --color-money: #15803d;
-  --color-paper: #f4f2ee;
-  --color-ink: #111827;
-  --color-body: #3f4652;
-  --color-line: #d9d5cd;
+  /* Brand: Roo the kangaroo, cash green, outback sand */
+  --color-brand: #1f7a4d;
+  --color-brand-dark: #17603c;
+  --color-brand-light: #9ee0b8;
+  --color-roo: #c8743a;
+  --color-rust: #a55a27;
+  --color-sand: #fbf3e6;
+  --color-paper: #fbf3e6;
+  --color-navy: #1e3a2f;
+  --color-navy-800: #274a3c;
+  --color-navy-950: #152a22;
+  --color-money: #1f7a4d;
+  --color-ink: #1d2433;
+  --color-body: #4b5263;
+  --color-line: #eadfcd;
 
-  --font-sans: var(--font-plex);
-  --font-heading: var(--font-barlow);
-  --font-display: var(--font-barlow-semi);
+  --font-sans: var(--font-nunito-sans);
+  --font-heading: var(--font-nunito);
+  --font-display: var(--font-nunito);
 }
 
 html {
@@ -27,7 +31,6 @@ body {
   color: var(--color-body);
   font-size: 17px;
   line-height: 1.65;
-  font-feature-settings: "kern", "liga";
 }
 
 h1,
@@ -43,17 +46,17 @@ li {
 
 b,
 strong {
-  font-weight: 600;
+  font-weight: 700;
 }
 
 ::selection {
-  background: #ffd9c2;
-  color: #111827;
+  background: #c9ecd8;
+  color: #1d2433;
 }
 
 :focus-visible {
-  outline: 3px solid #c2410c;
-  outline-offset: 2px;
+  outline: 3px solid #1f7a4d;
+  outline-offset: 3px;
 }
 
 .font-heading {
@@ -66,35 +69,35 @@ strong {
 }
 
 @utility container-site {
-  @apply mx-auto w-full max-w-[1180px] px-4 sm:px-6;
+  @apply mx-auto w-full max-w-[1120px] px-5 sm:px-6;
 }
 
 @utility btn {
-  @apply inline-flex items-center justify-center gap-2 rounded-[4px] px-5 py-3 font-heading text-[17px] font-bold tracking-[0.005em] transition-colors;
+  @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 font-heading text-[17px] font-extrabold transition;
 }
 
 @utility btn-brand {
-  @apply btn bg-brand text-white hover:bg-brand-dark;
+  @apply btn bg-brand text-white shadow-[0_6px_0_0_#17603c] hover:-translate-y-px hover:bg-brand-dark active:translate-y-[3px] active:shadow-[0_3px_0_0_#17603c];
 }
 
 @utility btn-navy {
-  @apply btn bg-navy text-white hover:bg-navy-800;
+  @apply btn bg-ink text-white hover:bg-black;
 }
 
 @utility btn-line {
-  @apply btn border-2 border-navy text-navy hover:bg-navy hover:text-white;
+  @apply btn border-2 border-ink/15 bg-white text-ink hover:border-ink/40;
 }
 
 @utility h-section {
-  @apply font-heading text-[32px] font-bold leading-[1.08] tracking-[-0.015em] text-ink sm:text-[42px];
+  @apply font-heading text-[32px] font-black leading-[1.1] tracking-[-0.02em] text-ink sm:text-[44px];
 }
 
 @utility h-sub {
-  @apply font-heading text-[23px] font-bold leading-snug tracking-[-0.005em] text-ink;
+  @apply font-heading text-[22px] font-extrabold leading-snug text-ink;
 }
 
 @utility field {
-  @apply w-full rounded-[4px] border border-[#b9b4aa] bg-white px-3.5 py-3 text-[16px] text-ink outline-none placeholder:text-[#8b8f97] focus:border-navy focus:ring-2 focus:ring-navy/20;
+  @apply w-full rounded-2xl border-2 border-line bg-white px-4 py-3 text-[16px] text-ink outline-none transition placeholder:text-[#9a9486] focus:border-brand focus:ring-4 focus:ring-brand/15;
 }
 
 .prose-site p {
@@ -102,5 +105,5 @@ strong {
 }
 
 .prose-site a {
-  @apply font-semibold text-brand-dark underline underline-offset-2;
+  @apply font-bold text-brand underline underline-offset-2;
 }

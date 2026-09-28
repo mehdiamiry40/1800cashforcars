@@ -2,18 +2,19 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { CallUsAndTerms, ContentBlocks } from "@/components/Blocks";
 import { PageShell } from "@/components/PageShell";
+import type { RooProps } from "@/components/Roo";
 import { pages } from "@/lib/content";
 
 export const dynamicParams = false;
 
-const images: Record<string, string> = {
-  "cash-for-cars": "/images/cash.jpg",
-  "car-removals": "/images/hero-truck.jpg",
-  services: "/images/hero-towing.jpg",
-  "truck-removal": "/images/hero-truck.jpg",
-  "scrap-car-removal": "/images/tile-scrap.jpg",
-  "car-wreckers": "/images/tile-wreckers.jpg",
-  "car-disposal": "/images/tile-disposal.jpg",
+const poses: Record<string, RooProps> = {
+  "cash-for-cars": { hand: "cash" },
+  "car-removals": { pouchCar: true, hop: true },
+  services: { hand: "cash", pouchCar: true },
+  "truck-removal": { hand: "phone" },
+  "scrap-car-removal": { pouchCar: true },
+  "car-wreckers": { hand: "cash" },
+  "car-disposal": { pouchCar: true, hop: true },
 };
 
 export function generateStaticParams() {
@@ -37,7 +38,7 @@ export default async function ContentPageRoute({ params }: PageProps<"/[page]">)
   if (!p) notFound();
 
   return (
-    <PageShell title={p.title} path={`/${p.slug}`} intro={p.description} image={images[p.slug]}>
+    <PageShell title={p.title} path={`/${p.slug}`} intro={p.description} roo={poses[p.slug]}>
       <ContentBlocks blocks={p.blocks} />
       <div className="mt-12">
         <CallUsAndTerms />
