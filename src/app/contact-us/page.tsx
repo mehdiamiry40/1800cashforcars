@@ -11,16 +11,16 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   const rows = [
     { label: "Phone", value: <a href={site.phoneHref} className="font-semibold text-brand hover:underline">{site.phoneDisplay}</a> },
-    { label: "Email", value: <a href={`mailto:${site.email}`} className="font-semibold text-brand hover:underline">{site.email}</a> },
+    ...(site.showEmail ? [{ label: "Email", value: <a href={`mailto:${site.email}`} className="font-semibold text-brand hover:underline">{site.email}</a> }] : []),
     { label: "Hours", value: `${site.hours}. ${site.pickups}.` },
     ...(site.address ? [{ label: "Address", value: site.address }] : []),
     ...(site.abn ? [{ label: "ABN", value: site.abn }] : []),
   ];
   return (
-    <PageShell title="Contact Us" intro="Call, text, or send us the details of your car and we'll give you a price.">
+    <PageShell title="Contact Us" path="/contact-us" intro="Call, text, or send us the details of your car and we'll give you a price.">
       <h2 className="h-section">Get in touch</h2>
       <p className="mt-3">
-        Calling is quickest. You can also text us photos of the car, email us, or use the form below and we&apos;ll get back to
+        Calling is quickest. You can also text us photos of the car, or use the form below and we&apos;ll get back to
         you, usually within the hour.
       </p>
       <dl className="mt-6 divide-y divide-line border-y border-line">

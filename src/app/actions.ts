@@ -30,6 +30,13 @@ const escape = (s: string) =>
 export async function submitQuote(_prev: QuoteState, formData: FormData): Promise<QuoteState> {
   // Honeypot: real visitors never fill this hidden field.
   if (formData.get("company")) return { ok: true, message: "Thanks!" };
+  // Time trap: milliseconds between page load and the visitor's last keystroke. Humans can't fill the form in
+  // under ~2.5s. If JavaScript is off the field is empty and we let it through.
+  const elapsedMs = parseInt(String(formData.get("e") ?? ""), 10);
+  if (Number.isFinite(elapsedMs) && elapsedMs < 2500) {
+    console.warn("[lead] dropped: submitted too fast");
+    return { ok: true, message: "" };
+  }
 
   const lead = Object.fromEntries(
     FIELDS.map(([key]) => [key, String(formData.get(key) ?? "").trim().slice(0, 2000)]),

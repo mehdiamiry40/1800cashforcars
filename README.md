@@ -1,18 +1,28 @@
 # 1800 Cash For Cars
 
-Website for [1800cashforcars.com.au](https://1800cashforcars.com.au). It's a Next.js (App Router) + Tailwind site, deployed on Vercel from GitHub.
+Website for [1800cashforcars.com.au](https://1800cashforcars.com.au): Next.js (App Router) + Tailwind, deployed on Vercel from GitHub. Every push to `main` goes live.
 
-## Edit business details
-Business details (phone, hours, email, ABN, address, headline payout, social links, reviews, service areas, FAQs) live in `src/lib/site.ts`. Inner page copy (Cash For Cars, Car Removals, Services, Scrap Car Removal, Car Wreckers, Car Disposal) lives in `src/lib/content.ts`. Change it there, commit, and push. Vercel redeploys automatically.
+## Editing content
+- **Business details** (`src/lib/site.ts`): phone, hours, ABN, address, service areas, FAQs, reviews, headline payout.
+  - `showEmail`: keep `false` until the `quotes@` mailbox or forwarding exists. Otherwise customer emails bounce.
+  - `reviews`: add real customer reviews only. The reviews section appears automatically when this has entries.
+- **Service pages** (`src/lib/content.ts`): Cash for cars, Car removals, Services, Cash for trucks, Scrap car removal, Car wreckers, Car disposal.
+- **Photos**: `public/images` (credits in `IMAGE-CREDITS.md`).
 
 ## Quote requests
-The 3-step quote form posts to a server action (`src/app/actions.ts`), which emails each lead via **Resend** (provisioned through the Vercel Marketplace).
+Both quote forms post to a server action (`src/app/actions.ts`). It:
+- blocks spam with a honeypot field and a "filled in too fast" check,
+- normalises the expected price (`2.5k` becomes `$2,500`),
+- emails the lead via **Resend** (Vercel Marketplace) from `quotes@1800cashforcars.com.au` to `LEAD_TO_EMAIL`,
+- writes every lead to the Vercel function logs (`[lead] …`) as a backup.
 
-Env vars (set in Vercel):
-- `RESEND_API_KEY`, `RESEND_EMAIL_DOMAIN`: added by the Resend integration
-- `LEAD_TO_EMAIL`: where leads are sent (comma-separate multiple addresses)
+Env vars (Vercel): `RESEND_API_KEY`, `RESEND_EMAIL_DOMAIN` (from the integration), `LEAD_TO_EMAIL` (comma-separate multiple).
 
-Every lead is also written to the Vercel function logs (`[lead] …`) as a backup.
+## Platform
+- Vercel Web Analytics is on (no cookies).
+- www redirects to the bare domain; security headers are set in `next.config.ts`.
+- Structured data: AutomotiveBusiness, FAQPage and BreadcrumbList.
+- Sitemap, robots, social share image, app icons and web manifest are generated in `src/app`.
 
 ## Develop
 ```bash

@@ -3,12 +3,14 @@ import Link from "next/link";
 import { services } from "@/lib/content";
 import { site } from "@/lib/site";
 import { AskForPrice, MakesRow, ReviewsBand } from "./Blocks";
+import { Breadcrumbs } from "./JsonLd";
 import { PhoneIcon, SmsIcon } from "./icons";
 
 // Layout for inner pages: title + photo, content with a sidebar, then the price form.
-export function PageShell({ title, intro, image = "/images/hero-truck.jpg", children }: { title: string; intro?: string; image?: string; children: React.ReactNode }) {
+export function PageShell({ title, path, intro, image = "/images/hero-truck.jpg", children }: { title: string; path: string; intro?: string; image?: string; children: React.ReactNode }) {
   return (
     <>
+      <Breadcrumbs trail={[{ name: title, path }]} />
       <section className="bg-paper">
         <div className="container-site grid items-center gap-8 py-8 sm:py-10 lg:grid-cols-[1.2fr_0.8fr] lg:py-14">
           <div>

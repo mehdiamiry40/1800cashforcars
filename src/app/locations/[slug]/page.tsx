@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { AskForPrice, CallUsAndTerms, HowItWorks, MakesRow, ReviewsBand, SectionHead, ServiceTiles } from "@/components/Blocks";
 import { Hero } from "@/components/Hero";
+import { Breadcrumbs } from "@/components/JsonLd";
 import { areas, site } from "@/lib/site";
 
 export const dynamicParams = false;
@@ -29,6 +30,7 @@ export default async function LocationPage({ params }: PageProps<"/locations/[sl
 
   return (
     <>
+      <Breadcrumbs trail={[{ name: "Areas", path: "/#areas" }, { name: area.name, path: `/locations/${area.slug}` }]} />
       <Hero where={area.where} />
       <HowItWorks />
 

@@ -37,7 +37,7 @@ export default async function ContentPageRoute({ params }: PageProps<"/[page]">)
   if (!p) notFound();
 
   return (
-    <PageShell title={p.title} intro={p.description} image={images[p.slug]}>
+    <PageShell title={p.title} path={`/${p.slug}`} intro={p.description} image={images[p.slug]}>
       <ContentBlocks blocks={p.blocks} />
       <div className="mt-12">
         <CallUsAndTerms />

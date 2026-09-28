@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useActionState } from "react";
+import { useActionState, useEffect, useRef } from "react";
 import { submitQuote, type QuoteState } from "@/app/actions";
 import { site } from "@/lib/site";
 
@@ -10,6 +10,16 @@ export function QuoteForm({ variant = "full" }: { variant?: "full" | "compact" }
   const [state, action, pending] = useActionState<QuoteState, FormData>(submitQuote, null);
   const pathname = usePathname();
   const compact = variant === "compact";
+  // Spam check: records how long after the page loaded the visitor last typed (a relative time, so clock
+  // differences don't matter). The server drops forms filled in under ~2.5 seconds, which only bots manage.
+  const mountedAt = useRef(0);
+  const elapsed = useRef<HTMLInputElement>(null);
+  useEffect(() => {
+    mountedAt.current = performance.now();
+  }, []);
+  const onInput = () => {
+    if (elapsed.current && mountedAt.current) elapsed.current.value = String(Math.round(performance.now() - mountedAt.current));
+  };
 
   if (state?.ok) {
     return (
@@ -26,9 +36,10 @@ export function QuoteForm({ variant = "full" }: { variant?: "full" | "compact" }
   const label = "mb-1 block text-[15px] font-semibold text-ink";
 
   return (
-    <form action={action}>
+    <form action={action} onInput={onInput}>
       <input type="text" name="company" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden />
       <input type="hidden" name="page" value={pathname} />
+      <input type="hidden" name="e" ref={elapsed} defaultValue="" />
       {compact ? (
         <div className="grid gap-4">
           <label>

@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/next";
 import type { Metadata, Viewport } from "next";
 import { Barlow, Barlow_Semi_Condensed, IBM_Plex_Sans } from "next/font/google";
 import { FloatingContact, Footer } from "@/components/Footer";
@@ -36,10 +37,16 @@ export const viewport: Viewport = {
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "AutomotiveBusiness",
+  "@id": `${site.url}/#business`,
   name: site.name,
   url: site.url,
+  image: `${site.url}/opengraph-image`,
+  paymentAccepted: "Cash, Bank transfer",
+  currenciesAccepted: "AUD",
+  ...(site.address ? { address: site.address } : {}),
+  ...(site.abn ? { taxID: site.abn } : {}),
   telephone: site.phoneHref.replace("tel:", ""),
-  email: site.email,
+  ...(site.showEmail ? { email: site.email } : {}),
   openingHours: site.hoursSchema,
   priceRange: "Free quotes",
   areaServed: areas.map((a) => ({ "@type": "City", name: `${a.name}, ${a.state}` })),
@@ -56,6 +63,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <main id="main" className="flex-1">{children}</main>
         <Footer />
         <FloatingContact />
+        <Analytics />
       </body>
     </html>
   );

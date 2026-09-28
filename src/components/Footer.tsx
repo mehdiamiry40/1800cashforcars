@@ -15,7 +15,9 @@ export function Footer() {
           </p>
           <p>{site.hours}</p>
           <p>{site.pickups}</p>
-          <p className="mt-3"><a href={`mailto:${site.email}`} className="underline underline-offset-2 hover:text-white">{site.email}</a></p>
+          {site.showEmail && (
+            <p className="mt-3"><a href={`mailto:${site.email}`} className="underline underline-offset-2 hover:text-white">{site.email}</a></p>
+          )}
           {site.address && <p className="mt-1">{site.address}</p>}
           {site.abn && <p className="mt-1">ABN {site.abn}</p>}
         </div>
