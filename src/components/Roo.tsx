@@ -18,9 +18,11 @@ export type RooProps = {
   width?: number;
   height?: number;
   flip?: boolean;
+  /** Set when a parent mirrors Roo (e.g. with a scale(-1 1) transform), so text like "$" still reads correctly. */
+  mirrored?: boolean;
 };
 
-function Arm({ hand }: { hand: Hand }) {
+function Arm({ hand, mirrored = false }: { hand: Hand; mirrored?: boolean }) {
   if (hand === "wave") {
     return (
       <>
@@ -51,7 +53,7 @@ function Arm({ hand }: { hand: Hand }) {
           <rect x="0" y="0" width="48" height="26" rx="3" fill="#237A4B" />
           <rect x="4" y="-5" width="48" height="26" rx="3" fill="#2F9B5E" transform="rotate(8 28 8)" />
           <rect x="8" y="-10" width="48" height="26" rx="3" fill="#48B777" transform="rotate(16 32 3)" />
-          <text x="34" y="10" fontFamily="Arial, sans-serif" fontWeight="900" fontSize="15" fill="#fff" textAnchor="middle" transform="rotate(16 32 3)">
+          <text x="34" y="10" fontFamily="Arial, sans-serif" fontWeight="900" fontSize="15" fill="#fff" textAnchor="middle" transform={mirrored ? "rotate(16 32 3) translate(68 0) scale(-1 1)" : "rotate(16 32 3)"}>
             $
           </text>
         </g>
@@ -61,7 +63,8 @@ function Arm({ hand }: { hand: Hand }) {
   );
 }
 
-export function Roo({ hand = "none", pouchCar = false, hop = false, confused = false, className = "", title, width, height, flip = false }: RooProps) {
+export function Roo({ hand = "none", pouchCar = false, hop = false, confused = false, className = "", title, width, height, flip = false, mirrored = false }: RooProps) {
+  const textMirrored = flip || mirrored;
   return (
     <svg viewBox="-10 -30 330 450" width={width} height={height} className={className} role={title ? "img" : undefined} aria-hidden={title ? undefined : true} aria-label={title} style={flip ? { transform: "scaleX(-1)" } : undefined}>
       {hop && (
@@ -99,7 +102,7 @@ export function Roo({ hand = "none", pouchCar = false, hop = false, confused = f
           </>
         )}
         <path d="M148 294 C 168 306, 196 306, 211 292" stroke="#DDBB92" strokeWidth="5" fill="none" strokeLinecap="round" />
-        {hand !== "phone" && hand !== "wave" && <Arm hand={hand} />}
+        {hand !== "phone" && hand !== "wave" && <Arm hand={hand} mirrored={textMirrored} />}
         {/* neck */}
         <path fill={FUR} d="M156 162 C 161 128, 172 108, 190 94 L 218 122 C 207 140, 201 158, 197 172 Z" />
         {/* ears */}
@@ -118,7 +121,7 @@ export function Roo({ hand = "none", pouchCar = false, hop = false, confused = f
           <path d="M238 121 C 247 128, 258 128, 264 123" stroke={DARK} strokeWidth="3.2" fill="none" strokeLinecap="round" />
         )}
         <ellipse cx="226" cy="113" rx="8" ry="4.5" fill="#EC8E6E" opacity=".45" />
-        {(hand === "phone" || hand === "wave") && <Arm hand={hand} />}
+        {(hand === "phone" || hand === "wave") && <Arm hand={hand} mirrored={textMirrored} />}
       </g>
       {confused && (
         <text x="262" y="40" fontFamily="Arial, sans-serif" fontWeight="900" fontSize="64" fill="#C2410C">

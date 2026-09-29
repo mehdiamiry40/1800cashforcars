@@ -15,19 +15,19 @@ async function nunito(weight: number) {
 }
 
 export default async function OgImage() {
-  // Static export of <Roo pouchCar /> (regenerate if the character changes).
-  const svg = readFileSync(join(process.cwd(), "src/assets/roo-pouch.svg"));
+  // Static export of <HeroScene /> (regenerate with scripts/export-roo.tsx if the art changes).
+  const svg = readFileSync(join(process.cwd(), "src/assets/roo-scene.svg"));
   const src = `data:image/svg+xml;base64,${svg.toString("base64")}`;
   return new ImageResponse(
     (
-      <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 80px", background: "#FBF3E6", color: "#1D2433", fontFamily: "Nunito" }}>
-        <div style={{ display: "flex", flexDirection: "column", maxWidth: 640 }}>
+      <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 60px", background: "#FBF3E6", color: "#1D2433", fontFamily: "Nunito" }}>
+        <div style={{ display: "flex", flexDirection: "column", maxWidth: 560 }}>
           <div style={{ fontSize: 30, fontWeight: 900, color: "#c2410c", letterSpacing: 4 }}>1800 CASH FOR CARS</div>
-          <div style={{ fontSize: 84, fontWeight: 900, lineHeight: 1.02, marginTop: 20 }}>Cash for scrap cars.</div>
-          <div style={{ fontSize: 84, fontWeight: 900, lineHeight: 1.02, color: "#A55A27" }}>Any car. Any condition.</div>
+          <div style={{ fontSize: 72, fontWeight: 900, lineHeight: 1.02, marginTop: 20 }}>Cash for scrap cars.</div>
+          <div style={{ fontSize: 72, fontWeight: 900, lineHeight: 1.02, color: "#C2410C" }}>Any car. Any condition.</div>
           <div style={{ fontSize: 32, fontWeight: 600, marginTop: 28, color: "#4B5263" }}>Free towing. Paid on pickup. Brisbane, Gold Coast and SEQ.</div>
         </div>
-        <img src={src} width={380} height={518} alt="" />
+        <img src={src} width={520} height={366} alt="" />
       </div>
     ),
     {

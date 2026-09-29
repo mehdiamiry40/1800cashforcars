@@ -8,7 +8,7 @@ Website for [1800cashforcars.com.au](https://1800cashforcars.com.au): Next.js (A
   - `reviews`: add real customer reviews only. The reviews section appears automatically when this has entries.
 - **Service pages** (`src/lib/content.ts`): Cash for cars, Car removals, Services, Cash for trucks, Scrap car removal, Car wreckers, Car disposal.
 - **Brand mascot, Roo**: `src/components/Roo.tsx` (poses: `pouchCar`, `hand="phone" | "cash" | "wave"`, `hop`, `confused`, `flip`) and `RooMark` for the logo. Vehicle icons are in `src/components/VehicleIcons.tsx`.
-  - If Roo's design changes, regenerate the share-image copy: `npx tsx scripts/export-roo.tsx`.
+  - The hero scene (Roo offering cash for an old car) is `src/components/HeroScene.tsx`. If the art changes, regenerate the share-image copy: `npx tsx scripts/export-roo.tsx`.
 - **Brand colours**: orange `#c2410c` (logo, buttons, links), navy `#0f1d33` (dark sections), Roo rust `#c8743a`, sand `#fbf3e6`. Fonts are Barlow (headings) and Nunito Sans (body). Sharp corners everywhere (a global rule in `globals.css` forces `border-radius: 0`). Keep it plain: we mostly buy scrap and old cars.
 
 ## Quote requests

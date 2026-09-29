@@ -1,7 +1,7 @@
 import { heroCopy } from "@/lib/slides";
 import { site } from "@/lib/site";
 import { QuoteForm } from "./QuoteForm";
-import { Roo } from "./Roo";
+import { HeroScene } from "./HeroScene";
 import { CheckIcon, PhoneIcon } from "./icons";
 
 export function Hero({ where }: { where?: string }) {
@@ -10,7 +10,7 @@ export function Hero({ where }: { where?: string }) {
     <>
       <section className="relative overflow-hidden border-b-4 border-ink bg-sand">
 
-        <div className="container-site relative grid items-center gap-6 pb-28 pt-10 sm:pb-32 sm:pt-14 md:grid-cols-[1.05fr_0.95fr]">
+        <div className="container-site relative grid items-center gap-6 pb-28 pt-10 sm:pb-32 sm:pt-14 md:grid-cols-[0.95fr_1.05fr]">
           <div>
             <h1 className="font-heading text-[42px] font-extrabold leading-[1] tracking-[-0.01em] text-ink min-[400px]:text-[48px] sm:text-[66px]">
               {copy.title} <span className="block text-brand">{copy.lead}</span>
@@ -30,8 +30,8 @@ export function Hero({ where }: { where?: string }) {
               ))}
             </ul>
           </div>
-          <div className="relative mx-auto w-full max-w-[240px] sm:max-w-[380px] md:max-w-[420px]">
-            <Roo pouchCar className="w-full" title="Roo the kangaroo with an old car in his pouch" />
+          <div className="relative mx-auto w-full max-w-[420px] md:max-w-[560px]">
+            <HeroScene className="w-full" />
           </div>
         </div>
       </section>
