@@ -24,7 +24,7 @@ export default function Home() {
           <div>
             <h2 className="h-section">Questions?</h2>
             <p className="mt-3 text-[18px]">
-              Quick answers here, or call <a href={site.phoneHref} className="font-bold text-brand underline underline-offset-2">{site.phoneDisplay}</a>.
+              Quick answers here, or <a href={site.phoneHref} className="font-bold text-brand underline underline-offset-2">call us</a>.
             </p>
           </div>
           <Faq bare limit={6} />

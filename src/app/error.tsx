@@ -22,7 +22,7 @@ export default function Error({ error, retry }: { error: Error & { digest?: stri
             Try again
           </button>
           <a href={site.phoneHref} className="btn-brand !px-7 !py-4 !text-[18px]">
-            <PhoneIcon className="h-5 w-5" /> Call {site.phoneDisplay}
+            <PhoneIcon className="h-5 w-5" /> Call Us
           </a>
           <Link href="/" className="btn-line !px-7 !py-4 !text-[18px]">
             Home page

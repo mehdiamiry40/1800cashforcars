@@ -170,9 +170,11 @@ export function AskForPrice() {
           <Roo hand="phone" className="mx-auto h-56 w-auto lg:mx-0" />
           <h2 className="mt-6 h-section !text-white">Let&apos;s talk cars</h2>
           <p className="mt-3 text-[18px] text-white/80">Calling is quickest. We answer 24/7.</p>
-          <a href={site.phoneHref} className="mt-5 inline-flex items-center gap-3 font-heading text-[36px] font-extrabold text-white sm:text-[44px]">
-            <PhoneIcon className="h-8 w-8 text-brand-light" /> {site.phoneDisplay}
-          </a>
+          <p className="mt-6">
+            <a href={site.phoneHref} className="btn-brand !px-8 !py-4 !text-[20px]">
+              <PhoneIcon className="h-6 w-6" /> Call Us
+            </a>
+          </p>
           {site.smsNumber && (
             <p>
               <a href={`sms:${site.smsNumber}`} className="inline-flex items-center gap-2 py-2 font-bold text-brand-light underline underline-offset-4">
@@ -247,7 +249,7 @@ export function FinalCta() {
           <p className="mt-3 text-[18px]">Call Roo. We&apos;ll take it off your hands today.</p>
           <div className="mt-6 flex flex-col justify-center gap-3 sm:flex-row sm:justify-start">
             <a href={site.phoneHref} className="btn-brand !px-7 !py-4 !text-[18px]">
-              <PhoneIcon className="h-5 w-5" /> Call {site.phoneDisplay}
+              <PhoneIcon className="h-5 w-5" /> Call Us
             </a>
             <Link href="/#quote" className="btn-line !px-7 !py-4 !text-[18px]">
               Get a price online <ArrowIcon className="h-5 w-5" />

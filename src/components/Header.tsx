@@ -40,8 +40,8 @@ export function Header() {
           </ul>
         </nav>
         <div className="flex items-center gap-2">
-          <a href={site.phoneHref} className="hidden items-center gap-2 px-2 font-heading text-[18px] font-extrabold text-ink hover:text-brand md:flex">
-            <PhoneIcon className="h-5 w-5 text-brand" /> {site.phoneDisplay}
+          <a href={site.phoneHref} className="btn-line hidden !px-5 !py-2 !text-[17px] md:inline-flex">
+            <PhoneIcon className="h-5 w-5 text-brand" /> Call Us
           </a>
           <Link href="/#quote" className="btn-brand hidden !px-5 !py-2.5 !text-[17px] sm:inline-flex">
             Get a price

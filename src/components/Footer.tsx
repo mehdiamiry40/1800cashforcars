@@ -11,9 +11,11 @@ export function Footer() {
         <div className="col-span-2 lg:col-span-1">
           <Logo light />
           <p className="mt-5">
-            <a href={site.phoneHref} className="font-display text-[30px] font-extrabold tracking-[0.01em] text-white">{site.phoneDisplay}</a>
+            <a href={site.phoneHref} className="inline-flex items-center gap-2 bg-brand px-5 py-2.5 font-heading text-[18px] font-bold text-white hover:bg-brand-dark">
+              <PhoneIcon className="h-5 w-5" /> Call Us
+            </a>
           </p>
-          <p>{site.hours}</p>
+          <p className="mt-3">{site.hours}</p>
           <p>{site.pickups}</p>
           {site.showEmail && (
             <p className="mt-3"><a href={`mailto:${site.email}`} className="underline underline-offset-2 hover:text-white">{site.email}</a></p>
@@ -70,7 +72,7 @@ export function FloatingContact() {
   return (
     <div className="fixed inset-x-0 bottom-0 z-50 grid grid-cols-2 bg-navy pb-[env(safe-area-inset-bottom)] shadow-[0_-4px_16px_rgba(0,0,0,0.12)] md:hidden">
       <a href={site.phoneHref} className="flex items-center justify-center gap-2 bg-brand py-4 font-heading text-[17px] font-bold text-white">
-        <PhoneIcon className="h-5 w-5" /> Call now
+        <PhoneIcon className="h-5 w-5" /> Call Us
       </a>
       {site.smsNumber ? (
         <a href={`sms:${site.smsNumber}`} className="flex items-center justify-center gap-2 bg-navy py-4 font-heading text-[17px] font-bold text-white">

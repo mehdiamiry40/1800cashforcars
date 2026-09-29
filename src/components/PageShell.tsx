@@ -41,8 +41,8 @@ export function PageShell({
         <aside>
           <div className="border-2 border-ink bg-sand p-6 lg:sticky lg:top-28">
             <p className="font-heading text-[20px] font-extrabold text-ink">Get a price</p>
-            <a href={site.phoneHref} className="mt-2 flex items-center gap-2 font-heading text-[28px] font-extrabold text-ink">
-              <PhoneIcon className="h-6 w-6 text-brand" /> {site.phoneDisplay}
+            <a href={site.phoneHref} className="btn-brand mt-3 w-full">
+              <PhoneIcon className="h-5 w-5" /> Call Us
             </a>
             <p className="text-[15px]">{site.hours}</p>
             {site.smsNumber && (
@@ -50,7 +50,7 @@ export function PageShell({
                 <SmsIcon className="h-5 w-5" /> Text us a photo
               </a>
             )}
-            <Link href="#ask-for-our-price" className="btn-brand mt-4 w-full">Send us the details</Link>
+            <Link href="#ask-for-our-price" className="btn-line mt-3 w-full">Send us the details</Link>
           </div>
         </aside>
       </section>

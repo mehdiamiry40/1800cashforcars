@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     template: `%s | ${site.name}`,
   },
   description:
-    "Cash for scrap, old, broken and unwanted cars across Brisbane, the Gold Coast and South East QLD. Any condition, free towing, paid on pickup. Call 0481 438 444.",
+    "Cash for scrap, old, broken and unwanted cars across Brisbane, the Gold Coast and South East QLD. Any condition, free towing, paid on pickup. Call us for a price.",
   keywords: ["cash for cars", "car removal", "sell my car", "scrap car removal", "car wreckers", "cash for cars Gold Coast", "cash for cars Brisbane"],
   openGraph: {
     type: "website",

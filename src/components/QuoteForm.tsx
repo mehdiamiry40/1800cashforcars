@@ -30,7 +30,7 @@ export function QuoteForm({ variant = "full" }: { variant?: "full" | "compact" }
           <p className="font-heading text-[22px] font-extrabold text-ink">Thanks, we&apos;re on it!</p>
           <p className="mt-1">
             We&apos;ll call or text you shortly with a price. Need it sooner? Call{" "}
-            <a href={site.phoneHref} className="font-bold text-brand underline">{site.phoneDisplay}</a>.
+            <a href={site.phoneHref} className="font-bold text-brand underline">call us</a>.
           </p>
         </div>
       </div>

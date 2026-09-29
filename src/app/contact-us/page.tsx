@@ -4,13 +4,13 @@ import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Contact Us",
-  description: `Contact ${site.name} for a free cash offer and free car removal. Call ${site.phoneDisplay} or send us your car's details.`,
+  description: `Contact ${site.name} for a free cash offer and free car removal. Call us or send us your car's details.`,
   alternates: { canonical: "/contact-us" },
 };
 
 export default function ContactPage() {
   const rows = [
-    { label: "Phone", value: <a href={site.phoneHref} className="font-semibold text-brand hover:underline">{site.phoneDisplay}</a> },
+    { label: "Phone", value: <a href={site.phoneHref} className="font-semibold text-brand underline">Call us</a> },
     ...(site.showEmail ? [{ label: "Email", value: <a href={`mailto:${site.email}`} className="font-semibold text-brand hover:underline">{site.email}</a> }] : []),
     { label: "Hours", value: `${site.hours}. ${site.pickups}.` },
     ...(site.address

@@ -32,7 +32,7 @@ export default function PrivacyPage() {
       <h2>Access and correction</h2>
       <p>
         You can ask to see or correct the information we hold about you, or make a privacy complaint, by calling or texting us
-        on <a className="font-semibold text-brand" href={site.phoneHref}>{site.phoneDisplay}</a>
+        (<a className="font-semibold text-brand" href={site.phoneHref}>call us</a>)
         {site.showEmail && (
           <>
             {" "}or emailing <a className="font-semibold text-brand" href={`mailto:${site.email}`}>{site.email}</a>

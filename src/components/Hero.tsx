@@ -19,7 +19,7 @@ export function Hero({ where }: { where?: string }) {
             <div className="mt-7 flex flex-col gap-3 sm:flex-row">
               <a href="#quote" className="btn-brand !px-7 !py-4 !text-[18px]">Get my price</a>
               <a href={site.phoneHref} className="btn-line !px-7 !py-4 !text-[18px]">
-                <PhoneIcon className="h-5 w-5 text-brand" /> {site.phoneDisplay}
+                <PhoneIcon className="h-5 w-5 text-brand" /> Call Us
               </a>
             </div>
             <ul className="mt-6 flex flex-wrap gap-x-5 gap-y-2 font-heading text-[15px] font-extrabold text-ink">
