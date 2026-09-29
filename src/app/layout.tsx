@@ -1,6 +1,6 @@
 import { Analytics } from "@vercel/analytics/next";
 import type { Metadata, Viewport } from "next";
-import { Barlow, Nunito_Sans } from "next/font/google";
+import { Barlow, Barlow_Semi_Condensed, Nunito_Sans } from "next/font/google";
 import { FloatingContact, Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { areas, site } from "@/lib/site";
@@ -9,6 +9,8 @@ import "./globals.css";
 // Body text: "optional" keeps the fallback if the font is not ready almost immediately, so it never delays first paint.
 const nunitoSans = Nunito_Sans({ variable: "--font-nunito-sans", subsets: ["latin"], weight: ["400", "700"], display: "optional" });
 const barlow = Barlow({ variable: "--font-barlow", subsets: ["latin"], weight: ["600", "700", "800"] });
+// Logo lettering only.
+const barlowSemi = Barlow_Semi_Condensed({ variable: "--font-barlow-semi", subsets: ["latin"], weight: ["800"] });
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -66,7 +68,7 @@ const jsonLd = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en-AU" className={`${nunitoSans.variable} ${barlow.variable} antialiased`}>
+    <html lang="en-AU" className={`${nunitoSans.variable} ${barlow.variable} ${barlowSemi.variable} antialiased`}>
       <body className="flex min-h-screen flex-col font-sans">
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }} />
         <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-3 focus:top-3 focus:z-[60] focus:bg-white focus:px-4 focus:py-2 focus:font-semibold focus:text-ink">Skip to content</a>

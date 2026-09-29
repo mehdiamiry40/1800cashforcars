@@ -83,6 +83,11 @@ strong {
   font-variant-numeric: tabular-nums;
 }
 
+/* Logo lettering (sign-style wordmark). */
+.font-logo {
+  font-family: var(--font-barlow-semi);
+}
+
 @utility container-site {
   @apply mx-auto w-full max-w-[1120px] px-5 sm:px-6;
 }
