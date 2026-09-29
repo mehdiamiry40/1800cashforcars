@@ -28,6 +28,8 @@ export const metadata: Metadata = {
     url: site.url,
   },
   alternates: { canonical: "/" },
+  // Google Search Console ownership (URL-prefix property). Keep this, or verification is lost.
+  verification: { google: "hT98u-ufxCSpHuzlwhET1YrWOFSQEH_Eh_8oAwh7BkA" },
 };
 
 export const viewport: Viewport = {
