@@ -24,7 +24,7 @@ export function QuoteForm({ variant = "full" }: { variant?: "full" | "compact" }
 
   if (state?.ok) {
     return (
-      <div className="flex items-center gap-4 bg-[#EAF6EF] p-5">
+      <div className="flex items-center gap-4 border-2 border-line bg-sand p-5">
         <Roo hand="cash" className="h-28 w-auto shrink-0" />
         <div>
           <p className="font-heading text-[22px] font-extrabold text-ink">Thanks, we&apos;re on it!</p>

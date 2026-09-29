@@ -121,7 +121,7 @@ export function Roo({ hand = "none", pouchCar = false, hop = false, confused = f
         {(hand === "phone" || hand === "wave") && <Arm hand={hand} />}
       </g>
       {confused && (
-        <text x="262" y="40" fontFamily="Arial, sans-serif" fontWeight="900" fontSize="64" fill="#2E8B57">
+        <text x="262" y="40" fontFamily="Arial, sans-serif" fontWeight="900" fontSize="64" fill="#C2410C">
           ?
         </text>
       )}
@@ -139,7 +139,7 @@ export function RooMark({ className = "h-10 w-10", light = false }: { className?
           <rect width="64" height="64" />
         </clipPath>
       </defs>
-      <rect width="64" height="64" fill={light ? "#FFFFFF" : "#1F7A4D"} />
+      <rect width="64" height="64" fill={light ? "#FFFFFF" : "#C2410C"} />
       <g clipPath={`url(#${id})`}>
         <g transform="translate(-47 4) scale(0.37)">
           <path fill={FUR_D} d="M166 84 C 146 56, 140 22, 153 12 C 166 4, 182 40, 186 78 Z" />

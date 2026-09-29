@@ -13,7 +13,7 @@ export function Hero({ where }: { where?: string }) {
         <div className="container-site relative grid items-center gap-6 pb-28 pt-10 sm:pb-32 sm:pt-14 md:grid-cols-[1.05fr_0.95fr]">
           <div>
             <h1 className="font-heading text-[42px] font-extrabold leading-[1] tracking-[-0.01em] text-ink min-[400px]:text-[48px] sm:text-[66px]">
-              {copy.title} <span className="block text-rust">{copy.lead}</span>
+              {copy.title} <span className="block text-brand">{copy.lead}</span>
             </h1>
             <p className="mt-5 max-w-md text-[18px] sm:text-[20px]">{copy.sub}</p>
             <div className="mt-7 flex flex-col gap-3 sm:flex-row">

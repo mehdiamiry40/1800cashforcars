@@ -1,17 +1,17 @@
 @import "tailwindcss";
 
 @theme {
-  /* Brand: Roo the kangaroo, cash green, outback sand */
-  --color-brand: #1f7a4d;
-  --color-brand-dark: #17603c;
-  --color-brand-light: #9ee0b8;
+  /* Brand: orange + navy (matches the logo), Roo the kangaroo, outback sand */
+  --color-brand: #c2410c;
+  --color-brand-dark: #a3360a;
+  --color-brand-light: #ff9150;
   --color-roo: #c8743a;
   --color-rust: #a55a27;
   --color-sand: #fbf3e6;
   --color-paper: #fbf3e6;
-  --color-navy: #1e3a2f;
-  --color-navy-800: #274a3c;
-  --color-navy-950: #152a22;
+  --color-navy: #0f1d33;
+  --color-navy-800: #182a47;
+  --color-navy-950: #0a1424;
   --color-money: #1f7a4d;
   --color-ink: #1d2433;
   --color-body: #4b5263;
@@ -65,12 +65,12 @@ strong {
 }
 
 ::selection {
-  background: #c9ecd8;
+  background: #ffd9c2;
   color: #1d2433;
 }
 
 :focus-visible {
-  outline: 3px solid #1f7a4d;
+  outline: 3px solid #c2410c;
   outline-offset: 3px;
 }
 

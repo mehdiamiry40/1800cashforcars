@@ -54,7 +54,7 @@ const shapes: Record<string, React.ReactNode> = {
   truck: (
     <>
       <path fill="#F5F7FA" d="M4 46 V 8 H 66 V 46 Z" stroke="#C9D2E0" strokeWidth="2" />
-      <path fill="#1F7A4D" d="M4 30 H 66 V 34 H 4 Z" />
+      <path fill="#C2410C" d="M4 30 H 66 V 34 H 4 Z" />
       <path fill={BODY} d="M68 46 V 18 C 68 15, 70 13, 73 13 H 88 C 91 13, 93 15, 95 18 L 102 30 V 46 Z" />
       <path fill={GLASS} d="M76 28 V 18 H 87 C 88 18, 89 19, 90 20 L 95 28 Z" />
       <Wheels xs={[20, 44, 86]} y={50} />
