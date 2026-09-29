@@ -8,7 +8,7 @@ export const site = {
   phoneHref: "tel:+61481438444",
   email: "quotes@1800cashforcars.com.au",
   // Only show the email address on the site once the mailbox (or forwarding) is set up, otherwise emails bounce.
-  showEmail: false,
+  showEmail: true,
   hours: "Calls answered 24/7",
   pickups: "Pickups 7 days, at a time that suits you",
   hoursSchema: "Mo-Su 00:00-23:59",
