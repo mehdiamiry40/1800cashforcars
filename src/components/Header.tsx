@@ -26,12 +26,12 @@ export function Header() {
           <Logo />
         </Link>
         <nav aria-label="Main" className="hidden lg:block">
-          <ul className="flex items-center gap-1 font-heading text-[16px] font-extrabold">
+          <ul className="flex items-center gap-6 font-heading text-[17px] font-bold">
             {nav.map((n) => (
               <li key={n.href}>
                 <Link
                   href={n.href}
-                  className={`rounded-full px-3.5 py-2 transition ${n.href === pathname ? "bg-sand text-brand" : "text-ink hover:bg-sand"}`}
+                  className={`border-b-2 px-1 py-1 transition ${n.href === pathname ? "border-brand text-brand" : "border-transparent text-ink hover:border-ink"}`}
                 >
                   {n.label}
                 </Link>
@@ -40,10 +40,10 @@ export function Header() {
           </ul>
         </nav>
         <div className="flex items-center gap-2">
-          <a href={site.phoneHref} className="hidden items-center gap-2 px-2 font-heading text-[18px] font-black text-ink hover:text-brand md:flex">
+          <a href={site.phoneHref} className="hidden items-center gap-2 px-2 font-heading text-[18px] font-extrabold text-ink hover:text-brand md:flex">
             <PhoneIcon className="h-5 w-5 text-brand" /> {site.phoneDisplay}
           </a>
-          <Link href="/#quote" className="btn-brand hidden !px-5 !py-2.5 !text-[16px] !shadow-[0_4px_0_0_#17603c] sm:inline-flex">
+          <Link href="/#quote" className="btn-brand hidden !px-5 !py-2.5 !text-[17px] sm:inline-flex">
             Get a price
           </Link>
           <button
@@ -51,7 +51,7 @@ export function Header() {
             onClick={() => setOpen((o) => !o)}
             aria-expanded={open}
             aria-label="Menu"
-            className="grid h-11 w-11 place-items-center rounded-full bg-sand text-ink lg:hidden"
+            className="grid h-11 w-11 place-items-center border-2 border-ink text-ink lg:hidden"
           >
             <MenuIcon className="h-6 w-6" />
           </button>
@@ -62,7 +62,7 @@ export function Header() {
           <ul className="container-site grid gap-1 py-3 font-heading text-[18px] font-extrabold">
             {[{ href: "/", label: "Home" }, ...nav].map((n) => (
               <li key={n.href}>
-                <Link href={n.href} onClick={() => setOpen(false)} className="block rounded-2xl px-3 py-2.5 text-ink hover:bg-sand">
+                <Link href={n.href} onClick={() => setOpen(false)} className="block px-3 py-2.5 text-ink hover:bg-sand">
                   {n.label}
                 </Link>
               </li>

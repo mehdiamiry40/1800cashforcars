@@ -18,12 +18,27 @@
   --color-line: #eadfcd;
 
   --font-sans: var(--font-nunito-sans);
-  --font-heading: var(--font-nunito);
-  --font-display: var(--font-nunito);
+  --font-heading: var(--font-barlow);
+  --font-display: var(--font-barlow);
 }
 
 html {
   scroll-behavior: smooth;
+}
+
+/* Sharp edges everywhere (including iOS form controls, which round by default). */
+*,
+::before,
+::after {
+  border-radius: 0 !important;
+}
+
+input,
+textarea,
+select,
+button {
+  -webkit-appearance: none;
+  appearance: none;
 }
 
 body {
@@ -73,11 +88,11 @@ strong {
 }
 
 @utility btn {
-  @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 font-heading text-[17px] font-extrabold transition;
+  @apply inline-flex items-center justify-center gap-2 px-6 py-3 font-heading text-[18px] font-bold transition-colors;
 }
 
 @utility btn-brand {
-  @apply btn bg-brand text-white shadow-[0_6px_0_0_#17603c] hover:-translate-y-px hover:bg-brand-dark active:translate-y-[3px] active:shadow-[0_3px_0_0_#17603c];
+  @apply btn bg-brand text-white hover:bg-brand-dark;
 }
 
 @utility btn-navy {
@@ -85,19 +100,19 @@ strong {
 }
 
 @utility btn-line {
-  @apply btn border-2 border-ink/15 bg-white text-ink hover:border-ink/40;
+  @apply btn border-2 border-ink bg-white text-ink hover:bg-ink hover:text-white;
 }
 
 @utility h-section {
-  @apply font-heading text-[32px] font-black leading-[1.1] tracking-[-0.02em] text-ink sm:text-[44px];
+  @apply font-heading text-[34px] font-extrabold leading-[1.05] tracking-[-0.01em] text-ink sm:text-[46px];
 }
 
 @utility h-sub {
-  @apply font-heading text-[22px] font-extrabold leading-snug text-ink;
+  @apply font-heading text-[23px] font-bold leading-snug text-ink;
 }
 
 @utility field {
-  @apply w-full rounded-2xl border-2 border-line bg-white px-4 py-3 text-[16px] text-ink outline-none transition placeholder:text-[#9a9486] focus:border-brand focus:ring-4 focus:ring-brand/15;
+  @apply w-full border-2 border-[#cfc4b2] bg-white px-4 py-3 text-[16px] text-ink outline-none transition placeholder:text-[#8f887b] focus:border-brand;
 }
 
 .prose-site p {

@@ -3,11 +3,11 @@ import { site } from "./site";
 // `where` is a place phrase such as "on the Gold Coast" or "in Brisbane".
 export function heroCopy(where?: string) {
   return {
-    title: where ? `Sell your car ${where}.` : "Sell your car.",
-    lead: "We'll hop right over.",
+    title: where ? `Cash for scrap cars ${where}.` : "Cash for scrap cars.",
+    lead: "Any car. Any condition.",
     sub: site.maxPayout
-      ? `Up to ${site.maxPayout} for any car, ute, van or truck. Free towing, and we pay you before we leave.`
-      : "Top cash for any car, ute, van or truck. Free towing, and we pay you before we leave.",
+      ? `Old, broken, crashed or rusted out. Up to ${site.maxPayout}, and we tow it away free.`
+      : "Old, broken, crashed or rusted out. We pay cash for it and tow it away free.",
     points: ["Free towing", "Paid on pickup", "Calls 24/7"],
   };
 }

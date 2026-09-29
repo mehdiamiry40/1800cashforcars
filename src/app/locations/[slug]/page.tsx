@@ -40,7 +40,7 @@ export default async function LocationPage({ params }: PageProps<"/locations/[sl
           <SectionHead title={`Suburbs we cover ${area.where}`} intro="Free pickup from your driveway, work, mechanic or the roadside." />
           <ul className="mx-auto mt-10 flex max-w-3xl flex-wrap justify-center gap-2.5">
             {area.suburbs.map((s) => (
-              <li key={s} className="flex items-center gap-1.5 rounded-full bg-white px-4 py-2 font-heading font-extrabold text-ink ring-1 ring-line">
+              <li key={s} className="flex items-center gap-1.5 border-2 border-line bg-white px-4 py-2 font-heading font-bold text-ink">
                 <PinIcon className="h-4 w-4 text-rust" /> {s}
               </li>
             ))}

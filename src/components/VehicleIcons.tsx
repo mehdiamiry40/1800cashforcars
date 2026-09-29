@@ -74,12 +74,12 @@ const shapes: Record<string, React.ReactNode> = {
 };
 
 export const vehicleTypes = [
+  { key: "scrap", label: "Scrap & wrecks" },
   { key: "car", label: "Cars" },
   { key: "ute", label: "Utes" },
   { key: "van", label: "Vans" },
   { key: "4wd", label: "4WDs" },
   { key: "truck", label: "Trucks" },
-  { key: "scrap", label: "Wrecks" },
 ] as const;
 
 export function VehicleIcon({ type, className = "" }: { type: string; className?: string }) {

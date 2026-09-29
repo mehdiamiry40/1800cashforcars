@@ -31,13 +31,12 @@ export function HowItWorks() {
         <SectionHead title="Easy as 1, 2, 3" />
         <ol className="mt-12 grid gap-12 sm:grid-cols-3 sm:gap-8">
           {steps.map((s, i) => (
-            <li key={s.title} className="flex flex-col items-center text-center">
+            <li key={s.title} className="flex flex-col items-center border-t-4 border-ink pt-6 text-center">
               <div className="relative flex h-64 w-60 items-end justify-center">
-                <span aria-hidden className="absolute bottom-2 left-1/2 h-48 w-48 -translate-x-1/2 rounded-full bg-sand" />
                 {s.roo}
               </div>
-              <p className="mt-5 font-heading text-[15px] font-black uppercase tracking-[0.15em] text-brand">Step {i + 1}</p>
-              <h3 className="mt-1 font-heading text-[24px] font-black text-ink">{s.title}</h3>
+              <p className="mt-5 font-heading text-[15px] font-extrabold uppercase tracking-[0.15em] text-brand">Step {i + 1}</p>
+              <h3 className="mt-1 font-heading text-[24px] font-extrabold text-ink">{s.title}</h3>
               <p className="mt-1 max-w-[260px]">{s.text}</p>
             </li>
           ))}
@@ -51,10 +50,10 @@ export function WhatWeBuy() {
   return (
     <section className="bg-sand py-16 sm:py-24">
       <div className="container-site">
-        <SectionHead title="If it has wheels, we'll buy it" intro="Running or not, crashed, flooded, unregistered or rusted out." />
+        <SectionHead title="Scrap, old or unwanted. We buy it." intro="Running or not, crashed, flooded, unregistered or rusted out. If it's taking up space, it's worth something." />
         <ul className="mx-auto mt-10 grid max-w-4xl grid-cols-3 gap-4 sm:grid-cols-6">
           {vehicleTypes.map((v) => (
-            <li key={v.key} className="flex flex-col items-center gap-2 rounded-3xl bg-white px-2 py-5 ring-1 ring-line">
+            <li key={v.key} className="flex flex-col items-center gap-2 border-2 border-line bg-white px-2 py-5">
               <VehicleIcon type={v.key} className="h-12 w-auto" />
               <span className="font-heading text-[15px] font-extrabold text-ink">{v.label}</span>
             </li>
@@ -75,14 +74,14 @@ export function ContentBlocks({ blocks }: { blocks: Block[] }) {
     <div className="space-y-12">
       {blocks.map((b) => (
         <div key={b.heading}>
-          <h2 className="font-heading text-[28px] font-black leading-tight tracking-[-0.02em] text-ink sm:text-[32px]">{b.heading}</h2>
+          <h2 className="font-heading text-[28px] font-extrabold leading-tight tracking-[-0.02em] text-ink sm:text-[32px]">{b.heading}</h2>
           <div className="prose-site text-[18px]">
             {b.paras?.map((p) => <p key={p}>{p}</p>)}
           </div>
           {b.list && (
             <ul className="mt-5 grid gap-3">
               {b.list.map((l) => (
-                <li key={l.bold} className="flex gap-3 rounded-2xl bg-sand px-5 py-4">
+                <li key={l.bold} className="flex gap-3 bg-sand px-5 py-4">
                   <CheckIcon className="mt-1 h-5 w-5 shrink-0 text-brand" />
                   <span>
                     <b className="text-ink">{l.bold}.</b> {l.text.charAt(0).toUpperCase() + l.text.slice(1)}
@@ -107,7 +106,7 @@ export function AreasGrid() {
             <li key={a.slug}>
               <Link
                 href={`/locations/${a.slug}`}
-                className="flex items-center gap-2 rounded-full bg-white px-5 py-3 font-heading text-[17px] font-extrabold text-ink ring-2 ring-line transition hover:ring-brand"
+                className="flex items-center gap-2 border-2 border-ink bg-white px-5 py-3 font-heading text-[17px] font-bold text-ink transition hover:bg-ink hover:text-white"
               >
                 <PinIcon className="h-5 w-5 text-rust" /> {a.name}
               </Link>
@@ -126,10 +125,10 @@ export function Faq({ bare = false, limit }: { bare?: boolean; limit?: number })
       {!bare && <SectionHead title="Questions" center={false} />}
       <div className={`space-y-3 ${bare ? "" : "mt-6"}`}>
         {list.map((f) => (
-          <details key={f.q} className="group rounded-3xl bg-white px-6 ring-1 ring-line open:ring-2 open:ring-brand/40">
+          <details key={f.q} className="group border-2 border-line bg-white px-6 open:border-ink">
             <summary className="flex cursor-pointer list-none items-center justify-between gap-4 py-5 font-heading text-[18px] font-extrabold text-ink">
               {f.q}
-              <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-sand text-xl font-black text-brand transition group-open:rotate-45">+</span>
+              <span className="grid h-8 w-8 shrink-0 place-items-center bg-sand text-xl font-extrabold text-brand transition group-open:rotate-45" aria-hidden>+</span>
             </summary>
             <p className="pb-5 pr-6">{f.a}</p>
           </details>
@@ -142,14 +141,14 @@ export function Faq({ bare = false, limit }: { bare?: boolean; limit?: number })
 export function CallUsAndTerms({ stacked = false }: { stacked?: boolean }) {
   return (
     <div className={`grid gap-5 ${stacked ? "" : "md:grid-cols-2"}`}>
-      <div className="rounded-3xl bg-sand p-7">
+      <div className="border-2 border-line bg-sand p-7">
         <h2 className="h-sub">Getting paid</h2>
         <p className="mt-2">
           Cash or bank transfer, your choice, paid before the car leaves. In NSW (including Tweed Heads) it&apos;s bank transfer
           only.
         </p>
       </div>
-      <div className="rounded-3xl bg-sand p-7">
+      <div className="border-2 border-line bg-sand p-7">
         <h2 className="h-sub">What you&apos;ll need</h2>
         <ul className="mt-2 space-y-1.5">
           {["Proof you own it (e.g. rego papers), with no finance owing", "Photo ID", "Bank details if you'd like a transfer"].map((t) => (
@@ -171,7 +170,7 @@ export function AskForPrice() {
           <Roo hand="phone" className="mx-auto h-56 w-auto lg:mx-0" />
           <h2 className="mt-6 h-section !text-white">Let&apos;s talk cars</h2>
           <p className="mt-3 text-[18px] text-white/80">Calling is quickest. We answer 24/7.</p>
-          <a href={site.phoneHref} className="mt-5 inline-flex items-center gap-3 font-heading text-[36px] font-black text-white sm:text-[44px]">
+          <a href={site.phoneHref} className="mt-5 inline-flex items-center gap-3 font-heading text-[36px] font-extrabold text-white sm:text-[44px]">
             <PhoneIcon className="h-8 w-8 text-brand-light" /> {site.phoneDisplay}
           </a>
           {site.smsNumber && (
@@ -182,7 +181,7 @@ export function AskForPrice() {
             </p>
           )}
         </div>
-        <div className="rounded-[28px] bg-white p-6 text-body sm:p-9">
+        <div className="bg-white p-6 text-body sm:p-9">
           <QuoteForm />
         </div>
       </div>
@@ -198,7 +197,7 @@ export function ReviewsBand() {
         <SectionHead title="Happy sellers" />
         <div className="mt-10 grid gap-6 md:grid-cols-3">
           {reviews.slice(0, 3).map((r) => (
-            <figure key={r.name + r.text.slice(0, 10)} className="rounded-3xl bg-white p-7 ring-1 ring-line">
+            <figure key={r.name + r.text.slice(0, 10)} className="border-2 border-line bg-white p-7">
               <blockquote className="text-[18px] text-ink">&ldquo;{r.text}&rdquo;</blockquote>
               <figcaption className="mt-3 font-heading font-extrabold">
                 {r.name}
@@ -221,7 +220,7 @@ export function MakesRow() {
   return (
     <section id="makes" className="py-14 sm:py-20">
       <div className="container-site">
-        <h2 className="text-center font-heading text-[22px] font-black text-ink">Every make, every model</h2>
+        <h2 className="text-center font-heading text-[22px] font-extrabold text-ink">Every make, every model</h2>
         <ul className="mx-auto mt-8 grid max-w-4xl grid-cols-4 gap-y-7 sm:grid-cols-8">
           {makes.map((m) => (
             <li key={m.slug} className="flex justify-center" title={m.title}>
@@ -241,11 +240,11 @@ export function MakesRow() {
 
 export function FinalCta() {
   return (
-    <section className="relative overflow-hidden bg-sand">
+    <section className="relative overflow-hidden border-t-4 border-ink bg-sand">
       <div className="container-site grid items-end gap-6 pt-12 sm:grid-cols-[1fr_auto] sm:pt-16">
         <div className="pb-12 text-center sm:pb-16 sm:text-left">
-          <h2 className="h-section">Got a car to sell?</h2>
-          <p className="mt-3 text-[18px]">Roo&apos;s ready when you are.</p>
+          <h2 className="h-section">Old car taking up space?</h2>
+          <p className="mt-3 text-[18px]">Call Roo. We&apos;ll take it off your hands today.</p>
           <div className="mt-6 flex flex-col justify-center gap-3 sm:flex-row sm:justify-start">
             <a href={site.phoneHref} className="btn-brand !px-7 !py-4 !text-[18px]">
               <PhoneIcon className="h-5 w-5" /> Call {site.phoneDisplay}

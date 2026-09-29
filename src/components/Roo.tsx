@@ -87,10 +87,13 @@ export function Roo({ hand = "none", pouchCar = false, hop = false, confused = f
         <path fill={CREAM} d="M180 176 C 206 181, 215 217, 213 257 C 211 302, 197 334, 172 340 C 150 344, 139 320, 145 282 C 151 236, 159 179, 180 176 Z" />
         {pouchCar && (
           <>
-            <g transform="translate(142 260) scale(0.82)">
-              <path fill="#2F5DA8" d="M4 40 C 4 30, 10 24, 20 22 L 30 8 C 33 3, 38 1, 44 1 L 58 1 C 64 1, 68 4, 71 9 L 78 22 C 86 24, 90 30, 90 40 Z" />
-              <path fill="#CFE3F7" d="M33 21 L 40 9 C 41 7, 43 6, 45 6 L 50 6 L 50 21 Z M55 21 L 55 6 L 58 6 C 61 6, 63 7, 64 9 L 70 21 Z" />
-              <circle cx="84" cy="31" r="4" fill="#FFE08A" />
+            {/* a rusty old banger: we buy scrap */}
+            <g transform="translate(142 258) scale(0.82)">
+              <path fill="#8A7E6E" d="M4 42 C 4 32, 10 26, 20 24 L 29 10 C 32 5, 37 4, 43 5 L 58 3 C 64 3, 68 6, 71 11 L 78 24 C 86 26, 90 32, 90 42 Z" />
+              <path fill="#9C5A33" d="M8 34 c 6 -4 12 -2 14 3 c -5 3 -10 3 -14 -3 Z M62 12 c 5 0 8 3 8 7 c -5 1 -9 -2 -8 -7 Z M44 30 c 4 -2 9 -1 10 3 c -4 2 -8 1 -10 -3 Z" />
+              <path fill="#C9CFD6" d="M33 23 L 40 11 C 41 9, 43 8, 45 8 L 50 8 L 50 23 Z M55 23 L 55 7 L 58 7 C 61 7, 63 8, 64 10 L 70 23 Z" />
+              <path d="M57 9 l 4 6 l -3 3 l 5 5" stroke="#6B7280" strokeWidth="1.4" fill="none" />
+              <circle cx="84" cy="33" r="3.5" fill="#E8D9A8" />
             </g>
             <path fill={CREAM} d="M146 294 C 168 306, 196 306, 212 292 C 210 318, 196 336, 172 340 C 152 343, 142 322, 146 294 Z" />
           </>
@@ -133,10 +136,10 @@ export function RooMark({ className = "h-10 w-10", light = false }: { className?
     <svg viewBox="0 0 64 64" className={className} aria-hidden>
       <defs>
         <clipPath id={id}>
-          <circle cx="32" cy="32" r="32" />
+          <rect width="64" height="64" />
         </clipPath>
       </defs>
-      <circle cx="32" cy="32" r="32" fill={light ? "#FFFFFF" : "#2E8B57"} />
+      <rect width="64" height="64" fill={light ? "#FFFFFF" : "#1F7A4D"} />
       <g clipPath={`url(#${id})`}>
         <g transform="translate(-47 4) scale(0.37)">
           <path fill={FUR_D} d="M166 84 C 146 56, 140 22, 153 12 C 166 4, 182 40, 186 78 Z" />

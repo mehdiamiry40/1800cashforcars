@@ -8,8 +8,8 @@ export default function NotFound() {
     <section className="bg-paper">
       <div className="container-site grid items-center gap-8 py-16 sm:grid-cols-[1fr_auto] sm:py-24">
         <div>
-        <p className="font-heading text-[18px] font-black uppercase tracking-[0.2em] text-brand">Page not found</p>
-        <h1 className="mt-3 font-heading text-[40px] font-black leading-tight tracking-[-0.03em] text-ink sm:text-[56px]">
+        <p className="font-heading text-[18px] font-extrabold uppercase tracking-[0.2em] text-brand">Page not found</p>
+        <h1 className="mt-3 font-heading text-[40px] font-extrabold leading-tight tracking-[-0.03em] text-ink sm:text-[56px]">
           Roo can&apos;t find that page.
         </h1>
         <p className="mt-4 max-w-xl text-[18px]">

@@ -24,10 +24,10 @@ export function QuoteForm({ variant = "full" }: { variant?: "full" | "compact" }
 
   if (state?.ok) {
     return (
-      <div className="flex items-center gap-4 rounded-3xl bg-[#EAF6EF] p-5">
+      <div className="flex items-center gap-4 bg-[#EAF6EF] p-5">
         <Roo hand="cash" className="h-28 w-auto shrink-0" />
         <div>
-          <p className="font-heading text-[22px] font-black text-ink">Thanks, we&apos;re on it!</p>
+          <p className="font-heading text-[22px] font-extrabold text-ink">Thanks, we&apos;re on it!</p>
           <p className="mt-1">
             We&apos;ll call or text you shortly with a price. Need it sooner? Call{" "}
             <a href={site.phoneHref} className="font-bold text-brand underline">{site.phoneDisplay}</a>.
@@ -95,7 +95,7 @@ export function QuoteForm({ variant = "full" }: { variant?: "full" | "compact" }
           </label>
         </div>
       )}
-      {state && !state.ok && <p className="mt-4 rounded-2xl bg-red-50 px-4 py-2.5 text-[15px] font-bold text-red-800">{state.message}</p>}
+      {state && !state.ok && <p className="mt-4 bg-red-50 px-4 py-2.5 text-[15px] font-bold text-red-800">{state.message}</p>}
       <button type="submit" disabled={pending} className={`btn-brand mt-6 !py-4 !text-[18px] disabled:opacity-60 ${compact ? "w-full" : "min-w-[200px]"}`}>
         {pending ? "Sending..." : "Get my price"}
       </button>

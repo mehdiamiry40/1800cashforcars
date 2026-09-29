@@ -13,7 +13,7 @@ export default function Error({ error, retry }: { error: Error & { digest?: stri
   return (
     <section className="bg-paper">
       <div className="container-site py-16 sm:py-24">
-        <h1 className="font-heading text-[36px] font-black leading-tight tracking-[-0.03em] text-ink sm:text-[48px]">
+        <h1 className="font-heading text-[36px] font-extrabold leading-tight tracking-[-0.03em] text-ink sm:text-[48px]">
           Something went wrong on our end.
         </h1>
         <p className="mt-4 max-w-xl text-[18px]">Sorry about that. Try again, or call us and we&apos;ll sort you out over the phone.</p>
