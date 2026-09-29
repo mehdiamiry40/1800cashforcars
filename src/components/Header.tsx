@@ -9,6 +9,7 @@ import { MenuIcon, PhoneIcon } from "./icons";
 
 export const nav = [
   { href: "/cash-for-cars", label: "Cash for cars" },
+  { href: "/car-removal-brisbane", label: "Car removal" },
   { href: "/truck-removal", label: "Trucks" },
   { href: "/#areas", label: "Areas" },
   { href: "/#faq", label: "FAQ" },
@@ -26,7 +27,7 @@ export function Header() {
           <Logo />
         </Link>
         <nav aria-label="Main" className="hidden lg:block">
-          <ul className="flex items-center gap-6 font-heading text-[17px] font-bold">
+          <ul className="flex items-center gap-5 whitespace-nowrap font-heading text-[17px] font-bold xl:gap-6">
             {nav.map((n) => (
               <li key={n.href}>
                 <Link
@@ -40,10 +41,10 @@ export function Header() {
           </ul>
         </nav>
         <div className="flex items-center gap-2">
-          <a href={site.phoneHref} className="btn-line hidden !px-5 !py-2 !text-[17px] md:inline-flex">
+          <a href={site.phoneHref} className="btn-line hidden whitespace-nowrap !px-5 !py-2 !text-[17px] md:inline-flex lg:hidden xl:inline-flex">
             <PhoneIcon className="h-5 w-5 text-brand" /> Call Us
           </a>
-          <Link href="/#quote" className="btn-brand hidden !px-5 !py-2.5 !text-[17px] sm:inline-flex">
+          <Link href="/#quote" className="btn-brand hidden whitespace-nowrap !px-5 !py-2.5 !text-[17px] sm:inline-flex">
             Get a price
           </Link>
           <button

@@ -37,7 +37,11 @@ export type Area = {
   where: string; // e.g. "on the Gold Coast", "in Brisbane"
   state: string;
   suburbs: string[];
+  /** Overrides the default /locations/<slug> page (Brisbane has dedicated pages). */
+  href?: string;
 };
+
+export const areaHref = (a: Area) => a.href ?? `/locations/${a.slug}`;
 
 export const areas: Area[] = [
   {
@@ -52,6 +56,7 @@ export const areas: Area[] = [
     name: "Brisbane",
     where: "in Brisbane",
     state: "QLD",
+    href: "/car-removal-brisbane",
     suburbs: ["Brisbane City", "Chermside", "Carindale", "Indooroopilly", "Sunnybank", "Wynnum", "Aspley", "Mt Gravatt", "Kenmore", "Nundah"],
   },
   {
@@ -116,5 +121,25 @@ export const faqs = [
   {
     q: "Do I need to cancel my rego and insurance?",
     a: "Yes. Once we've collected the car, cancel both. You may get a refund on unused rego. We'll give you a receipt for your records.",
+  },
+];
+
+// Brisbane suburbs we cover, grouped for the Brisbane pages (our yard is in Rocklea).
+export const brisbaneSuburbs: { region: string; suburbs: string[] }[] = [
+  {
+    region: "Southside",
+    suburbs: ["Rocklea", "Moorooka", "Salisbury", "Acacia Ridge", "Coopers Plains", "Sunnybank", "Runcorn", "Eight Mile Plains", "Mt Gravatt", "Annerley", "Yeronga", "Calamvale", "Algester"],
+  },
+  {
+    region: "Northside",
+    suburbs: ["Chermside", "Aspley", "Zillmere", "Geebung", "Nundah", "Kedron", "Stafford", "Everton Park", "Mitchelton", "Bracken Ridge", "Carseldine", "Bald Hills"],
+  },
+  {
+    region: "Western suburbs",
+    suburbs: ["Oxley", "Darra", "Inala", "Forest Lake", "Richlands", "Jindalee", "Mt Ommaney", "Indooroopilly", "Toowong", "Kenmore", "Chapel Hill"],
+  },
+  {
+    region: "Eastern suburbs & bayside",
+    suburbs: ["Carindale", "Cannon Hill", "Morningside", "Coorparoo", "Camp Hill", "Tingalpa", "Murarrie", "Hemmant", "Wynnum", "Manly", "Belmont"],
   },
 ];

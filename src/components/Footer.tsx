@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { services } from "@/lib/content";
-import { areas, site } from "@/lib/site";
+import { areaHref, areas, site } from "@/lib/site";
 import { Logo } from "./Logo";
 import { PhoneIcon, SmsIcon } from "./icons";
 
@@ -28,13 +28,15 @@ export function Footer() {
           {site.abn && <p className="mt-1">ABN {site.abn}</p>}
         </div>
         <FooterCol title="Services">
+          <FooterLink href="/">Cash for cars Brisbane</FooterLink>
+          <FooterLink href="/car-removal-brisbane">Car removal Brisbane</FooterLink>
           <FooterLink href="/cash-for-cars">Cash for cars</FooterLink>
           <FooterLink href="/car-removals">Free car removal</FooterLink>
           <FooterLink href="/truck-removal">Cash for trucks</FooterLink>
           {services.map((s) => <FooterLink key={s.slug} href={`/${s.slug}`}>{s.tile}</FooterLink>)}
         </FooterCol>
         <FooterCol title="Areas">
-          {areas.map((a) => <FooterLink key={a.slug} href={`/locations/${a.slug}`}>{a.name}</FooterLink>)}
+          {areas.map((a) => <FooterLink key={a.slug} href={areaHref(a)}>{a.name}</FooterLink>)}
         </FooterCol>
         <FooterCol title="Info">
           <FooterLink href="/services">All services</FooterLink>

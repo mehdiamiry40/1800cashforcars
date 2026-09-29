@@ -36,7 +36,7 @@ export const pages: ContentPage[] = [
   {
     slug: "cash-for-cars",
     title: "Cash for cars",
-    metaTitle: "Cash For Cars Gold Coast & Brisbane | Sell Your Car Today",
+    metaTitle: "Sell Your Car for Cash in QLD | How It Works | 1800 Cash For Cars",
     description:
       "Sell your car for cash. We buy cars, utes, vans, 4WDs and trucks in any condition across the Gold Coast, Brisbane and South East QLD, with free pickup and payment on the day.",
     blocks: [
@@ -67,7 +67,7 @@ export const pages: ContentPage[] = [
   {
     slug: "car-removals",
     title: "Free car removal",
-    metaTitle: "Free Car Removal Gold Coast & Brisbane | Same-Day Pickup",
+    metaTitle: "Free Car Removal Gold Coast, Logan & Ipswich | 1800 Cash For Cars",
     description:
       "Free car removal across the Gold Coast, Brisbane, Logan, Ipswich and the Sunshine Coast. Same-day pickups, any condition, and we pay you for the car.",
     blocks: [

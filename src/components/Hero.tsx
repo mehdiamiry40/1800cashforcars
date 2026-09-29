@@ -4,8 +4,8 @@ import { QuoteForm } from "./QuoteForm";
 import { HeroScene } from "./HeroScene";
 import { CheckIcon, PhoneIcon } from "./icons";
 
-export function Hero({ where }: { where?: string }) {
-  const copy = heroCopy(where);
+export function Hero({ where, title, lead, sub }: { where?: string; title?: string; lead?: string; sub?: string }) {
+  const copy = heroCopy(where, { title, lead, sub });
   return (
     <>
       <section className="relative overflow-hidden border-b-4 border-ink bg-sand">

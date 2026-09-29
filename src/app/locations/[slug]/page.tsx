@@ -5,12 +5,12 @@ import { AskForPrice, FinalCta, HowItWorks, SectionHead, WhatWeBuy } from "@/com
 import { PinIcon } from "@/components/icons";
 import { Hero } from "@/components/Hero";
 import { Breadcrumbs } from "@/components/JsonLd";
-import { areas, site } from "@/lib/site";
+import { areaHref, areas, site } from "@/lib/site";
 
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return areas.map((a) => ({ slug: a.slug }));
+  return areas.filter((a) => !a.href).map((a) => ({ slug: a.slug }));
 }
 
 export async function generateMetadata({ params }: PageProps<"/locations/[slug]">): Promise<Metadata> {
@@ -49,7 +49,7 @@ export default async function LocationPage({ params }: PageProps<"/locations/[sl
             Also:{" "}
             {areas.filter((a) => a.slug !== area.slug).map((a, i, arr) => (
               <span key={a.slug}>
-                <Link href={`/locations/${a.slug}`} className="font-bold text-brand underline underline-offset-2">{a.name}</Link>
+                <Link href={areaHref(a)} className="font-bold text-brand underline underline-offset-2">{a.name}</Link>
                 {i < arr.length - 1 ? ", " : ""}
               </span>
             ))}

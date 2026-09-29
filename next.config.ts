@@ -21,6 +21,8 @@ const nextConfig: NextConfig = {
   async redirects() {
     // One canonical address: send www to the bare domain.
     return [
+      // Brisbane has dedicated pages: the homepage targets "cash for cars Brisbane".
+      { source: "/locations/brisbane", destination: "/", permanent: true },
       {
         source: "/:path*",
         has: [{ type: "host", value: "www.1800cashforcars.com.au" }],

@@ -4,7 +4,7 @@ import {
   siSubaru, siSuzuki, siTesla, siToyota, siVolkswagen, siVolvo,
 } from "simple-icons";
 import type { Block } from "@/lib/content";
-import { areas, faqs, reviews, site } from "@/lib/site";
+import { areaHref, areas, brisbaneSuburbs, faqs, reviews, site } from "@/lib/site";
 import { QuoteForm } from "./QuoteForm";
 import { Roo } from "./Roo";
 import { VehicleIcon, vehicleTypes } from "./VehicleIcons";
@@ -105,7 +105,7 @@ export function AreasGrid() {
           {areas.map((a) => (
             <li key={a.slug}>
               <Link
-                href={`/locations/${a.slug}`}
+                href={areaHref(a)}
                 className="flex items-center gap-2 border-2 border-ink bg-white px-5 py-3 font-heading text-[17px] font-bold text-ink transition hover:bg-ink hover:text-white"
               >
                 <PinIcon className="h-5 w-5 text-rust" /> {a.name}
@@ -118,8 +118,8 @@ export function AreasGrid() {
   );
 }
 
-export function Faq({ bare = false, limit }: { bare?: boolean; limit?: number }) {
-  const list = limit ? faqs.slice(0, limit) : faqs;
+export function Faq({ bare = false, limit, items = faqs }: { bare?: boolean; limit?: number; items?: { q: string; a: string }[] }) {
+  const list = limit ? items.slice(0, limit) : items;
   return (
     <div id={bare ? undefined : "faq"} className="scroll-mt-24">
       {!bare && <SectionHead title="Questions" center={false} />}
@@ -259,5 +259,19 @@ export function FinalCta() {
         <Roo hand="cash" pouchCar flip className="mx-auto h-64 w-auto sm:h-80" />
       </div>
     </section>
+  );
+}
+
+// Brisbane suburbs grouped by side of town (used on the Brisbane-focused pages).
+export function BrisbaneSuburbs({ narrow = false }: { narrow?: boolean }) {
+  return (
+    <div className={`mt-8 grid gap-8 sm:grid-cols-2 ${narrow ? "" : "lg:grid-cols-4"}`}>
+      {brisbaneSuburbs.map((g) => (
+        <div key={g.region} className="border-t-4 border-ink pt-4">
+          <h3 className="font-heading text-[19px] font-bold text-ink">{g.region}</h3>
+          <p className="mt-2 text-[15px] leading-relaxed">{g.suburbs.join(", ")}</p>
+        </div>
+      ))}
+    </div>
   );
 }
