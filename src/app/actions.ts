@@ -11,6 +11,7 @@ const FIELDS = [
   ["email", "Email"],
   ["address", "Suburb / address"],
   ["vehicle", "Vehicle"],
+  ["condition", "Condition"],
   ["expected", "Hoping for"],
   ["notes", "Notes"],
   ["page", "Sent from"],
@@ -57,7 +58,7 @@ export async function submitQuote(_prev: QuoteState, formData: FormData): Promis
     return { ok: false, message: "Please enter a valid phone number." };
   }
 
-  const subject = `New quote request: ${lead.vehicle.split("\n")[0].slice(0, 60)}${lead.address ? ` — ${lead.address}` : ""}${lead.expected ? ` — wants ${lead.expected}` : ""}`;
+  const subject = `New quote request: ${lead.vehicle.split("\n")[0].slice(0, 60)}${lead.condition ? ` (${lead.condition.slice(0, 40)})` : ""}${lead.address ? ` — ${lead.address}` : ""}${lead.expected ? ` — wants ${lead.expected}` : ""}`;
   const rows = FIELDS.filter(([k]) => lead[k])
     .map(([k, label]) => `<tr><td style="padding:6px 12px;color:#555;vertical-align:top">${label}</td><td style="padding:6px 12px;font-weight:600;white-space:pre-wrap">${escape(lead[k])}</td></tr>`)
     .join("");

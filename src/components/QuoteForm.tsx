@@ -102,6 +102,17 @@ export function QuoteForm({ variant = "full", narrow = false }: { variant?: "ful
           </label>
         </div>
         <label className={wide}>
+          <span className="sr-only">Condition (optional)</span>
+          <input
+            name="condition"
+            className={input}
+            placeholder="Condition (runs, won't start...)"
+            maxLength={200}
+            enterKeyHint="next"
+            onKeyDown={enterNext}
+          />
+        </label>
+        <label className={wide}>
           <span className="sr-only">Suburb</span>
           <input name="address" className={input} placeholder="Suburb" autoComplete="address-level2" enterKeyHint="next" onKeyDown={enterNext} />
         </label>
