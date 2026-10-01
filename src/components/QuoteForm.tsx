@@ -9,8 +9,6 @@ import { site } from "@/lib/site";
 import { Roo } from "./Roo";
 import { ArrowIcon, ChevronLeft } from "./icons";
 
-const CONDITIONS = ["Runs", "Doesn't run", "Damaged", "Scrap"];
-
 // Two short steps (the car, then how to reach you): people finish a form more often once they've started it.
 // Both steps live in one <form>, so the server action gets every field in a single submit.
 // `narrow` keeps everything in one column, for the sidebar.
@@ -89,11 +87,20 @@ export function QuoteForm({ variant = "full", narrow = false }: { variant?: "ful
       <input type="hidden" name="e" ref={elapsed} defaultValue="" />
 
       <div ref={step1} hidden={step !== 1} className={grid}>
-        <label className={wide}>
-          <span className="sr-only">Year, make and model</span>
-          <input name="vehicle" className={input} placeholder="Year, make & model" required enterKeyHint="next" onKeyDown={enterNext} />
-        </label>
-        <Chips name="condition" legend="Condition" options={CONDITIONS} className={wide} />
+        <div className={`grid grid-cols-[4.75rem_minmax(0,1fr)_minmax(0,1fr)] gap-2 ${wide}`}>
+          <label>
+            <span className="sr-only">Year</span>
+            <input name="year" inputMode="numeric" maxLength={4} className={`${input} !px-3`} placeholder="Year" enterKeyHint="next" onKeyDown={enterNext} />
+          </label>
+          <label>
+            <span className="sr-only">Make</span>
+            <input name="make" className={`${input} !px-3`} placeholder="Make" required enterKeyHint="next" onKeyDown={enterNext} />
+          </label>
+          <label>
+            <span className="sr-only">Model</span>
+            <input name="model" className={`${input} !px-3`} placeholder="Model" required enterKeyHint="next" onKeyDown={enterNext} />
+          </label>
+        </div>
         <label className={wide}>
           <span className="sr-only">Suburb</span>
           <input name="address" className={input} placeholder="Suburb" autoComplete="address-level2" enterKeyHint="next" onKeyDown={enterNext} />
@@ -149,25 +156,6 @@ export function QuoteForm({ variant = "full", narrow = false }: { variant?: "ful
         Free, no obligation. <Link href="/privacy" className="underline">Privacy</Link>
       </p>
     </form>
-  );
-}
-
-function Chips({ name, legend, options, className = "" }: { name: string; legend: string; options: string[]; className?: string }) {
-  return (
-    <fieldset className={className}>
-      <legend className="sr-only">{legend}</legend>
-      <div className="flex flex-wrap gap-1.5">
-        {options.map((o) => (
-          <label
-            key={o}
-            className="cursor-pointer border-2 border-[#cfc4b2] bg-white px-2.5 py-1 font-heading text-[14px] font-bold text-ink transition hover:border-ink has-[:checked]:border-ink has-[:checked]:bg-ink has-[:checked]:text-white has-[:focus-visible]:outline-3 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-brand"
-          >
-            <input type="radio" name={name} value={o} className="sr-only" />
-            {o}
-          </label>
-        ))}
-      </div>
-    </fieldset>
   );
 }
 

@@ -10,9 +10,7 @@ const FIELDS = [
   ["phone", "Phone"],
   ["email", "Email"],
   ["address", "Suburb / address"],
-  ["type", "Type"],
   ["vehicle", "Vehicle"],
-  ["condition", "Condition"],
   ["expected", "Hoping for"],
   ["notes", "Notes"],
   ["page", "Sent from"],
@@ -46,16 +44,20 @@ export async function submitQuote(_prev: QuoteState, formData: FormData): Promis
   ) as Record<(typeof FIELDS)[number][0], string>;
 
   lead.expected = formatPrice(lead.expected);
+  // The form asks for year, make and model in separate boxes; the email shows them as one line.
+  if (!lead.vehicle) {
+    const part = (k: string) => String(formData.get(k) ?? "").trim().slice(0, 60);
+    lead.vehicle = [part("year"), part("make"), part("model")].filter(Boolean).join(" ");
+  }
 
   if (!lead.name || !lead.phone || !lead.vehicle) {
-    return { ok: false, message: "Please enter your name, mobile number and the car's year, make and model." };
+    return { ok: false, message: "Please enter your name, mobile number and the car's make and model." };
   }
   if (!/^[\d\s()+-]{8,}$/.test(lead.phone)) {
     return { ok: false, message: "Please enter a valid phone number." };
   }
 
-  const details = [lead.type && lead.type !== "Car" ? lead.type : "", lead.condition].filter(Boolean).join(", ");
-  const subject = `New quote request: ${lead.vehicle.split("\n")[0].slice(0, 60)}${details ? ` (${details})` : ""}${lead.address ? ` — ${lead.address}` : ""}${lead.expected ? ` — wants ${lead.expected}` : ""}`;
+  const subject = `New quote request: ${lead.vehicle.split("\n")[0].slice(0, 60)}${lead.address ? ` — ${lead.address}` : ""}${lead.expected ? ` — wants ${lead.expected}` : ""}`;
   const rows = FIELDS.filter(([k]) => lead[k])
     .map(([k, label]) => `<tr><td style="padding:6px 12px;color:#555;vertical-align:top">${label}</td><td style="padding:6px 12px;font-weight:600;white-space:pre-wrap">${escape(lead[k])}</td></tr>`)
     .join("");
