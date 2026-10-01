@@ -50,7 +50,7 @@ export function PageShell({
         {forms && (
           <aside className="hidden lg:block">
             <div data-quote className="scroll-mt-28 border-2 border-ink bg-white p-6 shadow-[6px_6px_0_#1d2433] lg:sticky lg:top-28">
-              <p className="mb-4 font-heading text-[24px] font-extrabold leading-tight text-ink">Get a price for your car</p>
+              <p className="mb-3 font-heading text-[21px] font-extrabold leading-tight text-ink">Get a price for your car</p>
               <QuoteForm variant="compact" narrow />
             </div>
           </aside>

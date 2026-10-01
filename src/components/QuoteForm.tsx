@@ -7,9 +7,9 @@ import { useActionState, useEffect, useRef, useState } from "react";
 import { submitQuote, type QuoteState } from "@/app/actions";
 import { site } from "@/lib/site";
 import { Roo } from "./Roo";
-import { ArrowIcon, CheckIcon, ChevronLeft } from "./icons";
+import { ArrowIcon, ChevronLeft } from "./icons";
 
-const CONDITIONS = ["Runs", "Doesn't run", "Damaged", "Scrap / wreck"];
+const CONDITIONS = ["Runs", "Doesn't run", "Damaged", "Scrap"];
 
 // Two short steps (the car, then how to reach you): people finish a form more often once they've started it.
 // Both steps live in one <form>, so the server action gets every field in a single submit.
@@ -71,9 +71,16 @@ export function QuoteForm({ variant = "full", narrow = false }: { variant?: "ful
     );
   }
 
-  const label = "mb-1 block font-heading text-[15px] font-extrabold text-ink";
-  const grid = narrow ? "grid gap-3.5" : "grid gap-3.5 sm:grid-cols-2";
+  // Placeholders do the labelling; the real labels are kept for screen readers only.
+  const input = "field !py-2.5";
+  const grid = narrow ? "grid gap-2.5" : "grid gap-2.5 sm:grid-cols-2";
   const wide = narrow ? "" : "sm:col-span-2";
+  const enterNext = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      next();
+    }
+  };
 
   return (
     <form action={action} onInput={onInput}>
@@ -81,134 +88,79 @@ export function QuoteForm({ variant = "full", narrow = false }: { variant?: "ful
       <input type="hidden" name="page" value={pathname} />
       <input type="hidden" name="e" ref={elapsed} defaultValue="" />
 
-      <p className="mb-3 flex items-center gap-2 font-heading text-[13px] font-extrabold uppercase tracking-wider text-body">
-        <span className={step === 1 ? "text-brand" : ""}>1. Your car</span>
-        <span aria-hidden className="h-0.5 w-6 bg-line" />
-        <span className={step === 2 ? "text-brand" : ""}>2. Your price</span>
-      </p>
-
       <div ref={step1} hidden={step !== 1} className={grid}>
         <label className={wide}>
-          <span className={label}>Year, make &amp; model</span>
-          <input
-            name="vehicle"
-            className="field"
-            placeholder="e.g. 2009 Toyota Corolla"
-            required
-            enterKeyHint="next"
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                e.preventDefault();
-                next();
-              }
-            }}
-          />
+          <span className="sr-only">Year, make and model</span>
+          <input name="vehicle" className={input} placeholder="Year, make & model" required enterKeyHint="next" onKeyDown={enterNext} />
         </label>
-        <Chips name="condition" legend="Condition" options={CONDITIONS} className={wide} labelClass={label} />
+        <Chips name="condition" legend="Condition" options={CONDITIONS} className={wide} />
         <label className={wide}>
-          <span className={label}>Suburb</span>
-          <input
-            name="address"
-            className="field"
-            placeholder="Where's the car?"
-            autoComplete="address-level2"
-            enterKeyHint="next"
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                e.preventDefault();
-                next();
-              }
-            }}
-          />
+          <span className="sr-only">Suburb</span>
+          <input name="address" className={input} placeholder="Suburb" autoComplete="address-level2" enterKeyHint="next" onKeyDown={enterNext} />
         </label>
-        <div className={wide}>
-          <button type="button" onClick={next} className="btn-brand w-full !py-4 !text-[18px]">
-            Next: get my price <ArrowIcon className="h-5 w-5" />
-          </button>
-        </div>
+        <button type="button" onClick={next} className={`btn-brand w-full !py-3.5 ${wide}`}>
+          Next <ArrowIcon className="h-5 w-5" />
+        </button>
       </div>
 
       <div hidden={step !== 2} className={grid}>
         <label>
-          <span className={label}>Your name</span>
-          <input ref={nameInput} name="name" className="field" required autoComplete="name" enterKeyHint="next" />
+          <span className="sr-only">Your name</span>
+          <input ref={nameInput} name="name" className={input} placeholder="Your name" required autoComplete="name" enterKeyHint="next" />
         </label>
         <label>
-          <span className={label}>Mobile</span>
+          <span className="sr-only">Mobile</span>
           <input
             name="phone"
             type="tel"
             inputMode="tel"
-            className="field"
+            className={input}
+            placeholder="Mobile"
             required
             autoComplete="tel"
             pattern="[\d\s\(\)\+\-]{8,}"
-            placeholder="04xx xxx xxx"
           />
         </label>
         {full && (
           <label>
-            <span className={label}>
-              Email <span className="font-normal text-body">(optional)</span>
-            </span>
-            <input name="email" type="email" className="field" autoComplete="email" />
+            <span className="sr-only">Email (optional)</span>
+            <input name="email" type="email" className={input} placeholder="Email (optional)" autoComplete="email" />
           </label>
         )}
-        <PriceField labelClass={label} />
+        <PriceField className={input} wide={full ? "" : wide} />
         {full && (
           <label className={wide}>
-            <span className={label}>
-              Anything else? <span className="font-normal text-body">(optional)</span>
-            </span>
-            <textarea name="notes" rows={3} className="field" placeholder="Kms, what's wrong with it, rego, keys..." />
+            <span className="sr-only">Anything else (optional)</span>
+            <textarea name="notes" rows={2} className="field !py-2.5" placeholder="Anything else? (optional)" />
           </label>
         )}
-        <div className={wide}>
-          {state && !state.ok && <p className="mb-4 bg-red-50 px-4 py-2.5 text-[15px] font-bold text-red-800">{state.message}</p>}
-          <button type="submit" disabled={pending} className="btn-brand w-full !py-4 !text-[18px] disabled:opacity-60">
-            {pending ? "Sending..." : "Get my price"}
+        {state && !state.ok && <p className={`bg-red-50 px-3 py-2 text-[15px] font-bold text-red-800 ${wide}`}>{state.message}</p>}
+        <div className={`flex items-center gap-3 ${wide}`}>
+          <button type="button" onClick={() => setStep(1)} aria-label="Back to car details" className="grid h-[52px] w-12 shrink-0 place-items-center border-2 border-ink text-ink">
+            <ChevronLeft className="h-5 w-5" />
           </button>
-          <button type="button" onClick={() => setStep(1)} className="mt-2 inline-flex items-center gap-1 py-1 text-[15px] font-bold text-body underline underline-offset-2">
-            <ChevronLeft className="h-4 w-4" /> Change car details
+          <button type="submit" disabled={pending} className="btn-brand w-full !py-3.5 disabled:opacity-60">
+            {pending ? "Sending..." : "Get my price"}
           </button>
         </div>
       </div>
 
-      <ul className="mt-4 flex flex-wrap gap-x-4 gap-y-1 text-[14px] text-body">
-        {["Free", "No obligation", "Takes 30 seconds"].map((t) => (
-          <li key={t} className="flex items-center gap-1">
-            <CheckIcon className="h-3.5 w-3.5 text-brand" /> {t}
-          </li>
-        ))}
-      </ul>
-      <p className="mt-2 text-[13px] text-body">
-        We only use your details to give you a price (<Link href="/privacy" className="underline">privacy policy</Link>).
+      <p className="mt-3 text-[13px] text-body">
+        Free, no obligation. <Link href="/privacy" className="underline">Privacy</Link>
       </p>
     </form>
   );
 }
 
-function Chips({
-  name,
-  legend,
-  options,
-  className = "",
-  labelClass,
-}: {
-  name: string;
-  legend: string;
-  options: string[];
-  className?: string;
-  labelClass: string;
-}) {
+function Chips({ name, legend, options, className = "" }: { name: string; legend: string; options: string[]; className?: string }) {
   return (
     <fieldset className={className}>
-      <legend className={labelClass}>{legend}</legend>
+      <legend className="sr-only">{legend}</legend>
       <div className="flex flex-wrap gap-1.5">
         {options.map((o) => (
           <label
             key={o}
-            className="cursor-pointer border-2 border-[#cfc4b2] bg-white px-3 py-1.5 font-heading text-[14px] font-bold text-ink transition hover:border-ink has-[:checked]:border-ink has-[:checked]:bg-ink has-[:checked]:text-white has-[:focus-visible]:outline-3 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-brand"
+            className="cursor-pointer border-2 border-[#cfc4b2] bg-white px-2.5 py-1 font-heading text-[14px] font-bold text-ink transition hover:border-ink has-[:checked]:border-ink has-[:checked]:bg-ink has-[:checked]:text-white has-[:focus-visible]:outline-3 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-brand"
           >
             <input type="radio" name={name} value={o} className="sr-only" />
             {o}
@@ -219,18 +171,14 @@ function Chips({
   );
 }
 
-function PriceField({ labelClass }: { labelClass: string }) {
+function PriceField({ className, wide }: { className: string; wide: string }) {
   return (
-    <label>
-      <span className={labelClass}>
-        Price you&apos;re hoping for <span className="font-normal text-body">(optional)</span>
+    <label className={`relative block ${wide}`}>
+      <span className="sr-only">Price you&apos;re hoping for (optional)</span>
+      <span className="pointer-events-none absolute inset-y-0 left-4 flex items-center font-bold text-ink" aria-hidden>
+        $
       </span>
-      <span className="relative block">
-        <span className="pointer-events-none absolute inset-y-0 left-4 flex items-center font-bold text-ink" aria-hidden>
-          $
-        </span>
-        <input name="expected" inputMode="decimal" className="field !pl-8" placeholder="e.g. 2,500" maxLength={40} autoComplete="off" />
-      </span>
+      <input name="expected" inputMode="decimal" className={`${className} !pl-8`} placeholder="Price you want (optional)" maxLength={40} autoComplete="off" />
     </label>
   );
 }
