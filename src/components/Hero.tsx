@@ -45,7 +45,7 @@ export function Hero({ where, title, lead, sub }: { where?: string; title?: stri
         </div>
 
         <div id="quote" data-quote className="scroll-mt-24 border-2 border-ink bg-white p-5 shadow-[6px_6px_0_#1d2433] md:max-w-[400px] md:justify-self-end">
-          <h2 className="font-heading text-[23px] font-extrabold leading-tight text-ink">Get a price for your car</h2>
+          <h2 className="font-heading text-[23px] font-extrabold leading-tight text-ink">Get an Instant Quote</h2>
           <p className="mb-3.5 mt-0.5 text-[15px] leading-snug">We&apos;ll text you a price, usually within the hour.</p>
           <QuoteForm variant="compact" />
         </div>

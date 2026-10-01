@@ -102,12 +102,13 @@ export function QuoteForm({ variant = "full", narrow = false }: { variant?: "ful
           </label>
         </div>
         <label className={wide}>
-          <span className="sr-only">Condition (optional)</span>
+          <span className="sr-only">Condition</span>
           <input
             name="condition"
             className={input}
             placeholder="Condition (runs, won't start...)"
             maxLength={200}
+            required
             enterKeyHint="next"
             onKeyDown={enterNext}
           />

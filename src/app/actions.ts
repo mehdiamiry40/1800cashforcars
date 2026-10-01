@@ -51,8 +51,8 @@ export async function submitQuote(_prev: QuoteState, formData: FormData): Promis
     lead.vehicle = [part("year"), part("make"), part("model")].filter(Boolean).join(" ");
   }
 
-  if (!lead.name || !lead.phone || !lead.vehicle) {
-    return { ok: false, message: "Please enter your name, mobile number and the car's make and model." };
+  if (!lead.name || !lead.phone || !lead.vehicle || !lead.condition) {
+    return { ok: false, message: "Please enter your name, mobile number, and the car's make, model and condition." };
   }
   if (!/^[\d\s()+-]{8,}$/.test(lead.phone)) {
     return { ok: false, message: "Please enter a valid phone number." };
