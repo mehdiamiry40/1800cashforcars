@@ -2,7 +2,8 @@ import Link from "next/link";
 import { services } from "@/lib/content";
 import { areaHref, areas, site } from "@/lib/site";
 import { Logo } from "./Logo";
-import { PhoneIcon, SmsIcon } from "./icons";
+import { PhoneIcon } from "./icons";
+import { QuoteLink } from "./QuoteLink";
 
 export function Footer() {
   return (
@@ -10,9 +11,12 @@ export function Footer() {
       <div className="container-site grid grid-cols-2 gap-x-6 gap-y-10 py-12 sm:py-14 lg:grid-cols-[1.3fr_1fr_1fr_1fr]">
         <div className="col-span-2 lg:col-span-1">
           <Logo light />
-          <p className="mt-5">
-            <a href={site.phoneHref} className="inline-flex items-center gap-2 bg-brand px-5 py-2.5 font-heading text-[18px] font-bold text-white hover:bg-brand-dark">
-              <PhoneIcon className="h-5 w-5" /> Call Us
+          <p className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2">
+            <QuoteLink from="footer" className="inline-flex items-center bg-brand px-5 py-2.5 font-heading text-[18px] font-bold text-white hover:bg-brand-dark">
+              Get a price
+            </QuoteLink>
+            <a href={site.phoneHref} className="inline-flex items-center gap-2 font-heading text-[17px] font-bold text-white hover:underline">
+              <PhoneIcon className="h-5 w-5" /> Call us
             </a>
           </p>
           <p className="mt-3">{site.hours}</p>
@@ -66,25 +70,5 @@ function FooterLink({ href, children }: { href: string; children: React.ReactNod
     <li>
       <Link href={href} className="inline-block py-2.5 hover:text-white hover:underline sm:py-0">{children}</Link>
     </li>
-  );
-}
-
-// Phone-only bar pinned to the bottom of the screen.
-export function FloatingContact() {
-  return (
-    <div className="fixed inset-x-0 bottom-0 z-50 grid grid-cols-2 bg-navy pb-[env(safe-area-inset-bottom)] shadow-[0_-4px_16px_rgba(0,0,0,0.12)] md:hidden">
-      <a href={site.phoneHref} className="flex items-center justify-center gap-2 bg-brand py-4 font-heading text-[17px] font-bold text-white">
-        <PhoneIcon className="h-5 w-5" /> Call Us
-      </a>
-      {site.smsNumber ? (
-        <a href={`sms:${site.smsNumber}`} className="flex items-center justify-center gap-2 bg-navy py-4 font-heading text-[17px] font-bold text-white">
-          <SmsIcon className="h-5 w-5" /> Text us
-        </a>
-      ) : (
-        <Link href="/#ask-for-our-price" className="flex items-center justify-center bg-navy py-4 font-heading text-[17px] font-bold text-white">
-          Get a price
-        </Link>
-      )}
-    </div>
   );
 }

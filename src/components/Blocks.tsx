@@ -6,9 +6,10 @@ import {
 import type { Block } from "@/lib/content";
 import { areaHref, areas, brisbaneSuburbs, faqs, reviews, site } from "@/lib/site";
 import { QuoteForm } from "./QuoteForm";
+import { QuoteLink } from "./QuoteLink";
 import { Roo } from "./Roo";
 import { VehicleIcon, vehicleTypes } from "./VehicleIcons";
-import { ArrowIcon, CheckIcon, PhoneIcon, PinIcon, SmsIcon } from "./icons";
+import { ArrowIcon, CheckIcon, PhoneIcon, PinIcon } from "./icons";
 
 export function SectionHead({ title, intro, light = false, center = true }: { title: string; intro?: string; light?: boolean; center?: boolean }) {
   return (
@@ -164,26 +165,30 @@ export function CallUsAndTerms({ stacked = false }: { stacked?: boolean }) {
 
 export function AskForPrice() {
   return (
-    <section id="ask-for-our-price" className="scroll-mt-24 bg-navy py-16 text-white sm:py-24">
+    <section className="bg-navy py-16 text-white sm:py-24">
       <div className="container-site grid items-center gap-10 lg:grid-cols-[0.85fr_1.15fr]">
         <div className="text-center lg:text-left">
-          <Roo hand="phone" className="mx-auto h-56 w-auto lg:mx-0" />
-          <h2 className="mt-6 h-section !text-white">Let&apos;s talk cars</h2>
-          <p className="mt-3 text-[18px] text-white/80">Calling is quickest. We answer 24/7.</p>
-          <p className="mt-6">
-            <a href={site.phoneHref} className="btn-brand !px-8 !py-4 !text-[20px]">
-              <PhoneIcon className="h-6 w-6" /> Call Us
-            </a>
+          <Roo hand="cash" className="mx-auto h-56 w-auto lg:mx-0" />
+          <h2 className="mt-6 h-section !text-white">Get your price online</h2>
+          <p className="mt-3 text-[18px] text-white/80">
+            Tell us about the car and we&apos;ll text you a price, usually within the hour. No phone call needed.
           </p>
-          {site.smsNumber && (
-            <p>
-              <a href={`sms:${site.smsNumber}`} className="inline-flex items-center gap-2 py-2 font-bold text-brand-light underline underline-offset-4">
-                <SmsIcon className="h-5 w-5" /> Or text us a photo
-              </a>
-            </p>
-          )}
+          <ul className="mx-auto mt-6 inline-grid gap-2 text-left text-[17px] lg:mx-0">
+            {["Free and no obligation", "The price we quote is the price we pay", "Free towing, paid on pickup"].map((t) => (
+              <li key={t} className="flex items-center gap-2">
+                <CheckIcon className="h-5 w-5 shrink-0 text-brand-light" /> {t}
+              </li>
+            ))}
+          </ul>
+          <p className="mt-6 text-[15px] text-white/70">
+            Prefer to talk?{" "}
+            <a href={site.phoneHref} className="font-bold text-white underline underline-offset-4">
+              Call us
+            </a>
+            , we answer 24/7.
+          </p>
         </div>
-        <div className="bg-white p-6 text-body sm:p-9">
+        <div id="get-price" data-quote className="scroll-mt-24 bg-white p-6 text-body sm:p-9">
           <QuoteForm />
         </div>
       </div>
@@ -246,14 +251,14 @@ export function FinalCta() {
       <div className="container-site grid items-end gap-6 pt-12 sm:grid-cols-[1fr_auto] sm:pt-16">
         <div className="pb-12 text-center sm:pb-16 sm:text-left">
           <h2 className="h-section">Old car taking up space?</h2>
-          <p className="mt-3 text-[18px]">Call Roo. We&apos;ll take it off your hands today.</p>
-          <div className="mt-6 flex flex-col justify-center gap-3 sm:flex-row sm:justify-start">
-            <a href={site.phoneHref} className="btn-brand !px-7 !py-4 !text-[18px]">
-              <PhoneIcon className="h-5 w-5" /> Call Us
+          <p className="mt-3 text-[18px]">Tell Roo about it. Get a price in 30 seconds and we&apos;ll take it off your hands.</p>
+          <div className="mt-6 flex flex-col items-center gap-4 sm:flex-row sm:items-center">
+            <QuoteLink from="final-cta" className="btn-brand !px-8 !py-4 !text-[19px]">
+              Get my price <ArrowIcon className="h-5 w-5" />
+            </QuoteLink>
+            <a href={site.phoneHref} className="inline-flex items-center gap-2 font-heading text-[17px] font-bold text-ink underline underline-offset-4">
+              <PhoneIcon className="h-5 w-5 text-brand" /> or call us
             </a>
-            <Link href="/#quote" className="btn-line !px-7 !py-4 !text-[18px]">
-              Get a price online <ArrowIcon className="h-5 w-5" />
-            </Link>
           </div>
         </div>
         <Roo hand="cash" pouchCar flip className="mx-auto h-64 w-auto sm:h-80" />
@@ -262,7 +267,6 @@ export function FinalCta() {
   );
 }
 
-// Brisbane suburbs grouped by side of town (used on the Brisbane-focused pages).
 export function BrisbaneSuburbs({ narrow = false }: { narrow?: boolean }) {
   return (
     <div className={`mt-8 grid gap-8 sm:grid-cols-2 ${narrow ? "" : "lg:grid-cols-4"}`}>

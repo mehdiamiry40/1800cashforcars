@@ -4,7 +4,7 @@ import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Contact Us",
-  description: `Contact ${site.name} for a free cash offer and free car removal. Call us or send us your car's details.`,
+  description: `Contact ${site.name} for a free cash offer and free car removal. Send us your car's details for a free price, or call us.`,
   alternates: { canonical: "/contact-us" },
 };
 
@@ -32,11 +32,11 @@ export default function ContactPage() {
     ...(site.abn ? [{ label: "ABN", value: site.abn }] : []),
   ];
   return (
-    <PageShell title="Contact Us" path="/contact-us" roo={{ hand: "phone" }} intro="Call, text, or send us the details of your car and we'll give you a price.">
+    <PageShell title="Contact Us" path="/contact-us" roo={{ hand: "phone" }} intro="Send us your car's details and we'll text you a price, usually within the hour. Or call us any time.">
       <h2 className="h-section">Get in touch</h2>
       <p className="mt-3">
-        Calling is quickest. You can also text us photos of the car, or use the form below and we&apos;ll get back to
-        you, usually within the hour.
+        The quickest way to get a price is the quote form: tell us about the car and we&apos;ll text you back, usually
+        within the hour. You can also call or text us any time.
       </p>
       <dl className="mt-6 divide-y divide-line border-y border-line">
         {rows.map((r) => (

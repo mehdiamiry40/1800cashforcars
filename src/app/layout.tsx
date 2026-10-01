@@ -1,8 +1,9 @@
 import { Analytics } from "@vercel/analytics/next";
 import type { Metadata, Viewport } from "next";
 import { Barlow, Barlow_Semi_Condensed, Nunito_Sans } from "next/font/google";
-import { FloatingContact, Footer } from "@/components/Footer";
+import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
+import { ContactTracker, StickyQuoteBar } from "@/components/QuoteLink";
 import { areas, site } from "@/lib/site";
 import "./globals.css";
 
@@ -19,7 +20,7 @@ export const metadata: Metadata = {
     template: `%s | ${site.name}`,
   },
   description:
-    "Cash for scrap, old, broken and unwanted cars across Brisbane, the Gold Coast and South East QLD. Any condition, free towing, paid on pickup. Call us for a price.",
+    "Cash for scrap, old, broken and unwanted cars across Brisbane, the Gold Coast and South East QLD. Any condition, free towing, paid on pickup. Get a free price online in 30 seconds.",
   keywords: ["cash for cars", "car removal", "sell my car", "scrap car removal", "car wreckers", "cash for cars Gold Coast", "cash for cars Brisbane"],
   openGraph: {
     type: "website",
@@ -77,7 +78,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <Header />
         <main id="main" className="flex-1">{children}</main>
         <Footer />
-        <FloatingContact />
+        <StickyQuoteBar />
+        <ContactTracker />
         <Analytics />
       </body>
     </html>

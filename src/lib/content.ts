@@ -168,7 +168,7 @@ export const pages: ContentPage[] = [
       {
         heading: "How it works",
         list: [
-          { bold: "Get a price", text: "call us or send the form with the car's details." },
+          { bold: "Get a price", text: "fill in the quick form with the car's details, or call us." },
           { bold: "Book a pickup", text: "pick a time and we'll bring the right truck." },
           { bold: "Get paid", text: "we pay you at pickup and give you a receipt." },
         ],

@@ -89,7 +89,7 @@ export default function CarRemovalBrisbane() {
           {
             heading: "How Brisbane car removal works",
             list: [
-              { bold: "Get a price", text: "call us, text a photo, or send the form below." },
+              { bold: "Get a price", text: "fill in the quick form with the car's details (or call us) and we'll text you a price." },
               { bold: "Book a time", text: "same day or whenever suits you, 7 days." },
               { bold: "Get paid, we tow it", text: "cash or bank transfer before the car leaves, and the tow is free." },
             ],

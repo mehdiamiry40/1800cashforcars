@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { site } from "@/lib/site";
 import { Logo } from "./Logo";
+import { QuoteLink } from "./QuoteLink";
 import { MenuIcon, PhoneIcon } from "./icons";
 
 export const nav = [
@@ -41,12 +42,9 @@ export function Header() {
           </ul>
         </nav>
         <div className="flex items-center gap-2">
-          <a href={site.phoneHref} className="btn-line hidden whitespace-nowrap !px-5 !py-2 !text-[17px] md:inline-flex lg:hidden xl:inline-flex">
-            <PhoneIcon className="h-5 w-5 text-brand" /> Call Us
-          </a>
-          <Link href="/#quote" className="btn-brand hidden whitespace-nowrap !px-5 !py-2.5 !text-[17px] sm:inline-flex">
-            Get a price
-          </Link>
+          <QuoteLink from="header" className="btn-brand hidden whitespace-nowrap !px-5 !py-2.5 !text-[17px] sm:inline-flex">
+            Get my price
+          </QuoteLink>
           <button
             type="button"
             onClick={() => setOpen((o) => !o)}
@@ -68,6 +66,11 @@ export function Header() {
                 </Link>
               </li>
             ))}
+            <li>
+              <a href={site.phoneHref} className="flex items-center gap-2 px-3 py-2.5 text-ink hover:bg-sand">
+                <PhoneIcon className="h-5 w-5 text-brand" /> Call us
+              </a>
+            </li>
           </ul>
         </nav>
       )}

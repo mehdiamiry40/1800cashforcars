@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { QuoteLink } from "@/components/QuoteLink";
 import { AreasGrid, BrisbaneSuburbs, Faq, FinalCta, HowItWorks, MakesRow, ReviewsBand, SectionHead, WhatWeBuy } from "@/components/Blocks";
 import { Hero } from "@/components/Hero";
 import { JsonLd } from "@/components/JsonLd";
@@ -66,7 +67,11 @@ export default function Home() {
           <div>
             <h2 className="h-section">Questions?</h2>
             <p className="mt-3 text-[18px]">
-              Quick answers here, or <a href={site.phoneHref} className="font-bold text-brand underline underline-offset-2">call us</a>.
+              Quick answers here. Still unsure?{" "}
+              <QuoteLink from="faq" className="font-bold text-brand underline underline-offset-2">
+                Get a free price
+              </QuoteLink>
+              , no obligation.
             </p>
           </div>
           <Faq bare limit={6} />
