@@ -9,7 +9,6 @@ import { site } from "@/lib/site";
 import { Roo } from "./Roo";
 import { ArrowIcon, CheckIcon, ChevronLeft } from "./icons";
 
-const TYPES = ["Car", "Ute", "Van", "4WD", "Truck", "Other"];
 const CONDITIONS = ["Runs", "Doesn't run", "Damaged", "Scrap / wreck"];
 
 // Two short steps (the car, then how to reach you): people finish a form more often once they've started it.
@@ -89,7 +88,6 @@ export function QuoteForm({ variant = "full", narrow = false }: { variant?: "ful
       </p>
 
       <div ref={step1} hidden={step !== 1} className={grid}>
-        <Chips name="type" legend="What is it?" options={TYPES} defaultValue="Car" className={wide} labelClass={label} />
         <label className={wide}>
           <span className={label}>Year, make &amp; model</span>
           <input
@@ -194,14 +192,12 @@ function Chips({
   name,
   legend,
   options,
-  defaultValue,
   className = "",
   labelClass,
 }: {
   name: string;
   legend: string;
   options: string[];
-  defaultValue?: string;
   className?: string;
   labelClass: string;
 }) {
@@ -214,7 +210,7 @@ function Chips({
             key={o}
             className="cursor-pointer border-2 border-[#cfc4b2] bg-white px-3 py-1.5 font-heading text-[14px] font-bold text-ink transition hover:border-ink has-[:checked]:border-ink has-[:checked]:bg-ink has-[:checked]:text-white has-[:focus-visible]:outline-3 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-brand"
           >
-            <input type="radio" name={name} value={o} defaultChecked={o === defaultValue} className="sr-only" />
+            <input type="radio" name={name} value={o} className="sr-only" />
             {o}
           </label>
         ))}
