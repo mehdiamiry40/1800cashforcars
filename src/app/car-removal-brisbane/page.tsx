@@ -6,7 +6,7 @@ import { PageShell } from "@/components/PageShell";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: { absolute: "Car Removal Brisbane | Free Scrap Car Removal | 1800 Cash For Cars" },
+  title: { absolute: "Car Removal Brisbane | Free Scrap Car Removal | 1800 CASH FOR CARS" },
   description:
     "Free car removal Brisbane wide. We pick up scrap, old, broken and unwanted cars, pay you cash on the spot and tow them away free. Same-day pickups from Rocklea.",
   alternates: { canonical: "/car-removal-brisbane" },

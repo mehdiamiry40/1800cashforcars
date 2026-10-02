@@ -2,7 +2,7 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { ImageResponse } from "next/og";
 
-export const alt = "1800 Cash For Cars. Cash for scrap cars. Any car, any condition.";
+export const alt = "1800 CASH FOR CARS. Cash for scrap cars. Any car, any condition.";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 

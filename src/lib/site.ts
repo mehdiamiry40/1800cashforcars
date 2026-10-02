@@ -1,6 +1,6 @@
 // Central business details. Edit these values and every page updates.
 export const site = {
-  name: "1800 Cash For Cars",
+  name: "1800 CASH FOR CARS",
   domain: "1800cashforcars.com.au",
   url: "https://1800cashforcars.com.au",
   tagline: "We buy cars in any condition. Free pickup, paid on the day.",
