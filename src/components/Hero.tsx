@@ -24,15 +24,30 @@ export function Hero({ where, title, lead, sub }: { where?: string; title?: stri
           className="object-cover object-[58%_70%] md:object-[50%_60%]"
         />
         {/* Keeps the headline readable over the photo. */}
-        <div aria-hidden className="absolute inset-0 bg-gradient-to-b from-navy-950/75 via-navy-950/60 via-55% to-navy md:bg-gradient-to-r md:from-navy-950/90 md:from-30% md:via-navy-950/70 md:via-50% md:to-navy-950/20 md:to-70%" />
+        <div aria-hidden className="absolute inset-0 bg-gradient-to-b from-navy-950/75 via-navy-950/35 via-45% to-navy md:bg-gradient-to-r md:from-navy-950/90 md:from-30% md:via-navy-950/70 md:via-50% md:to-navy-950/20 md:to-70%" />
       </div>
 
-      <div className="container-site grid items-start gap-x-10 gap-y-7 pb-10 pt-8 sm:pt-12 md:grid-cols-[minmax(0,1fr)_minmax(0,430px)] md:py-16">
-        <div className="text-white [text-shadow:0_1px_10px_rgba(10,20,36,0.7)] md:self-center md:[text-shadow:none]">
+      {/* Phones: headline, then a gap where the photo shows, then the form, then the details.
+          Desktop: headline and details stacked on the left, form on the right. */}
+      <div className="container-site grid items-start gap-x-10 gap-y-7 pb-10 pt-8 sm:pt-12 md:grid-cols-[minmax(0,1fr)_minmax(0,430px)] md:grid-rows-[1fr_auto_1fr] md:gap-y-0 md:py-16">
+        <div className="min-h-[300px] text-white [text-shadow:0_1px_10px_rgba(10,20,36,0.7)] min-[400px]:min-h-[320px] sm:min-h-[380px] md:col-start-1 md:row-start-1 md:min-h-0 md:self-end md:[text-shadow:none]">
           <h1 className="font-heading text-[28px] font-extrabold uppercase leading-[1.05] min-[400px]:text-[32px] sm:text-[40px] lg:text-[46px]">
             {copy.title} <span className="block text-brand-light">{copy.lead}</span>
           </h1>
-          <p className="mt-3 max-w-md font-heading text-[15px] font-semibold leading-snug tracking-[0.01em] text-white/85 sm:mt-4 sm:font-sans sm:text-[20px] sm:font-normal sm:leading-relaxed sm:tracking-normal sm:text-white/90">{copy.sub}</p>
+        </div>
+
+        <div
+          id="quote"
+          data-quote
+          className="scroll-mt-24 border-2 border-ink bg-white p-5 shadow-[6px_6px_0_#1d2433] md:col-start-2 md:row-span-3 md:row-start-1 md:max-w-[400px] md:self-center md:justify-self-end"
+        >
+          <h2 className="font-heading text-[23px] font-extrabold leading-tight text-ink">Get an Instant Quote</h2>
+          <p className="mb-3.5 mt-0.5 text-[15px] leading-snug">We&apos;ll text you a price, usually within the hour.</p>
+          <QuoteForm variant="compact" />
+        </div>
+
+        <div className="text-white md:col-start-1 md:row-start-2">
+          <p className="max-w-md font-heading text-[15px] font-semibold leading-snug tracking-[0.01em] text-white/85 sm:font-sans sm:text-[20px] sm:font-normal sm:leading-relaxed sm:tracking-normal sm:text-white/90 md:mt-4">{copy.sub}</p>
           <ul className="mt-5 grid gap-1.5 font-heading text-[16px] font-extrabold sm:mt-6">
             {copy.points.map((p) => (
               <li key={p} className="flex items-center gap-2">
@@ -46,12 +61,6 @@ export function Hero({ where, title, lead, sub }: { where?: string; title?: stri
               <PhoneIcon className="h-4 w-4 text-brand-light" /> Call us
             </a>
           </p>
-        </div>
-
-        <div id="quote" data-quote className="scroll-mt-24 border-2 border-ink bg-white p-5 shadow-[6px_6px_0_#1d2433] md:max-w-[400px] md:justify-self-end">
-          <h2 className="font-heading text-[23px] font-extrabold leading-tight text-ink">Get an Instant Quote</h2>
-          <p className="mb-3.5 mt-0.5 text-[15px] leading-snug">We&apos;ll text you a price, usually within the hour.</p>
-          <QuoteForm variant="compact" />
         </div>
       </div>
 
