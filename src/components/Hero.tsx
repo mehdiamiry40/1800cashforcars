@@ -29,10 +29,10 @@ export function Hero({ where, title, lead, sub }: { where?: string; title?: stri
             {copy.title} <span className="block text-brand-light">{copy.lead}</span>
           </h1>
           <p className="mt-4 max-w-md text-[17px] text-white/90 sm:text-[20px]">{copy.sub}</p>
-          <ul className="mt-6 flex flex-wrap gap-x-5 gap-y-2 font-heading text-[15px] font-extrabold">
+          <ul className="mt-6 flex gap-x-3 whitespace-nowrap font-heading text-[13px] font-extrabold min-[400px]:text-[14px] sm:gap-x-5 sm:text-[15px]">
             {copy.points.map((p) => (
-              <li key={p} className="flex items-center gap-1.5">
-                <CheckIcon className="h-4 w-4 text-brand-light" /> {p}
+              <li key={p} className="flex items-center gap-1">
+                <CheckIcon className="h-3.5 w-3.5 shrink-0 text-brand-light sm:h-4 sm:w-4" /> {p}
               </li>
             ))}
           </ul>
