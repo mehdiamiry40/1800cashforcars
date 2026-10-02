@@ -3,7 +3,9 @@
 import { Resend } from "resend";
 import { site } from "@/lib/site";
 
-export type QuoteState = { ok: boolean; message: string } | null;
+// `lead` is true only for a genuine quote request (not one caught by the spam checks), so the page only reports
+// real leads as Google Ads conversions.
+export type QuoteState = { ok: boolean; message: string; lead?: boolean } | null;
 
 const FIELDS = [
   ["name", "Name"],
@@ -65,7 +67,7 @@ export async function submitQuote(_prev: QuoteState, formData: FormData): Promis
   const to = process.env.LEAD_TO_EMAIL;
   if (!apiKey || !to) {
     console.error("[lead] RESEND_API_KEY or LEAD_TO_EMAIL not set — lead only recorded in logs");
-    return { ok: true, message: "" };
+    return { ok: true, message: "", lead: true };
   }
 
   const domain = process.env.RESEND_EMAIL_DOMAIN || site.domain;
@@ -79,5 +81,5 @@ export async function submitQuote(_prev: QuoteState, formData: FormData): Promis
   });
   if (error) console.error("[lead] email failed", error);
 
-  return { ok: true, message: "" };
+  return { ok: true, message: "", lead: true };
 }

@@ -26,8 +26,14 @@ export default function PrivacyPage() {
       </p>
       <h2>Who we share it with</h2>
       <p>
-        Only with service providers that help us run the business (such as our website host and email provider) and with
+        Only with service providers that help us run the business (such as our website host, email provider and Google for ad measurement) and with
         government authorities where the law requires it.
+      </p>
+      <h2>Cookies and advertising</h2>
+      <p>
+        We advertise on Google. Our website uses Google Ads tags and cookies to measure which ads lead to quote
+        requests, and Vercel Web Analytics (which doesn&apos;t use cookies) to count visits. You can manage Google
+        ad settings at <a className="font-semibold text-brand" href="https://adssettings.google.com" target="_blank" rel="noopener noreferrer">adssettings.google.com</a>.
       </p>
       <h2>Access and correction</h2>
       <p>

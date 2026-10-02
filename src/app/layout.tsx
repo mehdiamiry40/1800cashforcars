@@ -1,5 +1,6 @@
 import { Analytics } from "@vercel/analytics/next";
 import type { Metadata, Viewport } from "next";
+import Script from "next/script";
 import { Barlow, Barlow_Semi_Condensed, Nunito_Sans } from "next/font/google";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
@@ -37,6 +38,8 @@ export const viewport: Viewport = {
   themeColor: "#0f1d33",
   viewportFit: "cover",
 };
+
+const GOOGLE_ADS_ID = "AW-11027669589";
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -80,6 +83,14 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <StickyQuoteBar />
         <ContactTracker />
         <Analytics />
+        {/* Google Ads tag (conversion tracking for the "1800CFC - Quote form" conversion). */}
+        <Script src={`https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ADS_ID}`} strategy="afterInteractive" />
+        <Script id="google-ads-tag" strategy="afterInteractive">{`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', '${GOOGLE_ADS_ID}');
+        `}</Script>
       </body>
     </html>
   );

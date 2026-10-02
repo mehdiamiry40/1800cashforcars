@@ -26,7 +26,12 @@ export function QuoteForm({ variant = "full" }: { variant?: "full" | "compact" }
   };
 
   useEffect(() => {
-    if (state?.ok) track("quote_submitted", { page: pathname, form: variant });
+    if (!state?.ok || !state.lead) return;
+    track("quote_submitted", { page: pathname, form: variant });
+    // Google Ads conversion: "1800CFC - Quote form".
+    (window as { gtag?: (...args: unknown[]) => void }).gtag?.("event", "conversion", {
+      send_to: "AW-11027669589/ZYZ_CMOYvYwdENXEs4op",
+    });
   }, [state, pathname, variant]);
 
   if (state?.ok) {
