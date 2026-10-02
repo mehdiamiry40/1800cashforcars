@@ -12,7 +12,7 @@ function visibleQuoteForm() {
   return [...document.querySelectorAll<HTMLElement>("[data-quote]")].find((el) => el.offsetParent !== null) ?? null;
 }
 
-// "Get a price" button: scrolls to the quote form on this page, or opens /quote if the page has none.
+// "Get a Quote" button: scrolls to the quote form on this page, or opens /quote if the page has none.
 export function QuoteLink({ from, className, children }: { from: string; className?: string; children: React.ReactNode }) {
   return (
     <Link
@@ -63,7 +63,7 @@ export function StickyQuoteBar() {
       inert={formInView}
     >
       <QuoteLink from="mobile-bar" className="flex items-center justify-center bg-brand py-4 font-heading text-[18px] font-bold text-white">
-        Get my free price
+        Get a Free Quote
       </QuoteLink>
       <a href={site.phoneHref} className="flex items-center justify-center gap-1.5 px-5 py-4 font-heading text-[16px] font-bold text-white">
         <PhoneIcon className="h-5 w-5" /> Call

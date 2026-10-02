@@ -37,7 +37,7 @@ export function PageShell({
             {intro && <p className="mt-4 max-w-xl text-[18px] sm:text-[19px]">{intro}</p>}
             {forms && (
               <QuoteLink from="page-title" className="btn-brand mt-6 !px-7 !py-4 !text-[18px] lg:hidden">
-                Get my price <ArrowIcon className="h-5 w-5" />
+                Get a Quote <ArrowIcon className="h-5 w-5" />
               </QuoteLink>
             )}
           </div>

@@ -102,7 +102,7 @@ export function QuoteForm({ variant = "full" }: { variant?: "full" | "compact" }
       </label>
       {state && !state.ok && <p className="bg-red-50 px-3 py-2 text-[15px] font-bold text-red-800">{state.message}</p>}
       <button type="submit" disabled={pending} className="btn-brand w-full !py-3.5 disabled:opacity-60">
-        {pending ? "Sending..." : "Get my price"}
+        {pending ? "Sending..." : "Get a Quote"}
       </button>
       <p className="text-[13px] text-body">
         Free, no obligation. <Link href="/privacy" className="underline">Privacy</Link>

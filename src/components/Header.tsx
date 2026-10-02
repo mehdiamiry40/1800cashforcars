@@ -43,7 +43,7 @@ export function Header() {
         </nav>
         <div className="flex items-center gap-2">
           <QuoteLink from="header" className="btn-brand hidden whitespace-nowrap !px-5 !py-2.5 !text-[17px] sm:inline-flex">
-            Get my price
+            Get a Quote
           </QuoteLink>
           <button
             type="button"

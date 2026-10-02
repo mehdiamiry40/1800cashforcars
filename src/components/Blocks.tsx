@@ -251,10 +251,10 @@ export function FinalCta() {
       <div className="container-site grid items-end gap-6 pt-12 sm:grid-cols-[1fr_auto] sm:pt-16">
         <div className="pb-12 text-center sm:pb-16 sm:text-left">
           <h2 className="h-section">Old car taking up space?</h2>
-          <p className="mt-3 text-[18px]">Tell Roo about it. Get a price in 30 seconds and we&apos;ll take it off your hands.</p>
+          <p className="mt-3 text-[18px]">Tell Roo about it. Get a quote in 30 seconds and we&apos;ll take it off your hands.</p>
           <div className="mt-6 flex flex-col items-center gap-4 sm:flex-row sm:items-center">
             <QuoteLink from="final-cta" className="btn-brand !px-8 !py-4 !text-[19px]">
-              Get my price <ArrowIcon className="h-5 w-5" />
+              Get a Quote <ArrowIcon className="h-5 w-5" />
             </QuoteLink>
             <a href={site.phoneHref} className="inline-flex items-center gap-2 font-heading text-[17px] font-bold text-ink underline underline-offset-4">
               <PhoneIcon className="h-5 w-5 text-brand" /> or call us

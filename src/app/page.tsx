@@ -69,7 +69,7 @@ export default function Home() {
             <p className="mt-3 text-[18px]">
               Quick answers here. Still unsure?{" "}
               <QuoteLink from="faq" className="font-bold text-brand underline underline-offset-2">
-                Get a free price
+                Get a free quote
               </QuoteLink>
               , no obligation.
             </p>

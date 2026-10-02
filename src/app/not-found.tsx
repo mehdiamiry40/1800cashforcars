@@ -15,7 +15,7 @@ export default function NotFound() {
         </p>
         <div className="mt-8 flex flex-col gap-3 sm:flex-row">
           <Link href="/quote" className="btn-brand !px-7 !py-4 !text-[18px]">
-            Get my price
+            Get a Quote
           </Link>
           <Link href="/" className="btn-line !px-7 !py-4 !text-[18px]">
             Go to the home page

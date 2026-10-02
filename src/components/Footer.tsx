@@ -13,7 +13,7 @@ export function Footer() {
           <Logo light />
           <p className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2">
             <QuoteLink from="footer" className="inline-flex items-center bg-brand px-5 py-2.5 font-heading text-[18px] font-bold text-white hover:bg-brand-dark">
-              Get a price
+              Get a Quote
             </QuoteLink>
             <a href={site.phoneHref} className="inline-flex items-center gap-2 font-heading text-[17px] font-bold text-white hover:underline">
               <PhoneIcon className="h-5 w-5" /> Call us
