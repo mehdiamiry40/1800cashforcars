@@ -24,7 +24,7 @@ export function Hero({ where, title, lead, sub }: { where?: string; title?: stri
           className="object-cover object-[58%_70%] md:object-[50%_60%]"
         />
         {/* Keeps the headline readable over the photo. */}
-        <div aria-hidden className="absolute inset-0 bg-gradient-to-b from-navy-950/55 via-navy-950/30 via-55% to-navy md:bg-gradient-to-r md:from-navy-950/90 md:from-25% md:via-navy-950/60 md:via-45% md:to-navy-950/10 md:to-65%" />
+        <div aria-hidden className="absolute inset-0 bg-gradient-to-b from-navy-950/75 via-navy-950/60 via-55% to-navy md:bg-gradient-to-r md:from-navy-950/90 md:from-30% md:via-navy-950/70 md:via-50% md:to-navy-950/20 md:to-70%" />
       </div>
 
       <div className="container-site grid items-start gap-x-10 gap-y-7 pb-10 pt-8 sm:pt-12 md:grid-cols-[minmax(0,1fr)_minmax(0,430px)] md:py-16">
