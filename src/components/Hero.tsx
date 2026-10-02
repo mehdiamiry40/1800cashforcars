@@ -24,15 +24,15 @@ export function Hero({ where, title, lead, sub }: { where?: string; title?: stri
           className="object-cover object-[58%_70%] md:object-[50%_60%]"
         />
         {/* Keeps the headline readable over the photo. */}
-        <div aria-hidden className="absolute inset-0 bg-gradient-to-b from-navy-950/75 via-navy-950/35 via-45% to-navy md:bg-gradient-to-r md:from-navy-950/90 md:from-30% md:via-navy-950/70 md:via-50% md:to-navy-950/20 md:to-70%" />
+        <div aria-hidden className="absolute inset-0 bg-gradient-to-b from-navy-950/35 via-navy-950/10 via-45% to-navy md:bg-gradient-to-r md:from-navy-950/90 md:from-30% md:via-navy-950/70 md:via-50% md:to-navy-950/20 md:to-70%" />
       </div>
 
       {/* Phones: headline, then a gap where the photo shows, then the form, then the details.
           Desktop: headline and details stacked on the left, form on the right. */}
       <div className="container-site grid items-start gap-x-10 gap-y-7 pb-10 pt-8 sm:pt-12 md:grid-cols-[minmax(0,1fr)_minmax(0,430px)] md:grid-rows-[1fr_auto_1fr] md:gap-y-0 md:py-16">
-        <div className="min-h-[300px] text-white [text-shadow:0_1px_10px_rgba(10,20,36,0.7)] min-[400px]:min-h-[320px] sm:min-h-[380px] md:col-start-1 md:row-start-1 md:min-h-0 md:self-end md:[text-shadow:none]">
-          <h1 className="font-heading text-[28px] font-extrabold uppercase leading-[1.05] min-[400px]:text-[32px] sm:text-[40px] lg:text-[46px]">
-            {copy.title} <span className="block text-brand-light">{copy.lead}</span>
+        <div className="min-h-[300px] text-white [text-shadow:0_2px_4px_rgba(0,0,0,0.7),0_4px_18px_rgba(0,0,0,0.6)] min-[400px]:min-h-[320px] sm:min-h-[380px] md:col-start-1 md:row-start-1 md:min-h-0 md:self-end md:[text-shadow:none]">
+          <h1 className="font-heading text-[23px] font-extrabold uppercase leading-[1.08] min-[400px]:text-[26px] sm:text-[40px] sm:leading-[1.05] lg:text-[46px]">
+            {copy.title} <span className="block sm:text-brand-light">{copy.lead}</span>
           </h1>
         </div>
 
