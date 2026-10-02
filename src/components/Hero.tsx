@@ -1,5 +1,5 @@
 import Image from "next/image";
-import heroPhoto from "@/assets/hero-tow-truck.jpg";
+import heroPhoto from "@/assets/hero-rusty-car.jpg";
 import { heroCopy } from "@/lib/slides";
 import { site } from "@/lib/site";
 import { QuoteForm } from "./QuoteForm";
@@ -18,7 +18,7 @@ export function Hero({ where, title, lead, sub }: { where?: string; title?: stri
         sizes="100vw"
         quality={55}
         placeholder="blur"
-        className="-z-20 object-cover object-[70%_center]"
+        className="-z-20 object-cover object-[55%_75%]"
       />
       {/* Darkens the photo behind the text so the headline stays readable. */}
       <div aria-hidden className="absolute inset-0 -z-10 bg-navy-950/70 md:bg-transparent md:bg-gradient-to-r md:from-navy-950/90 md:via-navy-950/70 md:to-navy-950/30" />
