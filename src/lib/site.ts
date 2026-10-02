@@ -4,8 +4,8 @@ export const site = {
   domain: "1800cashforcars.com.au",
   url: "https://1800cashforcars.com.au",
   tagline: "We buy cars in any condition. Free pickup, paid on the day.",
-  phoneDisplay: "0481 438 444",
-  phoneHref: "tel:+61481438444",
+  phoneDisplay: "0423 514 111",
+  phoneHref: "tel:+61423514111",
   email: "quotes@1800cashforcars.com.au",
   // Only show the email address on the site once the mailbox (or forwarding) is set up, otherwise emails bounce.
   showEmail: true,
@@ -20,7 +20,7 @@ export const site = {
   // Only use a figure you genuinely pay; it's an advertised claim under Australian Consumer Law.
   maxPayout: "",
   // Mobile number that can receive texts, e.g. "0400000000". Blank hides the SMS button.
-  smsNumber: "+61481438444",
+  smsNumber: "+61423514111",
   social: {
     facebook: "",
     instagram: "",
