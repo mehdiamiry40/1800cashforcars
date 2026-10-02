@@ -67,20 +67,10 @@ export function QuoteForm({ variant = "full", narrow = false }: { variant?: "ful
       <input type="hidden" name="page" value={pathname} />
       <input type="hidden" name="e" ref={elapsed} defaultValue="" />
 
-      <div className={`grid grid-cols-[4.75rem_minmax(0,1fr)_minmax(0,1fr)] gap-2 ${wide}`}>
-        <label>
-          <span className="sr-only">Year</span>
-          <input name="year" inputMode="numeric" maxLength={4} className={`${input} !px-3`} placeholder="Year" />
-        </label>
-        <label>
-          <span className="sr-only">Make</span>
-          <input name="make" className={`${input} !px-3`} placeholder="Make" required />
-        </label>
-        <label>
-          <span className="sr-only">Model</span>
-          <input name="model" className={`${input} !px-3`} placeholder="Model" required />
-        </label>
-      </div>
+      <label className={wide}>
+        <span className="sr-only">Year, make and model</span>
+        <input name="vehicle" className={input} placeholder="Year, make & model" maxLength={120} required />
+      </label>
       <label className={wide}>
         <span className="sr-only">Condition</span>
         <input name="condition" className={input} placeholder="Condition (runs, won't start...)" maxLength={200} required />

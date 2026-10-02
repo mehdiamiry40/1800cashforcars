@@ -26,7 +26,7 @@ export function QuoteLink({ from, className, children }: { from: string; classNa
         e.preventDefault();
         form.scrollIntoView({ behavior: "smooth", block: "start" });
         // Put the cursor in the first box on desktop; on phones that would pop the keyboard over the form.
-        if (matchMedia("(pointer: fine)").matches) form.querySelector<HTMLInputElement>("input[name=year]")?.focus({ preventScroll: true });
+        if (matchMedia("(pointer: fine)").matches) form.querySelector<HTMLInputElement>("input[name=vehicle]")?.focus({ preventScroll: true });
       }}
     >
       {children}

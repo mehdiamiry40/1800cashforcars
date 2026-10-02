@@ -45,14 +45,9 @@ export async function submitQuote(_prev: QuoteState, formData: FormData): Promis
   ) as Record<(typeof FIELDS)[number][0], string>;
 
   lead.expected = formatPrice(lead.expected);
-  // The form asks for year, make and model in separate boxes; the email shows them as one line.
-  if (!lead.vehicle) {
-    const part = (k: string) => String(formData.get(k) ?? "").trim().slice(0, 60);
-    lead.vehicle = [part("year"), part("make"), part("model")].filter(Boolean).join(" ");
-  }
 
   if (!lead.name || !lead.phone || !lead.vehicle || !lead.condition) {
-    return { ok: false, message: "Please enter your name, mobile number, and the car's make, model and condition." };
+    return { ok: false, message: "Please enter your name, mobile number, and the car's year, make, model and condition." };
   }
   if (!/^[\d\s()+-]{8,}$/.test(lead.phone)) {
     return { ok: false, message: "Please enter a valid phone number." };
