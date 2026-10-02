@@ -32,8 +32,8 @@ export function Hero({ where, title, lead, sub }: { where?: string; title?: stri
           <h1 className="font-heading text-[28px] font-extrabold uppercase leading-[1.05] min-[400px]:text-[32px] sm:text-[40px] lg:text-[46px]">
             {copy.title} <span className="block text-brand-light">{copy.lead}</span>
           </h1>
-          <p className="mt-4 hidden max-w-md text-[17px] text-white/90 sm:block sm:text-[20px]">{copy.sub}</p>
-          <ul className="mt-6 grid gap-1.5 font-heading text-[16px] font-extrabold">
+          <p className="mt-3 max-w-md font-heading text-[15px] font-semibold leading-snug tracking-[0.01em] text-white/85 sm:mt-4 sm:font-sans sm:text-[20px] sm:font-normal sm:leading-relaxed sm:tracking-normal sm:text-white/90">{copy.sub}</p>
+          <ul className="mt-5 grid gap-1.5 font-heading text-[16px] font-extrabold sm:mt-6">
             {copy.points.map((p) => (
               <li key={p} className="flex items-center gap-2">
                 <CheckIcon className="h-4 w-4 shrink-0 text-brand-light" /> {p}
