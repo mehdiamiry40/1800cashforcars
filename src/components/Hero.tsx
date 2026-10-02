@@ -25,7 +25,7 @@ export function Hero({ where, title, lead, sub }: { where?: string; title?: stri
 
       <div className="container-site grid items-start gap-x-10 gap-y-7 pb-12 pt-8 sm:pt-12 md:grid-cols-[minmax(0,1fr)_minmax(0,430px)] md:py-16">
         <div className="text-white md:self-center">
-          <h1 className="font-heading text-[38px] font-extrabold leading-[1] tracking-[-0.01em] min-[400px]:text-[44px] sm:text-[56px] lg:text-[64px]">
+          <h1 className="font-heading text-[28px] font-extrabold uppercase leading-[1.05] min-[400px]:text-[32px] sm:text-[40px] lg:text-[46px]">
             {copy.title} <span className="block text-brand-light">{copy.lead}</span>
           </h1>
           <p className="mt-4 max-w-md text-[17px] text-white/90 sm:text-[20px]">{copy.sub}</p>
