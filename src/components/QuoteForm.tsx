@@ -77,7 +77,7 @@ export function QuoteForm({ variant = "full", narrow = false }: { variant?: "ful
       </label>
       <label className={wide}>
         <span className="sr-only">Suburb</span>
-        <input name="address" className={input} placeholder="Suburb" autoComplete="address-level2" />
+        <input name="address" className={input} placeholder="Suburb" autoComplete="address-level2" maxLength={100} required />
       </label>
       <div className={`grid grid-cols-2 gap-2 ${wide}`}>
         <label>

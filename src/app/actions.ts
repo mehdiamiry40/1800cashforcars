@@ -46,8 +46,8 @@ export async function submitQuote(_prev: QuoteState, formData: FormData): Promis
 
   lead.expected = formatPrice(lead.expected);
 
-  if (!lead.name || !lead.phone || !lead.vehicle || !lead.condition) {
-    return { ok: false, message: "Please enter your name, mobile number, and the car's year, make, model and condition." };
+  if (!lead.name || !lead.phone || !lead.vehicle || !lead.condition || !lead.address) {
+    return { ok: false, message: "Please enter your name, mobile number, suburb, and the car's year, make, model and condition." };
   }
   if (!/^[\d\s()+-]{8,}$/.test(lead.phone)) {
     return { ok: false, message: "Please enter a valid phone number." };
