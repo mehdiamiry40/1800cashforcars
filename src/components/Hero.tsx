@@ -15,7 +15,7 @@ export function Hero({ where, title, lead, sub }: { where?: string; title?: stri
       <div className="absolute inset-x-0 top-0 -z-10 max-sm:-top-14 h-[360px] min-[400px]:h-[380px] sm:h-[440px] md:inset-0 md:h-auto">
         <Image
           src={heroPhoto}
-          alt="A kangaroo holding Australian cash beside a tow truck carrying an old broken-down car"
+          alt="A kangaroo beside a tow truck carrying an old broken-down car"
           fill
           preload
           sizes="100vw"
