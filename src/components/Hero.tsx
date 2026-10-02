@@ -12,7 +12,7 @@ export function Hero({ where, title, lead, sub }: { where?: string; title?: stri
     <section className="relative isolate overflow-hidden border-b-4 border-ink bg-navy">
       {/* Background photo. On phones it sits behind the headline (truck, car and kangaroo in view) and fades into the
           navy behind the form; on desktop it fills the hero. */}
-      <div className="absolute inset-x-0 top-0 -z-10 h-[360px] min-[400px]:h-[380px] sm:h-[440px] md:inset-0 md:h-auto">
+      <div className="absolute inset-x-0 top-0 -z-10 max-sm:-top-14 h-[360px] min-[400px]:h-[380px] sm:h-[440px] md:inset-0 md:h-auto">
         <Image
           src={heroPhoto}
           alt="A kangaroo holding Australian cash beside a tow truck carrying an old broken-down car"
@@ -21,7 +21,7 @@ export function Hero({ where, title, lead, sub }: { where?: string; title?: stri
           sizes="100vw"
           quality={75}
           placeholder="blur"
-          className="object-cover object-[58%_70%] md:object-[50%_60%]"
+          className="object-cover object-[58%_70%] max-sm:object-[79%_70%] md:object-[50%_60%]"
         />
         {/* Keeps the headline readable over the photo. */}
         <div aria-hidden className="absolute inset-0 bg-gradient-to-b from-navy-950/35 via-navy-950/10 via-45% to-navy md:bg-gradient-to-r md:from-navy-950/90 md:from-30% md:via-navy-950/70 md:via-50% md:to-navy-950/20 md:to-70%" />
@@ -30,7 +30,7 @@ export function Hero({ where, title, lead, sub }: { where?: string; title?: stri
       {/* Phones: headline, then a gap where the photo shows, then the form, then the details.
           Desktop: headline and details stacked on the left, form on the right. */}
       <div className="container-site grid items-start gap-x-10 gap-y-7 pb-10 pt-8 sm:pt-12 md:grid-cols-[minmax(0,1fr)_minmax(0,430px)] md:grid-rows-[1fr_auto_1fr] md:gap-y-0 md:py-16">
-        <div className="min-h-[300px] text-center text-white max-sm:flex max-sm:flex-col max-sm:justify-center [text-shadow:0_2px_3px_rgba(0,0,0,0.9),0_3px_12px_rgba(0,0,0,0.85),0_6px_28px_rgba(0,0,0,0.7)] sm:text-left min-[400px]:min-h-[320px] sm:min-h-[380px] md:col-start-1 md:row-start-1 md:min-h-0 md:self-end md:[text-shadow:none]">
+        <div className="min-h-[244px] text-center text-white max-sm:flex max-sm:flex-col max-sm:justify-center [text-shadow:0_2px_3px_rgba(0,0,0,0.9),0_3px_12px_rgba(0,0,0,0.85),0_6px_28px_rgba(0,0,0,0.7)] sm:text-left min-[400px]:min-h-[264px] sm:min-h-[380px] md:col-start-1 md:row-start-1 md:min-h-0 md:self-end md:[text-shadow:none]">
           <h1 className="font-heading text-[23px] font-extrabold uppercase leading-[1.08] min-[400px]:text-[26px] sm:text-[40px] sm:leading-[1.05] lg:text-[46px]">
             {copy.title} <span className="block sm:text-brand-light">{copy.lead}</span>
           </h1>
