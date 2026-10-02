@@ -9,8 +9,7 @@ import { site } from "@/lib/site";
 import { Roo } from "./Roo";
 
 // One short form: the car, then how to reach you, then a single submit button.
-// `narrow` keeps everything in one column, for the sidebar.
-export function QuoteForm({ variant = "full", narrow = false }: { variant?: "full" | "compact"; narrow?: boolean }) {
+export function QuoteForm({ variant = "full" }: { variant?: "full" | "compact" }) {
   const [state, action, pending] = useActionState<QuoteState, FormData>(submitQuote, null);
   const pathname = usePathname();
   const full = variant === "full";
@@ -58,78 +57,67 @@ export function QuoteForm({ variant = "full", narrow = false }: { variant?: "ful
 
   // Placeholders do the labelling; the real labels are kept for screen readers only.
   const input = "field !py-2.5";
-  const grid = narrow ? "grid gap-2.5" : "grid gap-2.5 sm:grid-cols-2";
-  const wide = narrow ? "" : "sm:col-span-2";
 
   return (
-    <form action={action} onInput={onInput} className={grid}>
+    <form action={action} onInput={onInput} className="grid gap-2.5">
       <input type="text" name="company" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden />
       <input type="hidden" name="page" value={pathname} />
       <input type="hidden" name="e" ref={elapsed} defaultValue="" />
 
-      <label className={wide}>
+      <label>
         <span className="sr-only">Year, make and model</span>
         <input name="vehicle" className={input} placeholder="Year, make & model" maxLength={120} required />
       </label>
-      <label className={wide}>
+      <label>
         <span className="sr-only">Condition</span>
         <input name="condition" className={input} placeholder="Condition (runs, won't start...)" maxLength={200} required />
       </label>
-      <label className={wide}>
-        <span className="sr-only">Suburb</span>
-        <input name="address" className={input} placeholder="Suburb" autoComplete="address-level2" maxLength={100} required />
-      </label>
-      <div className={`grid grid-cols-2 gap-2 ${wide}`}>
+      <div className="grid grid-cols-2 gap-2">
         <label>
-          <span className="sr-only">Your name</span>
-          <input name="name" className={`${input} !px-3`} placeholder="Your name" required autoComplete="name" />
+          <span className="sr-only">Suburb</span>
+          <input name="address" className={`${input} !px-3`} placeholder="Suburb" autoComplete="address-level2" maxLength={100} required />
         </label>
-        <label>
-          <span className="sr-only">Mobile</span>
-          <input
-            name="phone"
-            type="tel"
-            inputMode="tel"
-            className={`${input} !px-3`}
-            placeholder="Mobile"
-            required
-            autoComplete="tel"
-            pattern="[\d\s\(\)\+\-]{8,}"
-          />
-        </label>
+        <PriceField className={`${input} !pr-3`} />
       </div>
+      <label>
+        <span className="sr-only">Your name</span>
+        <input name="name" className={input} placeholder="Your name" required autoComplete="name" />
+      </label>
+      <label>
+        <span className="sr-only">Mobile</span>
+        <input name="phone" type="tel" inputMode="tel" className={input} placeholder="Mobile" required autoComplete="tel" pattern="[\d\s\(\)\+\-]{8,}" />
+      </label>
       {full && (
-        <label>
-          <span className="sr-only">Email (optional)</span>
-          <input name="email" type="email" className={input} placeholder="Email (optional)" autoComplete="email" />
-        </label>
+        <>
+          <label>
+            <span className="sr-only">Email (optional)</span>
+            <input name="email" type="email" className={input} placeholder="Email (optional)" autoComplete="email" />
+          </label>
+          <label>
+            <span className="sr-only">Anything else (optional)</span>
+            <textarea name="notes" rows={2} className="field !py-2.5" placeholder="Anything else? (optional)" />
+          </label>
+        </>
       )}
-      <PriceField className={input} wide={full ? "" : wide} />
-      {full && (
-        <label className={wide}>
-          <span className="sr-only">Anything else (optional)</span>
-          <textarea name="notes" rows={2} className="field !py-2.5" placeholder="Anything else? (optional)" />
-        </label>
-      )}
-      {state && !state.ok && <p className={`bg-red-50 px-3 py-2 text-[15px] font-bold text-red-800 ${wide}`}>{state.message}</p>}
-      <button type="submit" disabled={pending} className={`btn-brand w-full !py-3.5 disabled:opacity-60 ${wide}`}>
+      {state && !state.ok && <p className="bg-red-50 px-3 py-2 text-[15px] font-bold text-red-800">{state.message}</p>}
+      <button type="submit" disabled={pending} className="btn-brand w-full !py-3.5 disabled:opacity-60">
         {pending ? "Sending..." : "Get my price"}
       </button>
-      <p className={`text-[13px] text-body ${wide}`}>
+      <p className="text-[13px] text-body">
         Free, no obligation. <Link href="/privacy" className="underline">Privacy</Link>
       </p>
     </form>
   );
 }
 
-function PriceField({ className, wide }: { className: string; wide: string }) {
+function PriceField({ className }: { className: string }) {
   return (
-    <label className={`relative block ${wide}`}>
+    <label className="relative block">
       <span className="sr-only">Price you&apos;re hoping for (optional)</span>
-      <span className="pointer-events-none absolute inset-y-0 left-4 flex items-center font-bold text-ink" aria-hidden>
+      <span className="pointer-events-none absolute inset-y-0 left-3 flex items-center font-bold text-ink" aria-hidden>
         $
       </span>
-      <input name="expected" inputMode="decimal" className={`${className} !pl-8`} placeholder="Price you want (optional)" maxLength={40} autoComplete="off" />
+      <input name="expected" inputMode="decimal" className={`${className} !pl-7`} placeholder="Your price" maxLength={40} autoComplete="off" />
     </label>
   );
 }
