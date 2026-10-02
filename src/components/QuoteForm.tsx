@@ -68,10 +68,6 @@ export function QuoteForm({ variant = "full" }: { variant?: "full" | "compact" }
         <span className="sr-only">Year, make and model</span>
         <input name="vehicle" className={input} placeholder="Year, make & model" maxLength={120} required />
       </label>
-      <label>
-        <span className="sr-only">Condition</span>
-        <input name="condition" className={input} placeholder="Condition (runs, won't start...)" maxLength={200} required />
-      </label>
       <div className="grid grid-cols-2 gap-2">
         <label>
           <span className="sr-only">Suburb</span>
@@ -88,17 +84,22 @@ export function QuoteForm({ variant = "full" }: { variant?: "full" | "compact" }
         <input name="phone" type="tel" inputMode="tel" className={input} placeholder="Mobile" required autoComplete="tel" pattern="[\d\s\(\)\+\-]{8,}" />
       </label>
       {full && (
-        <>
-          <label>
-            <span className="sr-only">Email (optional)</span>
-            <input name="email" type="email" className={input} placeholder="Email (optional)" autoComplete="email" />
-          </label>
-          <label>
-            <span className="sr-only">Anything else (optional)</span>
-            <textarea name="notes" rows={2} className="field !py-2.5" placeholder="Anything else? (optional)" />
-          </label>
-        </>
+        <label>
+          <span className="sr-only">Email (optional)</span>
+          <input name="email" type="email" className={input} placeholder="Email (optional)" autoComplete="email" />
+        </label>
       )}
+      <label>
+        <span className="sr-only">Description</span>
+        <textarea
+          name="description"
+          rows={2}
+          className={`${input} block resize-y`}
+          placeholder="Description (runs, won't start, damage...)"
+          maxLength={1000}
+          required
+        />
+      </label>
       {state && !state.ok && <p className="bg-red-50 px-3 py-2 text-[15px] font-bold text-red-800">{state.message}</p>}
       <button type="submit" disabled={pending} className="btn-brand w-full !py-3.5 disabled:opacity-60">
         {pending ? "Sending..." : "Get my price"}
