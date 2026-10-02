@@ -39,7 +39,7 @@ export default function QuotePage() {
             ))}
           </ul>
           <p className="mt-6 text-[15px]">
-            Rather talk to someone? <a href={site.phoneHref} className="font-semibold text-brand underline">Call us</a>, we answer 24/7.
+            Rather talk to someone? <a href={site.phoneHref} className="font-semibold text-brand underline">Call us</a>.
           </p>
         </div>
       </div>

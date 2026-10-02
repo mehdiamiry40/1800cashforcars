@@ -9,9 +9,7 @@ export const site = {
   email: "quotes@1800cashforcars.com.au",
   // Only show the email address on the site once the mailbox (or forwarding) is set up, otherwise emails bounce.
   showEmail: true,
-  hours: "Calls answered 24/7",
   pickups: "Pickups 7 days, at a time that suits you",
-  hoursSchema: "Mo-Su 00:00-23:59",
   abn: "62 351 619 456",
   address: "79 Breadwell St, Rocklea QLD 4106", // shown in footer + contact page
   addressParts: { street: "79 Breadwell St", locality: "Rocklea", region: "QLD", postcode: "4106", country: "AU" },

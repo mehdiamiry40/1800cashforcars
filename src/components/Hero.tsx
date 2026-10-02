@@ -39,7 +39,7 @@ export function Hero({ where, title, lead, sub }: { where?: string; title?: stri
           <p className="mt-4 text-[15px] text-white/85">
             Prefer to talk?{" "}
             <a href={site.phoneHref} className="inline-flex items-center gap-1 font-bold text-white underline underline-offset-2">
-              <PhoneIcon className="h-4 w-4 text-brand-light" /> Call us, 24/7
+              <PhoneIcon className="h-4 w-4 text-brand-light" /> Call us
             </a>
           </p>
         </div>

@@ -63,7 +63,6 @@ const jsonLd = {
   ...(site.abn ? { taxID: site.abn } : {}),
   telephone: site.phoneHref.replace("tel:", ""),
   ...(site.showEmail ? { email: site.email } : {}),
-  openingHours: site.hoursSchema,
   priceRange: "Free quotes",
   areaServed: areas.map((a) => ({ "@type": "City", name: `${a.name}, ${a.state}` })),
   description: site.tagline,

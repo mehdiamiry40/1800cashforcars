@@ -185,7 +185,7 @@ export function AskForPrice() {
             <a href={site.phoneHref} className="font-bold text-white underline underline-offset-4">
               Call us
             </a>
-            , we answer 24/7.
+            .
           </p>
         </div>
         <div id="get-price" data-quote className="scroll-mt-24 bg-white p-6 text-body sm:p-9">

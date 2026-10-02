@@ -12,7 +12,7 @@ export default function ContactPage() {
   const rows = [
     { label: "Phone", value: <a href={site.phoneHref} className="font-semibold text-brand underline">Call us</a> },
     ...(site.showEmail ? [{ label: "Email", value: <a href={`mailto:${site.email}`} className="font-semibold text-brand hover:underline">{site.email}</a> }] : []),
-    { label: "Hours", value: `${site.hours}. ${site.pickups}.` },
+    { label: "Pickups", value: `${site.pickups.replace(/^Pickups /, "")}.` },
     ...(site.address
       ? [
           {
@@ -32,11 +32,11 @@ export default function ContactPage() {
     ...(site.abn ? [{ label: "ABN", value: site.abn }] : []),
   ];
   return (
-    <PageShell title="Contact Us" path="/contact-us" roo={{ hand: "phone" }} intro="Send us your car's details and we'll text you a price, usually within the hour. Or call us any time.">
+    <PageShell title="Contact Us" path="/contact-us" roo={{ hand: "phone" }} intro="Send us your car's details and we'll text you a price, usually within the hour. Or give us a call.">
       <h2 className="h-section">Get in touch</h2>
       <p className="mt-3">
         The quickest way to get a price is the quote form: tell us about the car and we&apos;ll text you back, usually
-        within the hour. You can also call or text us any time.
+        within the hour. You can also call or text us.
       </p>
       <dl className="mt-6 divide-y divide-line border-y border-line">
         {rows.map((r) => (

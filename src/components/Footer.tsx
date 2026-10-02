@@ -19,8 +19,7 @@ export function Footer() {
               <PhoneIcon className="h-5 w-5" /> Call us
             </a>
           </p>
-          <p className="mt-3">{site.hours}</p>
-          <p>{site.pickups}</p>
+          <p className="mt-3">{site.pickups}</p>
           {site.showEmail && (
             <p className="mt-3"><a href={`mailto:${site.email}`} className="underline underline-offset-2 hover:text-white">{site.email}</a></p>
           )}
