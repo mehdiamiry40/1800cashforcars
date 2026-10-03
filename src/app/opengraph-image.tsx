@@ -2,7 +2,7 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { ImageResponse } from "next/og";
 
-export const alt = "1800 CASH FOR CARS. Cash for scrap cars. Any car, any condition.";
+export const alt = "1-800-CASH-FOR-CARS. Cash for scrap cars. Any car, any condition.";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -22,7 +22,7 @@ export default async function OgImage() {
     (
       <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 60px", background: "#FBF3E6", color: "#1D2433", fontFamily: "Nunito" }}>
         <div style={{ display: "flex", flexDirection: "column", maxWidth: 560 }}>
-          <div style={{ fontSize: 30, fontWeight: 900, color: "#c2410c", letterSpacing: 4 }}>1800 CASH FOR CARS</div>
+          <div style={{ fontSize: 30, fontWeight: 900, color: "#c2410c", letterSpacing: 4 }}>1-800-CASH-FOR-CARS</div>
           <div style={{ fontSize: 72, fontWeight: 900, lineHeight: 1.02, marginTop: 20 }}>Cash for scrap cars.</div>
           <div style={{ fontSize: 72, fontWeight: 900, lineHeight: 1.02, color: "#C2410C" }}>Any car. Any condition.</div>
           <div style={{ fontSize: 32, fontWeight: 600, marginTop: 28, color: "#4B5263" }}>Free towing. Paid on pickup. Brisbane, Gold Coast and SEQ.</div>

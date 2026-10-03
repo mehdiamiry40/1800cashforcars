@@ -7,7 +7,7 @@ import { JsonLd } from "@/components/JsonLd";
 import { faqs, site } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: { absolute: "Cash for Cars Brisbane | Free Car Removal | 1800 CASH FOR CARS" },
+  title: { absolute: "Cash for Cars Brisbane | Free Car Removal | 1-800-CASH-FOR-CARS" },
   description:
     "Cash for cars Brisbane: we pay cash for scrap, old and unwanted cars in any condition, with free car removal across Brisbane and SEQ. Based in Rocklea.",
   alternates: { canonical: "/" },
