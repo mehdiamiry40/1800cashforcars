@@ -13,17 +13,17 @@ export const metadata: Metadata = {
 export default function QuotePage() {
   return (
     <PageShell
-      title="Get a Free Quote"
+      title="Get a free quote"
       path="/quote"
       roo={{ hand: "cash" }}
       intro="Tell us about your car and we'll text you a price, usually within the hour. No obligation."
       forms={false}
     >
       <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_300px] lg:gap-14">
-        <div data-quote className="scroll-mt-24 border-2 border-ink bg-white p-5 shadow-[6px_6px_0_#1d2433] sm:p-8">
+        <div data-quote className="quote-panel scroll-mt-24">
           <QuoteForm />
         </div>
-        <div>
+        <div className="border border-line bg-sand p-6 lg:self-start">
           <h2 className="h-sub">What happens next</h2>
           <ul className="mt-3 space-y-2">
             {[

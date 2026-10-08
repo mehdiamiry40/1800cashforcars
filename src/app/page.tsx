@@ -35,16 +35,17 @@ export default function Home() {
       <JsonLd data={faqLd} />
       <JsonLd data={serviceLd} />
       <Hero
-        title="Cash for Cars Brisbane."
+        title="Cash for cars Brisbane."
         lead="Any car. Any condition."
         sub="Scrap, old, broken or rusted out. We pay cash for it and tow it away free, anywhere in Brisbane and South East QLD."
       />
       <HowItWorks />
       <WhatWeBuy />
 
-      <section className="py-16 sm:py-24">
+      <section className="section-site">
         <div className="container-site">
           <SectionHead
+            eyebrow="Based in Rocklea"
             title="Cash for cars across Brisbane"
             intro="We're based in Rocklea, so we get to most Brisbane suburbs the same day. North, south, east or west, we'll pay cash for your car and tow it away free."
           />
@@ -62,11 +63,12 @@ export default function Home() {
       <AreasGrid />
       <ReviewsBand />
 
-      <section id="faq" className="scroll-mt-24 bg-sand py-16 sm:py-24">
+      <section id="faq" className="section-site scroll-mt-24 border-y border-line bg-sand">
         <div className="container-site grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:gap-14">
           <div>
-            <h2 className="h-section">Questions?</h2>
-            <p className="mt-3 text-[18px]">
+            <p className="eyebrow mb-3">Good to know</p>
+            <h2 className="h-section">Your questions, answered</h2>
+            <p className="mt-4 text-[17px]">
               Quick answers here. Still unsure?{" "}
               <QuoteLink from="faq" className="font-bold text-brand underline underline-offset-2">
                 Get a free quote

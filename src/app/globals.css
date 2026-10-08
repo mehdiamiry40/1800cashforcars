@@ -1,21 +1,23 @@
 @import "tailwindcss";
 
 @theme {
-  /* Brand: orange + navy (matches the logo), Roo the kangaroo, outback sand */
+  /* Orange actions, navy typography, and quiet neutral surfaces. */
   --color-brand: #c2410c;
   --color-brand-dark: #a3360a;
   --color-brand-light: #ff9150;
   --color-roo: #c8743a;
   --color-rust: #a55a27;
-  --color-sand: #fbf3e6;
-  --color-paper: #fbf3e6;
+  --color-sand: #f6f7f5;
+  --color-paper: #f6f7f5;
   --color-navy: #0f1d33;
   --color-navy-800: #182a47;
   --color-navy-950: #0a1424;
   --color-money: #1f7a4d;
-  --color-ink: #1d2433;
-  --color-body: #4b5263;
-  --color-line: #eadfcd;
+  --color-ink: #0f1d33;
+  --color-body: #536071;
+  --color-line: #e2e6ea;
+  --color-control: #8995a3;
+  --color-muted: #697586;
 
   --font-sans: var(--font-nunito-sans);
   --font-heading: var(--font-barlow);
@@ -44,14 +46,29 @@ button {
 body {
   background: #ffffff;
   color: var(--color-body);
-  font-size: 17px;
-  line-height: 1.65;
+  font-size: 16px;
+  line-height: 1.75;
 }
 
 h1,
 h2,
 h3 {
   text-wrap: balance;
+}
+
+@layer base {
+  button,
+  input,
+  select,
+  textarea {
+    font: inherit;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }
 
 p,
@@ -89,11 +106,11 @@ strong {
 }
 
 @utility container-site {
-  @apply mx-auto w-full max-w-[1120px] px-5 sm:px-6;
+  @apply mx-auto w-full max-w-[1160px] px-5 sm:px-6;
 }
 
 @utility btn {
-  @apply inline-flex items-center justify-center gap-2 px-6 py-3 font-heading text-[18px] font-bold transition-colors;
+  @apply inline-flex min-h-12 items-center justify-center gap-2 px-5 py-3 font-sans text-[15px] font-bold leading-snug transition-colors;
 }
 
 @utility btn-brand {
@@ -101,23 +118,51 @@ strong {
 }
 
 @utility btn-navy {
-  @apply btn bg-ink text-white hover:bg-black;
+  @apply btn bg-navy text-white hover:bg-navy-800;
 }
 
 @utility btn-line {
-  @apply btn border-2 border-ink bg-white text-ink hover:bg-ink hover:text-white;
+  @apply btn border border-line bg-white text-navy hover:border-brand hover:bg-sand;
+}
+
+@utility section-site {
+  @apply py-14 sm:py-20;
+}
+
+@utility eyebrow {
+  @apply font-sans text-[11px] font-bold uppercase leading-normal tracking-[0.14em] text-brand;
+}
+
+@utility h-page {
+  @apply font-heading text-[36px] font-extrabold leading-[1.08] tracking-[-0.025em] text-navy sm:text-[48px] lg:text-[56px];
 }
 
 @utility h-section {
-  @apply font-heading text-[34px] font-extrabold leading-[1.05] tracking-[-0.01em] text-ink sm:text-[46px];
+  @apply font-heading text-[30px] font-bold leading-[1.15] tracking-[-0.02em] text-navy sm:text-[40px];
 }
 
 @utility h-sub {
-  @apply font-heading text-[23px] font-bold leading-snug text-ink;
+  @apply font-heading text-[22px] font-bold leading-[1.25] tracking-[-0.01em] text-navy;
+}
+
+@utility h-content {
+  @apply font-heading text-[25px] font-bold leading-[1.2] tracking-[-0.02em] text-navy sm:text-[30px];
+}
+
+@utility card-site {
+  @apply border border-line bg-white shadow-[0_6px_24px_rgba(15,29,51,0.035)];
+}
+
+@utility quote-panel {
+  @apply border border-line border-t-[3px] border-t-brand bg-white p-5 shadow-[0_12px_36px_rgba(15,29,51,0.06)] sm:p-6;
 }
 
 @utility field {
-  @apply w-full border-2 border-[#cfc4b2] bg-white px-4 py-3 text-[16px] text-ink outline-none transition placeholder:text-[#8f887b] focus:border-brand;
+  @apply min-h-11 min-w-0 w-full border border-control bg-white px-3.5 py-2.5 text-[16px] leading-normal text-navy outline-none transition-colors placeholder:text-muted focus:border-brand;
+}
+
+@utility field-label {
+  @apply mb-1.5 block font-sans text-[12px] font-bold leading-normal text-navy;
 }
 
 .prose-site p {

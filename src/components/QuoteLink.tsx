@@ -62,11 +62,11 @@ export function StickyQuoteBar() {
       className={`fixed inset-x-0 bottom-0 z-50 grid grid-cols-[1fr_auto] bg-navy pb-[env(safe-area-inset-bottom)] shadow-[0_-4px_16px_rgba(0,0,0,0.12)] transition-transform duration-300 md:hidden ${formInView ? "translate-y-full" : ""}`}
       inert={formInView}
     >
-      <QuoteLink from="mobile-bar" className="flex items-center justify-center bg-brand py-4 font-heading text-[18px] font-bold text-white">
-        Get a Free Quote
+      <QuoteLink from="mobile-bar" className="flex min-h-14 items-center justify-center bg-brand px-3 py-4 text-[14px] font-bold text-white transition-colors hover:bg-brand-dark">
+        Get a free quote
       </QuoteLink>
-      <a href={site.phoneHref} className="flex items-center justify-center gap-1.5 px-5 py-4 font-heading text-[16px] font-bold text-white">
-        <PhoneIcon className="h-5 w-5" /> Call
+      <a href={site.phoneHref} className="flex min-h-14 items-center justify-center gap-1.5 px-5 py-4 text-[14px] font-semibold text-white">
+        <PhoneIcon aria-hidden="true" className="h-4 w-4" /> Call
       </a>
     </div>
   );

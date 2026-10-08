@@ -26,31 +26,32 @@ export function PageShell({
   return (
     <>
       <Breadcrumbs trail={[{ name: title, path }]} />
-      <section className="relative overflow-hidden border-b-4 border-ink bg-sand">
-        <div className="container-site relative grid items-end gap-4 pt-10 sm:grid-cols-[1fr_auto] sm:pt-14">
-          <div className="pb-10 sm:pb-14">
-            <p className="text-[15px]">
-              <Link href="/" className="font-bold text-brand underline underline-offset-2">Home</Link>
+      <section className="overflow-hidden border-b border-line bg-sand">
+        <div className="container-site grid items-center gap-6 py-10 sm:grid-cols-[minmax(0,1fr)_auto] sm:py-12">
+          <div className="min-w-0">
+            <p className="text-[13px]">
+              <Link href="/" className="font-semibold text-brand hover:underline underline-offset-4">Home</Link>
               <span aria-hidden className="mx-1.5 text-body/50">/</span> {title}
             </p>
-            <h1 className="mt-3 font-heading text-[40px] font-extrabold leading-[1.04] tracking-[-0.03em] text-ink sm:text-[56px]">{title}</h1>
-            {intro && <p className="mt-4 max-w-xl text-[18px] sm:text-[19px]">{intro}</p>}
+            <h1 className="h-page mt-4">{title}</h1>
+            {intro && <p className="mt-4 max-w-2xl text-[17px] leading-relaxed sm:text-[18px]">{intro}</p>}
             {forms && (
-              <QuoteLink from="page-title" className="btn-brand mt-6 !px-7 !py-4 !text-[18px] lg:hidden">
-                Get a Quote <ArrowIcon className="h-5 w-5" />
+              <QuoteLink from="page-title" className="btn-brand mt-6 lg:hidden">
+                Get a free quote <ArrowIcon aria-hidden="true" className="h-4 w-4" />
               </QuoteLink>
             )}
           </div>
-          <Roo {...roo} className="mx-auto hidden h-72 w-auto sm:block" />
+          <Roo {...roo} className="mx-auto hidden h-36 w-auto sm:block lg:h-40" />
         </div>
       </section>
 
-      <section className={`container-site grid gap-10 py-14 sm:py-20 lg:gap-14 ${forms ? "lg:grid-cols-[1fr_340px]" : ""}`}>
+      <section className={`container-site section-site grid gap-10 lg:gap-12 ${forms ? "lg:grid-cols-[minmax(0,1fr)_360px]" : ""}`}>
         <div className="min-w-0">{children}</div>
         {forms && (
           <aside className="hidden lg:block">
-            <div data-quote className="scroll-mt-28 border-2 border-ink bg-white p-6 shadow-[6px_6px_0_#1d2433] lg:sticky lg:top-28">
-              <p className="mb-3 font-heading text-[21px] font-extrabold leading-tight text-ink">Get an Instant Quote</p>
+            <div data-quote className="quote-panel scroll-mt-28 lg:sticky lg:top-28">
+              <p className="h-sub mb-2">Get a free quote</p>
+              <p className="mb-5 text-[14px]">We&apos;ll text you a price, usually within the hour.</p>
               <QuoteForm variant="compact" />
             </div>
           </aside>

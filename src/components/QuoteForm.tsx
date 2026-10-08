@@ -7,6 +7,7 @@ import { useActionState, useEffect, useRef } from "react";
 import { submitQuote, type QuoteState } from "@/app/actions";
 import { site } from "@/lib/site";
 import { Roo } from "./Roo";
+import { ArrowIcon } from "./icons";
 
 // One short form: the car, then how to reach you, then a single submit button.
 export function QuoteForm({ variant = "full" }: { variant?: "full" | "compact" }) {
@@ -36,11 +37,11 @@ export function QuoteForm({ variant = "full" }: { variant?: "full" | "compact" }
 
   if (state?.ok) {
     return (
-      <div className="border-2 border-line bg-sand p-5" role="status">
+      <div className="border border-line bg-sand p-5" role="status">
         <div className="flex items-center gap-4">
           <Roo hand="cash" className="h-24 w-auto shrink-0" />
           <div>
-            <p className="font-heading text-[22px] font-extrabold text-ink">Thanks, we&apos;re on it!</p>
+            <p className="h-sub">Thanks, we&apos;re on it!</p>
             <p className="mt-1">We&apos;ll text or call you with a price, usually within the hour.</p>
           </div>
         </div>
@@ -60,54 +61,55 @@ export function QuoteForm({ variant = "full" }: { variant?: "full" | "compact" }
     );
   }
 
-  // Placeholders do the labelling; the real labels are kept for screen readers only.
-  const input = "field !py-2.5";
+  // Persistent labels stay visible while people enter their vehicle and contact details.
+  const input = "field";
 
   return (
-    <form action={action} onInput={onInput} className="grid gap-2.5">
+    <form action={action} onInput={onInput} className="grid gap-3">
       <input type="text" name="company" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden />
       <input type="hidden" name="page" value={pathname} />
       <input type="hidden" name="e" ref={elapsed} defaultValue="" />
 
-      <label>
-        <span className="sr-only">Year, make and model</span>
-        <input name="vehicle" className={input} placeholder="Year, make & model" maxLength={120} required />
+      <label className="min-w-0">
+        <span className="field-label">Year, make and model</span>
+        <input name="vehicle" className={input} placeholder="e.g. 2010 Toyota Corolla" maxLength={120} required />
       </label>
-      <div className="grid grid-cols-2 gap-2">
-        <label>
-          <span className="sr-only">Suburb</span>
-          <input name="address" className={`${input} !px-3`} placeholder="Suburb" autoComplete="address-level2" maxLength={100} required />
+      <div className="grid grid-cols-2 items-end gap-3">
+        <label className="min-w-0">
+          <span className="field-label">Suburb</span>
+          <input name="address" className={input} placeholder="e.g. Rocklea" autoComplete="address-level2" maxLength={100} required />
         </label>
-        <PriceField className={`${input} !pr-3`} />
+        <PriceField className={input} />
       </div>
-      <label>
-        <span className="sr-only">Your name</span>
+      <label className="min-w-0">
+        <span className="field-label">Your name</span>
         <input name="name" className={input} placeholder="Your name" required autoComplete="name" />
       </label>
-      <label>
-        <span className="sr-only">Mobile</span>
+      <label className="min-w-0">
+        <span className="field-label">Mobile</span>
         <input name="phone" type="tel" inputMode="tel" className={input} placeholder="Mobile" required autoComplete="tel" pattern="[\d\s\(\)\+\-]{8,}" />
       </label>
       {full && (
-        <label>
-          <span className="sr-only">Email (optional)</span>
+        <label className="min-w-0">
+          <span className="field-label">Email (optional)</span>
           <input name="email" type="email" className={input} placeholder="Email (optional)" autoComplete="email" />
         </label>
       )}
-      <label>
-        <span className="sr-only">Description</span>
+      <label className="min-w-0">
+        <span className="field-label">Car condition</span>
         <textarea
           name="description"
           rows={2}
           className={`${input} block resize-y`}
-          placeholder="Description (runs, won't start, damage...)"
+          placeholder="Does it run? Any damage?"
           maxLength={1000}
           required
         />
       </label>
-      {state && !state.ok && <p className="bg-red-50 px-3 py-2 text-[15px] font-bold text-red-800">{state.message}</p>}
-      <button type="submit" disabled={pending} className="btn-brand w-full !py-3.5 disabled:opacity-60">
-        {pending ? "Sending..." : "Get a Quote"}
+      {state && !state.ok && <p role="alert" className="bg-red-50 px-3 py-2 text-[14px] font-semibold text-red-800">{state.message}</p>}
+      <button type="submit" disabled={pending} className="btn-brand mt-1 w-full disabled:opacity-60">
+        {pending ? "Sending..." : "Get a free quote"}
+        {!pending && <ArrowIcon aria-hidden="true" className="h-4 w-4" />}
       </button>
       <p className="text-[13px] text-body">
         Free, no obligation. <Link href="/privacy" className="underline">Privacy</Link>
@@ -118,12 +120,12 @@ export function QuoteForm({ variant = "full" }: { variant?: "full" | "compact" }
 
 function PriceField({ className }: { className: string }) {
   return (
-    <label className="relative block">
-      <span className="sr-only">Price you&apos;re hoping for (optional)</span>
-      <span className="pointer-events-none absolute inset-y-0 left-3 flex items-center font-bold text-ink" aria-hidden>
-        $
+    <label className="block min-w-0">
+      <span className="field-label">Price (optional)</span>
+      <span className="relative block">
+        <span className="pointer-events-none absolute inset-y-0 left-3 flex items-center text-navy" aria-hidden="true">$</span>
+        <input name="expected" inputMode="decimal" className={`${className} pl-7`} placeholder="Your price" maxLength={40} autoComplete="off" />
       </span>
-      <input name="expected" inputMode="decimal" className={`${className} !pl-7`} placeholder="Your price" maxLength={40} autoComplete="off" />
     </label>
   );
 }
