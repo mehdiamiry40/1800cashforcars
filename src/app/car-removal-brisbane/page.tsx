@@ -61,7 +61,7 @@ export default function CarRemovalBrisbane() {
     <PageShell
       title="Car removal Brisbane"
       path="/car-removal-brisbane"
-      intro="Free car removal anywhere in Brisbane. We pick up scrap, old and unwanted cars, pay you on the spot, and tow them away at no cost."
+      intro="Free pickup across Brisbane. Paid before your car leaves."
       roo={{ pouchCar: true, hop: true }}
     >
       <JsonLd data={faqLd} />
@@ -70,6 +70,8 @@ export default function CarRemovalBrisbane() {
         blocks={[
           {
             heading: "Free car removal, anywhere in Brisbane",
+            summary: "From your driveway, work, mechanic or the roadside.",
+            icon: "truck",
             paras: [
               "Our yard is in Rocklea, on Brisbane's southside, so we can get a tow truck or tilt tray to most Brisbane suburbs the same day. We'll collect the car from your driveway, the street, a workshop, a car park or the side of the road.",
               "Car removal is always free. On top of that, we pay you for the car, even if it's only fit for scrap.",
@@ -77,6 +79,8 @@ export default function CarRemovalBrisbane() {
           },
           {
             heading: "Cars we remove",
+            summary: "Running or not, registered or not. We buy all conditions.",
+            icon: "car",
             list: [
               { bold: "Scrap and wrecked cars", text: "rusted out, stripped or sitting in the yard for years." },
               { bold: "Crashed and written-off cars", text: "insurance write-offs and accident damage." },
@@ -88,6 +92,8 @@ export default function CarRemovalBrisbane() {
           },
           {
             heading: "How Brisbane car removal works",
+            summary: "Get a quote, choose a time, and get paid on pickup.",
+            icon: "cash",
             list: [
               { bold: "Get a quote", text: "fill in the quick form with the car's details (or call us) and we'll text you a price." },
               { bold: "Book a time", text: "same day or whenever suits you, 7 days." },
@@ -99,7 +105,7 @@ export default function CarRemovalBrisbane() {
 
       <div className="mt-12">
         <h2 className="h-content">Brisbane suburbs we cover</h2>
-        <p className="mt-4 text-[17px]">We cover all of Brisbane, plus Logan and Ipswich. Here are some of the suburbs we pick up from most:</p>
+        <p className="mt-3">Brisbane, plus Logan and Ipswich. Select a region for suburbs.</p>
         <BrisbaneSuburbs narrow />
       </div>
 

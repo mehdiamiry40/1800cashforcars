@@ -3,7 +3,9 @@ import heroPhoto from "@/assets/hero-car-truck-cash.png";
 import { heroCopy } from "@/lib/slides";
 import { site } from "@/lib/site";
 import { QuoteForm } from "./QuoteForm";
-import { CheckIcon, ClockIcon, PhoneIcon } from "./icons";
+import { CashIcon, CheckIcon, ClockIcon, PhoneIcon, ShieldIcon, TruckIcon } from "./icons";
+
+const benefitIcons = [TruckIcon, CashIcon, ShieldIcon];
 
 // A clean white studio image keeps the car, tow truck and cash visible without competing with the copy.
 export function Hero({ where, title, lead, sub }: { where?: string; title?: string; lead?: string; sub?: string }) {
@@ -30,12 +32,11 @@ export function Hero({ where, title, lead, sub }: { where?: string; title?: stri
         </div>
 
         <div className="md:col-start-1 md:row-start-3">
-          <ul className="grid grid-cols-3 gap-2 border-y border-line py-3 text-[12px] font-semibold leading-snug text-navy sm:text-[13px] md:gap-4 md:py-4">
-            {copy.points.map((p) => (
-              <li key={p} className="flex flex-col items-center gap-1.5 text-center sm:flex-row sm:text-left">
-                <CheckIcon aria-hidden="true" className="h-4 w-4 shrink-0 text-brand" /> {p}
-              </li>
-            ))}
+          <ul className="grid grid-cols-3 gap-3 border-y border-line py-4 text-[12px] font-semibold leading-snug text-navy sm:text-[13px]">
+            {copy.points.map((p, i) => {
+              const Icon = benefitIcons[i] ?? CheckIcon;
+              return <li key={p} className="flex flex-col items-center gap-2 text-center"><Icon aria-hidden="true" className="h-8 w-8 text-brand" strokeWidth={1.5} />{p}</li>;
+            })}
           </ul>
           <a href={site.phoneHref} className="btn-line mt-5 hidden w-fit md:inline-flex">
             <PhoneIcon aria-hidden="true" className="h-5 w-5 shrink-0 text-brand" />
@@ -48,11 +49,10 @@ export function Hero({ where, title, lead, sub }: { where?: string; title?: stri
           data-quote
           className="quote-panel w-full scroll-mt-24 md:col-start-2 md:row-span-3 md:row-start-1 md:self-center"
         >
-          <p className="eyebrow mb-2">Your car. Your free quote.</p>
           <h2 className="h-sub">Get a free quote</h2>
           <p className="mb-4 mt-2 flex items-start gap-2 text-[14px] leading-snug text-body">
             <ClockIcon aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0 text-brand" />
-            <span>We&apos;ll text you a price, usually within the hour.</span>
+            <span>A price by text, usually within the hour.</span>
           </p>
           <QuoteForm variant="compact" />
           <a href={site.phoneHref} className="mt-4 flex min-h-11 items-center justify-center gap-2 border-t border-line pt-3 text-[14px] font-bold text-navy transition-colors hover:text-brand md:hidden">

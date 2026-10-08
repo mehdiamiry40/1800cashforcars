@@ -16,7 +16,7 @@ export default function QuotePage() {
       title="Get a free quote"
       path="/quote"
       roo={{ hand: "cash" }}
-      intro="Tell us about your car and we'll text you a price, usually within the hour. No obligation."
+      intro="A price by text, usually within the hour."
       forms={false}
     >
       <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_300px] lg:gap-14">

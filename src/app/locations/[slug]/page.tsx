@@ -2,10 +2,10 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { AskForPrice, FinalCta, HowItWorks, SectionHead, WhatWeBuy } from "@/components/Blocks";
-import { PinIcon } from "@/components/icons";
+import { ArrowIcon, ChevronRight, PinIcon } from "@/components/icons";
 import { Hero } from "@/components/Hero";
 import { Breadcrumbs } from "@/components/JsonLd";
-import { areaHref, areas, site } from "@/lib/site";
+import { areas, site } from "@/lib/site";
 
 export const dynamicParams = false;
 
@@ -37,23 +37,15 @@ export default async function LocationPage({ params }: PageProps<"/locations/[sl
 
       <section className="section-site border-y border-line bg-sand">
         <div className="container-site">
-          <SectionHead eyebrow="Local pickup" title={`Suburbs we cover ${area.where}`} intro="Free pickup from your driveway, work, mechanic or the roadside." />
-          <ul className="mx-auto mt-10 flex max-w-3xl flex-wrap justify-center gap-2.5">
-            {area.suburbs.map((s) => (
-              <li key={s} className="flex items-center gap-2 border border-line bg-white px-4 py-2.5 text-[14px] font-semibold text-navy">
-                <PinIcon aria-hidden="true" className="h-4 w-4 text-brand" /> {s}
-              </li>
-            ))}
-          </ul>
-          <p className="mt-8 text-center">
-            Also:{" "}
-            {areas.filter((a) => a.slug !== area.slug).map((a, i, arr) => (
-              <span key={a.slug}>
-                <Link href={areaHref(a)} className="font-bold text-brand underline underline-offset-2">{a.name}</Link>
-                {i < arr.length - 1 ? ", " : ""}
-              </span>
-            ))}
-          </p>
+          <PinIcon aria-hidden="true" className="mx-auto mb-5 h-16 w-16 text-brand" strokeWidth={1.5} />
+          <SectionHead title={`Pickup ${area.where}`} intro="Home, work, mechanic or roadside." />
+          <details className="group mx-auto mt-6 max-w-3xl border border-line bg-white p-5">
+            <summary className="flex cursor-pointer list-none items-center justify-between gap-3 text-[15px] font-semibold text-navy">View covered suburbs <ChevronRight aria-hidden="true" className="h-4 w-4 text-brand transition-transform group-open:rotate-90" /></summary>
+            <ul className="mt-5 flex flex-wrap gap-2.5">
+              {area.suburbs.map((s) => <li key={s} className="border border-line bg-sand px-3 py-2 text-[14px]">{s}</li>)}
+            </ul>
+          </details>
+          <div className="mt-5 text-center"><Link href="/#areas" className="btn-line">All pickup areas <ArrowIcon aria-hidden="true" className="h-4 w-4" /></Link></div>
         </div>
       </section>
 

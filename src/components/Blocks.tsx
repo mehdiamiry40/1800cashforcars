@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import {
   siAudi, siBmw, siFord, siHonda, siHyundai, siJeep, siKia, siMazda, siMitsubishi, siNissan,
@@ -5,11 +6,13 @@ import {
 } from "simple-icons";
 import type { Block } from "@/lib/content";
 import { areaHref, areas, brisbaneSuburbs, faqs, reviews, site } from "@/lib/site";
+import { vehicleVisuals } from "@/lib/vehicle-visuals";
 import { QuoteForm } from "./QuoteForm";
 import { QuoteLink } from "./QuoteLink";
 import { Roo } from "./Roo";
-import { VehicleIcon, vehicleTypes } from "./VehicleIcons";
-import { ArrowIcon, CheckIcon, PhoneIcon, PinIcon } from "./icons";
+import { ArrowIcon, CarIcon, CashIcon, CheckIcon, ChevronRight, ClipboardIcon, LeafIcon, PhoneIcon, PinIcon, QuoteIcon, TruckIcon } from "./icons";
+
+const blockIcons = { car: CarIcon, truck: TruckIcon, cash: CashIcon, recycle: LeafIcon, paperwork: ClipboardIcon };
 
 export function SectionHead({ title, intro, eyebrow, light = false, center = true }: { title: string; intro?: string; eyebrow?: string; light?: boolean; center?: boolean }) {
   return (
@@ -23,23 +26,23 @@ export function SectionHead({ title, intro, eyebrow, light = false, center = tru
 
 export function HowItWorks() {
   const steps = [
-    { roo: <Roo hand="phone" className="h-24 w-auto" />, title: "Tell us about it", text: "Call, text a photo, or fill in the form." },
-    { roo: <Roo hand="cash" className="h-24 w-auto" />, title: "Get a firm price", text: "No obligation. What we quote is what we pay." },
-    { roo: <Roo pouchCar hop className="h-24 w-auto" />, title: "We pick it up", text: "We pay you, then tow it away for free." },
+    { icon: ClipboardIcon, title: "Tell us about it", text: "Call, text or use the form." },
+    { icon: CashIcon, title: "Get your price", text: "A firm quote. No obligation." },
+    { icon: TruckIcon, title: "Paid & picked up", text: "Paid before we tow it away." },
   ];
   return (
     <section className="section-site">
       <div className="container-site">
-        <SectionHead eyebrow="How it works" title="Sell your car in three simple steps" />
+        <SectionHead eyebrow="How it works" title="Three simple steps" />
         <ol className="mt-9 grid gap-4 sm:grid-cols-3 sm:gap-5">
-          {steps.map((s, i) => (
-            <li key={s.title} className="card-site flex flex-col p-6">
-              <div className="mb-5 flex items-center justify-between gap-4">
-                <span className="font-display text-[40px] font-semibold leading-none text-brand">0{i + 1}</span>
-                {s.roo}
+          {steps.map(({ icon: Icon, title, text }, i) => (
+            <li key={title} className="card-site flex flex-col items-center p-6 text-center">
+              <div className="relative mb-5 grid h-28 w-28 place-items-center bg-brand/5 text-brand">
+                <Icon aria-hidden="true" className="h-16 w-16" strokeWidth={1.5} />
+                <span className="absolute -right-2 -top-2 grid h-8 w-8 place-items-center bg-navy text-[13px] font-bold text-white">0{i + 1}</span>
               </div>
-              <h3 className="h-sub">{s.title}</h3>
-              <p className="mt-3">{s.text}</p>
+              <h3 className="h-sub">{title}</h3>
+              <p className="mt-2 text-[15px]">{text}</p>
             </li>
           ))}
         </ol>
@@ -49,22 +52,33 @@ export function HowItWorks() {
 }
 
 export function WhatWeBuy() {
+  const categories = [
+    { visual: vehicleVisuals.cars, icon: CarIcon, title: "Cars & 4WDs", caption: "All makes. Running or not." },
+    { visual: vehicleVisuals.commercial, icon: TruckIcon, title: "Utes, vans & trucks", caption: "Work vehicles and fleets." },
+    { visual: vehicleVisuals.scrap, icon: LeafIcon, title: "Scrap & damaged", caption: "Old, crashed or unregistered." },
+  ];
   return (
     <section className="section-site border-y border-line bg-sand">
       <div className="container-site">
-        <SectionHead eyebrow="What we buy" title="Scrap, old or unwanted. We buy it." intro="Running or not, crashed, flooded, unregistered or rusted out. If it's taking up space, it's worth something." />
-        <ul className="mx-auto mt-9 grid max-w-5xl grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
-          {vehicleTypes.map((v) => (
-            <li key={v.key} className="card-site flex flex-col items-center gap-3 px-3 py-6">
-              <VehicleIcon type={v.key} className="h-12 w-auto" />
-              <span className="text-[14px] font-semibold text-navy">{v.label}</span>
+        <SectionHead eyebrow="What we buy" title="Any vehicle. Any condition." />
+        <ul className="mt-9 grid gap-5 sm:grid-cols-3">
+          {categories.map(({ visual, icon: Icon, title, caption }) => (
+            <li key={title} className="card-site overflow-hidden">
+              <Image src={visual.image} alt={visual.alt} sizes="(min-width: 1160px) 357px, (min-width: 640px) calc((100vw - 88px) / 3), calc(100vw - 40px)" placeholder="blur" className="aspect-[3/2] h-auto w-full object-contain" />
+              <div className="border-t border-line p-5">
+                <div className="flex items-center gap-2.5">
+                  <Icon aria-hidden="true" className="h-6 w-6 shrink-0 text-brand" />
+                  <h3 className="h-sub text-[20px]">{title}</h3>
+                </div>
+                <p className="mt-2 text-[14px]">{caption}</p>
+              </div>
             </li>
           ))}
         </ul>
         <p className="mt-8 text-center">
-          <Link href="/truck-removal" className="text-[15px] font-semibold text-brand underline underline-offset-4">Selling a truck?</Link>
+          <Link href="/truck-removal" className="text-[15px] font-semibold text-brand underline underline-offset-4">Truck removal</Link>
           <span className="mx-3 text-line">|</span>
-          <Link href="/scrap-car-removal" className="text-[15px] font-semibold text-brand underline underline-offset-4">Got a wreck?</Link>
+          <Link href="/scrap-car-removal" className="text-[15px] font-semibold text-brand underline underline-offset-4">Scrap car removal</Link>
         </p>
       </div>
     </section>
@@ -73,48 +87,68 @@ export function WhatWeBuy() {
 
 export function ContentBlocks({ blocks }: { blocks: Block[] }) {
   return (
-    <div className="space-y-12">
-      {blocks.map((b) => (
-        <div key={b.heading}>
-          <h2 className="h-content">{b.heading}</h2>
-          <div className="prose-site text-[16px] sm:text-[17px]">
-            {b.paras?.map((p) => <p key={p}>{p}</p>)}
-          </div>
-          {b.list && (
-            <ul className="mt-5 grid gap-3">
-              {b.list.map((l) => (
-                <li key={l.bold} className="flex gap-3 border border-line bg-sand px-5 py-4">
-                  <CheckIcon className="mt-1 h-5 w-5 shrink-0 text-brand" />
-                  <span>
-                    <b className="text-ink">{l.bold}.</b> {l.text.charAt(0).toUpperCase() + l.text.slice(1)}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
-      ))}
+    <div className="space-y-5">
+      {blocks.map((b) => {
+        const Icon = blockIcons[b.icon ?? "car"];
+        return (
+          <article key={b.heading} className="card-site p-5 sm:p-6">
+            <div className="flex items-start gap-4">
+              <span className="grid h-14 w-14 shrink-0 place-items-center bg-brand/5 text-brand">
+                <Icon aria-hidden="true" className="h-8 w-8" strokeWidth={1.5} />
+              </span>
+              <div className="min-w-0">
+                <h2 className="h-sub">{b.heading}</h2>
+                {(b.summary || b.paras?.[0]) && <p className="mt-2 text-[15px]">{b.summary ?? b.paras?.[0]}</p>}
+              </div>
+            </div>
+            {b.list && (
+              <ul className="mt-4 flex flex-wrap gap-2">
+                {b.list.map((l) => <li key={l.bold} className="border border-line bg-sand px-3 py-1.5 text-[13px] font-semibold text-navy">{l.bold}</li>)}
+              </ul>
+            )}
+            {(b.paras?.length || b.list?.length) ? (
+              <details className="group mt-4 border-t border-line pt-3">
+                <summary aria-label={`Full details about ${b.heading}`} className="flex w-fit cursor-pointer list-none items-center gap-2 text-[14px] font-semibold text-brand">
+                  Full details <ChevronRight aria-hidden="true" className="h-4 w-4 transition-transform group-open:rotate-90" />
+                </summary>
+                <div className="prose-site text-[15px]">
+                  {b.paras?.map((p) => <p key={p}>{p}</p>)}
+                  {b.list && <ul className="mt-4 space-y-3">{b.list.map((l) => <li key={l.bold}><b className="text-navy">{l.bold}.</b> {l.text.charAt(0).toUpperCase() + l.text.slice(1)}</li>)}</ul>}
+                </div>
+              </details>
+            ) : null}
+          </article>
+        );
+      })}
     </div>
   );
 }
 
-export function AreasGrid() {
+export function AreasGrid({ showBrisbane = false }: { showBrisbane?: boolean }) {
   return (
     <section id="areas" className="section-site scroll-mt-24 border-t border-line">
       <div className="container-site">
-        <SectionHead eyebrow="Our service areas" title="Free pickup across South East Queensland" intro="Local pickup, at a time that suits you." />
-        <ul className="mx-auto mt-9 grid max-w-3xl grid-cols-2 gap-3 sm:grid-cols-3">
+        <SectionHead eyebrow="Our service areas" title="We come to you" intro="Brisbane, the Gold Coast and South East Queensland." />
+        <ul className="mx-auto mt-9 grid max-w-4xl grid-cols-2 gap-3 sm:grid-cols-3">
           {areas.map((a) => (
             <li key={a.slug}>
               <Link
                 href={areaHref(a)}
-                className="btn-line h-full w-full justify-start px-4 text-[14px] sm:text-[15px]"
+                className="card-site flex h-full flex-col items-center gap-3 px-4 py-5 text-center text-[15px] font-semibold text-navy transition-colors hover:border-brand hover:bg-sand"
               >
-                <PinIcon aria-hidden="true" className="h-4 w-4 shrink-0 text-brand" /> {a.name}
+                <PinIcon aria-hidden="true" className="h-9 w-9 text-brand" strokeWidth={1.5} /> {a.name}
               </Link>
             </li>
           ))}
         </ul>
+        {showBrisbane && (
+          <details className="group/coverage mx-auto mt-5 max-w-4xl border border-line bg-sand px-5 py-4">
+            <summary className="flex cursor-pointer list-none items-center justify-between gap-3 text-[14px] font-semibold text-navy">
+              Brisbane suburb coverage <ChevronRight aria-hidden="true" className="h-4 w-4 text-brand transition-transform group-open/coverage:rotate-90" />
+            </summary>
+            <BrisbaneSuburbs />
+          </details>
+        )}
       </div>
     </section>
   );
@@ -144,16 +178,17 @@ export function CallUsAndTerms({ stacked = false }: { stacked?: boolean }) {
   return (
     <div className={`grid gap-5 ${stacked ? "" : "md:grid-cols-2"}`}>
       <div className="border border-line bg-sand p-6">
+        <CashIcon aria-hidden="true" className="mb-4 h-10 w-10 text-brand" strokeWidth={1.5} />
         <h2 className="h-sub">Getting paid</h2>
         <p className="mt-2">
-          Cash or bank transfer, your choice, paid before the car leaves. In NSW (including Tweed Heads) it&apos;s bank transfer
-          only.
+          Paid before your car leaves. Cash or bank transfer; bank transfer only in NSW.
         </p>
       </div>
       <div className="border border-line bg-sand p-6">
+        <ClipboardIcon aria-hidden="true" className="mb-4 h-10 w-10 text-brand" strokeWidth={1.5} />
         <h2 className="h-sub">What you&apos;ll need</h2>
         <ul className="mt-2 space-y-1.5">
-          {["Proof you own it (e.g. rego papers), with no finance owing", "Photo ID", "Bank details if you'd like a transfer"].map((t) => (
+          {["Ownership papers, with no finance owing", "Photo ID", "Bank details for a transfer"].map((t) => (
             <li key={t} className="flex gap-2">
               <CheckIcon className="mt-1 h-4 w-4 shrink-0 text-brand" /> {t}
             </li>
@@ -169,19 +204,11 @@ export function AskForPrice() {
     <section className="section-site bg-navy text-white">
       <div className="container-site grid items-center gap-10 lg:grid-cols-[0.85fr_1.15fr]">
         <div className="text-center lg:text-left">
-          <p className="eyebrow text-brand-light">Your next step</p>
-          <Roo hand="cash" className="mx-auto mt-5 h-28 w-auto lg:mx-0" />
-          <h2 className="mt-5 h-section !text-white">Get a free quote</h2>
-          <p className="mt-4 text-[17px] text-white/80">
-            Tell us about the car and we&apos;ll text you a price, usually within the hour. No phone call needed.
-          </p>
-          <ul className="mx-auto mt-6 inline-grid gap-3 text-left text-[15px] lg:mx-0">
-            {["Free and no obligation", "The price we quote is the price we pay", "Free towing, paid on pickup"].map((t) => (
-              <li key={t} className="flex items-center gap-2">
-                <CheckIcon className="h-5 w-5 shrink-0 text-brand-light" /> {t}
-              </li>
-            ))}
-          </ul>
+          <span className="mx-auto grid h-28 w-28 place-items-center bg-white/5 text-brand-light lg:mx-0">
+            <QuoteIcon aria-hidden="true" className="h-16 w-16" strokeWidth={1.5} />
+          </span>
+          <h2 className="mt-6 h-section !text-white">Your price. By text.</h2>
+          <p className="mt-4 text-[17px] text-white/80">Usually within the hour. Free, with no obligation.</p>
           <p className="mt-6 text-[15px] text-white/70">
             Prefer to talk?{" "}
             <a href={site.phoneHref} className="font-bold text-white underline underline-offset-4">
@@ -272,12 +299,15 @@ export function FinalCta() {
 
 export function BrisbaneSuburbs({ narrow = false }: { narrow?: boolean }) {
   return (
-    <div className={`mt-8 grid gap-8 sm:grid-cols-2 ${narrow ? "" : "lg:grid-cols-4"}`}>
+    <div className={`mt-5 grid items-start gap-3 sm:grid-cols-2 ${narrow ? "" : "lg:grid-cols-4"}`}>
       {brisbaneSuburbs.map((g) => (
-        <div key={g.region} className="border-t-2 border-brand/60 pt-4">
-          <h3 className="h-sub text-[20px]">{g.region}</h3>
-          <p className="mt-2 text-[15px] leading-relaxed">{g.suburbs.join(", ")}</p>
-        </div>
+        <details key={g.region} className="group border border-line bg-white px-4 open:border-brand/40">
+          <summary className="flex cursor-pointer list-none items-center justify-between gap-3 py-4 text-[14px] font-semibold text-navy">
+            <span className="flex items-center gap-2"><PinIcon aria-hidden="true" className="h-5 w-5 shrink-0 text-brand" />{g.region}</span>
+            <ChevronRight aria-hidden="true" className="h-4 w-4 shrink-0 text-brand transition-transform group-open:rotate-90" />
+          </summary>
+          <p className="border-t border-line py-4 text-[14px] leading-relaxed">{g.suburbs.join(", ")}</p>
+        </details>
       ))}
     </div>
   );
