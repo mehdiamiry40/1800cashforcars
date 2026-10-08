@@ -11,6 +11,7 @@ Website for [1800cashforcars.com.au](https://1800cashforcars.com.au): Next.js (A
   - The hero scene (Roo offering cash for an old car) is `src/components/HeroScene.tsx`. If the art changes, regenerate the share-image copy: `npx tsx scripts/export-roo.tsx`.
 - **Brand identity**: orange `#c2410c` for actions, navy `#0f1d33` for headings, white backgrounds, and neutral `#f6f7f5` sections with `#e2e6ea` borders. Barlow is for headings; Nunito Sans is for body text, navigation, form labels and buttons; Barlow Semi Condensed stays in the logo. Use sentence case, sharp corners, light borders and restrained shadows. Roo is a small supporting mascot; the main hero uses `src/assets/hero-car-truck-cash.png`.
 - **Shared design styles** in `globals.css`: `h-page`, `h-section`, `h-content`, `h-sub`, `eyebrow`, `section-site`, `card-site`, `quote-panel`, `field`, `field-label`, and the `btn-*` variants. Reuse these across pages so spacing, typography and form panels remain consistent.
+- **Visual content**: `src/lib/vehicle-visuals.ts` maps the three white-background category photos to vehicle cards and service-page headers. Keep section summaries brief and use the existing SVG icons. Service blocks have a short `summary` and optional `icon`; their original paragraphs and list explanations remain available in expandable details. Suburb coverage is expandable too, so the main pages stay easy to scan.
 
 ## Quote requests
 Both quote forms post to a server action (`src/app/actions.ts`). It:

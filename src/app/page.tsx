@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { QuoteLink } from "@/components/QuoteLink";
-import { AreasGrid, BrisbaneSuburbs, Faq, FinalCta, HowItWorks, MakesRow, ReviewsBand, SectionHead, WhatWeBuy } from "@/components/Blocks";
+import { AreasGrid, Faq, FinalCta, HowItWorks, MakesRow, ReviewsBand, WhatWeBuy } from "@/components/Blocks";
 import { Hero } from "@/components/Hero";
 import { JsonLd } from "@/components/JsonLd";
+import { ChevronRight, QuoteIcon } from "@/components/icons";
 import { faqs, site } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -37,46 +37,34 @@ export default function Home() {
       <Hero
         title="Cash for cars Brisbane."
         lead="Any car. Any condition."
-        sub="Scrap, old, broken or rusted out. We pay cash for it and tow it away free, anywhere in Brisbane and South East QLD."
+        sub="Free pickup across Brisbane and South East QLD. Paid on pickup."
       />
       <HowItWorks />
       <WhatWeBuy />
 
-      <section className="section-site">
-        <div className="container-site">
-          <SectionHead
-            eyebrow="Based in Rocklea"
-            title="Cash for cars across Brisbane"
-            intro="We're based in Rocklea, so we get to most Brisbane suburbs the same day. North, south, east or west, we'll pay cash for your car and tow it away free."
-          />
-          <BrisbaneSuburbs />
-          <p className="mt-8 text-center">
-            Just need it gone? See{" "}
-            <Link href="/car-removal-brisbane" className="font-bold text-brand underline underline-offset-2">
-              free car removal Brisbane
-            </Link>
-            .
-          </p>
-        </div>
-      </section>
-
-      <AreasGrid />
+      <AreasGrid showBrisbane />
       <ReviewsBand />
 
       <section id="faq" className="section-site scroll-mt-24 border-y border-line bg-sand">
         <div className="container-site grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:gap-14">
           <div>
-            <p className="eyebrow mb-3">Good to know</p>
+            <QuoteIcon aria-hidden="true" className="mb-5 h-16 w-16 text-brand" strokeWidth={1.5} />
             <h2 className="h-section">Your questions, answered</h2>
             <p className="mt-4 text-[17px]">
-              Quick answers here. Still unsure?{" "}
+              Need a hand?{" "}
               <QuoteLink from="faq" className="font-bold text-brand underline underline-offset-2">
                 Get a free quote
               </QuoteLink>
-              , no obligation.
+              .
             </p>
           </div>
-          <Faq bare limit={6} />
+          <div>
+            <Faq bare limit={4} />
+            <details className="group/more-faq mt-3 border border-line bg-white p-5">
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-3 text-[15px] font-semibold text-navy">More questions <ChevronRight aria-hidden="true" className="h-4 w-4 text-brand transition-transform group-open/more-faq:rotate-90" /></summary>
+              <div className="mt-4"><Faq bare items={faqs.slice(4)} /></div>
+            </details>
+          </div>
         </div>
       </section>
 

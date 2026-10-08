@@ -1,4 +1,6 @@
+import Image from "next/image";
 import Link from "next/link";
+import { serviceVisuals } from "@/lib/vehicle-visuals";
 import { AskForPrice, FinalCta, MakesRow, ReviewsBand } from "./Blocks";
 import { Breadcrumbs } from "./JsonLd";
 import { QuoteForm } from "./QuoteForm";
@@ -6,7 +8,7 @@ import { QuoteLink } from "./QuoteLink";
 import { Roo, type RooProps } from "./Roo";
 import { ArrowIcon } from "./icons";
 
-// Layout for inner pages: title with Roo, content with the quote form beside it (desktop), then the price
+// Layout for inner pages: title with vehicle imagery, content with the quote form beside it (desktop), then the price
 // form again at the bottom. Pages that show the form in their own content pass `forms={false}`.
 export function PageShell({
   title,
@@ -23,11 +25,12 @@ export function PageShell({
   forms?: boolean;
   children: React.ReactNode;
 }) {
+  const visual = serviceVisuals[path];
   return (
     <>
       <Breadcrumbs trail={[{ name: title, path }]} />
-      <section className="overflow-hidden border-b border-line bg-sand">
-        <div className="container-site grid items-center gap-6 py-10 sm:grid-cols-[minmax(0,1fr)_auto] sm:py-12">
+      <section className={`overflow-hidden border-b border-line ${visual ? "bg-white" : "bg-sand"}`}>
+        <div className={`container-site grid items-center gap-6 py-10 sm:py-12 ${visual ? "sm:grid-cols-[minmax(0,1fr)_240px] lg:grid-cols-[minmax(0,1fr)_360px]" : "sm:grid-cols-[minmax(0,1fr)_auto]"}`}>
           <div className="min-w-0">
             <p className="text-[13px]">
               <Link href="/" className="font-semibold text-brand hover:underline underline-offset-4">Home</Link>
@@ -41,7 +44,7 @@ export function PageShell({
               </QuoteLink>
             )}
           </div>
-          <Roo {...roo} className="mx-auto hidden h-36 w-auto sm:block lg:h-40" />
+          {visual ? <Image src={visual.image} alt={visual.alt} sizes="(min-width: 1024px) 360px, (min-width: 640px) 240px, calc(100vw - 40px)" preload placeholder="blur" className="mx-auto h-auto w-full max-w-[420px]" /> : <Roo {...roo} className="mx-auto hidden h-36 w-auto sm:block lg:h-40" />}
         </div>
       </section>
 
