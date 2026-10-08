@@ -35,13 +35,13 @@ export default async function LocationPage({ params }: PageProps<"/locations/[sl
       <Hero where={area.where} />
       <HowItWorks />
 
-      <section className="bg-sand py-16 sm:py-24">
+      <section className="section-site border-y border-line bg-sand">
         <div className="container-site">
-          <SectionHead title={`Suburbs we cover ${area.where}`} intro="Free pickup from your driveway, work, mechanic or the roadside." />
+          <SectionHead eyebrow="Local pickup" title={`Suburbs we cover ${area.where}`} intro="Free pickup from your driveway, work, mechanic or the roadside." />
           <ul className="mx-auto mt-10 flex max-w-3xl flex-wrap justify-center gap-2.5">
             {area.suburbs.map((s) => (
-              <li key={s} className="flex items-center gap-1.5 border-2 border-line bg-white px-4 py-2 font-heading font-bold text-ink">
-                <PinIcon className="h-4 w-4 text-rust" /> {s}
+              <li key={s} className="flex items-center gap-2 border border-line bg-white px-4 py-2.5 text-[14px] font-semibold text-navy">
+                <PinIcon aria-hidden="true" className="h-4 w-4 text-brand" /> {s}
               </li>
             ))}
           </ul>

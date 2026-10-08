@@ -8,8 +8,8 @@ import { ContactTracker, StickyQuoteBar } from "@/components/QuoteLink";
 import { areas, site } from "@/lib/site";
 import "./globals.css";
 
-// Body text: "optional" keeps the fallback if the font is not ready almost immediately, so it never delays first paint.
-const nunitoSans = Nunito_Sans({ variable: "--font-nunito-sans", subsets: ["latin"], weight: ["400", "700"], display: "optional" });
+// Self-hosted fonts share the same weights throughout navigation, forms and body copy.
+const nunitoSans = Nunito_Sans({ variable: "--font-nunito-sans", subsets: ["latin"], weight: ["400", "600", "700"], display: "swap" });
 const barlow = Barlow({ variable: "--font-barlow", subsets: ["latin"], weight: ["600", "700", "800"] });
 // Logo lettering only.
 const barlowSemi = Barlow_Semi_Condensed({ variable: "--font-barlow-semi", subsets: ["latin"], weight: ["800"] });

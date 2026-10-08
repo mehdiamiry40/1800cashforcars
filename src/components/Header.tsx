@@ -6,7 +6,7 @@ import { useState } from "react";
 import { site } from "@/lib/site";
 import { Logo } from "./Logo";
 import { QuoteLink } from "./QuoteLink";
-import { MenuIcon, PhoneIcon } from "./icons";
+import { ArrowIcon, MenuIcon, PhoneIcon } from "./icons";
 
 export const nav = [
   { href: "/cash-for-cars", label: "Cash for cars" },
@@ -22,18 +22,19 @@ export function Header() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="relative z-40 border-b border-line/70 bg-white/95 backdrop-blur md:sticky md:top-0">
-      <div className="container-site flex items-center justify-between gap-3 py-3">
-        <Link href="/">
+    <header className="relative z-40 border-b border-line bg-white/95 backdrop-blur md:sticky md:top-0">
+      <div className="container-site flex items-center justify-between gap-3 py-4">
+        <Link href="/" aria-label={`${site.name} home`}>
           <Logo />
         </Link>
-        <nav aria-label="Main" className="hidden lg:block">
-          <ul className="flex items-center gap-5 whitespace-nowrap font-heading text-[17px] font-bold xl:gap-6">
+        <nav aria-label="Main" className="hidden xl:block">
+          <ul className="flex items-center gap-5 whitespace-nowrap text-[14px] font-semibold">
             {nav.map((n) => (
               <li key={n.href}>
                 <Link
                   href={n.href}
-                  className={`border-b-2 px-1 py-1 transition ${n.href === pathname ? "border-brand text-brand" : "border-transparent text-ink hover:border-ink"}`}
+                  aria-current={n.href === pathname ? "page" : undefined}
+                  className={`border-b-2 py-2 transition-colors ${n.href === pathname ? "border-brand text-brand" : "border-transparent text-navy hover:border-brand hover:text-brand"}`}
                 >
                   {n.label}
                 </Link>
@@ -42,33 +43,33 @@ export function Header() {
           </ul>
         </nav>
         <div className="flex items-center gap-2">
-          <QuoteLink from="header" className="btn-brand hidden whitespace-nowrap !px-5 !py-2.5 !text-[17px] sm:inline-flex">
-            Get a Quote
+          <QuoteLink from="header" className="btn-brand hidden whitespace-nowrap sm:inline-flex">
+            Get a free quote <ArrowIcon aria-hidden="true" className="h-4 w-4" />
           </QuoteLink>
           <button
             type="button"
             onClick={() => setOpen((o) => !o)}
             aria-expanded={open}
             aria-label="Menu"
-            className="grid h-11 w-11 place-items-center border-2 border-ink text-ink lg:hidden"
+            className="grid h-12 w-12 place-items-center border border-line text-navy transition-colors hover:border-brand hover:bg-sand xl:hidden"
           >
-            <MenuIcon className="h-6 w-6" />
+            <MenuIcon aria-hidden="true" className="h-5 w-5" />
           </button>
         </div>
       </div>
       {open && (
-        <nav aria-label="Mobile" className="border-t border-line lg:hidden">
-          <ul className="container-site grid gap-1 py-3 font-heading text-[18px] font-extrabold">
+        <nav aria-label="Mobile" className="border-t border-line xl:hidden">
+          <ul className="container-site grid gap-1 py-3 text-[16px] font-semibold">
             {[{ href: "/", label: "Home" }, ...nav].map((n) => (
               <li key={n.href}>
-                <Link href={n.href} onClick={() => setOpen(false)} className="block px-3 py-2.5 text-ink hover:bg-sand">
+                <Link href={n.href} aria-current={n.href === pathname ? "page" : undefined} onClick={() => setOpen(false)} className={`block px-3 py-2.5 hover:bg-sand hover:text-brand ${n.href === pathname ? "bg-sand text-brand" : "text-navy"}`}>
                   {n.label}
                 </Link>
               </li>
             ))}
             <li>
               <a href={site.phoneHref} className="flex items-center gap-2 px-3 py-2.5 text-ink hover:bg-sand">
-                <PhoneIcon className="h-5 w-5 text-brand" /> Call us
+                <PhoneIcon aria-hidden="true" className="h-5 w-5 text-brand" /> {site.phoneDisplay}
               </a>
             </li>
           </ul>

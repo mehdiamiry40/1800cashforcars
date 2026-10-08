@@ -11,12 +11,13 @@ export function Footer() {
       <div className="container-site grid grid-cols-2 gap-x-6 gap-y-10 py-12 sm:py-14 lg:grid-cols-[1.3fr_1fr_1fr_1fr]">
         <div className="col-span-2 lg:col-span-1">
           <Logo light />
+          <p className="mt-4 max-w-xs text-white/80">{site.tagline}</p>
           <p className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2">
-            <QuoteLink from="footer" className="inline-flex items-center bg-brand px-5 py-2.5 font-heading text-[18px] font-bold text-white hover:bg-brand-dark">
-              Get a Quote
+            <QuoteLink from="footer" className="btn-brand">
+              Get a free quote
             </QuoteLink>
-            <a href={site.phoneHref} className="inline-flex items-center gap-2 font-heading text-[17px] font-bold text-white hover:underline">
-              <PhoneIcon className="h-5 w-5" /> Call us
+            <a href={site.phoneHref} className="inline-flex min-h-11 items-center gap-2 text-[15px] font-bold text-white hover:underline">
+              <PhoneIcon aria-hidden="true" className="h-4 w-4" /> {site.phoneDisplay}
             </a>
           </p>
           <p className="mt-3">{site.pickups}</p>
@@ -58,7 +59,7 @@ export function Footer() {
 function FooterCol({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div>
-      <h3 className="mb-3 font-heading text-[16px] font-bold text-white">{title}</h3>
+      <h3 className="mb-3 font-heading text-[18px] font-bold text-white">{title}</h3>
       <ul className="sm:space-y-1.5">{children}</ul>
     </div>
   );

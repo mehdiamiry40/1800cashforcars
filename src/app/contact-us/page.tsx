@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
   const rows = [
-    { label: "Phone", value: <a href={site.phoneHref} className="font-semibold text-brand underline">Call us</a> },
+    { label: "Phone", value: <a href={site.phoneHref} className="font-semibold text-brand underline underline-offset-4">{site.phoneDisplay}</a> },
     ...(site.showEmail ? [{ label: "Email", value: <a href={`mailto:${site.email}`} className="font-semibold text-brand hover:underline">{site.email}</a> }] : []),
     { label: "Pickups", value: `${site.pickups.replace(/^Pickups /, "")}.` },
     ...(site.address
@@ -32,7 +32,7 @@ export default function ContactPage() {
     ...(site.abn ? [{ label: "ABN", value: site.abn }] : []),
   ];
   return (
-    <PageShell title="Contact Us" path="/contact-us" roo={{ hand: "phone" }} intro="Send us your car's details and we'll text you a price, usually within the hour. Or give us a call.">
+    <PageShell title="Contact us" path="/contact-us" roo={{ hand: "phone" }} intro="Send us your car's details and we'll text you a price, usually within the hour. Or give us a call.">
       <h2 className="h-section">Get in touch</h2>
       <p className="mt-3">
         The quickest way to get a price is the quote form: tell us about the car and we&apos;ll text you back, usually
@@ -41,7 +41,7 @@ export default function ContactPage() {
       <dl className="mt-6 divide-y divide-line border-y border-line">
         {rows.map((r) => (
           <div key={r.label} className="grid grid-cols-[80px_minmax(0,1fr)] gap-3 py-3 sm:grid-cols-[110px_minmax(0,1fr)] sm:gap-4">
-            <dt className="font-heading font-bold text-ink">{r.label}</dt>
+            <dt className="text-[14px] font-semibold text-navy">{r.label}</dt>
             <dd className="break-words [overflow-wrap:anywhere]">{r.value}</dd>
           </div>
         ))}

@@ -8,8 +8,8 @@ export const metadata: Metadata = {
 
 export default function PrivacyPage() {
   return (
-    <article className="mx-auto max-w-3xl px-4 py-16 leading-relaxed text-ink [&_h2]:mt-8 [&_h2]:font-heading [&_h2]:text-xl [&_h2]:font-bold [&_h2]:uppercase [&_h2]:text-2xl [&_p]:mt-3 [&_p]:text-body">
-      <h1 className="font-heading text-5xl font-extrabold uppercase text-navy">Privacy Policy</h1>
+    <article className="section-site mx-auto max-w-3xl px-5 text-navy sm:px-6 [&_h2]:mt-8 [&_h2]:font-heading [&_h2]:text-[25px] [&_h2]:font-bold [&_h2]:leading-tight [&_p]:mt-3 [&_p]:text-body">
+      <h1 className="h-page">Privacy policy</h1>
       <p>
         {site.name}{site.abn ? ` (ABN ${site.abn})` : ""} (&quot;we&quot;, &quot;us&quot;) respects your privacy and handles personal information in line with the
         Australian Privacy Principles under the Privacy Act 1988 (Cth).

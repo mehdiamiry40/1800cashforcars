@@ -59,7 +59,7 @@ const serviceLd = {
 export default function CarRemovalBrisbane() {
   return (
     <PageShell
-      title="Car Removal Brisbane"
+      title="Car removal Brisbane"
       path="/car-removal-brisbane"
       intro="Free car removal anywhere in Brisbane. We pick up scrap, old and unwanted cars, pay you on the spot, and tow them away at no cost."
       roo={{ pouchCar: true, hop: true }}
@@ -98,19 +98,19 @@ export default function CarRemovalBrisbane() {
       />
 
       <div className="mt-12">
-        <h2 className="font-heading text-[28px] font-extrabold leading-tight text-ink sm:text-[32px]">Brisbane suburbs we cover</h2>
-        <p className="mt-3 text-[18px]">We cover all of Brisbane, plus Logan and Ipswich. Here are some of the suburbs we pick up from most:</p>
+        <h2 className="h-content">Brisbane suburbs we cover</h2>
+        <p className="mt-4 text-[17px]">We cover all of Brisbane, plus Logan and Ipswich. Here are some of the suburbs we pick up from most:</p>
         <BrisbaneSuburbs narrow />
       </div>
 
       <div className="mt-12">
-        <h2 className="font-heading text-[28px] font-extrabold leading-tight text-ink sm:text-[32px]">Car removal Brisbane FAQs</h2>
+        <h2 className="h-content">Car removal Brisbane FAQs</h2>
         <div className="mt-6">
           <Faq bare items={faqs} />
         </div>
       </div>
 
-      <p className="mt-10 text-[18px]">
+      <p className="mt-10 text-[17px]">
         Want to know what your car is worth first? See{" "}
         <Link href="/" className="font-bold text-brand underline underline-offset-2">cash for cars Brisbane</Link>, or check out{" "}
         <Link href="/truck-removal" className="font-bold text-brand underline underline-offset-2">cash for trucks</Link>.

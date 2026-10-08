@@ -9,7 +9,8 @@ Website for [1800cashforcars.com.au](https://1800cashforcars.com.au): Next.js (A
 - **Service pages** (`src/lib/content.ts`): Cash for cars, Car removals, Services, Cash for trucks, Scrap car removal, Car wreckers, Car disposal.
 - **Brand mascot, Roo**: `src/components/Roo.tsx` (poses: `pouchCar`, `hand="phone" | "cash" | "wave"`, `hop`, `confused`, `flip`) and `RooMark` for the logo. Vehicle icons are in `src/components/VehicleIcons.tsx`.
   - The hero scene (Roo offering cash for an old car) is `src/components/HeroScene.tsx`. If the art changes, regenerate the share-image copy: `npx tsx scripts/export-roo.tsx`.
-- **Brand colours**: orange `#c2410c` (logo, buttons, links), navy `#0f1d33` (dark sections), Roo rust `#c8743a`, sand `#fbf3e6`. Fonts are Barlow (headings) and Nunito Sans (body). Sharp corners everywhere (a global rule in `globals.css` forces `border-radius: 0`). Keep it plain: we mostly buy scrap and old cars.
+- **Brand identity**: orange `#c2410c` for actions, navy `#0f1d33` for headings, white backgrounds, and neutral `#f6f7f5` sections with `#e2e6ea` borders. Barlow is for headings; Nunito Sans is for body text, navigation, form labels and buttons; Barlow Semi Condensed stays in the logo. Use sentence case, sharp corners, light borders and restrained shadows. Roo is a small supporting mascot; the main hero uses `src/assets/hero-car-truck-cash.png`.
+- **Shared design styles** in `globals.css`: `h-page`, `h-section`, `h-content`, `h-sub`, `eyebrow`, `section-site`, `card-site`, `quote-panel`, `field`, `field-label`, and the `btn-*` variants. Reuse these across pages so spacing, typography and form panels remain consistent.
 
 ## Quote requests
 Both quote forms post to a server action (`src/app/actions.ts`). It:
