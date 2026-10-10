@@ -15,17 +15,27 @@ export default function QuotePage() {
   return (
     <>
       <Breadcrumbs trail={[{ name: "Get a free quote", path: "/quote" }]} />
-      <section className="container-site grid gap-12 py-14 md:grid-cols-[1fr_1.5fr] md:gap-16 md:py-20">
-        <div>
+      <section className="container-site grid gap-8 py-10 sm:py-14 md:grid-cols-[1fr_1.5fr] md:gap-x-16 md:py-20">
+        <div className="md:col-start-1 md:row-start-1">
           <p className="eyebrow">Free quote</p>
           <h1 className="h-page mt-3">
             <span className="text-brand">Let’s talk</span> about your car.
           </h1>
-          <p className="mt-5 text-[20px]">
+          <p className="mt-4 text-[18px] sm:mt-5 sm:text-[20px]">
             Tell us what you’ve got and we’ll text or call you with a price,
             usually within the hour.
           </p>
-          <ul className="mt-8 space-y-3">
+        </div>
+        <div
+          id="quote"
+          data-quote
+          className="min-w-0 scroll-mt-32 self-start md:col-start-2 md:row-span-2 md:row-start-1 lg:px-10"
+        >
+          <h2 className="h-sub mb-6">Tell us about your vehicle</h2>
+          <QuoteForm />
+        </div>
+        <div className="md:col-start-1 md:row-start-2">
+          <ul className="space-y-3">
             {[
               "Free pickup, even if it doesn’t run",
               "No obligation to accept",
@@ -51,14 +61,6 @@ export default function QuotePage() {
             </a>
             <p className="mt-3">{site.pickups}</p>
           </div>
-        </div>
-        <div
-          id="quote"
-          data-quote
-          className="min-w-0 scroll-mt-32 self-start md:px-6 lg:px-10"
-        >
-          <h2 className="h-sub mb-6">Tell us about your vehicle</h2>
-          <QuoteForm />
         </div>
       </section>
     </>

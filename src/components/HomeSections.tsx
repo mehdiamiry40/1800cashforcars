@@ -79,7 +79,7 @@ export function HomeServices() {
 
 export function ServiceGrid() {
   return (
-    <div className="grid gap-x-6 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
+    <div className="grid grid-cols-2 gap-x-3 gap-y-5 sm:gap-x-6 sm:gap-y-8 lg:grid-cols-3">
       {serviceCards.map(({ title, href, visual, Icon }) => (
         <Link key={href} href={href} className="group block">
           <div className="relative aspect-[4/3] overflow-hidden">
@@ -92,13 +92,13 @@ export function ServiceGrid() {
               className="object-contain transition-transform duration-500 group-hover:scale-[1.03]"
             />
           </div>
-          <div className="flex items-center gap-3 border-b-2 border-brand py-4">
+          <div className="flex min-h-16 items-center gap-2 border-b-2 border-brand py-3 sm:gap-3 sm:py-4">
             <Icon
               aria-hidden="true"
-              className="h-7 w-7 shrink-0 text-brand"
+              className="hidden h-7 w-7 shrink-0 text-brand sm:block"
               strokeWidth={1.5}
             />
-            <h3 className="flex-1 text-[20px] font-semibold">{title}</h3>
+            <h3 className="min-w-0 flex-1 text-[17px] font-semibold leading-snug sm:text-[20px]">{title}</h3>
             <ArrowIcon
               aria-hidden="true"
               className="h-5 w-5 shrink-0 transition-transform group-hover:translate-x-1"
@@ -133,7 +133,7 @@ export function PickupSection() {
           <h2 className="h-section">
             <span className="text-brand">Your car.</span> Collected for free.
           </h2>
-          <p className="mt-4 text-[20px]">
+          <p className="mt-4 text-[18px] sm:text-[20px]">
             From home, work or the mechanic. Running or not, we arrange the
             pickup.
           </p>
@@ -197,7 +197,7 @@ export function QuoteOptions() {
                   className="mb-5 h-10 w-10 text-brand"
                   strokeWidth={1.5}
                 />
-                <h3 className="text-[28px] font-semibold">{title}</h3>
+                <h3 className="text-[24px] font-semibold sm:text-[28px]">{title}</h3>
                 <p className="mb-4 mt-3">{text}</p>
                 <span className="inline-flex min-h-11 items-center gap-3 font-semibold">
                   {link}
@@ -273,7 +273,7 @@ export function SellerSection() {
                   className="h-8 w-8 shrink-0 text-brand"
                   strokeWidth={1.5}
                 />
-                <h3 className="flex-1 text-[28px] font-semibold">{title}</h3>
+                <h3 className="flex-1 text-[24px] font-semibold sm:text-[28px]">{title}</h3>
                 <ArrowIcon aria-hidden="true" className="h-5 w-5 shrink-0" />
               </div>
               <p className="mt-3 max-w-lg">{text}</p>
@@ -315,7 +315,7 @@ export function VehicleGallery() {
         <div className="grid gap-5 md:grid-cols-3">
           {vehicles.map(({ title, visual, href }) => (
             <Link key={href} href={href} className="group block">
-              <div className="relative aspect-[4/5] overflow-hidden">
+              <div className="relative aspect-[16/9] overflow-hidden md:aspect-[4/5]">
                 <Image
                   src={visual.image}
                   alt={visual.alt}
@@ -373,7 +373,7 @@ export function WhyChooseSection() {
             <span className="text-brand">Straightforward</span> from start to
             finish.
           </h2>
-          <p className="mt-4 max-w-md text-[20px]">
+          <p className="mt-4 max-w-md text-[18px] sm:text-[20px]">
             A local team in Rocklea. A clear quote. Pickup at a time that suits
             you.
           </p>
@@ -466,7 +466,7 @@ export function SellingAdvice() {
                   className="object-contain transition-transform duration-500 group-hover:scale-[1.03]"
                 />
               </div>
-              <h3 className="mt-5 flex items-start justify-between gap-4 text-[28px] font-semibold">
+              <h3 className="mt-5 flex items-start justify-between gap-4 text-[24px] font-semibold sm:text-[28px]">
                 {title}
                 <ArrowIcon
                   aria-hidden="true"

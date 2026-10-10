@@ -46,12 +46,12 @@ export function PageShell({
               }
             />
           </div>
-          <div className="px-5 py-10 sm:px-10 sm:py-14 md:order-1 lg:px-12">
-            <h1 className="font-heading text-[42px] font-bold leading-tight lg:text-[52px]">
+          <div className="px-4 py-8 sm:px-10 sm:py-14 md:order-1 lg:px-12">
+            <h1 className="font-heading text-[34px] font-bold leading-tight sm:text-[42px] lg:text-[52px]">
               {title}
             </h1>
             {intro && (
-              <p className="mt-5 max-w-xl text-[20px] leading-relaxed">
+              <p className="mt-5 max-w-xl text-[18px] leading-relaxed sm:text-[20px]">
                 {intro}
               </p>
             )}

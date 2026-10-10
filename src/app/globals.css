@@ -103,7 +103,26 @@ textarea {
   font-variant-numeric: tabular-nums;
 }
 @utility container-site {
-  @apply mx-auto w-full max-w-7xl px-5 sm:px-10 lg:px-12;
+  @apply mx-auto w-full max-w-7xl;
+  padding-inline: max(
+    1rem,
+    env(safe-area-inset-left),
+    env(safe-area-inset-right)
+  );
+  @media (min-width: 640px) {
+    padding-inline: max(
+      2.5rem,
+      env(safe-area-inset-left),
+      env(safe-area-inset-right)
+    );
+  }
+  @media (min-width: 1024px) {
+    padding-inline: max(
+      3rem,
+      env(safe-area-inset-left),
+      env(safe-area-inset-right)
+    );
+  }
 }
 @utility btn {
   @apply inline-flex min-h-13 w-full items-center justify-center gap-3 px-5 py-3 font-sans text-[20px] font-bold leading-relaxed tracking-wide transition-colors sm:w-auto;
@@ -118,7 +137,7 @@ textarea {
   @apply btn border border-navy bg-white text-navy hover:bg-navy hover:text-white;
 }
 @utility section-site {
-  @apply py-12 sm:py-16 lg:py-20;
+  @apply py-10 sm:py-16 lg:py-20;
 }
 @utility eyebrow {
   @apply font-sans text-[14px] font-bold uppercase leading-normal tracking-[0.14em] text-navy;
@@ -128,7 +147,7 @@ textarea {
   @apply font-heading font-semibold leading-[1.2] tracking-[-0.015em] text-navy;
 }
 @utility h-section {
-  font-size: clamp(2rem, 3.3vw, 3rem);
+  font-size: clamp(1.75rem, 3.3vw, 3rem);
   @apply font-heading font-semibold leading-[1.2] tracking-[-0.015em] text-navy;
 }
 @utility h-sub {
@@ -167,7 +186,7 @@ textarea {
   height: 100dvh;
   max-height: none;
   border: 0;
-  padding: 0;
+  padding: env(safe-area-inset-top) 0 0;
   background: #fff;
   color: var(--color-navy);
 }
@@ -193,7 +212,7 @@ textarea {
 /* Keep the opening section compact, with the quote form grouped clearly beside the vehicle. */
 .hero-heading {
   max-width: 720px;
-  font-size: clamp(2.125rem, 3.9vw, 3.125rem);
+  font-size: clamp(1.875rem, 3.9vw, 3.125rem);
   font-weight: 600;
   line-height: 1.08;
   letter-spacing: -0.025em;
@@ -220,8 +239,32 @@ textarea {
 .hero-quote textarea.field {
   min-height: 76px;
 }
-@media (max-width: 359px) {
-  .hero-quote form > .grid-cols-2 {
-    grid-template-columns: minmax(0, 1fr);
+/* Field pairs respond to their available width, including narrow tablet sidebars. */
+.quote-form {
+  container: quote-fields / inline-size;
+}
+.quote-field-row {
+  grid-template-columns: minmax(0, 1fr);
+}
+@container quote-fields (min-width: 360px) {
+  .quote-field-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 639px) {
+  body {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 1279px) {
+  header {
+    padding-top: env(safe-area-inset-top);
+  }
+  html {
+    scroll-padding-top: calc(5.5rem + env(safe-area-inset-top));
+  }
+  [data-quote] {
+    scroll-margin-top: 0;
   }
 }
