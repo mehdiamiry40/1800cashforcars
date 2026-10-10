@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { CallUsAndTerms, ContentBlocks } from "@/components/Blocks";
+import { ServiceGrid } from "@/components/HomeSections";
 import { PageShell } from "@/components/PageShell";
 import type { RooProps } from "@/components/Roo";
 import { pages } from "@/lib/content";
@@ -21,7 +22,9 @@ export function generateStaticParams() {
   return pages.map((p) => ({ page: p.slug }));
 }
 
-export async function generateMetadata({ params }: PageProps<"/[page]">): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: PageProps<"/[page]">): Promise<Metadata> {
   const { page } = await params;
   const p = pages.find((x) => x.slug === page);
   if (!p) return {};
@@ -32,13 +35,26 @@ export async function generateMetadata({ params }: PageProps<"/[page]">): Promis
   };
 }
 
-export default async function ContentPageRoute({ params }: PageProps<"/[page]">) {
+export default async function ContentPageRoute({
+  params,
+}: PageProps<"/[page]">) {
   const { page } = await params;
   const p = pages.find((x) => x.slug === page);
   if (!p) notFound();
 
   return (
-    <PageShell title={p.title} path={`/${p.slug}`} intro={p.intro ?? p.description} roo={poses[p.slug]}>
+    <PageShell
+      title={p.title}
+      path={`/${p.slug}`}
+      intro={p.intro ?? p.description}
+      roo={poses[p.slug]}
+      forms={p.slug !== "services"}
+    >
+      {p.slug === "services" && (
+        <div className="mb-16">
+          <ServiceGrid />
+        </div>
+      )}
       <ContentBlocks blocks={p.blocks} />
       <div className="mt-12">
         <CallUsAndTerms />

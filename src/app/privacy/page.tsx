@@ -33,15 +33,15 @@ export default function PrivacyPage() {
       <p>
         We advertise on Google. Our website uses Google Ads tags and cookies to measure which ads lead to quote
         requests, and Vercel Web Analytics (which doesn&apos;t use cookies) to count visits. You can manage Google
-        ad settings at <a className="font-semibold text-brand" href="https://adssettings.google.com" target="_blank" rel="noopener noreferrer">adssettings.google.com</a>.
+        ad settings at <a className="font-semibold text-navy" href="https://adssettings.google.com" target="_blank" rel="noopener noreferrer">adssettings.google.com</a>.
       </p>
       <h2>Access and correction</h2>
       <p>
         You can ask to see or correct the information we hold about you, or make a privacy complaint, by calling or texting us
-        (<a className="font-semibold text-brand" href={site.phoneHref}>call us</a>)
+        (<a className="font-semibold text-navy" href={site.phoneHref}>call us</a>)
         {site.showEmail && (
           <>
-            {" "}or emailing <a className="font-semibold text-brand" href={`mailto:${site.email}`}>{site.email}</a>
+            {" "}or emailing <a className="font-semibold text-navy" href={`mailto:${site.email}`}>{site.email}</a>
           </>
         )}
         .

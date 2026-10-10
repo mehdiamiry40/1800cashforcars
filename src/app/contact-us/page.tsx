@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
-import { PageShell } from "@/components/PageShell";
+import { QuoteForm } from "@/components/QuoteForm";
+import { Breadcrumbs } from "@/components/JsonLd";
+import { PhoneIcon, SmsIcon } from "@/components/icons";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -9,42 +11,83 @@ export const metadata: Metadata = {
 };
 
 export default function ContactPage() {
-  const rows = [
-    { label: "Phone", value: <a href={site.phoneHref} className="font-semibold text-brand underline underline-offset-4">{site.phoneDisplay}</a> },
-    ...(site.showEmail ? [{ label: "Email", value: <a href={`mailto:${site.email}`} className="font-semibold text-brand hover:underline">{site.email}</a> }] : []),
-    { label: "Pickups", value: `${site.pickups.replace(/^Pickups /, "")}.` },
-    ...(site.address
-      ? [
-          {
-            label: "Address",
-            value: (
-              <>
-                {site.address}
-                <br />
-                <a href={site.mapsUrl} target="_blank" rel="noopener noreferrer" className="font-semibold text-brand underline underline-offset-2">
-                  Get directions
-                </a>
-              </>
-            ),
-          },
-        ]
-      : []),
-    ...(site.abn ? [{ label: "ABN", value: site.abn }] : []),
-  ];
   return (
-    <PageShell title="Contact us" path="/contact-us" roo={{ hand: "phone" }} intro="Call, text or request a quote.">
-      <h2 className="h-section">Get in touch</h2>
-      <p className="mt-3">
-        Use the quote form, or call or text us.
-      </p>
-      <dl className="mt-6 divide-y divide-line border-y border-line">
-        {rows.map((r) => (
-          <div key={r.label} className="grid grid-cols-[80px_minmax(0,1fr)] gap-3 py-3 sm:grid-cols-[110px_minmax(0,1fr)] sm:gap-4">
-            <dt className="text-[14px] font-semibold text-navy">{r.label}</dt>
-            <dd className="break-words [overflow-wrap:anywhere]">{r.value}</dd>
-          </div>
-        ))}
-      </dl>
-    </PageShell>
+    <>
+      <Breadcrumbs trail={[{ name: "Contact us", path: "/contact-us" }]} />
+      <section className="container-site grid gap-12 py-14 md:grid-cols-[1fr_1.5fr] md:gap-16 md:py-20">
+        <div>
+          <p className="eyebrow">Get in touch</p>
+          <h1 className="h-page mt-3">
+            <span className="text-brand">Let’s talk</span> about your car.
+          </h1>
+          <p className="mt-5 text-[20px]">
+            Selling an old car? Call, text or send us your vehicle’s details for
+            a free quote.
+          </p>
+          <a
+            href={site.phoneHref}
+            className="mt-8 inline-flex min-h-11 items-center gap-3 text-[28px] font-bold"
+          >
+            <PhoneIcon aria-hidden="true" className="h-5 w-5 text-brand" />
+            {site.phoneDisplay}
+          </a>
+          {site.smsNumber && (
+            <p className="mt-3">
+              <a
+                href={`sms:${site.smsNumber}`}
+                className="inline-flex min-h-11 items-center gap-3 font-semibold underline underline-offset-4"
+              >
+                <SmsIcon aria-hidden="true" className="h-5 w-5 text-brand" />
+                Send us a text
+              </a>
+            </p>
+          )}
+          <dl className="mt-8 space-y-5 border-t border-line pt-8">
+            {site.showEmail && (
+              <div>
+                <dt className="text-[16px] font-semibold">Email</dt>
+                <dd className="mt-1 break-all">
+                  <a
+                    href={`mailto:${site.email}`}
+                    className="underline underline-offset-4"
+                  >
+                    {site.email}
+                  </a>
+                </dd>
+              </div>
+            )}
+            <div>
+              <dt className="text-[16px] font-semibold">Pickups</dt>
+              <dd className="mt-1">{site.pickups}</dd>
+            </div>
+            {site.address && (
+              <div>
+                <dt className="text-[16px] font-semibold">Our yard</dt>
+                <dd className="mt-1">
+                  {site.address}
+                  <br />
+                  <a
+                    href={site.mapsUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex min-h-11 items-center font-semibold underline underline-offset-4"
+                  >
+                    Get directions
+                  </a>
+                </dd>
+              </div>
+            )}
+          </dl>
+        </div>
+        <div
+          id="quote"
+          data-quote
+          className="min-w-0 scroll-mt-32 self-start md:px-6 lg:px-10"
+        >
+          <h2 className="h-sub mb-6">Get a free quote</h2>
+          <QuoteForm />
+        </div>
+      </section>
+    </>
   );
 }
