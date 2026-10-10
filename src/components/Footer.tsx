@@ -1,74 +1,72 @@
 import Link from "next/link";
-import { services } from "@/lib/content";
-import { areaHref, areas, site } from "@/lib/site";
+import { site } from "@/lib/site";
 import { Logo } from "./Logo";
-import { PhoneIcon } from "./icons";
-import { QuoteLink } from "./QuoteLink";
+import { nav } from "@/lib/navigation";
+import { MailIcon, PhoneIcon } from "./icons";
 
 export function Footer() {
   return (
-    <footer className="bg-navy-950 pb-[calc(4.5rem+env(safe-area-inset-bottom))] text-[15px] text-white/70 md:pb-0">
-      <div className="container-site grid grid-cols-2 gap-x-6 gap-y-10 py-12 sm:py-14 lg:grid-cols-[1.3fr_1fr_1fr_1fr]">
-        <div className="col-span-2 lg:col-span-1">
-          <Logo light />
-          <p className="mt-4 max-w-xs text-white/80">{site.tagline}</p>
-          <p className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2">
-            <QuoteLink from="footer" className="btn-brand">
-              Get a free quote
-            </QuoteLink>
-            <a href={site.phoneHref} className="inline-flex min-h-11 items-center gap-2 text-[15px] font-bold text-white hover:underline">
-              <PhoneIcon aria-hidden="true" className="h-4 w-4" /> {site.phoneDisplay}
-            </a>
-          </p>
-          <p className="mt-3">{site.pickups}</p>
+    <footer className="bg-white pb-24 text-navy md:pb-0">
+      <div className="bg-navy text-white">
+        <div className="container-site flex flex-col items-start justify-between gap-5 py-8 sm:flex-row sm:items-center">
           {site.showEmail && (
-            <p className="mt-3"><a href={`mailto:${site.email}`} className="underline underline-offset-2 hover:text-white">{site.email}</a></p>
+            <a
+              href={`mailto:${site.email}`}
+              className="inline-flex min-w-0 items-center gap-3 text-[20px] font-semibold sm:text-[28px]"
+            >
+              <MailIcon aria-hidden="true" className="h-6 w-6 shrink-0" />
+              <span className="break-all">{site.email}</span>
+            </a>
           )}
-          {site.address && (
-            <p className="mt-3">
-              <a href={site.mapsUrl} target="_blank" rel="noopener noreferrer" className="hover:text-white hover:underline">{site.address}</a>
-            </p>
-          )}
-          {site.abn && <p className="mt-1">ABN {site.abn}</p>}
+          <a
+            href={site.phoneHref}
+            className="inline-flex min-h-11 shrink-0 items-center gap-3 text-[20px] font-semibold"
+          >
+            <PhoneIcon aria-hidden="true" className="h-5 w-5" />
+            {site.phoneDisplay}
+          </a>
         </div>
-        <FooterCol title="Services">
-          <FooterLink href="/">Cash for cars Brisbane</FooterLink>
-          <FooterLink href="/car-removal-brisbane">Car removal Brisbane</FooterLink>
-          <FooterLink href="/cash-for-cars">Cash for cars</FooterLink>
-          <FooterLink href="/car-removals">Free car removal</FooterLink>
-          <FooterLink href="/truck-removal">Cash for trucks</FooterLink>
-          {services.map((s) => <FooterLink key={s.slug} href={`/${s.slug}`}>{s.tile}</FooterLink>)}
-        </FooterCol>
-        <FooterCol title="Areas">
-          {areas.map((a) => <FooterLink key={a.slug} href={areaHref(a)}>{a.name}</FooterLink>)}
-        </FooterCol>
-        <FooterCol title="Info">
-          <FooterLink href="/services">All services</FooterLink>
-          <FooterLink href="/#faq">Common questions</FooterLink>
-          <FooterLink href="/contact-us">Contact us</FooterLink>
-          <FooterLink href="/privacy">Privacy policy</FooterLink>
-        </FooterCol>
       </div>
-      <div className="border-t border-white/10">
-        <p className="container-site py-5 text-[14px]">© {new Date().getFullYear()} {site.name}</p>
+      <div className="container-site py-9">
+        <div className="flex flex-wrap items-center justify-between gap-7">
+          <Link href="/" aria-label={`${site.name} home`}>
+            <Logo />
+          </Link>
+          <nav
+            aria-label="Footer navigation"
+            className="flex flex-wrap gap-x-6 gap-y-3"
+          >
+            {nav.map((n) => (
+              <Link
+                key={n.href}
+                href={n.href}
+                className="inline-flex min-h-11 items-center text-[16px] font-semibold hover:underline hover:decoration-brand hover:underline-offset-4"
+              >
+                {n.label}
+              </Link>
+            ))}
+          </nav>
+        </div>
+        <div className="mt-7 flex flex-wrap justify-between gap-3 text-[14px]">
+          <p>
+            © {new Date().getFullYear()} {site.name} · ABN {site.abn}
+          </p>
+          <Link href="/privacy" className="underline underline-offset-4">
+            Privacy policy
+          </Link>
+        </div>
+        <p className="mt-3 text-[14px]">
+          <a
+            href={site.mapsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline underline-offset-4"
+          >
+            {site.address}
+          </a>{" "}
+          · {site.pickups}
+        </p>
       </div>
     </footer>
-  );
-}
-
-function FooterCol({ title, children }: { title: string; children: React.ReactNode }) {
-  return (
-    <div>
-      <h3 className="mb-3 font-heading text-[18px] font-bold text-white">{title}</h3>
-      <ul className="sm:space-y-1.5">{children}</ul>
-    </div>
-  );
-}
-
-function FooterLink({ href, children }: { href: string; children: React.ReactNode }) {
-  return (
-    <li>
-      <Link href={href} className="inline-block py-2.5 hover:text-white hover:underline sm:py-0">{children}</Link>
-    </li>
   );
 }

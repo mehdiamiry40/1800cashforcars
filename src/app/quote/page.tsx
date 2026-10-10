@@ -1,48 +1,66 @@
 import type { Metadata } from "next";
-import { PageShell } from "@/components/PageShell";
 import { QuoteForm } from "@/components/QuoteForm";
-import { CheckIcon } from "@/components/icons";
+import { Breadcrumbs } from "@/components/JsonLd";
+import { CheckIcon, PhoneIcon } from "@/components/icons";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Get a Free Cash Offer For Your Car",
-  description: "Tell us about your car and get a free, no-obligation cash offer by text, usually within the hour. Free removal and paid on pickup.",
+  description:
+    "Tell us about your car and get a free, no-obligation cash offer by text, usually within the hour. Free removal and paid on pickup.",
   alternates: { canonical: "/quote" },
 };
 
 export default function QuotePage() {
   return (
-    <PageShell
-      title="Get a free quote"
-      path="/quote"
-      roo={{ hand: "cash" }}
-      intro="A price by text, usually within the hour."
-      forms={false}
-    >
-      <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_300px] lg:gap-14">
-        <div data-quote className="quote-panel scroll-mt-24">
-          <QuoteForm />
-        </div>
-        <div className="border border-line bg-sand p-6 lg:self-start">
-          <h2 className="h-sub">What happens next</h2>
-          <ul className="mt-3 space-y-2">
+    <>
+      <Breadcrumbs trail={[{ name: "Get a free quote", path: "/quote" }]} />
+      <section className="container-site grid gap-12 py-14 md:grid-cols-[1fr_1.5fr] md:gap-16 md:py-20">
+        <div>
+          <p className="eyebrow">Free quote</p>
+          <h1 className="h-page mt-3">
+            <span className="text-brand">Let’s talk</span> about your car.
+          </h1>
+          <p className="mt-5 text-[20px]">
+            Tell us what you’ve got and we’ll text or call you with a price,
+            usually within the hour.
+          </p>
+          <ul className="mt-8 space-y-3">
             {[
-              "We text or call you with a price, usually within the hour",
-              "No obligation. If the price isn't right, say no",
-              "The price we quote is the price we pay",
-              "Free towing, even if the car doesn't run",
-              "Paid on pickup, cash or bank transfer",
-            ].map((t) => (
-              <li key={t} className="flex gap-2">
-                <CheckIcon className="mt-1 h-4 w-4 shrink-0 text-brand" /> {t}
+              "Free pickup, even if it doesn’t run",
+              "No obligation to accept",
+              "Paid before your car leaves",
+            ].map((text) => (
+              <li key={text} className="flex gap-3 font-medium">
+                <CheckIcon
+                  aria-hidden="true"
+                  className="mt-1 h-5 w-5 shrink-0 text-brand"
+                />
+                {text}
               </li>
             ))}
           </ul>
-          <p className="mt-6 text-[15px]">
-            Rather talk to someone? <a href={site.phoneHref} className="font-semibold text-brand underline">Call us</a>.
-          </p>
+          <div className="mt-10 border-t border-line pt-8">
+            <p className="text-[16px] font-semibold">Prefer to talk?</p>
+            <a
+              href={site.phoneHref}
+              className="mt-2 inline-flex min-h-11 items-center gap-3 text-[28px] font-bold"
+            >
+              <PhoneIcon aria-hidden="true" className="h-5 w-5 text-brand" />
+              {site.phoneDisplay}
+            </a>
+            <p className="mt-3">{site.pickups}</p>
+          </div>
         </div>
-      </div>
-    </PageShell>
+        <div
+          id="quote"
+          data-quote
+          className="min-w-0 scroll-mt-32 self-start md:px-6 lg:px-10"
+        >
+          <h2 className="h-sub mb-6">Tell us about your vehicle</h2>
+          <QuoteForm />
+        </div>
+      </section>
+    </>
   );
 }

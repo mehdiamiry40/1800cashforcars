@@ -49,13 +49,13 @@ export function QuoteForm({ variant = "full" }: { variant?: "full" | "compact" }
           {["We look over your car's details", "We send you a price, no obligation", "Happy with it? We pick it up and pay you on the spot"].map(
             (t, i) => (
               <li key={t} className="flex gap-2">
-                <span className="font-heading font-extrabold text-brand">{i + 1}.</span> {t}
+                <span className="font-heading font-extrabold text-navy">{i + 1}.</span> {t}
               </li>
             ),
           )}
         </ol>
         <p className="mt-3 text-[14px]">
-          In a hurry? <a href={site.phoneHref} className="font-bold text-brand underline">Call us</a>.
+          In a hurry? <a href={site.phoneHref} className="font-bold text-navy underline">Call us</a>.
         </p>
       </div>
     );
@@ -111,7 +111,7 @@ export function QuoteForm({ variant = "full" }: { variant?: "full" | "compact" }
         {pending ? "Sending..." : "Get a free quote"}
         {!pending && <ArrowIcon aria-hidden="true" className="h-4 w-4" />}
       </button>
-      <p className="text-[13px] text-body">
+      <p className="text-[14px] text-body">
         Free, no obligation. <Link href="/privacy" className="underline">Privacy</Link>
       </p>
     </form>

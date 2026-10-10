@@ -13,13 +13,14 @@ function visibleQuoteForm() {
 }
 
 // "Get a Quote" button: scrolls to the quote form on this page, or opens /quote if the page has none.
-export function QuoteLink({ from, className, children }: { from: string; className?: string; children: React.ReactNode }) {
+export function QuoteLink({ from, className, children, onActivate }: { from: string; className?: string; children: React.ReactNode; onActivate?: () => void }) {
   return (
     <Link
       href="/quote"
       className={className}
       onClick={(e) => {
         if (e.metaKey || e.ctrlKey || e.shiftKey) return;
+        onActivate?.();
         track("quote_cta_click", { from });
         const form = visibleQuoteForm();
         if (!form) return; // no form on this page: Link opens /quote
@@ -59,13 +60,13 @@ export function StickyQuoteBar() {
 
   return (
     <div
-      className={`fixed inset-x-0 bottom-0 z-50 grid grid-cols-[1fr_auto] bg-navy pb-[env(safe-area-inset-bottom)] shadow-[0_-4px_16px_rgba(0,0,0,0.12)] transition-transform duration-300 md:hidden ${formInView ? "translate-y-full" : ""}`}
+      className={`fixed inset-x-0 bottom-0 z-50 grid grid-cols-2 bg-navy pb-[env(safe-area-inset-bottom)] transition-transform duration-300 md:hidden ${formInView ? "translate-y-full" : ""}`}
       inert={formInView}
     >
-      <QuoteLink from="mobile-bar" className="flex min-h-14 items-center justify-center bg-brand px-3 py-4 text-[14px] font-bold text-white transition-colors hover:bg-brand-dark">
+      <QuoteLink from="mobile-bar" className="flex min-h-14 items-center justify-center bg-navy px-3 py-3 text-[20px] font-bold text-white transition-colors hover:bg-brand-dark">
         Get a free quote
       </QuoteLink>
-      <a href={site.phoneHref} className="flex min-h-14 items-center justify-center gap-1.5 px-5 py-4 text-[14px] font-semibold text-white">
+      <a href={site.phoneHref} className="flex min-h-14 items-center justify-center gap-1.5 bg-brand px-5 py-3 text-[20px] font-bold text-white">
         <PhoneIcon aria-hidden="true" className="h-4 w-4" /> Call
       </a>
     </div>

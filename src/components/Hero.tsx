@@ -1,67 +1,73 @@
 import Image from "next/image";
 import heroPhoto from "@/assets/hero-car-truck-cash.png";
 import { heroCopy } from "@/lib/slides";
-import { site } from "@/lib/site";
 import { QuoteForm } from "./QuoteForm";
-import { CashIcon, CheckIcon, ClockIcon, PhoneIcon, ShieldIcon, TruckIcon } from "./icons";
+import { CashIcon, PinIcon, TruckIcon } from "./icons";
 
-const benefitIcons = [TruckIcon, CashIcon, ShieldIcon];
-
-// A clean white studio image keeps the car, tow truck and cash visible without competing with the copy.
-export function Hero({ where, title, lead, sub }: { where?: string; title?: string; lead?: string; sub?: string }) {
+export function Hero({
+  where,
+  title,
+  lead,
+  sub,
+}: {
+  where?: string;
+  title?: string;
+  lead?: string;
+  sub?: string;
+}) {
   const copy = heroCopy(where, { title, lead, sub });
+  const promises = [
+    { Icon: TruckIcon, title: "Free pickup" },
+    { Icon: CashIcon, title: "Paid on collection" },
+    {
+      Icon: PinIcon,
+      title:
+        where?.replace(/^(?:in|on|across)\s+(?:the\s+)?/i, "") ??
+        "Brisbane & SEQ",
+    },
+  ];
+
   return (
-    <section aria-label="Cash for cars and free quote" className="overflow-hidden border-b border-line bg-white">
-      <div className="container-site grid items-start gap-x-8 gap-y-5 pb-9 pt-6 sm:pt-8 md:grid-cols-[minmax(0,1fr)_minmax(0,340px)] md:grid-rows-[auto_auto_1fr] md:py-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,390px)] lg:gap-x-14 lg:py-12">
-        <div className="flex min-w-0 flex-col text-center text-navy sm:text-left md:col-start-1 md:row-start-1">
-          <p className="eyebrow mb-4 hidden items-center gap-2.5 md:flex">
-            <span aria-hidden="true" className="h-0.5 w-8 bg-brand" /> Free car removal
+    <section
+      aria-label="Cash for cars and free quote"
+      className="hero-section bg-white text-navy"
+    >
+      <div className="container-site grid items-center gap-7 py-7 sm:py-9 lg:grid-cols-[minmax(0,1fr)_420px] lg:gap-10 lg:py-8">
+        <div className="min-w-0">
+          <h1 className="hero-heading">{copy.title.replace(/\.$/, "")}</h1>
+          <p className="mt-3 text-[24px] font-medium leading-snug text-brand">
+            {copy.lead}
           </p>
-          <h1 className="h-page">
-            {copy.title} <span className="mt-3 block text-[22px] font-semibold leading-[1.25] tracking-[-0.01em] text-brand sm:text-[26px] lg:text-[28px]">{copy.lead}</span>
-          </h1>
           <Image
             src={heroPhoto}
             alt="A white tow truck carrying an old blue car, with cash in the foreground on a white background"
             preload
-            sizes="(min-width: 1160px) 666px, (min-width: 1024px) calc(100vw - 494px), (min-width: 768px) calc(100vw - 420px), (min-width: 640px) calc(100vw - 48px), calc(100vw - 40px)"
-            quality={75}
             placeholder="blur"
-            className="order-first mb-4 h-auto w-full md:order-last md:mb-0 md:mt-5"
+            sizes="(min-width: 1280px) 724px, (min-width: 1024px) calc(100vw - 556px), calc(100vw - 40px)"
+            className="mt-4 h-auto w-full"
           />
-        </div>
-
-        <div className="md:col-start-1 md:row-start-3">
-          <ul className="grid grid-cols-3 gap-3 border-y border-line py-4 text-[12px] font-semibold leading-snug text-navy sm:text-[13px]">
-            {copy.points.map((p, i) => {
-              const Icon = benefitIcons[i] ?? CheckIcon;
-              return <li key={p} className="flex flex-col items-center gap-2 text-center"><Icon aria-hidden="true" className="h-8 w-8 text-brand" strokeWidth={1.5} />{p}</li>;
-            })}
+          <ul className="mt-3 flex flex-wrap items-center gap-x-6 gap-y-3 border-t border-navy/15 pt-4 text-[15px] font-semibold">
+            {promises.map(({ Icon, title }) => (
+              <li key={title} className="flex items-center gap-2">
+                <Icon
+                  aria-hidden="true"
+                  className="h-5 w-5 shrink-0 text-brand"
+                  strokeWidth={1.5}
+                />
+                <span>{title}</span>
+              </li>
+            ))}
           </ul>
-          <a href={site.phoneHref} className="btn-line mt-5 hidden w-fit md:inline-flex">
-            <PhoneIcon aria-hidden="true" className="h-5 w-5 shrink-0 text-brand" />
-            <span><span className="mr-2 text-[14px] font-normal text-body">Prefer to talk?</span>{" "}{site.phoneDisplay}</span>
-          </a>
         </div>
-
         <div
           id="quote"
           data-quote
-          className="quote-panel w-full scroll-mt-24 md:col-start-2 md:row-span-3 md:row-start-1 md:self-center"
+          className="hero-quote min-w-0 scroll-mt-32 border border-navy/15 border-t-[3px] border-t-brand p-5 sm:p-6"
         >
-          <h2 className="h-sub">Get a free quote</h2>
-          <p className="mb-4 mt-2 flex items-start gap-2 text-[14px] leading-snug text-body">
-            <ClockIcon aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0 text-brand" />
-            <span>A price by text, usually within the hour.</span>
-          </p>
+          <h2 className="mb-5 text-[25px] font-semibold leading-tight">
+            Get a free quote
+          </h2>
           <QuoteForm variant="compact" />
-          <a href={site.phoneHref} className="mt-4 flex min-h-11 items-center justify-center gap-2 border-t border-line pt-3 text-[14px] font-bold text-navy transition-colors hover:text-brand md:hidden">
-            <PhoneIcon aria-hidden="true" className="h-4 w-4 shrink-0 text-brand" /> Call {site.phoneDisplay}
-          </a>
-        </div>
-
-        <div className="md:col-start-1 md:row-start-2">
-          <p className="max-w-lg text-[16px] leading-relaxed text-body sm:text-[18px]">{copy.sub}</p>
         </div>
       </div>
     </section>

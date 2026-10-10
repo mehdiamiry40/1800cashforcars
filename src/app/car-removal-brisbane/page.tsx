@@ -118,8 +118,8 @@ export default function CarRemovalBrisbane() {
 
       <p className="mt-10 text-[17px]">
         Want to know what your car is worth first? See{" "}
-        <Link href="/" className="font-bold text-brand underline underline-offset-2">cash for cars Brisbane</Link>, or check out{" "}
-        <Link href="/truck-removal" className="font-bold text-brand underline underline-offset-2">cash for trucks</Link>.
+        <Link href="/" className="font-bold text-navy underline underline-offset-2">cash for cars Brisbane</Link>, or check out{" "}
+        <Link href="/truck-removal" className="font-bold text-navy underline underline-offset-2">cash for trucks</Link>.
       </p>
     </PageShell>
   );

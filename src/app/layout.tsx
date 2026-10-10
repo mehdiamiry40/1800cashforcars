@@ -1,18 +1,15 @@
 import { Analytics } from "@vercel/analytics/next";
 import type { Metadata, Viewport } from "next";
 import Script from "next/script";
-import { Barlow, Barlow_Semi_Condensed, Nunito_Sans } from "next/font/google";
+import { Barlow } from "next/font/google";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { ContactTracker, StickyQuoteBar } from "@/components/QuoteLink";
 import { areas, site } from "@/lib/site";
 import "./globals.css";
 
-// Self-hosted fonts share the same weights throughout navigation, forms and body copy.
-const nunitoSans = Nunito_Sans({ variable: "--font-nunito-sans", subsets: ["latin"], weight: ["400", "600", "700"], display: "swap" });
-const barlow = Barlow({ variable: "--font-barlow", subsets: ["latin"], weight: ["600", "700", "800"] });
-// Logo lettering only.
-const barlowSemi = Barlow_Semi_Condensed({ variable: "--font-barlow-semi", subsets: ["latin"], weight: ["800"] });
+// Barlow is shared by navigation, headings, forms and body copy.
+const barlow = Barlow({ variable: "--font-barlow", subsets: ["latin"], weight: ["400", "500", "600", "700", "800"], display: "swap" });
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -35,7 +32,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0f1d33",
+  themeColor: "#1e25a4",
   viewportFit: "cover",
 };
 
@@ -73,7 +70,7 @@ const jsonLd = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en-AU" className={`${nunitoSans.variable} ${barlow.variable} ${barlowSemi.variable} antialiased`}>
+    <html lang="en-AU" className={`${barlow.variable} antialiased`}>
       <body className="flex min-h-screen flex-col font-sans">
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }} />
         <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-3 focus:top-3 focus:z-[60] focus:bg-white focus:px-4 focus:py-2 focus:font-semibold focus:text-ink">Skip to content</a>

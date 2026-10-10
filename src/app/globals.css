@@ -1,61 +1,68 @@
 @import "tailwindcss";
 
 @theme {
-  /* Orange actions, navy typography, and quiet neutral surfaces. */
-  --color-brand: #c2410c;
-  --color-brand-dark: #a3360a;
-  --color-brand-light: #ff9150;
-  --color-roo: #c8743a;
-  --color-rust: #a55a27;
-  --color-sand: #f6f7f5;
-  --color-paper: #f6f7f5;
-  --color-navy: #0f1d33;
-  --color-navy-800: #182a47;
-  --color-navy-950: #0a1424;
-  --color-money: #1f7a4d;
-  --color-ink: #0f1d33;
-  --color-body: #536071;
-  --color-line: #e2e6ea;
-  --color-control: #8995a3;
-  --color-muted: #697586;
-
-  --font-sans: var(--font-nunito-sans);
+  --color-brand: #e16633;
+  --color-brand-dark: #1e25a4;
+  --color-brand-light: #e16633;
+  --color-roo: #e16633;
+  --color-rust: #e16633;
+  --color-sand: #ffffff;
+  --color-paper: #ffffff;
+  --color-navy: #1e25a4;
+  --color-navy-800: #171d84;
+  --color-navy-950: #1e25a4;
+  --color-money: #1e25a4;
+  --color-ink: #1e25a4;
+  --color-body: #1e25a4;
+  --color-line: #1e25a4;
+  --color-control: #1e25a4;
+  --color-muted: #555ab2;
+  --font-sans: var(--font-barlow);
   --font-heading: var(--font-barlow);
   --font-display: var(--font-barlow);
 }
-
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 7rem;
 }
-
-/* Sharp edges everywhere (including iOS form controls, which round by default). */
-*,
-::before,
-::after {
-  border-radius: 0 !important;
-}
-
-input,
-textarea,
-select,
-button {
-  -webkit-appearance: none;
-  appearance: none;
-}
-
 body {
-  background: #ffffff;
+  background: #fff;
   color: var(--color-body);
-  font-size: 16px;
-  line-height: 1.75;
+  font-size: 18px;
+  line-height: 1.65;
+  font-kerning: normal;
 }
-
 h1,
 h2,
 h3 {
   text-wrap: balance;
+  letter-spacing: -0.01em;
 }
-
+p,
+li {
+  text-wrap: pretty;
+}
+p,
+h1,
+h2,
+h3,
+li,
+a {
+  overflow-wrap: break-word;
+}
+main,
+main section,
+main section > div {
+  min-width: 0;
+}
+input,
+textarea,
+select,
+button,
+details,
+dialog {
+  border-radius: 0;
+}
 @layer base {
   button,
   input,
@@ -64,111 +71,157 @@ h3 {
     font: inherit;
   }
 }
-
+button:not(:disabled),
+summary {
+  cursor: pointer;
+}
+details summary::-webkit-details-marker {
+  display: none;
+}
+button,
+summary,
+a,
+input,
+select,
+textarea {
+  -webkit-tap-highlight-color: transparent;
+}
+::selection {
+  background: var(--color-navy);
+  color: #fff;
+}
+:focus-visible {
+  outline: 2px solid var(--color-brand);
+  outline-offset: 3px;
+}
+.font-heading,
+.font-display,
+.font-logo {
+  font-family: var(--font-barlow), sans-serif;
+}
+.font-display {
+  font-variant-numeric: tabular-nums;
+}
+@utility container-site {
+  @apply mx-auto w-full max-w-7xl px-5 sm:px-10 lg:px-12;
+}
+@utility btn {
+  @apply inline-flex min-h-13 w-full items-center justify-center gap-3 px-5 py-3 font-sans text-[20px] font-bold leading-relaxed tracking-wide transition-colors sm:w-auto;
+}
+@utility btn-brand {
+  @apply btn bg-brand text-white hover:bg-navy;
+}
+@utility btn-navy {
+  @apply btn bg-navy text-white hover:bg-navy-800;
+}
+@utility btn-line {
+  @apply btn border border-navy bg-white text-navy hover:bg-navy hover:text-white;
+}
+@utility section-site {
+  @apply py-12 sm:py-16 lg:py-20;
+}
+@utility eyebrow {
+  @apply font-sans text-[14px] font-bold uppercase leading-normal tracking-[0.14em] text-navy;
+}
+@utility h-page {
+  font-size: clamp(2.375rem, 5vw, 4rem);
+  @apply font-heading font-semibold leading-[1.2] tracking-[-0.015em] text-navy;
+}
+@utility h-section {
+  font-size: clamp(2rem, 3.3vw, 3rem);
+  @apply font-heading font-semibold leading-[1.2] tracking-[-0.015em] text-navy;
+}
+@utility h-sub {
+  @apply font-heading text-[28px] font-semibold leading-[1.25] tracking-[-0.01em] text-navy;
+}
+@utility h-content {
+  @apply font-heading text-[28px] font-semibold leading-[1.2] tracking-[-0.015em] text-navy sm:text-[34px];
+}
+@utility card-site {
+  @apply bg-white;
+}
+@utility quote-panel {
+  @apply bg-white;
+}
+@utility field {
+  @apply min-h-12 min-w-0 w-full border border-control bg-white px-3.5 py-3 text-[18px] leading-normal text-navy transition-colors placeholder:text-muted focus:border-brand;
+}
+@utility field-label {
+  @apply mb-1.5 block font-sans text-[16px] font-semibold leading-normal text-navy;
+}
+.prose-site p {
+  @apply mt-4;
+}
+.prose-site a {
+  @apply font-semibold text-navy underline underline-offset-4;
+}
+.mobile-menu::backdrop {
+  background: var(--color-navy);
+}
+.mobile-menu {
+  position: fixed;
+  inset: 0;
+  margin: 0;
+  width: 100%;
+  max-width: none;
+  height: 100dvh;
+  max-height: none;
+  border: 0;
+  padding: 0;
+  background: #fff;
+  color: var(--color-navy);
+}
+.mobile-menu[open] {
+  display: flex;
+  flex-direction: column;
+}
+.mobile-menu nav {
+  min-height: 0;
+  padding-bottom: max(2rem, env(safe-area-inset-bottom));
+}
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
   }
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+  }
 }
 
-p,
-li {
-  text-wrap: pretty;
+/* Keep the opening section compact, with the quote form grouped clearly beside the vehicle. */
+.hero-heading {
+  max-width: 720px;
+  font-size: clamp(2.125rem, 3.9vw, 3.125rem);
+  font-weight: 600;
+  line-height: 1.08;
+  letter-spacing: -0.025em;
 }
-
-b,
-strong {
-  font-weight: 700;
+.hero-quote {
+  background: #f7f8fc;
 }
-
-::selection {
-  background: #ffd9c2;
-  color: #1d2433;
+.hero-quote form {
+  gap: 10px;
 }
-
-:focus-visible {
-  outline: 3px solid #c2410c;
-  outline-offset: 3px;
+.hero-quote .field {
+  min-height: 48px;
+  border-color: #8995a3;
+  padding-top: 11px;
+  padding-bottom: 11px;
+  font-size: 16px;
 }
-
-.font-heading {
-  font-family: var(--font-heading);
+.hero-quote .field::placeholder {
+  color: #59647b;
 }
-
-.font-display {
-  font-family: var(--font-display);
-  font-variant-numeric: tabular-nums;
+.hero-quote .field:focus {
+  border-color: var(--color-brand);
 }
-
-/* Logo lettering (sign-style wordmark). */
-.font-logo {
-  font-family: var(--font-barlow-semi);
+.hero-quote textarea.field {
+  min-height: 76px;
 }
-
-@utility container-site {
-  @apply mx-auto w-full max-w-[1160px] px-5 sm:px-6;
-}
-
-@utility btn {
-  @apply inline-flex min-h-12 items-center justify-center gap-2 px-5 py-3 font-sans text-[15px] font-bold leading-snug transition-colors;
-}
-
-@utility btn-brand {
-  @apply btn bg-brand text-white hover:bg-brand-dark;
-}
-
-@utility btn-navy {
-  @apply btn bg-navy text-white hover:bg-navy-800;
-}
-
-@utility btn-line {
-  @apply btn border border-line bg-white text-navy hover:border-brand hover:bg-sand;
-}
-
-@utility section-site {
-  @apply py-14 sm:py-20;
-}
-
-@utility eyebrow {
-  @apply font-sans text-[11px] font-bold uppercase leading-normal tracking-[0.14em] text-brand;
-}
-
-@utility h-page {
-  @apply font-heading text-[36px] font-extrabold leading-[1.08] tracking-[-0.025em] text-navy sm:text-[48px] lg:text-[56px];
-}
-
-@utility h-section {
-  @apply font-heading text-[30px] font-bold leading-[1.15] tracking-[-0.02em] text-navy sm:text-[40px];
-}
-
-@utility h-sub {
-  @apply font-heading text-[22px] font-bold leading-[1.25] tracking-[-0.01em] text-navy;
-}
-
-@utility h-content {
-  @apply font-heading text-[25px] font-bold leading-[1.2] tracking-[-0.02em] text-navy sm:text-[30px];
-}
-
-@utility card-site {
-  @apply border border-line bg-white shadow-[0_6px_24px_rgba(15,29,51,0.035)];
-}
-
-@utility quote-panel {
-  @apply border border-line border-t-[3px] border-t-brand bg-white p-5 shadow-[0_12px_36px_rgba(15,29,51,0.06)] sm:p-6;
-}
-
-@utility field {
-  @apply min-h-11 min-w-0 w-full border border-control bg-white px-3.5 py-2.5 text-[16px] leading-normal text-navy outline-none transition-colors placeholder:text-muted focus:border-brand;
-}
-
-@utility field-label {
-  @apply mb-1.5 block font-sans text-[12px] font-bold leading-normal text-navy;
-}
-
-.prose-site p {
-  @apply mt-4;
-}
-
-.prose-site a {
-  @apply font-bold text-brand underline underline-offset-2;
+@media (max-width: 359px) {
+  .hero-quote form > .grid-cols-2 {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }
