@@ -64,7 +64,7 @@ export function StickyQuoteBar() {
       inert={formInView}
     >
       <QuoteLink from="mobile-bar" className="flex min-h-14 items-center justify-center bg-navy px-3 py-3 text-[20px] font-bold text-white transition-colors hover:bg-brand-dark">
-        Get a free quote
+        Get a quote
       </QuoteLink>
       <a href={site.phoneHref} className="flex min-h-14 items-center justify-center gap-1.5 bg-brand px-5 py-3 text-[20px] font-bold text-white">
         <PhoneIcon aria-hidden="true" className="h-4 w-4" /> Call

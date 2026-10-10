@@ -32,7 +32,7 @@ export function Hero({
       aria-label="Cash for cars and free quote"
       className="hero-section bg-white text-navy"
     >
-      <div className="container-site grid items-center gap-7 py-7 sm:py-9 lg:grid-cols-[minmax(0,1fr)_420px] lg:gap-10 lg:py-8">
+      <div className="container-site grid items-center gap-5 py-6 sm:gap-7 sm:py-9 lg:grid-cols-[minmax(0,1fr)_420px] lg:gap-10 lg:py-8">
         <div className="min-w-0">
           <h1 className="hero-heading">{copy.title.replace(/\.$/, "")}</h1>
           <p className="mt-3 text-[24px] font-medium leading-snug text-brand">
@@ -62,7 +62,7 @@ export function Hero({
         <div
           id="quote"
           data-quote
-          className="hero-quote min-w-0 scroll-mt-32 border border-navy/15 border-t-[3px] border-t-brand p-5 sm:p-6"
+          className="hero-quote min-w-0 scroll-mt-32 border border-navy/15 border-t-[3px] border-t-brand p-4 sm:p-6"
         >
           <h2 className="mb-5 text-[25px] font-semibold leading-tight">
             Get a free quote

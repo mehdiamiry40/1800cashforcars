@@ -33,8 +33,12 @@ export function Header() {
   return (
     <>
       <header className="sticky top-0 z-40 border-b border-line bg-white text-navy">
-        <div className="container-site flex items-center justify-between gap-3 py-4 sm:gap-5 xl:min-h-28 xl:py-0">
-          <Link href="/" aria-label={`${site.name} home`} className="shrink-0">
+        <div className="container-site flex items-center justify-between gap-3 py-3 sm:gap-5 sm:py-4 xl:min-h-28 xl:py-0">
+          <Link
+            href="/"
+            aria-label={`${site.name} home`}
+            className="inline-flex min-h-11 shrink-0 items-center"
+          >
             <Logo />
           </Link>
           <div className="hidden flex-col items-end xl:flex">
@@ -101,8 +105,13 @@ export function Header() {
         onClose={() => setOpen(false)}
         className="mobile-menu"
       >
-        <div className="flex min-h-20 shrink-0 items-center justify-between gap-3 border-b border-line px-5 sm:px-10">
-          <Link href="/" onClick={closeMenu} aria-label={`${site.name} home`}>
+        <div className="container-site flex min-h-18 shrink-0 items-center justify-between gap-3 border-b border-line sm:min-h-20">
+          <Link
+            href="/"
+            onClick={closeMenu}
+            aria-label={`${site.name} home`}
+            className="inline-flex min-h-11 items-center"
+          >
             <Logo />
           </Link>
           <button
@@ -125,7 +134,7 @@ export function Header() {
         </div>
         <nav
           aria-label="Mobile navigation"
-          className="overflow-y-auto px-6 pb-8 pt-4"
+          className="container-site overflow-y-auto pb-8 pt-4"
         >
           <ul className="divide-y divide-line">
             {links.map((n) => (

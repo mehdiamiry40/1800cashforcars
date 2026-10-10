@@ -65,7 +65,7 @@ export function QuoteForm({ variant = "full" }: { variant?: "full" | "compact" }
   const input = "field";
 
   return (
-    <form action={action} onInput={onInput} className="grid gap-3">
+    <form action={action} onInput={onInput} className="quote-form grid gap-3">
       <input type="text" name="company" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden />
       <input type="hidden" name="page" value={pathname} />
       <input type="hidden" name="e" ref={elapsed} defaultValue="" />
@@ -74,7 +74,7 @@ export function QuoteForm({ variant = "full" }: { variant?: "full" | "compact" }
         <span className="sr-only">Year, make and model</span>
         <input name="vehicle" className={input} placeholder="Year, make and model" maxLength={120} required />
       </label>
-      <div className="grid grid-cols-2 items-end gap-3">
+      <div className="quote-field-row grid items-end gap-3">
         <label className="min-w-0">
           <span className="sr-only">Suburb</span>
           <input name="address" className={input} placeholder="Suburb" autoComplete="address-level2" maxLength={100} required />
