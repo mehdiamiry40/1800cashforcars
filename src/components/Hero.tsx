@@ -17,8 +17,8 @@ export function Hero({
 }) {
   const copy = heroCopy(where, { title, lead, sub });
   const promises = [
-    { Icon: TruckIcon, title: "Free pickup" },
-    { Icon: CashIcon, title: "Paid on collection" },
+    { Icon: TruckIcon, title: "Free towing" },
+    { Icon: CashIcon, title: "Cash" },
     {
       Icon: PinIcon,
       title:
