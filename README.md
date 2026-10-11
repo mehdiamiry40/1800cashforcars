@@ -6,6 +6,8 @@ Website for [1800cashforcars.com.au](https://1800cashforcars.com.au): Next.js (A
 - **Business details** (`src/lib/site.ts`): phone, hours, ABN, address, service areas, FAQs, reviews, headline payout.
   - `showEmail`: keep `false` until the `quotes@` mailbox or forwarding exists. Otherwise customer emails bounce.
   - `reviews`: add real customer reviews only. The reviews section appears automatically when this has entries.
+  - `googleBusinessUrl` / `googleBusinessName`: the Google Business Profile (listed as A Plus Car Removal). Adds a "Read our reviews on Google" band on the homepage and links the profile in the structured data. Keep `address` identical to the profile (79B).
+  - `areas[].local`: the intro, pickup notes and FAQs that make each `/locations/<slug>` page specific to that area.
 - **Service pages** (`src/lib/content.ts`): Cash for cars, Car removals, Services, Cash for trucks, Scrap car removal, Car wreckers, Car disposal.
 - **Brand mascot, Roo**: `src/components/Roo.tsx` (poses: `pouchCar`, `hand="phone" | "cash" | "wave"`, `hop`, `confused`, `flip`) and `RooMark` for the logo. Vehicle icons are in `src/components/VehicleIcons.tsx`.
   - The hero scene (Roo offering cash for an old car) is `src/components/HeroScene.tsx`. If the art changes, regenerate the share-image copy: `npx tsx scripts/export-roo.tsx`.
@@ -19,6 +21,7 @@ Both quote forms post to a server action (`src/app/actions.ts`). It:
 - normalises the expected price (`2.5k` becomes `$2,500`),
 - emails the lead via **Resend** (Vercel Marketplace) from `quotes@1800cashforcars.com.au` to `LEAD_TO_EMAIL`,
 - writes every lead to the Vercel function logs (`[lead] …`) as a backup.
+- retries a failed email once; if it still fails it logs `LEAD NOT DELIVERED` and asks the customer to call or text instead of showing a false "thanks".
 
 Env vars (Vercel): `RESEND_API_KEY`, `RESEND_EMAIL_DOMAIN` (from the integration), `LEAD_TO_EMAIL` (comma-separate multiple).
 

@@ -3,6 +3,7 @@ import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
+  description: `How ${site.name} collects, uses, stores and protects the personal information you give us when you ask for a quote or sell us your car.`,
   alternates: { canonical: "/privacy" },
 };
 
@@ -28,6 +29,14 @@ export default function PrivacyPage() {
       <p>
         Only with service providers that help us run the business (such as our website host, email provider and Google for ad measurement) and with
         government authorities where the law requires it.
+      </p>
+      <h2>Where it&apos;s stored and for how long</h2>
+      <p>
+        Quote requests are emailed to our business inbox and also kept for a short time in our website host&apos;s
+        system logs as a backup. Our website host (Vercel) and email provider (Resend) may store this information on
+        servers outside Australia, including in the United States. We use providers that protect personal information
+        to a standard similar to the Australian Privacy Principles. We keep records of vehicles we buy for as long as
+        the law requires, and other quote details only as long as we need them to deal with your enquiry.
       </p>
       <h2>Cookies and advertising</h2>
       <p>
