@@ -28,9 +28,9 @@ export function PageShell({
   return (
     <>
       <Breadcrumbs trail={[{ name: title, path }]} />
-      <section className="bg-navy text-white">
+      <section className="page-hero relative bg-navy text-white">
         <div className="mx-auto grid max-w-7xl md:grid-cols-[1.2fr_1fr]">
-          <div className="relative aspect-[16/9] overflow-hidden bg-white md:order-2 md:aspect-auto md:min-h-80">
+          <div className="page-hero-media relative aspect-[16/9] overflow-hidden bg-white md:order-2 md:aspect-auto md:min-h-80">
             <Image
               src={visual?.image ?? pickupPhoto}
               alt={
@@ -40,13 +40,14 @@ export function PageShell({
               fill
               preload
               placeholder="blur"
-              sizes="(min-width: 768px) 45vw, 100vw"
+              sizes="(max-width: 767px) 96px, (pointer: coarse) and (max-width: 1023px) 96px, 45vw"
+              style={{ objectFit: visual ? "contain" : "cover" }}
               className={
                 visual ? "object-contain" : "object-cover object-[75%_50%]"
               }
             />
           </div>
-          <div className="px-4 py-8 sm:px-10 sm:py-14 md:order-1 lg:px-12">
+          <div className="page-hero-copy container-site py-8 sm:py-14 md:order-1">
             <h1 className="font-heading text-[34px] font-bold leading-tight sm:text-[42px] lg:text-[52px]">
               {title}
             </h1>
@@ -56,7 +57,7 @@ export function PageShell({
               </p>
             )}
             {forms && (
-              <div className="mt-7 flex flex-wrap gap-3">
+              <div className="page-hero-actions mt-7 flex flex-wrap gap-3">
                 <QuoteLink from="page-title" className="btn-brand">
                   Get a free quote{" "}
                   <ArrowIcon aria-hidden="true" className="h-5 w-5" />
@@ -87,23 +88,25 @@ export function PageShell({
       <section
         className={`container-site section-site grid gap-12 lg:gap-16 ${forms ? "lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)]" : ""}`}
       >
-        <div className="min-w-0">{children}</div>
         {forms && (
-          <aside className="hidden min-w-0 lg:block">
+          <aside className="min-w-0 lg:col-start-2 lg:row-start-1">
             <div
+              id="quote"
               data-quote
-              className="quote-panel scroll-mt-32 lg:sticky lg:top-32"
+              className="page-quote quote-panel scroll-mt-32 lg:sticky lg:top-32"
             >
-              <h2 className="h-sub">Get a free quote</h2>
-              <p className="mb-6 mt-3">
-                A price by text, usually within the hour.
-              </p>
-              <QuoteForm variant="compact" />
+              <h2 className="h-sub mb-5">Get a free quote</h2>
+              <QuoteForm />
             </div>
           </aside>
         )}
+        <div className="min-w-0 lg:col-start-1 lg:row-start-1">{children}</div>
       </section>
-      {forms && <AskForPrice />}
+      {forms && (
+        <div className="hidden lg:block">
+          <AskForPrice />
+        </div>
+      )}
       <FinalCta />
     </>
   );

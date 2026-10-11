@@ -79,26 +79,29 @@ export function HomeServices() {
 
 export function ServiceGrid() {
   return (
-    <div className="grid grid-cols-2 gap-x-3 gap-y-5 sm:gap-x-6 sm:gap-y-8 lg:grid-cols-3">
+    <div className="service-grid grid grid-cols-2 gap-x-3 gap-y-5 sm:gap-x-6 sm:gap-y-8 lg:grid-cols-3">
       {serviceCards.map(({ title, href, visual, Icon }) => (
-        <Link key={href} href={href} className="group block">
-          <div className="relative aspect-[4/3] overflow-hidden">
+        <Link key={href} href={href} className="service-card group block">
+          <div className="service-media relative aspect-[4/3] overflow-hidden">
             <Image
               src={visual.image}
               alt={visual.alt}
               fill
               placeholder="blur"
-              sizes="(min-width: 1280px) 380px, (min-width: 1024px) 30vw, (min-width: 640px) 45vw, 90vw"
+              sizes="(max-width: 767px) 96px, (pointer: coarse) and (max-width: 1023px) 96px, (min-width: 1280px) 380px, (min-width: 1024px) 30vw, 45vw"
+              style={{ objectFit: "contain" }}
               className="object-contain transition-transform duration-500 group-hover:scale-[1.03]"
             />
           </div>
-          <div className="flex min-h-16 items-center gap-2 border-b-2 border-brand py-3 sm:gap-3 sm:py-4">
+          <div className="service-caption flex min-h-16 items-center gap-2 border-b-2 border-brand py-3 sm:gap-3 sm:py-4">
             <Icon
               aria-hidden="true"
               className="hidden h-7 w-7 shrink-0 text-brand sm:block"
               strokeWidth={1.5}
             />
-            <h3 className="min-w-0 flex-1 text-[17px] font-semibold leading-snug sm:text-[20px]">{title}</h3>
+            <h3 className="min-w-0 flex-1 text-[17px] font-semibold leading-snug sm:text-[20px]">
+              {title}
+            </h3>
             <ArrowIcon
               aria-hidden="true"
               className="h-5 w-5 shrink-0 transition-transform group-hover:translate-x-1"
@@ -114,7 +117,7 @@ export function PickupSection() {
   return (
     <section className="section-site">
       <div className="container-site grid gap-8 md:grid-cols-2 md:items-center md:gap-14">
-        <div className="relative aspect-[4/3] overflow-hidden">
+        <div className="pickup-media relative aspect-[4/3] overflow-hidden">
           <Image
             src={pickupPhoto}
             alt="A tow truck carrying an old car on a leafy Queensland street"
@@ -141,9 +144,10 @@ export function PickupSection() {
             Tell us where it is and choose a time that suits you. There are no
             towing fees taken off your price.
           </p>
-          <div className="flex flex-wrap gap-3">
+          <div className="pickup-actions flex flex-wrap gap-3">
             <Link href="/car-removals" className="btn-brand">
-              Explore car removal{" "}
+              <span className="sm:hidden">Car removal</span>
+              <span className="hidden sm:inline">Explore car removal</span>{" "}
               <ArrowIcon aria-hidden="true" className="h-5 w-5" />
             </Link>
             <QuoteLink from="pickup" className="btn-line">
@@ -188,7 +192,7 @@ export function QuoteOptions() {
     <section className="section-site">
       <div className="container-site">
         <h2 className="h-section mb-8 !text-brand">Your car. Your way.</h2>
-        <div className="grid gap-7 md:grid-cols-3">
+        <div className="quote-options grid gap-7 md:grid-cols-3">
           {options.map(({ Icon, title, text, href, link }) => {
             const content = (
               <>
@@ -197,7 +201,9 @@ export function QuoteOptions() {
                   className="mb-5 h-10 w-10 text-brand"
                   strokeWidth={1.5}
                 />
-                <h3 className="text-[24px] font-semibold sm:text-[28px]">{title}</h3>
+                <h3 className="text-[24px] font-semibold sm:text-[28px]">
+                  {title}
+                </h3>
                 <p className="mb-4 mt-3">{text}</p>
                 <span className="inline-flex min-h-11 items-center gap-3 font-semibold">
                   {link}
@@ -209,7 +215,7 @@ export function QuoteOptions() {
               <QuoteLink
                 key={href}
                 from="quote-options"
-                className="group border-t-4 border-brand py-6"
+                className="quote-option group border-t-4 border-brand py-6"
               >
                 {content}
               </QuoteLink>
@@ -217,7 +223,7 @@ export function QuoteOptions() {
               <a
                 key={href}
                 href={href}
-                className="group border-t-4 border-brand py-6"
+                className="quote-option group border-t-4 border-brand py-6"
               >
                 {content}
               </a>
@@ -256,14 +262,15 @@ export function SellerSection() {
         </h2>
         <div className="grid gap-9 md:grid-cols-2 md:gap-8">
           {sellers.map(({ title, text, href, link, visual, Icon }) => (
-            <Link href={href} key={href} className="group block">
-              <div className="relative aspect-[16/10] overflow-hidden">
+            <Link href={href} key={href} className="seller-card group block">
+              <div className="seller-media relative aspect-[16/10] overflow-hidden">
                 <Image
                   src={visual.image}
                   alt={visual.alt}
                   fill
                   placeholder="blur"
-                  sizes="(min-width: 768px) 45vw, 90vw"
+                  sizes="(max-width: 767px) 96px, (pointer: coarse) and (max-width: 1023px) 96px, 45vw"
+                  style={{ objectFit: "contain" }}
                   className="object-contain transition-transform duration-500 group-hover:scale-[1.03]"
                 />
               </div>
@@ -273,7 +280,9 @@ export function SellerSection() {
                   className="h-8 w-8 shrink-0 text-brand"
                   strokeWidth={1.5}
                 />
-                <h3 className="flex-1 text-[24px] font-semibold sm:text-[28px]">{title}</h3>
+                <h3 className="flex-1 text-[24px] font-semibold sm:text-[28px]">
+                  {title}
+                </h3>
                 <ArrowIcon aria-hidden="true" className="h-5 w-5 shrink-0" />
               </div>
               <p className="mt-3 max-w-lg">{text}</p>
@@ -314,14 +323,15 @@ export function VehicleGallery() {
         </h2>
         <div className="grid gap-5 md:grid-cols-3">
           {vehicles.map(({ title, visual, href }) => (
-            <Link key={href} href={href} className="group block">
-              <div className="relative aspect-[16/9] overflow-hidden md:aspect-[4/5]">
+            <Link key={href} href={href} className="vehicle-card group block">
+              <div className="vehicle-media relative aspect-[16/9] overflow-hidden md:aspect-[4/5]">
                 <Image
                   src={visual.image}
                   alt={visual.alt}
                   fill
                   placeholder="blur"
-                  sizes="(min-width: 768px) 30vw, 90vw"
+                  sizes="(max-width: 767px) 104px, (pointer: coarse) and (max-width: 1023px) 104px, 30vw"
+                  style={{ objectFit: "contain" }}
                   className="object-contain transition-transform duration-500 group-hover:scale-[1.03]"
                 />
               </div>
@@ -358,7 +368,7 @@ export function WhyChooseSection() {
   return (
     <section className="section-site">
       <div className="container-site grid gap-8 md:grid-cols-2 md:items-center md:gap-14">
-        <div className="relative aspect-[4/3] overflow-hidden md:aspect-[4/5]">
+        <div className="team-media relative aspect-[4/3] overflow-hidden md:aspect-[4/5]">
           <Image
             src={pickupPhoto}
             alt="An old blue car loaded on a white tow truck"
@@ -455,14 +465,15 @@ export function SellingAdvice() {
         <h2 className="h-section mb-8 !text-brand">Sell with confidence.</h2>
         <div className="grid gap-8 md:grid-cols-2">
           {advice.map(({ title, text, href, visual, link }) => (
-            <Link key={href} href={href} className="group block">
-              <div className="relative aspect-[16/9] overflow-hidden">
+            <Link key={href} href={href} className="advice-card group block">
+              <div className="advice-media relative aspect-[16/9] overflow-hidden">
                 <Image
                   src={visual.image}
                   alt={visual.alt}
                   fill
                   placeholder="blur"
-                  sizes="(min-width: 768px) 45vw, 90vw"
+                  sizes="(max-width: 767px) 96px, (pointer: coarse) and (max-width: 1023px) 96px, 45vw"
+                  style={{ objectFit: "contain" }}
                   className="object-contain transition-transform duration-500 group-hover:scale-[1.03]"
                 />
               </div>

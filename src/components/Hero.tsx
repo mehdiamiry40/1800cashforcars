@@ -44,9 +44,10 @@ export function Hero({
             preload
             placeholder="blur"
             sizes="(min-width: 1280px) 724px, (min-width: 1024px) calc(100vw - 556px), calc(100vw - 40px)"
-            className="mt-4 h-auto w-full"
+            style={{ objectFit: "contain" }}
+            className="hero-image mt-4 h-auto w-full"
           />
-          <ul className="mt-3 flex flex-wrap items-center gap-x-6 gap-y-3 border-t border-navy/15 pt-4 text-[15px] font-semibold">
+          <ul className="hero-benefits mt-3 flex flex-wrap items-center gap-x-6 gap-y-3 border-t border-navy/15 pt-4 text-[15px] font-semibold">
             {promises.map(({ Icon, title }) => (
               <li key={title} className="flex items-center gap-2">
                 <Icon

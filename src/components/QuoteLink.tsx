@@ -60,7 +60,7 @@ export function StickyQuoteBar() {
 
   return (
     <div
-      className={`fixed inset-x-0 bottom-0 z-50 grid grid-cols-2 bg-navy pb-[env(safe-area-inset-bottom)] transition-transform duration-300 md:hidden ${formInView ? "translate-y-full" : ""}`}
+      className={`mobile-actions fixed inset-x-0 bottom-0 z-50 grid grid-cols-2 bg-navy pb-[env(safe-area-inset-bottom)] transition-transform duration-300 md:hidden ${formInView ? "translate-y-full" : ""}`}
       inert={formInView}
     >
       <QuoteLink from="mobile-bar" className="flex min-h-14 items-center justify-center bg-navy px-3 py-3 text-[20px] font-bold text-white transition-colors hover:bg-brand-dark">

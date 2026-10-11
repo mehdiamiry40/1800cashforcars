@@ -268,3 +268,273 @@ textarea {
     scroll-margin-top: 0;
   }
 }
+
+/* Phone layouts use compact rows and keep the quote action within easy reach. */
+.quote-contact-row {
+  grid-template-columns: minmax(0, 1fr);
+}
+@container quote-fields (min-width: 280px) {
+  @media (max-width: 767px), (pointer: coarse) and (max-width: 1023px) {
+    .quote-contact-row {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+}
+@container quote-fields (min-width: 320px) {
+  @media (max-width: 767px), (pointer: coarse) and (max-width: 1023px) {
+    .quote-field-row {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+}
+@media (max-width: 767px), (pointer: coarse) and (max-width: 1023px) {
+  html {
+    scroll-padding-bottom: calc(4rem + env(safe-area-inset-bottom));
+  }
+  .section-site {
+    padding-block: 2rem;
+  }
+  .btn,
+  .btn-brand,
+  .btn-line,
+  .btn-navy {
+    min-height: 48px;
+    padding: 10px 12px;
+    line-height: 1.3;
+  }
+  .hero-image {
+    height: clamp(130px, 32vw, 170px);
+    object-fit: contain;
+  }
+  .hero-benefits {
+    margin-top: 8px;
+    padding-top: 10px;
+    gap: 10px 20px;
+    font-size: 14px;
+  }
+  .hero-benefits > li:last-child {
+    display: none;
+  }
+  .hero-quote,
+  .page-quote {
+    padding: 12px;
+    background: #f7f8fc;
+    border: 1px solid #dcdfea;
+    border-top: 3px solid var(--color-brand);
+  }
+  .hero-quote > h2,
+  .page-quote > h2 {
+    font-size: 22px;
+    margin-bottom: 12px;
+  }
+  .quote-form {
+    gap: 8px;
+  }
+  .quote-form .field {
+    min-height: 44px;
+    padding-top: 9px;
+    padding-bottom: 9px;
+    font-size: 16px;
+    border-color: #8995a3;
+  }
+  .quote-form .field:focus {
+    border-color: var(--color-brand);
+  }
+  .quote-form textarea.field {
+    min-height: 64px;
+  }
+  .quote-contact-row {
+    gap: 10px;
+  }
+  .mobile-actions {
+    display: grid;
+  }
+  body:has(.quote-form:focus-within) .mobile-actions {
+    visibility: hidden;
+    pointer-events: none;
+  }
+  .mobile-menu nav > ul a {
+    min-height: 48px;
+    padding-block: 12px;
+    font-size: 20px;
+    line-height: 1.2;
+  }
+  footer {
+    padding-bottom: calc(4.5rem + env(safe-area-inset-bottom));
+  }
+  .service-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+  }
+  .service-card {
+    display: grid;
+    grid-template-columns: 96px minmax(0, 1fr);
+    align-items: center;
+    gap: 16px;
+    padding-block: 12px;
+    border-bottom: 1px solid #dcdfea;
+  }
+  .service-media {
+    width: 96px;
+    height: 72px;
+  }
+  .service-caption {
+    min-height: 0;
+    padding: 0;
+    border: 0;
+  }
+  .service-caption h3 {
+    font-size: 18px;
+  }
+  .pickup-media {
+    aspect-ratio: 16 / 9;
+  }
+  .team-media {
+    aspect-ratio: 16 / 7;
+  }
+  .quote-options {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+  }
+  .quote-option {
+    display: grid;
+    grid-template-columns: 28px minmax(0, 1fr);
+    column-gap: 12px;
+    padding-block: 16px;
+    border-top-width: 2px;
+  }
+  .quote-option > svg {
+    grid-column: 1;
+    grid-row: 1 / span 3;
+    width: 24px;
+    height: 24px;
+    margin: 0;
+  }
+  .quote-option > h3,
+  .quote-option > p,
+  .quote-option > span {
+    grid-column: 2;
+  }
+  .quote-option > h3 {
+    font-size: 20px;
+    line-height: 1.3;
+  }
+  .quote-option > p {
+    margin-block: 6px 0;
+  }
+  .quote-option > span {
+    font-size: 16px;
+  }
+  .seller-card,
+  .advice-card {
+    display: grid;
+    grid-template-columns: 96px minmax(0, 1fr);
+    column-gap: 16px;
+    padding-block: 16px;
+    border-bottom: 1px solid #dcdfea;
+  }
+  .seller-media,
+  .advice-media {
+    grid-column: 1;
+    grid-row: 1 / span 3;
+    width: 96px;
+    height: 96px;
+  }
+  .seller-card > div:not(.seller-media),
+  .advice-card > h3 {
+    grid-column: 2;
+    grid-row: 1;
+    margin-top: 0;
+    font-size: 20px;
+  }
+  .seller-card > div:not(.seller-media) > svg:first-child {
+    display: none;
+  }
+  .seller-card h3 {
+    font-size: 20px;
+  }
+  .seller-card > p,
+  .advice-card > p {
+    grid-column: 2;
+    grid-row: 2;
+    margin-top: 6px;
+  }
+  .seller-card > span,
+  .advice-card > span {
+    grid-column: 2;
+    grid-row: 3;
+    margin-top: 4px;
+  }
+  .vehicle-card {
+    display: grid;
+    grid-template-columns: 104px minmax(0, 1fr);
+    align-items: center;
+    gap: 16px;
+    padding-block: 12px;
+    border-bottom: 1px solid #dcdfea;
+  }
+  .vehicle-media {
+    width: 104px;
+    height: 72px;
+    aspect-ratio: 16 / 9;
+  }
+  .vehicle-card > span {
+    margin-top: 0;
+    font-size: 18px;
+  }
+  .quote-scene {
+    min-height: 0;
+    height: 170px;
+  }
+  .page-hero > div {
+    display: block;
+  }
+  .page-hero-media {
+    position: absolute;
+    inset: 24px max(1rem, env(safe-area-inset-right)) auto auto;
+    width: 96px;
+    height: 72px;
+    min-height: 0;
+    aspect-ratio: auto;
+  }
+  .page-hero-copy {
+    padding-block: 24px;
+  }
+  .page-hero-copy h1 {
+    max-width: calc(100% - 112px);
+    font-size: 30px;
+    line-height: 1.12;
+  }
+  .page-hero-copy > p {
+    margin-top: 14px;
+    font-size: 17px;
+  }
+  .page-hero-actions {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    margin-top: 20px;
+  }
+}
+@media (min-width: 400px) and (max-width: 767px) {
+  .pickup-actions,
+  .page-hero-actions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+}
+@media (max-height: 500px) and (pointer: coarse) and (min-width: 768px) and (max-width: 1023px) {
+  .service-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 24px;
+  }
+  .hero-section > .container-site {
+    padding-block: 20px;
+  }
+}
+@media (max-width: 319px) {
+  header .font-logo > span,
+  .mobile-menu .font-logo > span {
+    font-size: 12px;
+  }
+}
