@@ -67,9 +67,7 @@ export function SectionHead({
   return (
     <div className={center ? "mx-auto max-w-2xl text-center" : "max-w-2xl"}>
       {eyebrow && (
-        <p className={`eyebrow mb-3 ${light ? "text-white" : ""}`}>
-          {eyebrow}
-        </p>
+        <p className={`eyebrow mb-3 ${light ? "text-white" : ""}`}>{eyebrow}</p>
       )}
       <h2 className={`h-section ${light ? "!text-white" : "!text-brand"}`}>
         {title}
@@ -148,6 +146,7 @@ export function WhatWeBuy() {
                 alt={visual.alt}
                 sizes="(min-width: 1160px) 357px, (min-width: 640px) calc((100vw - 88px) / 3), calc(100vw - 40px)"
                 placeholder="blur"
+                style={{ objectFit: "contain" }}
                 className="aspect-[3/2] h-auto w-full object-contain"
               />
               <div className="border-t border-line p-5">
@@ -320,8 +319,8 @@ export function Faq({
       {!bare && <SectionHead title="Questions" center={false} />}
       <div className={`divide-y divide-line ${bare ? "" : "mt-6"}`}>
         {list.map((f) => (
-          <details key={f.q} className="group bg-white px-5">
-            <summary className="flex cursor-pointer list-none items-center justify-between gap-4 py-5 text-[18px] font-semibold leading-relaxed text-navy sm:text-[20px]">
+          <details key={f.q} className="group bg-white px-0 sm:px-5">
+            <summary className="flex cursor-pointer list-none items-center justify-between gap-3 py-4 text-[17px] font-semibold leading-relaxed text-navy sm:text-[20px]">
               {f.q}
               <span
                 className="grid h-8 w-8 shrink-0 place-items-center border border-line text-xl font-semibold text-navy transition-transform group-open:rotate-45"
@@ -330,7 +329,9 @@ export function Faq({
                 +
               </span>
             </summary>
-            <p className="pb-5 pr-6 text-[18px]">{f.a}</p>
+            <p className="pb-4 text-[16px] sm:pb-5 sm:pr-6 sm:text-[18px]">
+              {f.a}
+            </p>
           </details>
         ))}
       </div>
@@ -380,13 +381,14 @@ export function AskForPrice({ compact = false }: { compact?: boolean }) {
   return (
     <section className="section-site">
       <div className="container-site grid gap-8 lg:grid-cols-2 lg:gap-14">
-        <div className="relative min-h-72 lg:min-h-[460px]">
+        <div className="quote-scene relative min-h-72 lg:min-h-[460px]">
           <Image
             src={quotePhoto}
             alt="A tow truck, an old blue car and cash on a white background"
             fill
             placeholder="blur"
             sizes="(min-width: 1024px) 45vw, 90vw"
+            style={{ objectFit: "contain" }}
             className="object-contain"
           />
         </div>

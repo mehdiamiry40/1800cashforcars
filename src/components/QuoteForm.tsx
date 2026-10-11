@@ -81,6 +81,7 @@ export function QuoteForm({ variant = "full" }: { variant?: "full" | "compact" }
         </label>
         <PriceField className={input} />
       </div>
+      <div className="quote-contact-row grid gap-3">
       <label className="min-w-0">
         <span className="sr-only">Your name</span>
         <input name="name" className={input} placeholder="Your name" required autoComplete="name" />
@@ -89,6 +90,7 @@ export function QuoteForm({ variant = "full" }: { variant?: "full" | "compact" }
         <span className="sr-only">Mobile</span>
         <input name="phone" type="tel" inputMode="tel" className={input} placeholder="Mobile" required autoComplete="tel" pattern="[\d\s\(\)\+\-]{8,}" />
       </label>
+      </div>
       {full && (
         <label className="min-w-0">
           <span className="sr-only">Email (optional)</span>
