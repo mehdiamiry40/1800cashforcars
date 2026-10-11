@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { CallUsAndTerms, ContentBlocks } from "@/components/Blocks";
 import { ServiceGrid } from "@/components/HomeSections";
@@ -56,6 +57,11 @@ export default async function ContentPageRoute({
         </div>
       )}
       <ContentBlocks blocks={p.blocks} />
+      <p className="mt-10 text-[17px]">
+        In Brisbane? See{" "}
+        <Link href="/" className="font-bold text-navy underline underline-offset-2">cash for cars Brisbane</Link> and{" "}
+        <Link href="/car-removal-brisbane" className="font-bold text-navy underline underline-offset-2">car removal Brisbane</Link>.
+      </p>
       <div className="mt-12">
         <CallUsAndTerms />
       </div>

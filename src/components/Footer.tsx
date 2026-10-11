@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { site } from "@/lib/site";
+import { areaHref, areas, site } from "@/lib/site";
 import { Logo } from "./Logo";
 import { nav } from "@/lib/navigation";
 import { MailIcon, PhoneIcon } from "./icons";
@@ -47,7 +47,19 @@ export function Footer() {
             ))}
           </nav>
         </div>
-        <div className="mt-7 flex flex-wrap justify-between gap-3 text-[14px]">
+        {/* Descriptive links to the main local pages, so every page points at them with the words people search. */}
+        <nav aria-label="Popular pages" className="mt-7 border-t border-line pt-5 text-[14px]">
+          <ul className="flex flex-wrap gap-x-5 gap-y-1">
+            <li><Link href="/" className="inline-flex min-h-11 items-center hover:underline">Cash for cars Brisbane</Link></li>
+            <li><Link href="/car-removal-brisbane" className="inline-flex min-h-11 items-center hover:underline">Car removal Brisbane</Link></li>
+            {areas.filter((a) => !a.href).map((a) => (
+              <li key={a.slug}>
+                <Link href={areaHref(a)} className="inline-flex min-h-11 items-center hover:underline">Cash for cars {a.name}</Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+        <div className="mt-4 flex flex-wrap justify-between gap-3 text-[14px]">
           <p>
             © {new Date().getFullYear()} {site.name} · ABN {site.abn}
           </p>
