@@ -312,9 +312,6 @@ textarea {
     gap: 10px 20px;
     font-size: 14px;
   }
-  .hero-benefits > li:last-child {
-    display: none;
-  }
   .hero-quote,
   .page-quote {
     padding: 12px;
