@@ -71,15 +71,32 @@ export async function submitQuote(_prev: QuoteState, formData: FormData): Promis
   }
 
   const domain = process.env.RESEND_EMAIL_DOMAIN || site.domain;
-  const { error } = await new Resend(apiKey).emails.send({
+  const resend = new Resend(apiKey);
+  const email = {
     from: `${site.name} <quotes@${domain}>`,
     to: to.split(",").map((s) => s.trim()),
-    replyTo: lead.email || undefined,
+    // An invalid reply-to makes Resend reject the whole email, so only pass one that looks like an address.
+    replyTo: /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(lead.email) ? lead.email : undefined,
     subject,
     text,
     html: `<h2 style="font-family:sans-serif">${escape(subject)}</h2><table style="font-family:sans-serif;border-collapse:collapse">${rows}</table>`,
-  });
-  if (error) console.error("[lead] email failed", error);
+  };
+  // Retry once for a passing hiccup. The idempotency key stops a retry from sending the lead twice.
+  const idempotencyKey = `lead-${crypto.randomUUID()}`;
+  let { error } = await resend.emails.send(email, { idempotencyKey });
+  if (error) {
+    console.warn("[lead] email failed, retrying", error);
+    await new Promise((r) => setTimeout(r, 1500));
+    ({ error } = await resend.emails.send(email, { idempotencyKey }));
+  }
+  if (error) {
+    // Nobody would see this lead except in the logs, so ask the customer to get in touch directly.
+    console.error("[lead] email failed, LEAD NOT DELIVERED", error);
+    return {
+      ok: false,
+      message: `Sorry, your details didn't reach us. Please call or text ${site.phoneDisplay} and we'll give you a price straight away.`,
+    };
+  }
 
   return { ok: true, message: "", lead: true };
 }

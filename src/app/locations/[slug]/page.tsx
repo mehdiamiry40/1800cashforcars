@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { AskForPrice, FinalCta, HowItWorks, SectionHead, WhatWeBuy } from "@/components/Blocks";
+import { AskForPrice, Faq, FinalCta, HowItWorks, SectionHead, WhatWeBuy } from "@/components/Blocks";
 import { ArrowIcon, ChevronRight, PinIcon } from "@/components/icons";
 import { Hero } from "@/components/Hero";
-import { Breadcrumbs } from "@/components/JsonLd";
+import { Breadcrumbs, JsonLd } from "@/components/JsonLd";
 import { areas, site } from "@/lib/site";
 
 export const dynamicParams = false;
@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: PageProps<"/locations/[slug]"
   if (!area) return {};
   return {
     title: { absolute: `Cash For Cars ${area.name} | Free Car Removal ${area.name} | ${site.name}` },
-    description: `Sell your car for top cash in ${area.name}, ${area.state}. Free car removal and same-day pickup in ${area.suburbs.slice(0, 3).join(", ")} and surrounds. Paid on pickup.`,
+    description: `Sell your car for cash ${area.where}, ${area.state}. Free car removal in ${area.suburbs.slice(0, 3).join(", ")} and surrounds. Any condition, paid on pickup.`,
     alternates: { canonical: `/locations/${area.slug}` },
   };
 }
@@ -32,7 +32,35 @@ export default async function LocationPage({ params }: PageProps<"/locations/[sl
   return (
     <>
       <Breadcrumbs trail={[{ name: "Areas", path: "/#areas" }, { name: area.name, path: `/locations/${area.slug}` }]} />
-      <Hero where={area.where} />
+      <Hero where={area.where} title={`Cash for cars ${area.where}`} />
+      {area.local && (
+        <section className="container-site section-site">
+          <div className="max-w-3xl">
+            <h2 className="h-section">Selling a car {area.where}</h2>
+            <p className="mt-4 text-[18px]">{area.local.intro}</p>
+            <h3 className="mt-8 font-heading text-[22px] font-semibold leading-tight text-navy">Pickup from our Rocklea yard</h3>
+            <p className="mt-3">{area.local.pickup}</p>
+            <ul className="mt-6 space-y-3">
+              {area.local.notes.map((n) => (
+                <li key={n.bold}>
+                  <strong className="text-navy">{n.bold}:</strong> {n.text}
+                </li>
+              ))}
+            </ul>
+            <h3 className="mt-10 font-heading text-[22px] font-semibold leading-tight text-navy">{area.name} questions</h3>
+            <div className="mt-4">
+              <Faq bare items={area.local.faqs} />
+            </div>
+          </div>
+          <JsonLd
+            data={{
+              "@context": "https://schema.org",
+              "@type": "FAQPage",
+              mainEntity: area.local.faqs.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
+            }}
+          />
+        </section>
+      )}
       <HowItWorks />
 
       <section className="section-site border-y border-line bg-sand">

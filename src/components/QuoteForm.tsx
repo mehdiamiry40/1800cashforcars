@@ -61,7 +61,8 @@ export function QuoteForm({ variant = "full" }: { variant?: "full" | "compact" }
     );
   }
 
-  // Placeholders keep the form compact; hidden labels preserve accessible field names.
+  // Placeholders keep the form compact. Each label is screen-reader only until the field has a value, then it
+  // floats onto the field's border (globals.css) so people can still see what they typed where.
   const input = "field";
 
   return (
@@ -71,34 +72,34 @@ export function QuoteForm({ variant = "full" }: { variant?: "full" | "compact" }
       <input type="hidden" name="e" ref={elapsed} defaultValue="" />
 
       <label className="min-w-0">
-        <span className="sr-only">Year, make and model</span>
+        <span className="field-float">Year, make and model</span>
         <input name="vehicle" className={input} placeholder="Year, make and model" maxLength={120} required />
       </label>
       <div className="quote-field-row grid items-end gap-3">
         <label className="min-w-0">
-          <span className="sr-only">Suburb</span>
+          <span className="field-float">Suburb</span>
           <input name="address" className={input} placeholder="Suburb" autoComplete="address-level2" maxLength={100} required />
         </label>
         <PriceField className={input} />
       </div>
       <div className="quote-contact-row grid gap-3">
       <label className="min-w-0">
-        <span className="sr-only">Your name</span>
+        <span className="field-float">Your name</span>
         <input name="name" className={input} placeholder="Your name" required autoComplete="name" />
       </label>
       <label className="min-w-0">
-        <span className="sr-only">Mobile</span>
+        <span className="field-float">Mobile</span>
         <input name="phone" type="tel" inputMode="tel" className={input} placeholder="Mobile" required autoComplete="tel" pattern="[\d\s\(\)\+\-]{8,}" />
       </label>
       </div>
       {full && (
         <label className="min-w-0">
-          <span className="sr-only">Email (optional)</span>
+          <span className="field-float">Email (optional)</span>
           <input name="email" type="email" className={input} placeholder="Email (optional)" autoComplete="email" />
         </label>
       )}
       <label className="min-w-0">
-        <span className="sr-only">Car condition</span>
+        <span className="field-float">Car condition</span>
         <textarea
           name="description"
           rows={2}
@@ -114,7 +115,8 @@ export function QuoteForm({ variant = "full" }: { variant?: "full" | "compact" }
         {!pending && <ArrowIcon aria-hidden="true" className="h-4 w-4" />}
       </button>
       <p className="text-[14px] text-body">
-        Free, no obligation. <Link href="/privacy" className="underline">Privacy</Link>
+        Free, no obligation. Pickups across South East QLD and the Tweed.{" "}
+        <Link href="/privacy" className="inline-flex min-h-6 items-center underline">Privacy</Link>
       </p>
     </form>
   );
@@ -123,7 +125,7 @@ export function QuoteForm({ variant = "full" }: { variant?: "full" | "compact" }
 function PriceField({ className }: { className: string }) {
   return (
     <label className="block min-w-0">
-      <span className="sr-only">Price (optional)</span>
+      <span className="field-float">Price (optional)</span>
       <span className="relative block">
         <span className="pointer-events-none absolute inset-y-0 left-3 flex items-center text-navy" aria-hidden="true">$</span>
         <input name="expected" inputMode="decimal" className={`${className} pl-7`} placeholder="Price (optional)" maxLength={40} autoComplete="off" />

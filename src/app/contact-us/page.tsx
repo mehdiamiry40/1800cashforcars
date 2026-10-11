@@ -18,7 +18,7 @@ export default function ContactPage() {
         <div className="md:col-start-1 md:row-start-1">
           <p className="eyebrow">Get in touch</p>
           <h1 className="h-page mt-3">
-            <span className="text-brand">Let’s talk</span> about your car.
+            <span className="text-brand">Contact</span> us.
           </h1>
           <p className="mt-4 text-[18px] sm:mt-5 sm:text-[20px]">
             Selling an old car? Call, text or send us your vehicle’s details for

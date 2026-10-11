@@ -18,13 +18,12 @@ export const metadata: Metadata = {
     template: `%s | ${site.name}`,
   },
   description:
-    "Cash for scrap, old, broken and unwanted cars across Brisbane, the Gold Coast and South East QLD. Any condition, free towing, paid on pickup. Get a free price online in 30 seconds.",
-  keywords: ["cash for cars", "car removal", "sell my car", "scrap car removal", "car wreckers", "cash for cars Gold Coast", "cash for cars Brisbane"],
+    "Cash for scrap, old, broken and unwanted cars across Brisbane, the Gold Coast and South East QLD. Any condition, free towing, paid on pickup. Free quote, usually within the hour.",
+  // No og:url here: every page would inherit it and share as the homepage. Facebook and others use the page's own URL.
   openGraph: {
     type: "website",
     locale: "en_AU",
     siteName: site.name,
-    url: site.url,
   },
   alternates: { canonical: "/" },
   // Google Search Console ownership (URL-prefix property). Keep this, or verification is lost.
@@ -38,6 +37,8 @@ export const viewport: Viewport = {
 
 const GOOGLE_ADS_ID = "AW-11027669589";
 
+const sameAs = [site.googleBusinessUrl, site.social.facebook, site.social.instagram].filter(Boolean);
+
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "AutomotiveBusiness",
@@ -45,6 +46,9 @@ const jsonLd = {
   name: site.name,
   url: site.url,
   image: `${site.url}/opengraph-image`,
+  logo: `${site.url}/apple-icon`,
+  geo: { "@type": "GeoCoordinates", ...site.geo },
+  ...(sameAs.length ? { sameAs } : {}),
   paymentAccepted: "Cash, Bank transfer",
   currenciesAccepted: "AUD",
   ...(site.address
@@ -63,7 +67,6 @@ const jsonLd = {
   ...(site.abn ? { taxID: site.abn } : {}),
   telephone: site.phoneHref.replace("tel:", ""),
   ...(site.showEmail ? { email: site.email } : {}),
-  priceRange: "Free quotes",
   areaServed: areas.map((a) => ({ "@type": "City", name: `${a.name}, ${a.state}` })),
   description: site.tagline,
 };

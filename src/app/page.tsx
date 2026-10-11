@@ -12,6 +12,7 @@ import {
   VehicleGallery,
   WhyChooseSection,
 } from "@/components/HomeSections";
+import { ReviewsBand } from "@/components/Blocks";
 import { JsonLd } from "@/components/JsonLd";
 import { faqs, site } from "@/lib/site";
 
@@ -60,6 +61,7 @@ export default function Home() {
       <SellerSection />
       <VehicleGallery />
       <WhyChooseSection />
+      <ReviewsBand />
       <ProcessStrip />
       <SellingAdvice />
       <HomeFaq />

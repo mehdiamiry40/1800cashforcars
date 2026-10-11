@@ -405,7 +405,31 @@ export function AskForPrice({ compact = false }: { compact?: boolean }) {
 }
 
 export function ReviewsBand() {
-  if (reviews.length === 0) return null;
+  if (reviews.length === 0 && !site.googleBusinessUrl) return null;
+  const googleLink = site.googleBusinessUrl && (
+    <a href={site.googleBusinessUrl} target="_blank" rel="noopener noreferrer" className="btn-line">
+      Read our reviews on Google
+    </a>
+  );
+  // Our Google profile is under a different name, so say so before people click through and wonder.
+  const listedAs = site.googleBusinessName && site.googleBusinessName !== site.name && (
+    <>Our Rocklea yard is listed on Google as {site.googleBusinessName}.</>
+  );
+
+  if (reviews.length === 0) {
+    return (
+      <section className="section-site border-y border-line bg-sand">
+        <div className="container-site flex flex-col items-start justify-between gap-5 md:flex-row md:items-center">
+          <div>
+            <h2 className="h-content">See what our customers say</h2>
+            {listedAs && <p className="mt-2">{listedAs}</p>}
+          </div>
+          {googleLink}
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section className="section-site bg-sand">
       <div className="container-site">
@@ -426,6 +450,12 @@ export function ReviewsBand() {
             </figure>
           ))}
         </div>
+        {googleLink && (
+          <div className="mt-8 text-center">
+            {listedAs && <p className="mb-4">{listedAs}</p>}
+            {googleLink}
+          </div>
+        )}
       </div>
     </section>
   );
