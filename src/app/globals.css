@@ -502,6 +502,7 @@ textarea {
   }
   .page-hero-copy h1 {
     max-width: calc(100% - 112px);
+    min-height: 72px;
     font-size: 30px;
     line-height: 1.12;
   }
