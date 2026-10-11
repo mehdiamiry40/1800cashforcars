@@ -3,12 +3,12 @@ import Link from "next/link";
 import { BrisbaneSuburbs, ContentBlocks, Faq } from "@/components/Blocks";
 import { JsonLd } from "@/components/JsonLd";
 import { PageShell } from "@/components/PageShell";
-import { site } from "@/lib/site";
+import { brisbaneSuburbs, site } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: { absolute: "Car Removal Brisbane | Free Scrap Car Removal | 1-800-CASH-FOR-CARS" },
+  title: { absolute: "Car Removal Brisbane | Free Pickup, Cash Paid | 1800-CASH-FOR-CARS" },
   description:
-    "Free car removal Brisbane wide. We pick up scrap, old, broken and unwanted cars, pay you cash on the spot and tow them away free. Same-day pickups from Rocklea.",
+    "Free car removal Brisbane wide. We pick up scrap, old, broken and unwanted cars, pay you cash on the spot and tow them away free. Same-day pickups from our Rocklea yard.",
   alternates: { canonical: "/car-removal-brisbane" },
 };
 
@@ -34,6 +34,18 @@ const faqs = [
     a: "No. We remove unregistered cars and cars that wouldn't pass a roadworthy. Just have your photo ID and proof you own it.",
   },
   {
+    q: "How much does car removal cost in Brisbane?",
+    a: "Nothing. Some removal companies charge a towing fee or take it off your price. We don't do either: the tow is free, and we pay you for the car.",
+  },
+  {
+    q: "Can you remove a car with no keys or no papers?",
+    a: "No keys is fine, we winch it on. If you've lost the rego papers, tell us when you ask for a price. We still need to see photo ID and be sure the car is yours, but we can usually sort it out.",
+  },
+  {
+    q: "What happens to my car after it's removed?",
+    a: "It comes back to our Rocklea yard. Fluids are drained and disposed of properly, usable parts are pulled and resold, and the shell goes to a metal recycler.",
+  },
+  {
     q: "What should I do with the rego after you take the car?",
     a: "Cancel the registration with Transport and Main Roads (you can do it online) and you may get a refund for the time left. We'll give you a receipt for your records.",
   },
@@ -52,7 +64,10 @@ const serviceLd = {
   name: "Car Removal Brisbane",
   description: "Free car removal across Brisbane. We pay for scrap, old and unwanted cars and tow them away at no cost.",
   provider: { "@id": `${site.url}/#business` },
-  areaServed: { "@type": "City", name: "Brisbane" },
+  areaServed: [
+    { "@type": "City", name: "Brisbane" },
+    ...brisbaneSuburbs.flatMap((g) => g.suburbs.map((name) => ({ "@type": "Place", name: `${name}, QLD` }))),
+  ],
   offers: { "@type": "Offer", price: "0", priceCurrency: "AUD", description: "Free pickup and towing" },
 };
 
@@ -66,6 +81,17 @@ export default function CarRemovalBrisbane() {
     >
       <JsonLd data={faqLd} />
       <JsonLd data={serviceLd} />
+      <div className="prose-site mb-10 text-[18px] [&>p:first-child]:mt-0">
+        <p>
+          Need an old, broken or unwanted car gone? We offer free car removal right across Brisbane, and we pay you for the
+          car as well. Scrap cars, wrecks, crashed cars, cars that don&apos;t run and cars without rego: we tow them all
+          away at no cost, usually the same day you call.
+        </p>
+        <p>
+          We&apos;re a local Brisbane business with our own yard in Rocklea, so you deal with the people who actually
+          pick up the car. Call <a href={site.phoneHref}>{site.phoneDisplay}</a> or get a free quote online.
+        </p>
+      </div>
       <ContentBlocks
         blocks={[
           {
@@ -98,6 +124,24 @@ export default function CarRemovalBrisbane() {
               { bold: "Get a quote", text: "fill in the quick form with the car's details (or call us) and we'll text you a price." },
               { bold: "Book a time", text: "same day or whenever suits you, 7 days." },
               { bold: "Get paid, we tow it", text: "cash or bank transfer before the car leaves, and the tow is free." },
+            ],
+          },
+          {
+            heading: "Why our car removal is free",
+            summary: "We make our money from parts and metal, not towing fees.",
+            icon: "recycle",
+            paras: [
+              "We wreck and recycle the cars we collect, so a car is worth something to us even when it doesn't run. That's why we can tow it away for free and still pay you for it, instead of charging a removal fee.",
+              "Back at the yard, fluids are drained and disposed of properly, working parts are pulled and resold, and the rest goes to a metal recycler. Your old car doesn't end up dumped or sitting in landfill.",
+            ],
+          },
+          {
+            heading: "Car removal anywhere in Brisbane",
+            summary: "Northside, southside, west and bayside, 7 days.",
+            icon: "truck",
+            paras: [
+              "From Rocklea we reach the southside suburbs like Moorooka, Sunnybank and Mt Gravatt quickly, and we cover the northside (Chermside, Aspley, Nundah), the western suburbs (Indooroopilly, Kenmore, Forest Lake) and the bayside (Wynnum, Manly, Carindale) too.",
+              "Tell us where the car is and about any tight access, like a steep driveway, a basement car park or a car in the backyard, and we'll bring the right truck.",
             ],
           },
         ]}

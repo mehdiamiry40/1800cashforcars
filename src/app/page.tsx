@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Hero } from "@/components/Hero";
 import {
+  BrisbaneCashForCars,
   HomeAreas,
   HomeFaq,
   HomeServices,
@@ -14,21 +15,34 @@ import {
 } from "@/components/HomeSections";
 import { ReviewsBand } from "@/components/Blocks";
 import { JsonLd } from "@/components/JsonLd";
-import { faqs, site } from "@/lib/site";
+import { brisbaneSuburbs, faqs, site } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: {
-    absolute: "Cash for Cars Brisbane | Free Car Removal | 1-800-CASH-FOR-CARS",
+    absolute: "Cash for Cars Brisbane | Free Car Removal | 1800-CASH-FOR-CARS",
   },
   description:
-    "Cash for cars Brisbane: we pay cash for scrap, old and unwanted cars in any condition, with free car removal across Brisbane and SEQ. Based in Rocklea.",
+    "Cash for cars Brisbane: sell your scrap, old or unwanted car in any condition. Paid cash on pickup, free car removal Brisbane wide, often same day. Local Rocklea yard.",
   alternates: { canonical: "/" },
 };
+
+// Brisbane questions first, then the general ones.
+const homeFaqs = [
+  {
+    q: "Who pays the most cash for cars in Brisbane?",
+    a: "Compare a few quotes, and check whether towing comes off the price. We buy, wreck and recycle cars from our own Rocklea yard, so we can pay for usable parts as well as the metal, and our towing is always free.",
+  },
+  {
+    q: "Do you buy cars all over Brisbane?",
+    a: "Yes. Northside, southside, the western suburbs and the bayside, plus Logan and Ipswich. Our yard is in Rocklea, so most Brisbane pickups happen the same day or the next day.",
+  },
+  ...faqs,
+];
 
 const faqLd = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  mainEntity: faqs.map((f) => ({
+  mainEntity: homeFaqs.map((f) => ({
     "@type": "Question",
     name: f.q,
     acceptedAnswer: { "@type": "Answer", text: f.a },
@@ -45,8 +59,9 @@ const serviceLd = {
   provider: { "@id": `${site.url}/#business` },
   areaServed: [
     { "@type": "City", name: "Brisbane" },
-    { "@type": "State", name: "Queensland" },
+    ...brisbaneSuburbs.flatMap((g) => g.suburbs.map((name) => ({ "@type": "Place", name: `${name}, QLD` }))),
   ],
+  offers: { "@type": "Offer", priceCurrency: "AUD", description: "Free quote, free car removal and payment on pickup" },
 };
 
 export default function Home() {
@@ -57,6 +72,7 @@ export default function Home() {
       <Hero title="Cash for cars Brisbane." />
       <HomeServices />
       <PickupSection />
+      <BrisbaneCashForCars />
       <QuoteOptions />
       <SellerSection />
       <VehicleGallery />
@@ -64,7 +80,7 @@ export default function Home() {
       <ReviewsBand />
       <ProcessStrip />
       <SellingAdvice />
-      <HomeFaq />
+      <HomeFaq items={homeFaqs} />
       <HomeAreas />
     </>
   );

@@ -9,7 +9,7 @@ import {
   servicePhotos,
   vehicleVisuals,
 } from "@/lib/vehicle-visuals";
-import { Faq } from "./Blocks";
+import { BrisbaneSuburbs, Faq } from "./Blocks";
 import { QuoteLink } from "./QuoteLink";
 import {
   ArrowIcon,
@@ -68,7 +68,7 @@ export function HomeServices() {
     <section id="services" className="section-site">
       <div className="container-site">
         <div className="mb-8 flex flex-wrap items-end justify-between gap-4 sm:mb-10 lg:mb-12">
-          <h2 className="h-section !text-brand">Our services</h2>
+          <h2 className="h-section !text-brand">Our Brisbane services</h2>
           <Link
             href="/services"
             className="inline-flex min-h-11 items-center gap-2 font-semibold"
@@ -143,8 +143,8 @@ export function PickupSection() {
             <span className="text-brand">Your car.</span> Collected for free.
           </h2>
           <p className="mt-4 text-[18px] sm:text-[20px]">
-            From home, work or the mechanic. Running or not, we arrange the
-            pickup.
+            Free car removal across Brisbane, from home, work or the
+            mechanic. Running or not, we arrange the pickup.
           </p>
           <p className="mb-6 mt-3">
             Tell us where it is and choose a time that suits you. There are no
@@ -160,6 +160,79 @@ export function PickupSection() {
               Get a free quote
             </QuoteLink>
           </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// The main written content for "cash for cars Brisbane". Kept visible (not behind accordions) so it reads as the page's core copy.
+export function BrisbaneCashForCars() {
+  const topics = [
+    {
+      title: "What we pay for cars in Brisbane",
+      paras: [
+        "Every car gets its own price. We look at the make, model, year and kilometres, whether it runs, the condition of the engine, gearbox and panels, and what scrap metal is worth this week. A late-model car that runs is worth the most, but even a rusted-out wreck has value in its parts and metal.",
+        "Tell us about the car and we'll give you a firm price, usually within minutes. The price we quote is the price we pay when the car is as described. Nothing comes off for towing.",
+      ],
+    },
+    {
+      title: "Cars we buy across Brisbane",
+      paras: [
+        "We buy sedans, hatchbacks, 4WDs, SUVs, utes, vans and trucks, from every make: Toyota, Holden, Ford, Mazda, Hyundai, Nissan, Mitsubishi, Kia and the rest. Running or not, registered or not.",
+        "That includes crashed and written-off cars, flood and hail damaged cars, cars that failed a roadworthy, cars with a blown engine or no keys, and old cars that have been sitting in the backyard for years.",
+      ],
+    },
+    {
+      title: "Free car removal, the same day you accept",
+      paras: [
+        "Our yard is in Rocklea, on Brisbane's southside, so we can usually have a tow truck or tilt tray at your place the same day. We pick up from houses, units, workshops, car parks and the roadside, 7 days a week.",
+      ],
+      link: { href: "/car-removal-brisbane", text: "car removal Brisbane" },
+    },
+    {
+      title: "Paperwork and rego when you sell",
+      paras: [
+        "Have your photo ID and proof of ownership ready, such as the rego papers. The car shouldn't have finance owing on it. We pay you in cash or by bank transfer before the car leaves, and give you a receipt.",
+        "After pickup, cancel the registration with Transport and Main Roads (you can do it online) and you may get a refund on the rego you haven't used. Then cancel your insurance.",
+      ],
+    },
+  ];
+
+  return (
+    <section id="brisbane" className="section-site scroll-mt-32 border-t border-line">
+      <div className="container-site">
+        <div className="max-w-3xl">
+          <h2 className="h-section !text-brand">Cash for cars in Brisbane, from a local yard</h2>
+          <p className="mt-4 text-[18px] sm:text-[20px]">
+            {site.name} buys unwanted cars all over Brisbane, from the northside to the bayside. We give you a fair price,
+            pay you before the car leaves, and tow it away for free. No ads, no tyre-kickers, no haggling at the kerb.
+          </p>
+        </div>
+        <div className="mt-10 grid gap-x-14 gap-y-10 md:grid-cols-2">
+          {topics.map((t) => (
+            <div key={t.title} className="border-t-4 border-brand pt-5">
+              <h3 className="h-sub">{t.title}</h3>
+              <div className="prose-site">
+                {t.paras.map((p) => (
+                  <p key={p}>{p}</p>
+                ))}
+                {t.link && (
+                  <p>
+                    More about our{" "}
+                    <Link href={t.link.href}>{t.link.text}</Link> service.
+                  </p>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="mt-12">
+          <h3 className="h-sub">Brisbane suburbs we buy cars in</h3>
+          <p className="mt-3">
+            Every Brisbane suburb, plus Logan and Ipswich. Select a region to see the suburbs.
+          </p>
+          <BrisbaneSuburbs />
         </div>
       </div>
     </section>
@@ -502,7 +575,7 @@ export function SellingAdvice() {
   );
 }
 
-export function HomeFaq() {
+export function HomeFaq({ items }: { items?: { q: string; a: string }[] }) {
   return (
     <section id="faq" className="section-site scroll-mt-32">
       <div className="container-site grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
@@ -512,9 +585,9 @@ export function HomeFaq() {
             className="mb-5 h-10 w-10 text-brand"
             strokeWidth={1.5}
           />
-          <h2 className="h-section !text-brand">A few helpful answers.</h2>
+          <h2 className="h-section !text-brand">Cash for cars Brisbane FAQs</h2>
           <p className="mb-5 mt-4 max-w-sm">
-            Selling a car or arranging pickup? Start here.
+            Selling a car in Brisbane or arranging a pickup? Start here.
           </p>
           <Link
             href="/cash-for-cars"
@@ -524,7 +597,7 @@ export function HomeFaq() {
             <ArrowIcon aria-hidden="true" className="h-4 w-4" />
           </Link>
         </div>
-        <Faq bare />
+        <Faq bare items={items} />
       </div>
     </section>
   );
