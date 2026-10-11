@@ -2,7 +2,13 @@ import Image from "next/image";
 import Link from "next/link";
 import pickupPhoto from "@/assets/hero-kangaroo-tow.jpg";
 import { areaHref, areas, site } from "@/lib/site";
-import { vehicleVisuals } from "@/lib/vehicle-visuals";
+import {
+  advicePhotos,
+  collectionPhoto,
+  sellerPhotos,
+  servicePhotos,
+  vehicleVisuals,
+} from "@/lib/vehicle-visuals";
 import { Faq } from "./Blocks";
 import { QuoteLink } from "./QuoteLink";
 import {
@@ -22,37 +28,37 @@ const serviceCards = [
   {
     title: "Cash for cars",
     href: "/cash-for-cars",
-    visual: vehicleVisuals.cars,
+    visual: servicePhotos.cash,
     Icon: CashIcon,
   },
   {
     title: "Free car removal",
     href: "/car-removal-brisbane",
-    visual: vehicleVisuals.cars,
+    visual: servicePhotos.removal,
     Icon: TruckIcon,
   },
   {
     title: "Truck removal",
     href: "/truck-removal",
-    visual: vehicleVisuals.commercial,
+    visual: servicePhotos.truck,
     Icon: TruckIcon,
   },
   {
     title: "Scrap car removal",
     href: "/scrap-car-removal",
-    visual: vehicleVisuals.scrap,
+    visual: servicePhotos.scrap,
     Icon: CarIcon,
   },
   {
     title: "Car wreckers",
     href: "/car-wreckers",
-    visual: vehicleVisuals.scrap,
+    visual: servicePhotos.wreckers,
     Icon: LeafIcon,
   },
   {
     title: "Car disposal",
     href: "/car-disposal",
-    visual: vehicleVisuals.scrap,
+    visual: servicePhotos.disposal,
     Icon: CarIcon,
   },
 ];
@@ -242,7 +248,7 @@ export function SellerSection() {
       text: "Clear the driveway, sell a damaged car or move on from one you no longer use.",
       href: "/cash-for-cars",
       link: "Sell your car",
-      visual: vehicleVisuals.cars,
+      visual: sellerPhotos.owner,
       Icon: CarIcon,
     },
     {
@@ -250,7 +256,7 @@ export function SellerSection() {
       text: "Utes, vans and trucks. Arrange collection for a work vehicle or fleet.",
       href: "/truck-removal",
       link: "Explore truck removal",
-      visual: vehicleVisuals.commercial,
+      visual: sellerPhotos.business,
       Icon: TruckIcon,
     },
   ];
@@ -370,12 +376,12 @@ export function WhyChooseSection() {
       <div className="container-site grid gap-8 md:grid-cols-2 md:items-center md:gap-14">
         <div className="team-media relative aspect-[4/3] overflow-hidden md:aspect-[4/5]">
           <Image
-            src={pickupPhoto}
-            alt="An old blue car loaded on a white tow truck"
+            src={collectionPhoto.image}
+            alt={collectionPhoto.alt}
             fill
             placeholder="blur"
             sizes="(min-width: 768px) 45vw, 90vw"
-            className="object-cover object-[80%_50%]"
+            className="object-cover"
           />
         </div>
         <div>
@@ -448,14 +454,14 @@ export function SellingAdvice() {
       title: "What is your car worth?",
       text: "Make, model, condition and usable parts all affect the price. Here’s how we work it out.",
       href: "/cash-for-cars",
-      visual: vehicleVisuals.cars,
+      visual: advicePhotos.value,
       link: "How pricing works",
     },
     {
       title: "Getting ready for pickup",
       text: "Have your photo ID and ownership papers ready, and remove your personal belongings.",
       href: "/car-removals",
-      visual: vehicleVisuals.scrap,
+      visual: advicePhotos.preparation,
       link: "What to expect",
     },
   ];
