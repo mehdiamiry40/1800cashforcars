@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { CallUsAndTerms, ContentBlocks, RelatedLinks } from "@/components/Blocks";
+import { CallUsAndTerms, ContentBlocks, Faq, RelatedLinks } from "@/components/Blocks";
 import { ServiceGrid } from "@/components/HomeSections";
-import { ServiceLd } from "@/components/JsonLd";
+import { JsonLd, ServiceLd } from "@/components/JsonLd";
 import { PageShell } from "@/components/PageShell";
 import type { RooProps } from "@/components/Roo";
 import { pages } from "@/lib/content";
@@ -67,6 +67,21 @@ export default async function ContentPageRoute({
         </div>
       )}
       <ContentBlocks blocks={p.blocks} />
+      {p.faqs && (
+        <div className="mt-12">
+          <JsonLd
+            data={{
+              "@context": "https://schema.org",
+              "@type": "FAQPage",
+              mainEntity: p.faqs.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
+            }}
+          />
+          <h2 className="h-content">{p.title} FAQs</h2>
+          <div className="mt-6">
+            <Faq bare items={p.faqs} />
+          </div>
+        </div>
+      )}
       <RelatedLinks current={`/${p.slug}`} />
       <div className="mt-12">
         <CallUsAndTerms />

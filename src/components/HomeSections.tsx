@@ -186,7 +186,7 @@ export function BrisbaneCashForCars() {
     {
       title: "Free car removal, the same day you accept",
       paras: [
-        "Our yard is in Rocklea, on Brisbane's southside, so we can usually have a tow truck or tilt tray at your place the same day. We pick up from houses, units, workshops, car parks and the roadside, 7 days a week.",
+        "Our yard is in Rocklea, on Brisbane's southside, so we can usually have a tow truck or tilt tray at your place the same day. We pick up from houses, units, workshops, car parks and the roadside, Monday to Saturday.",
       ],
       link: { href: "/car-removal-brisbane", text: "car removal Brisbane" },
     },

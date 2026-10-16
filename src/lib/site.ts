@@ -9,7 +9,7 @@ export const site = {
   email: "quotes@1800cashforcars.com.au",
   // Only show the email address on the site once the mailbox (or forwarding) is set up, otherwise emails bounce.
   showEmail: true,
-  pickups: "Pickups 7 days, at a time that suits you",
+  pickups: "Pickups Monday to Saturday, at a time that suits you",
   // Yard opening hours, copied from the Google Business Profile (keep the two matching). Used in the business schema.
   hours: [
     { days: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], opens: "08:00", closes: "17:00" },
@@ -27,6 +27,9 @@ export const site = {
   // Blank hides it.
   googleBusinessUrl: "https://www.google.com/maps?cid=873860773398367904",
   googleBusinessName: "A Plus Car Removal",
+  // Star rating and review count shown on the Google Business Profile. Update now and then; blank hides it.
+  // Shown as plain text with a link, not as review schema (Google ignores ratings a business marks up for itself).
+  googleRating: { score: "5.0", count: 438 },
   // Headline figure, e.g. "$15,000" → "GET UP TO $15,000". Leave blank to show "GET TOP CASH".
   // Only use a figure you genuinely pay; it's an advertised claim under Australian Consumer Law.
   maxPayout: "",

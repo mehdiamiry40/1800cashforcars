@@ -122,7 +122,7 @@ export default function CarRemovalBrisbane() {
             icon: "cash",
             list: [
               { bold: "Get a quote", text: "fill in the quick form with the car's details (or call us) and we'll text you a price." },
-              { bold: "Book a time", text: "same day or whenever suits you, 7 days." },
+              { bold: "Book a time", text: "same day or whenever suits you, Monday to Saturday." },
               { bold: "Get paid, we tow it", text: "cash or bank transfer before the car leaves, and the tow is free." },
             ],
           },
@@ -137,7 +137,7 @@ export default function CarRemovalBrisbane() {
           },
           {
             heading: "Car removal anywhere in Brisbane",
-            summary: "Northside, southside, west and bayside, 7 days.",
+            summary: "Northside, southside, west and bayside, Monday to Saturday.",
             icon: "truck",
             paras: [
               "From Rocklea we reach the southside suburbs like Moorooka, Sunnybank and Mt Gravatt quickly, and we cover the northside (Chermside, Aspley, Nundah), the western suburbs (Indooroopilly, Kenmore, Forest Lake) and the bayside (Wynnum, Manly, Carindale) too.",
