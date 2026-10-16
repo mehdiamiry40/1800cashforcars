@@ -42,7 +42,7 @@ export const pages: ContentPage[] = [
     title: "Cash for cars",
     metaTitle: "Sell Your Car for Cash in QLD | How It Works | 1800-CASH-FOR-CARS",
     description:
-      "Sell your car for cash. We buy cars, utes, vans, 4WDs and trucks in any condition across the Gold Coast, Brisbane and South East QLD, with free pickup and payment on the day.",
+      "Sell your car for cash. We buy cars, utes, vans, 4WDs and trucks in any condition across Brisbane, the Gold Coast and SEQ. Free pickup, paid on the day.",
     blocks: [
       {
         heading: "Selling your car to us",
@@ -78,9 +78,10 @@ export const pages: ContentPage[] = [
     slug: "car-removals",
     intro: "Free car pickup across South East Queensland. Any condition.",
     title: "Free car removal",
-    metaTitle: "Free Car Removal Gold Coast, Logan & Ipswich | 1800-CASH-FOR-CARS",
+    // The SEQ-wide page. Each area has its own /locations page, so this title doesn't name them and compete.
+    metaTitle: "Free Car Removal South East QLD | Any Car, Paid on Pickup",
     description:
-      "Free car removal across the Gold Coast, Brisbane, Logan, Ipswich and the Sunshine Coast. Same-day pickups, any condition, and we pay you for the car.",
+      "Free car removal across South East QLD: Brisbane, Gold Coast, Logan, Ipswich, Sunshine Coast and the Tweed. Any condition, and we pay you for the car.",
     blocks: [
       {
         heading: "We come to you, 7 days a week",
@@ -89,6 +90,15 @@ export const pages: ContentPage[] = [
         paras: [
           "We pick up across South East Queensland and the Tweed. The car can be in your garage, on the street, at a mechanic's or broken down on the side of the road. Wherever it is, the towing is free.",
           "Most pickups happen within a day of your call, and often the same day.",
+        ],
+      },
+      {
+        heading: "Where we pick up",
+        summary: "Brisbane, Gold Coast, Logan, Ipswich, Sunshine Coast and the Tweed.",
+        icon: "truck",
+        paras: [
+          "Our yard is in Rocklea, so pickups in Brisbane, Logan and Ipswich are often the same day. We also cover the Gold Coast from Ormeau down to Coolangatta, the Sunshine Coast up to Noosa, and Tweed Heads over the border.",
+          "Each area has its own page with the suburbs we cover and anything local to know, like bank transfer being the only way we can pay in NSW.",
         ],
       },
       {
@@ -119,7 +129,7 @@ export const pages: ContentPage[] = [
     title: "Our services",
     metaTitle: "Car Removal & Cash For Cars Services | 1800-CASH-FOR-CARS",
     description:
-      "Cash for cars, free car removal, scrap car removal, car wrecking and vehicle disposal across South East Queensland.",
+      "Cash for cars, free car removal, scrap car removal, car wrecking, truck removal and car disposal across Brisbane, the Gold Coast and South East Queensland.",
     blocks: [
       {
         heading: "Getting rid of a car, sorted",
@@ -184,7 +194,7 @@ export const pages: ContentPage[] = [
     intro: "Paid pickup for old, damaged or unwanted cars.",
     title: "Scrap car removal",
     metaTitle: "Scrap Car Removal Gold Coast & Brisbane | Cash For Scrap Cars",
-    description: "Free scrap car removal across South East QLD. We pay cash for scrap and junk cars in any condition.",
+    description: "Free scrap car removal across Brisbane, the Gold Coast and South East QLD. We pay cash for scrap, junk and wrecked cars in any condition, often same day.",
     blocks: [
       {
         heading: "Your scrap car is still worth something",
@@ -212,7 +222,7 @@ export const pages: ContentPage[] = [
     intro: "Parts reused. Metal recycled. Paid collection.",
     title: "Car wreckers",
     metaTitle: "Car Wreckers Gold Coast & Brisbane | We Buy Wrecked Cars",
-    description: "Local car wreckers buying wrecked, damaged and unwanted cars across South East QLD. Free removal and payment on pickup.",
+    description: "Local car wreckers buying wrecked, damaged and unwanted cars across Brisbane, the Gold Coast and SEQ. We pay for usable parts and metal, with free removal.",
     blocks: [
       {
         heading: "Wreckers who pay you",
@@ -239,7 +249,7 @@ export const pages: ContentPage[] = [
     intro: "Unwanted car? We collect it and pay you.",
     title: "Car disposal",
     metaTitle: "Car Disposal Gold Coast & Brisbane | Free Vehicle Disposal",
-    description: "Fast, free car disposal across South East QLD. We collect unwanted vehicles and pay you for them.",
+    description: "Free car disposal across Brisbane, the Gold Coast and South East QLD. We collect unwanted cars, pay you before they leave and recycle them properly.",
     blocks: [
       {
         heading: "Getting rid of a car you don't want",

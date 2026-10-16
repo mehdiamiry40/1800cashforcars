@@ -66,6 +66,7 @@ const jsonLd = {
       }
     : {}),
   ...(site.abn ? { taxID: site.abn } : {}),
+  openingHoursSpecification: site.hours.map((h) => ({ "@type": "OpeningHoursSpecification", dayOfWeek: h.days, opens: h.opens, closes: h.closes })),
   telephone: site.phoneHref.replace("tel:", ""),
   ...(site.showEmail ? { email: site.email } : {}),
   areaServed: areas.map((a) => ({ "@type": "City", name: `${a.name}, ${a.state}` })),

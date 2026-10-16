@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { AskForPrice, Faq, FinalCta, HowItWorks, SectionHead, WhatWeBuy } from "@/components/Blocks";
+import { AskForPrice, Faq, FinalCta, HowItWorks, RelatedLinks, SectionHead, WhatWeBuy } from "@/components/Blocks";
 import { ArrowIcon, ChevronRight, PinIcon } from "@/components/icons";
 import { Hero } from "@/components/Hero";
-import { Breadcrumbs, JsonLd } from "@/components/JsonLd";
-import { areas, site } from "@/lib/site";
+import { Breadcrumbs, JsonLd, ServiceLd } from "@/components/JsonLd";
+import { areas } from "@/lib/site";
 
 export const dynamicParams = false;
 
@@ -18,7 +18,8 @@ export async function generateMetadata({ params }: PageProps<"/locations/[slug]"
   const area = areas.find((a) => a.slug === slug);
   if (!area) return {};
   return {
-    title: { absolute: `Cash For Cars ${area.name} | Free Car Removal ${area.name} | ${site.name}` },
+    // Under ~60 characters so Google shows it whole; the area name once is enough.
+    title: { absolute: `Cash for Cars ${area.name} | Free Car Removal, Paid on Pickup` },
     description: `Sell your car for cash ${area.where}, ${area.state}. Free car removal in ${area.suburbs.slice(0, 3).join(", ")} and surrounds. Any condition, paid on pickup.`,
     alternates: { canonical: `/locations/${area.slug}` },
   };
@@ -31,7 +32,14 @@ export default async function LocationPage({ params }: PageProps<"/locations/[sl
 
   return (
     <>
-      <Breadcrumbs trail={[{ name: "Areas", path: "/#areas" }, { name: area.name, path: `/locations/${area.slug}` }]} />
+      <Breadcrumbs trail={[{ name: "Areas", path: "/locations" }, { name: area.name, path: `/locations/${area.slug}` }]} />
+      <ServiceLd
+        name={`Cash for Cars ${area.name}`}
+        serviceType="Cash for cars and free car removal"
+        description={`We buy scrap, old and unwanted cars for cash ${area.where}, with free car removal.`}
+        path={`/locations/${area.slug}`}
+        areaServed={[`${area.name}, ${area.state}`, ...area.suburbs.map((s) => `${s}, ${area.state}`)]}
+      />
       <Hero where={area.where} title={`Cash for cars ${area.where}`} />
       {area.local && (
         <section className="container-site section-site">
@@ -51,6 +59,7 @@ export default async function LocationPage({ params }: PageProps<"/locations/[sl
             <div className="mt-4">
               <Faq bare items={area.local.faqs} />
             </div>
+            <RelatedLinks current={`/locations/${area.slug}`} />
           </div>
           <JsonLd
             data={{
@@ -73,7 +82,7 @@ export default async function LocationPage({ params }: PageProps<"/locations/[sl
               {area.suburbs.map((s) => <li key={s} className="border border-line bg-sand px-3 py-2 text-[14px]">{s}</li>)}
             </ul>
           </details>
-          <div className="mt-5 text-center"><Link href="/#areas" className="btn-line">All pickup areas <ArrowIcon aria-hidden="true" className="h-4 w-4" /></Link></div>
+          <div className="mt-5 text-center"><Link href="/locations" className="btn-line">All pickup areas <ArrowIcon aria-hidden="true" className="h-4 w-4" /></Link></div>
         </div>
       </section>
 

@@ -10,6 +10,11 @@ export const site = {
   // Only show the email address on the site once the mailbox (or forwarding) is set up, otherwise emails bounce.
   showEmail: true,
   pickups: "Pickups 7 days, at a time that suits you",
+  // Yard opening hours, copied from the Google Business Profile (keep the two matching). Used in the business schema.
+  hours: [
+    { days: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], opens: "08:00", closes: "17:00" },
+    { days: ["Saturday"], opens: "08:00", closes: "14:00" },
+  ],
   abn: "62 351 619 456",
   // Keep the address exactly as it is on the Google Business Profile (79B), so Google sees one consistent business.
   address: "79B Breadwell St, Rocklea QLD 4106", // shown in footer + contact page

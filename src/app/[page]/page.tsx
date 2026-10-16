@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
-import { CallUsAndTerms, ContentBlocks } from "@/components/Blocks";
+import { CallUsAndTerms, ContentBlocks, RelatedLinks } from "@/components/Blocks";
 import { ServiceGrid } from "@/components/HomeSections";
+import { ServiceLd } from "@/components/JsonLd";
 import { PageShell } from "@/components/PageShell";
 import type { RooProps } from "@/components/Roo";
 import { pages } from "@/lib/content";
+import { areas } from "@/lib/site";
 
 export const dynamicParams = false;
 
@@ -51,17 +52,22 @@ export default async function ContentPageRoute({
       roo={poses[p.slug]}
       forms={p.slug !== "services"}
     >
+      {p.slug !== "services" && (
+        <ServiceLd
+          name={p.title}
+          serviceType={p.title}
+          description={p.description}
+          path={`/${p.slug}`}
+          areaServed={areas.map((a) => `${a.name}, ${a.state}`)}
+        />
+      )}
       {p.slug === "services" && (
         <div className="mb-16">
           <ServiceGrid />
         </div>
       )}
       <ContentBlocks blocks={p.blocks} />
-      <p className="mt-10 text-[17px]">
-        In Brisbane? See{" "}
-        <Link href="/" className="font-bold text-navy underline underline-offset-2">cash for cars Brisbane</Link> and{" "}
-        <Link href="/car-removal-brisbane" className="font-bold text-navy underline underline-offset-2">car removal Brisbane</Link>.
-      </p>
+      <RelatedLinks current={`/${p.slug}`} />
       <div className="mt-12">
         <CallUsAndTerms />
       </div>
