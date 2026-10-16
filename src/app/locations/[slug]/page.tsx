@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { AskForPrice, Faq, FinalCta, HowItWorks, RelatedLinks, SectionHead, WhatWeBuy } from "@/components/Blocks";
+import { AskForPrice, Faq, FinalCta, HowItWorks, RelatedLinks, ReviewsBand, SectionHead, WhatWeBuy } from "@/components/Blocks";
 import { ArrowIcon, ChevronRight, PinIcon } from "@/components/icons";
 import { Hero } from "@/components/Hero";
 import { Breadcrumbs, JsonLd, ServiceLd } from "@/components/JsonLd";
@@ -88,6 +88,7 @@ export default async function LocationPage({ params }: PageProps<"/locations/[sl
 
       <WhatWeBuy />
       <AskForPrice />
+      <ReviewsBand />
       <FinalCta />
     </>
   );

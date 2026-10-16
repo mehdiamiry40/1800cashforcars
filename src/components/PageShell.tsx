@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import pickupPhoto from "@/assets/hero-kangaroo-tow.jpg";
 import { serviceVisuals } from "@/lib/vehicle-visuals";
-import { AskForPrice, FinalCta } from "./Blocks";
+import { AskForPrice, FinalCta, ReviewsBand } from "./Blocks";
 import { Breadcrumbs } from "./JsonLd";
 import { QuoteForm } from "./QuoteForm";
 import { QuoteLink } from "./QuoteLink";
@@ -107,6 +107,7 @@ export function PageShell({
           <AskForPrice />
         </div>
       )}
+      <ReviewsBand />
       <FinalCta />
     </>
   );

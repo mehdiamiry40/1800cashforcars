@@ -447,6 +447,12 @@ export function ReviewsBand() {
   const listedAs = site.googleBusinessName && site.googleBusinessName !== site.name && (
     <>Our Rocklea yard is listed on Google as {site.googleBusinessName}.</>
   );
+  const rating = site.googleRating.score && (
+    <p className="mt-2 flex flex-wrap items-center gap-x-2 text-[18px] font-semibold text-navy">
+      <span aria-hidden="true" className="tracking-wider text-brand">★★★★★</span>
+      Rated {site.googleRating.score} from {site.googleRating.count} Google reviews
+    </p>
+  );
 
   if (reviews.length === 0) {
     return (
@@ -454,6 +460,7 @@ export function ReviewsBand() {
         <div className="container-site flex flex-col items-start justify-between gap-5 md:flex-row md:items-center">
           <div>
             <h2 className="h-content">See what our customers say</h2>
+            {rating}
             {listedAs && <p className="mt-2">{listedAs}</p>}
           </div>
           {googleLink}
@@ -466,6 +473,7 @@ export function ReviewsBand() {
     <section className="section-site bg-sand">
       <div className="container-site">
         <SectionHead title="Happy sellers" />
+        {rating}
         <div className="mt-10 grid gap-6 md:grid-cols-3">
           {reviews.slice(0, 3).map((r) => (
             <figure
