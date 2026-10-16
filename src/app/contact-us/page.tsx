@@ -6,7 +6,7 @@ import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Contact Us",
-  description: `Contact ${site.name} for a free cash offer and free car removal. Send us your car's details for a free price, or call us.`,
+  description: `Contact ${site.name} for a free cash offer and free car removal. Call or text ${site.phoneDisplay}, or send your car's details for a price.`,
   alternates: { canonical: "/contact-us" },
 };
 

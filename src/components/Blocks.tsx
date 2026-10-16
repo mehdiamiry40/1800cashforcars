@@ -19,7 +19,7 @@ import {
   siVolkswagen,
   siVolvo,
 } from "simple-icons";
-import type { Block } from "@/lib/content";
+import { pages, type Block } from "@/lib/content";
 import {
   areaHref,
   areas,
@@ -251,6 +251,38 @@ export function ContentBlocks({ blocks }: { blocks: Block[] }) {
         );
       })}
     </div>
+  );
+}
+
+// Links to the other service and area pages, so every page passes visitors (and Google) on to its neighbours.
+export function RelatedLinks({ current }: { current: string }) {
+  const services = pages.filter((p) => p.slug !== "services" && `/${p.slug}` !== current);
+  const places = [
+    { href: "/", label: "Cash for cars Brisbane" },
+    { href: "/car-removal-brisbane", label: "Car removal Brisbane" },
+    ...areas.filter((a) => !a.href).map((a) => ({ href: areaHref(a), label: `Cash for cars ${a.name}` })),
+  ].filter((l) => l.href !== current);
+  const linkClass = "inline-flex min-h-11 items-center font-semibold text-navy underline underline-offset-2 hover:decoration-brand";
+  return (
+    <nav aria-label="Related pages" className="mt-12 grid gap-8 border-t border-line pt-8 sm:grid-cols-2">
+      <div>
+        <h2 className="h-sub">More ways we can help</h2>
+        <ul className="mt-3">
+          {services.map((p) => (
+            <li key={p.slug}><Link href={`/${p.slug}`} className={linkClass}>{p.title}</Link></li>
+          ))}
+        </ul>
+      </div>
+      <div>
+        <h2 className="h-sub">Areas we cover</h2>
+        <ul className="mt-3">
+          {places.map((l) => (
+            <li key={l.href}><Link href={l.href} className={linkClass}>{l.label}</Link></li>
+          ))}
+          <li><Link href="/locations" className={linkClass}>All areas and suburbs</Link></li>
+        </ul>
+      </div>
+    </nav>
   );
 }
 

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { BrisbaneSuburbs, ContentBlocks, Faq } from "@/components/Blocks";
+import { BrisbaneSuburbs, ContentBlocks, Faq, RelatedLinks } from "@/components/Blocks";
 import { JsonLd } from "@/components/JsonLd";
 import { PageShell } from "@/components/PageShell";
 import { brisbaneSuburbs, site } from "@/lib/site";
@@ -8,7 +8,7 @@ import { brisbaneSuburbs, site } from "@/lib/site";
 export const metadata: Metadata = {
   title: { absolute: "Car Removal Brisbane | Free Pickup, Cash Paid | 1800-CASH-FOR-CARS" },
   description:
-    "Free car removal Brisbane wide. We pick up scrap, old, broken and unwanted cars, pay you cash on the spot and tow them away free. Same-day pickups from our Rocklea yard.",
+    "Free car removal Brisbane wide. We pick up scrap, old and unwanted cars, pay you before they leave and tow them free. Same-day pickups from our Rocklea yard.",
   alternates: { canonical: "/car-removal-brisbane" },
 };
 
@@ -165,6 +165,7 @@ export default function CarRemovalBrisbane() {
         <Link href="/" className="font-bold text-navy underline underline-offset-2">cash for cars Brisbane</Link>, or check out{" "}
         <Link href="/truck-removal" className="font-bold text-navy underline underline-offset-2">cash for trucks</Link>.
       </p>
+      <RelatedLinks current="/car-removal-brisbane" />
     </PageShell>
   );
 }
