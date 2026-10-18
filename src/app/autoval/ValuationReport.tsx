@@ -87,6 +87,8 @@ export function ValuationReport({ valuation: v, car }: { valuation: Valuation; c
         </Card>
       </div>
 
+      <EngineCard engine={v.engine} />
+
       <Card eyebrow="Before you sell" title="Important parts to check">
         <div className="grid gap-4 md:grid-cols-2">
           {parts.map((p) => (
@@ -140,6 +142,51 @@ export function ValuationReport({ valuation: v, car }: { valuation: Valuation; c
         and the individual car.
       </p>
     </div>
+  );
+}
+
+/** Engine name/code, specs, servicing and engine-specific faults. */
+function EngineCard({ engine: e }: { engine: Valuation["engine"] }) {
+  return (
+    <section className="border border-line/15 bg-white p-6 sm:p-8">
+      <p className="eyebrow text-brand">Under the bonnet</p>
+      <h3 className="h-sub mt-1">{e.name}</h3>
+      <p className="mt-2 text-[17px]">{e.summary}</p>
+      <p className="mt-3 border-l-4 border-navy bg-[#f2f3fb] px-4 py-2.5 text-[15px] text-muted">{e.matchNote}</p>
+
+      {e.specs.length > 0 && (
+        <dl className="mt-6 grid grid-cols-2 border-l border-t border-line/15 md:grid-cols-4">
+          {e.specs.map((s) => (
+            <div key={s.label} className="border-b border-r border-line/15 p-4">
+              <dt className="text-[13px] font-bold uppercase tracking-wide text-muted">{s.label}</dt>
+              <dd className="mt-1 text-[17px] font-bold">{s.value}</dd>
+            </div>
+          ))}
+        </dl>
+      )}
+
+      <div className="mt-8 grid gap-8 lg:grid-cols-2">
+        <div>
+          <h4 className="mb-4 text-[18px] font-bold">Servicing</h4>
+          <BulletList items={e.maintenance} numbered empty="No engine-specific service items found." />
+        </div>
+        <div>
+          <h4 className="mb-4 text-[18px] font-bold">Known engine issues</h4>
+          <BulletList items={e.commonIssues} empty="No widely reported faults for this engine." />
+        </div>
+      </div>
+
+      <div className="mt-8 grid gap-4 border-t border-line/10 pt-6 text-[16px] md:grid-cols-2">
+        <p>
+          <span className="font-bold">Reputation: </span>
+          <span className="text-muted">{e.reputation}</span>
+        </p>
+        <p>
+          <span className="font-bold">Finding the engine code: </span>
+          <span className="text-muted">{e.whereToFindCode}</span>
+        </p>
+      </div>
+    </section>
   );
 }
 
