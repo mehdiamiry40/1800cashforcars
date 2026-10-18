@@ -12,6 +12,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${site.url}/locations`, changeFrequency: "monthly", priority: 0.7 },
     ...pages.map((p) => ({ url: `${site.url}/${p.slug}`, changeFrequency: "monthly" as const, priority: 0.8 })),
     ...areas.filter((a) => !a.href).map((a) => ({ url: `${site.url}${areaHref(a)}`, changeFrequency: "monthly" as const, priority: 0.8 })),
+    { url: `${site.url}/autoval`, changeFrequency: "monthly", priority: 0.7 },
     { url: `${site.url}/contact-us`, changeFrequency: "yearly", priority: 0.6 },
     { url: `${site.url}/privacy`, changeFrequency: "yearly", priority: 0.2 },
   ];

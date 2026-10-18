@@ -10,7 +10,14 @@ import { Roo } from "./Roo";
 import { ArrowIcon } from "./icons";
 
 // One short form: the car, then how to reach you, then a single submit button.
-export function QuoteForm({ variant = "full" }: { variant?: "full" | "compact" }) {
+// `defaults` pre-fills the car fields, e.g. from an AutoVal valuation.
+export function QuoteForm({
+  variant = "full",
+  defaults,
+}: {
+  variant?: "full" | "compact";
+  defaults?: { vehicle?: string; description?: string };
+}) {
   const [state, action, pending] = useActionState<QuoteState, FormData>(submitQuote, null);
   const pathname = usePathname();
   const full = variant === "full";
@@ -73,7 +80,7 @@ export function QuoteForm({ variant = "full" }: { variant?: "full" | "compact" }
 
       <label className="min-w-0">
         <span className="field-float">Year, make and model</span>
-        <input name="vehicle" className={input} placeholder="Year, make and model" maxLength={120} required />
+        <input name="vehicle" className={input} placeholder="Year, make and model" maxLength={120} required defaultValue={defaults?.vehicle} />
       </label>
       <div className="quote-field-row grid items-end gap-3">
         <label className="min-w-0">
@@ -107,6 +114,7 @@ export function QuoteForm({ variant = "full" }: { variant?: "full" | "compact" }
           placeholder="Does it run? Any damage?"
           maxLength={1000}
           required
+          defaultValue={defaults?.description}
         />
       </label>
       {state && !state.ok && <p role="alert" className="bg-red-50 px-3 py-2 text-[14px] font-semibold text-red-800">{state.message}</p>}
