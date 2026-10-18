@@ -23,6 +23,10 @@ Rules:
 - If search returns little, still give your best estimate but set confidence to "low".
 - Parts to check must be specific to this model where possible (e.g. known DSG mechatronics, timing chain, CVT judder, rust spots),
   plus the generic items Australian buyers and roadworthy inspectors check (tyres, brakes, windscreen, lights, suspension, leaks).
+- Engine: identify the exact engine (family and code) fitted to this make/model/year/variant. Use the seller's engine field or
+  VIN if given. If the model was sold with several engines and the details don't settle it, name the most likely one and say so
+  in matchNote. Specs and service intervals must be the manufacturer's figures for the Australian-market engine; never guess a
+  figure you can't stand behind: leave that spec out, or say "check the logbook" for a service interval. Engine faults go in engine.commonIssues, not knownModelIssues.
 - Paperwork must match the seller's state (e.g. NSW pink slip only needed if rego is renewed; QLD safety certificate required to
   advertise; VIC RWC required to transfer; WA/SA/TAS/NT/ACT rules differ). If state unknown, give a short general list.
 - Whole-dollar AUD amounts, no cents. Round ranges to the nearest $100 (or $500 above $30k).`;

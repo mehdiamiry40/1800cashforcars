@@ -297,7 +297,7 @@ export function AutoValuer() {
                   {withCurrent(FUELS, form.fuelType).map((o) => <option key={o}>{o}</option>)}
                 </select>
               </Field>
-              <Field label="Engine"><input className="field" value={form.engine ?? ""} onChange={(e) => set("engine", e.target.value)} placeholder="1.8L 4-cyl" /></Field>
+              <Field label="Engine"><input className="field" value={form.engine ?? ""} onChange={(e) => set("engine", e.target.value)} placeholder="1.8L 4-cyl or 2ZR-FE" /></Field>
               <Field label="State">
                 <select className="field" value={form.state ?? ""} onChange={(e) => set("state", (e.target.value || undefined) as VehicleDetails["state"])}>
                   <option value="">Select</option>
@@ -420,6 +420,7 @@ const RESEARCH_STEPS = [
   "Confirming the exact model and generation",
   "Checking carsales, Drive, RedBook and marketplace listings",
   "Adjusting for kilometres, condition and history",
+  "Identifying the engine and its specs",
   "Checking known issues and inspection points",
   "Writing your report",
 ];

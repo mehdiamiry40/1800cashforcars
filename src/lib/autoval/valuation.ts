@@ -61,7 +61,28 @@ export const valuationSchema = z.object({
       }),
     )
     .describe("Important parts to inspect or fix before selling, including model-specific known issues"),
-  knownModelIssues: z.array(z.string()).describe("Common faults/recalls for this make/model/generation"),
+  engine: z
+    .object({
+      name: z.string().describe("Engine family and code, e.g. 'Toyota 2ZR-FE' or 'Ford 3.2L Duratorq (P5AT)'"),
+      summary: z.string().describe("One line, e.g. '1.8L naturally aspirated petrol 4-cylinder, DOHC 16-valve with Dual VVT-i'"),
+      matchNote: z
+        .string()
+        .describe("How sure you are this is the engine fitted, naming any other engines offered in this model/year"),
+      specs: z
+        .array(z.object({ label: z.string(), value: z.string() }))
+        .describe(
+          "Key specs: displacement, cylinders, power (kW), torque (Nm), induction, fuel system, timing belt or chain, oil spec. " +
+            "Values short (under 6 words); leave out a spec rather than padding it with caveats",
+        ),
+      maintenance: z
+        .array(z.string())
+        .describe("Engine service items with intervals, e.g. timing belt replacement km, spark plugs, coolant"),
+      commonIssues: z.array(z.string()).describe("Known faults specific to this engine; empty if none widely reported"),
+      reputation: z.string().describe("One or two sentences on how reliable and well-regarded this engine is"),
+      whereToFindCode: z.string().describe("Where the engine number/code is stamped or labelled on this engine"),
+    })
+    .describe("The engine fitted to this car"),
+  knownModelIssues: z.array(z.string()).describe("Common faults/recalls for this make/model/generation, excluding engine faults"),
   paperwork: z
     .array(z.string())
     .describe("Documents needed to sell in the given Australian state (roadworthy/safety cert, transfer form, PPSR, etc.)"),
