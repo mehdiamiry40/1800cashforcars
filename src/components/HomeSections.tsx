@@ -140,15 +140,15 @@ export function PickupSection() {
             strokeWidth={1.5}
           />
           <h2 className="h-section">
-            <span className="text-brand">Your car.</span> Collected for free.
+            <span className="text-brand">We pay you.</span> The tow is free.
           </h2>
           <p className="mt-4 text-[18px] sm:text-[20px]">
-            Free car removal across Brisbane, from home, work or the
-            mechanic. Running or not, we arrange the pickup.
+            Cash for your car, plus free pickup across Brisbane from home, work
+            or the mechanic. Running or not, we pay you for it.
           </p>
           <p className="mb-6 mt-3">
-            Tell us where it is and choose a time that suits you. There are no
-            towing fees taken off your price.
+            Tell us where it is and choose a time that suits you. You&apos;re
+            paid on pickup, with no towing fees taken off your price.
           </p>
           <div className="pickup-actions flex flex-wrap gap-3">
             <Link href="/car-removals" className="btn-brand">
