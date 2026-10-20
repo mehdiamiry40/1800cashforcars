@@ -8,8 +8,9 @@ import { AutoValuer } from "./AutoValuer";
 export const metadata: Metadata = {
   title: "AutoVal: Free AI Car Valuation",
   description:
-    "Find out what your car is worth in about a minute. Enter your rego, VIN or car details and AutoVal checks live Australian listings for trade-in, private sale and dealer prices.",
+    "Find out what your car is worth in about a minute. Enter your rego or VIN. AutoVal checks live Australian listings for trade-in, private and dealer prices.",
   alternates: { canonical: "/autoval" },
+  openGraph: { url: "/autoval" },
 };
 
 export default function AutoValPage() {

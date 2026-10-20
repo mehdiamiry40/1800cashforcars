@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import { CANONICAL_ORIGIN, PRODUCTION_VERCEL_ALIAS } from "./src/lib/canonical-host";
 
 const securityHeaders = [
   { key: "X-Content-Type-Options", value: "nosniff" },
@@ -19,14 +20,21 @@ const nextConfig: NextConfig = {
     return [{ source: "/:path*", headers: securityHeaders }];
   },
   async redirects() {
-    // One canonical address: send www to the bare domain.
+    // One canonical address. Other public hosts are handled in src/proxy.ts,
+    // which leaves localhost and Vercel preview URLs alone.
     return [
       // Brisbane has dedicated pages: the homepage targets "cash for cars Brisbane".
       { source: "/locations/brisbane", destination: "/", permanent: true },
       {
         source: "/:path*",
         has: [{ type: "host", value: "www.1800cashforcars.com.au" }],
-        destination: "https://1800cashforcars.com.au/:path*",
+        destination: `${CANONICAL_ORIGIN}/:path*`,
+        permanent: true,
+      },
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: PRODUCTION_VERCEL_ALIAS }],
+        destination: `${CANONICAL_ORIGIN}/:path*`,
         permanent: true,
       },
     ];

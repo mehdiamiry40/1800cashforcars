@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { areaHref, areas, site } from "@/lib/site";
 import { Logo } from "./Logo";
+import { ParentBrandLine } from "./ParentBrand";
 import { nav } from "@/lib/navigation";
 import { MailIcon, PhoneIcon } from "./icons";
 
@@ -29,8 +30,9 @@ export function Footer() {
       </div>
       <div className="container-site py-9">
         <div className="flex flex-wrap items-center justify-between gap-7">
-          <Link href="/" aria-label={`${site.name} home`}>
+          <Link href="/" className="inline-flex items-center">
             <Logo />
+            <span className="sr-only">home</span>
           </Link>
           <nav
             aria-label="Footer navigation"
@@ -59,6 +61,7 @@ export function Footer() {
             ))}
           </ul>
         </nav>
+        <ParentBrandLine className="mt-4 text-[14px]" />
         <div className="mt-4 flex flex-wrap justify-between gap-3 text-[14px]">
           <p>
             © {new Date().getFullYear()} {site.name} · ABN {site.abn}

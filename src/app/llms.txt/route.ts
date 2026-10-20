@@ -1,0 +1,80 @@
+import { pages } from "@/lib/content";
+import { areaHref, areas, brisbaneSuburbs, faqs, site } from "@/lib/site";
+
+export const dynamic = "force-static";
+
+function hoursLine(): string {
+  return site.hours
+    .map((h) => {
+      const days = h.days.length > 1 ? `${h.days[0]} to ${h.days[h.days.length - 1]}` : h.days[0];
+      return `${days} ${h.opens}–${h.closes}`;
+    })
+    .join("; ");
+}
+
+export function GET() {
+  const areaLines = areas
+    .map((a) => `- ${a.name}, ${a.state}: ${site.url}${areaHref(a)}`)
+    .join("\n");
+  const suburbLines = brisbaneSuburbs
+    .map((g) => `- ${g.region}: ${g.suburbs.join(", ")}`)
+    .join("\n");
+  const pageLines = pages
+    .map((p) => `- [${p.title}](${site.url}/${p.slug}): ${p.description}`)
+    .join("\n");
+  const faqLines = faqs.map((f) => `- ${f.q} ${f.a}`).join("\n");
+
+  const body = `# ${site.name}
+
+> ${site.tagline} Cash for scrap, old, broken and unwanted cars across Brisbane, the Gold Coast and South East QLD. Any condition, free towing, paid on pickup.
+
+1800 Cash For Cars is part of A Plus Car Removal (${site.parentUrl}). They share the yard. The yard is listed on Google as ${site.googleBusinessName}.
+
+## Business
+
+- Name: ${site.name} (also written 1800 Cash For Cars)
+- Website: ${site.url}
+- Phone: ${site.phoneDisplay}
+- SMS: ${site.phoneDisplay}
+- Email: ${site.email}
+- ABN: ${site.abn}
+- Yard: ${site.address}
+- Yard hours: ${hoursLine()}
+- ${site.pickups}
+- Part of: ${site.googleBusinessName}, ${site.parentUrl}
+- Google listing: ${site.googleBusinessName}, rated ${site.googleRating.score} from ${site.googleRating.count} Google reviews (${site.googleBusinessUrl})
+
+## What we buy
+
+Cars, utes, vans, 4WDs and trucks, from light trucks to heavy rigids. Running or not, including crashed, flood-damaged, unregistered, rusty and scrap cars. Pickup is free in the service areas below, and the towing cost is not taken off the price. Payment is cash or bank transfer when the car is picked up, before it leaves. In NSW, including Tweed Heads, payment is by bank transfer only.
+
+## Service areas
+
+${areaLines}
+
+Brisbane suburbs, grouped as on the site:
+
+${suburbLines}
+
+## Payment and paperwork
+
+${faqLines}
+
+## Key pages
+
+- [Cash for cars Brisbane](${site.url}/): Cash for cars Brisbane: we buy scrap, old and unwanted cars in any condition. Paid on pickup, free car removal, often same day, from our local Rocklea yard.
+- [Car removal Brisbane](${site.url}/car-removal-brisbane): Free car removal Brisbane wide. We pick up scrap, old and unwanted cars, pay you before they leave and tow them free. Same-day pickups from our Rocklea yard.
+- [Areas we cover](${site.url}/locations): We buy cars and offer free car removal across Brisbane, the Gold Coast, Logan, Ipswich, the Sunshine Coast and Tweed Heads.
+${pageLines}
+- [AutoVal car valuation](${site.url}/autoval): Find out what your car is worth in about a minute. Enter your rego or VIN. AutoVal checks live Australian listings for trade-in, private and dealer prices.
+- [Contact](${site.url}/contact-us): Contact ${site.name} for a free cash offer and free car removal. Call or text ${site.phoneDisplay}, or send the car's details for a price.
+- [Privacy policy](${site.url}/privacy): How ${site.name} collects, uses, stores and protects personal information given when asking for a quote or selling a car.
+`;
+
+  return new Response(body, {
+    headers: {
+      "Content-Type": "text/plain; charset=utf-8",
+      "Cache-Control": "public, max-age=86400",
+    },
+  });
+}

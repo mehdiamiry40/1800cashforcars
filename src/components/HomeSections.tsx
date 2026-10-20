@@ -129,7 +129,8 @@ export function PickupSection() {
             alt="A tow truck carrying an old car on a leafy Queensland street"
             fill
             placeholder="blur"
-            sizes="(min-width: 768px) 45vw, 90vw"
+            quality={55}
+            sizes="(max-width: 767px) 360px, (min-width: 1280px) 640px, 45vw"
             className="object-cover object-[65%_50%]"
           />
         </div>
@@ -512,7 +513,7 @@ export function ProcessStrip() {
             />
             <div>
               <span className="text-[24px] font-bold">0{i + 1}</span>
-              <h2 className="text-[24px] font-bold leading-snug">{title}</h2>
+              <p className="text-[24px] font-bold leading-snug">{title}</p>
             </div>
           </li>
         ))}

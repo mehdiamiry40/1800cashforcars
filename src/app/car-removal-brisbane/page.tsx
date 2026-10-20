@@ -10,6 +10,7 @@ export const metadata: Metadata = {
   description:
     "Free car removal Brisbane wide. We pick up scrap, old and unwanted cars, pay you before they leave and tow them free. Same-day pickups from our Rocklea yard.",
   alternates: { canonical: "/car-removal-brisbane" },
+  openGraph: { url: "/car-removal-brisbane" },
 };
 
 const faqs = [

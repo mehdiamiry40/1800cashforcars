@@ -34,12 +34,9 @@ export function Header() {
     <>
       <header className="sticky top-0 z-40 border-b border-line bg-white text-navy">
         <div className="container-site flex items-center justify-between gap-3 py-3 sm:gap-5 sm:py-4 xl:min-h-28 xl:py-0">
-          <Link
-            href="/"
-            aria-label={`${site.name} home`}
-            className="inline-flex min-h-11 shrink-0 items-center"
-          >
+          <Link href="/" className="inline-flex min-h-11 shrink-0 items-center">
             <Logo />
+            <span className="sr-only">home</span>
           </Link>
           <div className="hidden flex-col items-end xl:flex">
             <div className="flex items-center gap-7 py-2 text-[16px] font-semibold">
@@ -106,13 +103,9 @@ export function Header() {
         className="mobile-menu"
       >
         <div className="container-site flex min-h-18 shrink-0 items-center justify-between gap-3 border-b border-line sm:min-h-20">
-          <Link
-            href="/"
-            onClick={closeMenu}
-            aria-label={`${site.name} home`}
-            className="inline-flex min-h-11 items-center"
-          >
+          <Link href="/" onClick={closeMenu} className="inline-flex min-h-11 items-center">
             <Logo />
+            <span className="sr-only">home</span>
           </Link>
           <button
             type="button"
