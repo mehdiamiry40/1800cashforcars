@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { CallUsAndTerms, ContentBlocks, Faq, RelatedLinks } from "@/components/Blocks";
 import { ServiceGrid } from "@/components/HomeSections";
@@ -19,6 +20,43 @@ const poses: Record<string, RooProps> = {
   "car-wreckers": { hand: "cash" },
   "car-disposal": { pouchCar: true, hop: true },
 };
+
+function PriceGuideLink({ slug }: { slug: string }) {
+  const linkClass = "font-semibold text-navy underline underline-offset-4";
+  if (slug === "scrap-car-removal") {
+    return (
+      <p className="mt-8 text-[18px]">
+        For guide ranges by car type and condition, see our{" "}
+        <Link href="/scrap-car-prices-brisbane" className={linkClass}>
+          scrap car prices in Brisbane
+        </Link>
+        .
+      </p>
+    );
+  }
+  if (slug === "car-wreckers") {
+    return (
+      <p className="mt-8 text-[18px]">
+        <Link href="/scrap-car-prices-brisbane" className={linkClass}>
+          See our price guide
+        </Link>{" "}
+        for what scrap, damaged and non-running cars are typically worth.
+      </p>
+    );
+  }
+  if (slug === "cash-for-cars") {
+    return (
+      <p className="mt-8 text-[18px]">
+        Selling a scrap or non-running car? Read the{" "}
+        <Link href="/scrap-car-prices-brisbane" className={linkClass}>
+          Brisbane scrap car prices
+        </Link>{" "}
+        we use as a guide.
+      </p>
+    );
+  }
+  return null;
+}
 
 export function generateStaticParams() {
   return pages.map((p) => ({ page: p.slug }));
@@ -68,6 +106,7 @@ export default async function ContentPageRoute({
         </div>
       )}
       <ContentBlocks blocks={p.blocks} />
+      <PriceGuideLink slug={p.slug} />
       {p.faqs && (
         <div className="mt-12">
           <JsonLd
