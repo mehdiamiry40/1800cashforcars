@@ -9,7 +9,8 @@ import { areas, site } from "@/lib/site";
 import "./globals.css";
 
 // Barlow is shared by navigation, headings, forms and body copy.
-const barlow = Barlow({ variable: "--font-barlow", subsets: ["latin"], weight: ["400", "500", "600", "700", "800"], display: "swap" });
+// 400 body, 600 headings, 700 buttons. Medium and extrabold are mapped onto these in globals.css so only three files are preloaded.
+const barlow = Barlow({ variable: "--font-barlow", subsets: ["latin"], weight: ["400", "600", "700"], display: "swap" });
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -19,13 +20,13 @@ export const metadata: Metadata = {
   },
   description:
     "Cash for scrap, old, broken and unwanted cars across Brisbane, the Gold Coast and South East QLD. Any condition, free towing, paid on pickup. Free quote, usually within the hour.",
-  // No og:url here: every page would inherit it and share as the homepage. Facebook and others use the page's own URL.
+  // No og:url or canonical here. A site-wide URL would mark every page, including 404s, as the homepage.
+  // Each page sets its own canonical and openGraph.url.
   openGraph: {
     type: "website",
     locale: "en_AU",
     siteName: site.name,
   },
-  alternates: { canonical: "/" },
   // Google Search Console ownership (URL-prefix property). Keep this, or verification is lost.
   verification: { google: "hT98u-ufxCSpHuzlwhET1YrWOFSQEH_Eh_8oAwh7BkA" },
 };
@@ -37,19 +38,40 @@ export const viewport: Viewport = {
 
 const GOOGLE_ADS_ID = "AW-11027669589";
 
-const sameAs = [site.googleBusinessUrl, site.social.facebook, site.social.instagram].filter(Boolean);
+const socialSameAs = [site.social.facebook, site.social.instagram].filter(Boolean);
+
+// Reviews and the Google listing belong to A Plus Car Removal, not this brand name.
+const parentOrganization = site.googleBusinessName && site.parentUrl
+  ? {
+      "@type": "Organization",
+      name: site.googleBusinessName,
+      url: site.parentUrl,
+      ...(site.googleBusinessUrl ? { sameAs: [site.googleBusinessUrl] } : {}),
+      ...(site.googleRating.score
+        ? {
+            aggregateRating: {
+              "@type": "AggregateRating",
+              ratingValue: site.googleRating.score,
+              reviewCount: site.googleRating.count,
+              bestRating: 5,
+            },
+          }
+        : {}),
+    }
+  : undefined;
 
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "AutomotiveBusiness",
   "@id": `${site.url}/#business`,
   name: site.name,
-  alternateName: ["1800 Cash For Cars", ...(site.googleBusinessName ? [site.googleBusinessName] : [])],
+  alternateName: "1800 Cash For Cars",
   url: site.url,
   image: `${site.url}/opengraph-image`,
   logo: `${site.url}/apple-icon`,
   geo: { "@type": "GeoCoordinates", ...site.geo },
-  ...(sameAs.length ? { sameAs } : {}),
+  ...(socialSameAs.length ? { sameAs: socialSameAs } : {}),
+  ...(parentOrganization ? { parentOrganization } : {}),
   paymentAccepted: "Cash, Bank transfer",
   currenciesAccepted: "AUD",
   ...(site.address
@@ -98,14 +120,14 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <StickyQuoteBar />
         <ContactTracker />
         <Analytics />
-        {/* Google Ads tag (conversion tracking for the "1800CFC - Quote form" conversion). */}
-        <Script src={`https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ADS_ID}`} strategy="afterInteractive" />
-        <Script id="google-ads-tag" strategy="afterInteractive">{`
+        {/* Queue Google Ads hits immediately, but download gtag.js after the page is idle so it does not compete with the hero image. QuoteForm calls window.gtag, which pushes into this queue if the library has not loaded yet. */}
+        <Script id="google-ads-tag" strategy="beforeInteractive">{`
           window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', '${GOOGLE_ADS_ID}');
+          window.gtag = function () { window.dataLayer.push(arguments); };
+          window.gtag('js', new Date());
+          window.gtag('config', '${GOOGLE_ADS_ID}');
         `}</Script>
+        <Script src={`https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ADS_ID}`} strategy="lazyOnload" />
       </body>
     </html>
   );

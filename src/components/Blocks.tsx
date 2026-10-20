@@ -29,6 +29,7 @@ import {
   site,
 } from "@/lib/site";
 import { vehicleVisuals } from "@/lib/vehicle-visuals";
+import { ParentBrandLine } from "./ParentBrand";
 import { QuoteForm } from "./QuoteForm";
 import { QuoteLink } from "./QuoteLink";
 import {
@@ -101,7 +102,7 @@ export function HowItWorks() {
             />
             <div>
               <span className="text-[24px] font-bold">0{i + 1}</span>
-              <h2 className="text-[24px] font-bold leading-snug">{title}</h2>
+              <p className="text-[24px] font-bold leading-snug">{title}</p>
             </div>
           </li>
         ))}
@@ -461,6 +462,7 @@ export function ReviewsBand() {
           <div>
             <h2 className="h-content">See what our customers say</h2>
             {rating}
+            <ParentBrandLine className="mt-2" />
             {listedAs && <p className="mt-2">{listedAs}</p>}
           </div>
           {googleLink}
@@ -474,6 +476,7 @@ export function ReviewsBand() {
       <div className="container-site">
         <SectionHead title="Happy sellers" />
         {rating}
+        <ParentBrandLine className="mt-2" />
         <div className="mt-10 grid gap-6 md:grid-cols-3">
           {reviews.slice(0, 3).map((r) => (
             <figure

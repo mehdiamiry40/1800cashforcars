@@ -9,6 +9,7 @@ export const metadata: Metadata = {
   description:
     "Tell us about your car and get a free, no-obligation cash offer by text, usually within the hour. Free removal and paid on pickup.",
   alternates: { canonical: "/quote" },
+  openGraph: { url: "/quote" },
   // Same form as /contact-us; keep only the contact page in search results so the two don't compete.
   robots: { index: false, follow: true },
 };

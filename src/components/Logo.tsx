@@ -2,7 +2,7 @@
 export function Logo({ light = false }: { light?: boolean }) {
   return (
     <span className="flex shrink-0 items-stretch font-logo leading-none">
-      <span className="flex items-center bg-brand px-2 py-1.5 text-[14px] font-extrabold tracking-[0.01em] text-white min-[360px]:text-[16px] sm:px-2.5 sm:text-[22px]">
+      <span className="flex items-center bg-logo px-2 py-1.5 text-[14px] font-extrabold tracking-[0.01em] text-white min-[360px]:text-[16px] sm:px-2.5 sm:text-[22px]">
         1800
       </span>
       <span

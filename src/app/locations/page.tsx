@@ -10,6 +10,7 @@ export const metadata: Metadata = {
   description:
     "We buy cars and offer free car removal across Brisbane, the Gold Coast, Logan, Ipswich, the Sunshine Coast and Tweed Heads. Find your area and suburbs.",
   alternates: { canonical: "/locations" },
+  openGraph: { url: "/locations" },
 };
 
 // Brisbane has no `local` copy (it has dedicated pages), so it gets its own blurb here.

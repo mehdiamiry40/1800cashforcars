@@ -22,13 +22,13 @@ export const site = {
   // Opens the Google Business Profile, so "Get directions" lands on the listing with reviews.
   mapsUrl: "https://www.google.com/maps/search/?api=1&query=A+Plus+Car+Removal&query_place_id=ChIJRzxkE1tFkWsRoM6OVb6TIAw",
   geo: { latitude: -27.5474913, longitude: 153.006389 }, // pin on the Google Business Profile
-  // Google Business Profile. The yard is listed on Google as A Plus Car Removal (same owner, phone and yard).
-  // Adds a "Read our reviews on Google" link and tells Google the profile and this site are the same business.
-  // Blank hides it.
+  // Google Business Profile of the parent business. The yard is listed on Google as A Plus Car Removal.
+  // 1800 Cash For Cars is part of A Plus Car Removal; they share this yard. Blank hides the reviews link.
   googleBusinessUrl: "https://www.google.com/maps?cid=873860773398367904",
   googleBusinessName: "A Plus Car Removal",
-  // Star rating and review count shown on the Google Business Profile. Update now and then; blank hides it.
-  // Shown as plain text with a link, not as review schema (Google ignores ratings a business marks up for itself).
+  parentUrl: "https://apluscarremoval.com.au",
+  // Star rating and review count on the A Plus Car Removal Google listing. Update now and then; blank hides it.
+  // Shown as plain text. Structured data attributes this rating to A Plus, not to this brand.
   googleRating: { score: "5.0", count: 438 },
   // Headline figure, e.g. "$15,000" → "GET UP TO $15,000". Leave blank to show "GET TOP CASH".
   // Only use a figure you genuinely pay; it's an advertised claim under Australian Consumer Law.

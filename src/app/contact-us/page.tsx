@@ -3,11 +3,13 @@ import { QuoteForm } from "@/components/QuoteForm";
 import { Breadcrumbs } from "@/components/JsonLd";
 import { PhoneIcon, SmsIcon } from "@/components/icons";
 import { site } from "@/lib/site";
+import { ParentBrandLine } from "@/components/ParentBrand";
 
 export const metadata: Metadata = {
   title: "Contact Us",
   description: `Contact ${site.name} for a free cash offer and free car removal. Call or text ${site.phoneDisplay}, or send your car's details for a price.`,
   alternates: { canonical: "/contact-us" },
+  openGraph: { url: "/contact-us" },
 };
 
 export default function ContactPage() {
@@ -52,6 +54,7 @@ export default function ContactPage() {
           <QuoteForm />
         </div>
         <div className="md:col-start-1 md:row-start-2">
+          <ParentBrandLine className="mb-4" />
           <dl className="space-y-5 border-t border-line pt-6">
             {site.showEmail && (
               <div>

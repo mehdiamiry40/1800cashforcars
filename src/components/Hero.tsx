@@ -42,8 +42,10 @@ export function Hero({
             src={heroPhoto}
             alt="A white tow truck carrying an old blue car, with cash in the foreground on a white background"
             preload
+            fetchPriority="high"
             placeholder="blur"
-            sizes="(min-width: 1280px) 724px, (min-width: 1024px) calc(100vw - 556px), calc(100vw - 40px)"
+            // On phones the hero is height-capped, so the painted image is about 340px wide, not the full viewport.
+            sizes="(max-width: 767px) 340px, (pointer: coarse) and (max-width: 1023px) 340px, (min-width: 1280px) 724px, (min-width: 1024px) calc(100vw - 556px), calc(100vw - 40px)"
             style={{ objectFit: "contain" }}
             className="hero-image mt-4 h-auto w-full"
           />

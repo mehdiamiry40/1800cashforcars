@@ -2,6 +2,8 @@
 
 @theme {
   --color-brand: #e16633;
+  /* Darker than brand so 16px white "1800" on the logo clears WCAG AA (4.5:1). */
+  --color-logo: #c14a22;
   --color-brand-dark: #1e25a4;
   --color-brand-light: #e16633;
   --color-roo: #e16633;
@@ -20,6 +22,9 @@
   --font-sans: var(--font-barlow);
   --font-heading: var(--font-barlow);
   --font-display: var(--font-barlow);
+  /* Only 400, 600 and 700 are loaded. Map the unused faces onto those files. */
+  --font-weight-medium: 600;
+  --font-weight-extrabold: 700;
 }
 html {
   scroll-behavior: smooth;
