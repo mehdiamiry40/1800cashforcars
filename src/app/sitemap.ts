@@ -25,6 +25,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     { url: site.url, lastModified: updated("src/app/page.tsx"), changeFrequency: "weekly", priority: 1 },
     { url: `${site.url}/car-removal-brisbane`, lastModified: updated("src/app/car-removal-brisbane/page.tsx"), changeFrequency: "monthly", priority: 0.95 },
+    { url: `${site.url}/scrap-car-prices-brisbane`, lastModified: updated("src/app/scrap-car-prices-brisbane/page.tsx"), changeFrequency: "monthly", priority: 0.9 },
     { url: `${site.url}/locations`, lastModified: updated("src/app/locations/page.tsx"), changeFrequency: "monthly", priority: 0.7 },
     ...pages.map((p) => ({ url: `${site.url}/${p.slug}`, lastModified: contentUpdated, changeFrequency: "monthly" as const, priority: 0.8 })),
     ...areas.filter((a) => !a.href).map((a) => ({ url: `${site.url}${areaHref(a)}`, lastModified: locationUpdated, changeFrequency: "monthly" as const, priority: 0.8 })),

@@ -48,6 +48,13 @@ export default function AutoValPage() {
 
       <div className="container-site relative -mt-20 pb-16 sm:-mt-28 sm:pb-24">
         <AutoValuer />
+        <p className="mx-auto mt-8 max-w-2xl text-center text-[18px]">
+          AutoVal is a market estimate. For a cash offer on a scrap or damaged car, see our{" "}
+          <Link href="/scrap-car-prices-brisbane" className="font-semibold text-navy underline underline-offset-4">
+            scrap car price guide
+          </Link>
+          .
+        </p>
       </div>
     </>
   );

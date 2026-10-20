@@ -54,6 +54,7 @@ export function Footer() {
           <ul className="flex flex-wrap gap-x-5 gap-y-1">
             <li><Link href="/" className="inline-flex min-h-11 items-center hover:underline">Cash for cars Brisbane</Link></li>
             <li><Link href="/car-removal-brisbane" className="inline-flex min-h-11 items-center hover:underline">Car removal Brisbane</Link></li>
+            <li><Link href="/scrap-car-prices-brisbane" className="inline-flex min-h-11 items-center hover:underline">Scrap car prices Brisbane</Link></li>
             {areas.filter((a) => !a.href).map((a) => (
               <li key={a.slug}>
                 <Link href={areaHref(a)} className="inline-flex min-h-11 items-center hover:underline">Cash for cars {a.name}</Link>

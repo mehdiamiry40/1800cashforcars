@@ -176,6 +176,12 @@ export function BrisbaneCashForCars() {
         "Every car gets its own price. We look at the make, model, year and kilometres, whether it runs, the condition of the engine, gearbox and panels, and what scrap metal is worth this week. A late-model car that runs is worth the most, but even a rusted-out wreck has value in its parts and metal.",
         "Tell us about the car and we'll give you a firm price, usually within minutes. The price we quote is the price we pay when the car is as described. Nothing comes off for towing.",
       ],
+      link: {
+        href: "/scrap-car-prices-brisbane",
+        lead: "Wondering ",
+        text: "how much is my scrap car worth",
+        tail: "? Our current Brisbane guide sets out the ranges.",
+      },
     },
     {
       title: "Cars we buy across Brisbane",
@@ -220,8 +226,9 @@ export function BrisbaneCashForCars() {
                 ))}
                 {t.link && (
                   <p>
-                    More about our{" "}
-                    <Link href={t.link.href}>{t.link.text}</Link> service.
+                    {"lead" in t.link ? t.link.lead : "More about our "}
+                    <Link href={t.link.href}>{t.link.text}</Link>
+                    {"tail" in t.link ? t.link.tail : " service."}
                   </p>
                 )}
               </div>
