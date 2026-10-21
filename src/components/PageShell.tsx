@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import pickupPhoto from "@/assets/hero-kangaroo-tow.jpg";
 import { serviceVisuals } from "@/lib/vehicle-visuals";
-import { AskForPrice, FinalCta, ReviewsBand } from "./Blocks";
+import { FinalCta, ReviewsBand } from "./Blocks";
 import { Breadcrumbs } from "./JsonLd";
 import { QuoteForm } from "./QuoteForm";
 import { QuoteLink } from "./QuoteLink";
@@ -48,7 +48,7 @@ export function PageShell({
             />
           </div>
           <div className="page-hero-copy container-site py-8 sm:py-14 md:order-1">
-            <h1 className="font-heading text-[34px] font-bold leading-tight sm:text-[42px] lg:text-[52px]">
+            <h1 className="h-page !text-white">
               {title}
             </h1>
             {intro && (
@@ -102,11 +102,6 @@ export function PageShell({
         )}
         <div className="min-w-0 lg:col-start-1 lg:row-start-1">{children}</div>
       </section>
-      {forms && (
-        <div className="hidden lg:block">
-          <AskForPrice />
-        </div>
-      )}
       <ReviewsBand />
       <FinalCta />
     </>

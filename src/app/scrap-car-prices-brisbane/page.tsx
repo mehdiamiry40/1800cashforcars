@@ -248,7 +248,7 @@ export default function ScrapCarPricesBrisbane() {
             />
           </div>
           <div className="page-hero-copy container-site py-8 sm:py-14 md:order-1">
-            <h1 className="font-heading text-[34px] font-bold leading-tight sm:text-[42px] lg:text-[48px]">{H1}</h1>
+            <h1 className="h-page !text-white">{H1}</h1>
             <p className="mt-5 max-w-2xl text-[18px] leading-relaxed sm:text-[20px]">{DIRECT_ANSWER}</p>
             <p className="mt-4 text-[16px] font-semibold">
               Prices updated <time dateTime={UPDATED_ISO}>{UPDATED_LABEL}</time> · Set by our Rocklea yard team
@@ -528,13 +528,16 @@ export default function ScrapCarPricesBrisbane() {
       </section>
 
       <section className="section-site bg-sand">
-        <div className="container-site grid items-start gap-8 lg:grid-cols-2 lg:gap-14">
+        <div className="container-site">
           <div>
-            <p className="font-heading text-[34px] font-semibold leading-tight text-navy sm:text-[42px]">Get a firm price for your car.</p>
+            <p className="h-section">Get a firm price for your car</p>
             <p className="mt-3 max-w-xl text-[18px]">
               Send the rego, the suburb and a few photos, or call {site.phoneDisplay}. {QUOTE_SPEED}
             </p>
             <div className="mt-5 flex flex-wrap gap-3">
+              <QuoteLink from="price-closing" className="btn-brand">
+                Get a free quote
+              </QuoteLink>
               <a href={site.phoneHref} className="btn-line">
                 <PhoneIcon aria-hidden="true" className="h-5 w-5" />
                 Call {site.phoneDisplay}
@@ -546,9 +549,6 @@ export default function ScrapCarPricesBrisbane() {
                 </a>
               )}
             </div>
-          </div>
-          <div data-quote className="scroll-mt-32">
-            <QuoteForm />
           </div>
         </div>
       </section>

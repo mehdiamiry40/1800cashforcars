@@ -2,7 +2,8 @@ import Image from "next/image";
 import heroPhoto from "@/assets/hero-car-truck-cash.png";
 import { heroCopy } from "@/lib/slides";
 import { QuoteForm } from "./QuoteForm";
-import { CashIcon, PinIcon, TruckIcon } from "./icons";
+import { site } from "@/lib/site";
+import { CashIcon, PhoneIcon, PinIcon, TruckIcon } from "./icons";
 
 export function Hero({
   where,
@@ -30,12 +31,12 @@ export function Hero({
   return (
     <section
       aria-label="Cash for cars and free quote"
-      className="hero-section bg-white text-navy"
+      className="hero-section bg-white text-body"
     >
       <div className="container-site grid items-center gap-5 py-6 sm:gap-7 sm:py-9 lg:grid-cols-[minmax(0,1fr)_420px] lg:gap-10 lg:py-8">
         <div className="min-w-0">
-          <h1 className="hero-heading">{copy.title.replace(/\.$/, "")}</h1>
-          <p className="mt-3 text-[24px] font-medium leading-snug text-brand">
+          <h1 className="hero-heading text-navy">{copy.title.replace(/\.$/, "")}</h1>
+          <p className="mt-3 text-[20px] font-semibold leading-snug text-body">
             {copy.lead}
           </p>
           <Image
@@ -67,9 +68,14 @@ export function Hero({
           data-quote
           className="hero-quote min-w-0 scroll-mt-32 border border-navy/15 border-t-[3px] border-t-brand p-4 sm:p-6"
         >
-          <h2 className="mb-5 text-[25px] font-semibold leading-tight">
-            Get a free quote
-          </h2>
+          {/* Calling is as quick as the form, so the number sits beside the form heading and stays on the first screen on phones. */}
+          <div className="mb-5 flex flex-wrap items-center justify-between gap-x-4 gap-y-3">
+            <h2 className="h-sub">Get a free quote</h2>
+            <a href={site.phoneHref} className="btn-navy hero-call">
+              <PhoneIcon aria-hidden="true" className="h-5 w-5" />
+              Call {site.phoneDisplay}
+            </a>
+          </div>
           <QuoteForm variant="compact" />
         </div>
       </div>

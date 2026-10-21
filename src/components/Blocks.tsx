@@ -1,5 +1,4 @@
 import Image from "next/image";
-import quotePhoto from "@/assets/hero-car-truck-cash.png";
 import Link from "next/link";
 import {
   siAudi,
@@ -29,8 +28,6 @@ import {
   site,
 } from "@/lib/site";
 import { vehicleVisuals } from "@/lib/vehicle-visuals";
-import { ParentBrandLine } from "./ParentBrand";
-import { QuoteForm } from "./QuoteForm";
 import { QuoteLink } from "./QuoteLink";
 import {
   CarIcon,
@@ -70,12 +67,12 @@ export function SectionHead({
       {eyebrow && (
         <p className={`eyebrow mb-3 ${light ? "text-white" : ""}`}>{eyebrow}</p>
       )}
-      <h2 className={`h-section ${light ? "!text-white" : "!text-brand"}`}>
+      <h2 className={`h-section ${light ? "!text-white" : ""}`}>
         {title}
       </h2>
       {intro && (
         <p
-          className={`mt-4 text-[17px] leading-relaxed sm:text-[18px] ${light ? "text-white/80" : ""}`}
+          className={`mt-4 text-[18px] leading-relaxed ${light ? "text-white/80" : ""}`}
         >
           {intro}
         </p>
@@ -137,7 +134,7 @@ export function WhatWeBuy() {
       <div className="container-site">
         <SectionHead
           eyebrow="What we buy"
-          title="Any vehicle. Any condition."
+          title="Cars, utes, vans and trucks we buy"
         />
         <ul className="mt-9 grid gap-5 sm:grid-cols-3">
           {categories.map(({ visual, icon: Icon, title, caption }) => (
@@ -166,14 +163,14 @@ export function WhatWeBuy() {
         <p className="mt-8 text-center">
           <Link
             href="/truck-removal"
-            className="text-[15px] font-semibold text-navy underline underline-offset-4"
+            className="text-[16px] font-semibold text-navy underline underline-offset-4"
           >
             Truck removal
           </Link>
           <span className="mx-3 text-line">|</span>
           <Link
             href="/scrap-car-removal"
-            className="text-[15px] font-semibold text-navy underline underline-offset-4"
+            className="text-[16px] font-semibold text-navy underline underline-offset-4"
           >
             Scrap car removal
           </Link>
@@ -212,7 +209,7 @@ export function ContentBlocks({ blocks }: { blocks: Block[] }) {
                 {b.list.map((l) => (
                   <li
                     key={l.bold}
-                    className="border border-line bg-sand px-3 py-1.5 text-[13px] font-semibold text-navy"
+                    className="border border-line bg-sand px-3 py-1.5 text-[14px] font-semibold text-navy"
                   >
                     {l.bold}
                   </li>
@@ -308,7 +305,7 @@ export function AreasGrid({
             <li key={a.slug}>
               <Link
                 href={areaHref(a)}
-                className="card-site flex h-full flex-col items-center gap-3 px-4 py-5 text-center text-[15px] font-semibold text-navy transition-colors hover:border-brand hover:bg-sand"
+                className="card-site flex h-full flex-col items-center gap-3 px-4 py-5 text-center text-[16px] font-semibold text-navy transition-colors hover:border-brand hover:bg-sand"
               >
                 <PinIcon
                   aria-hidden="true"
@@ -353,7 +350,7 @@ export function Faq({
       <div className={`divide-y divide-line ${bare ? "" : "mt-6"}`}>
         {list.map((f) => (
           <details key={f.q} className="group bg-white px-0 sm:px-5">
-            <summary className="flex cursor-pointer list-none items-center justify-between gap-3 py-4 text-[17px] font-semibold leading-relaxed text-navy sm:text-[20px]">
+            <summary className="flex cursor-pointer list-none items-center justify-between gap-3 py-4 text-[18px] font-semibold leading-relaxed text-navy sm:text-[20px]">
               {f.q}
               <span
                 className="grid h-8 w-8 shrink-0 place-items-center border border-line text-xl font-semibold text-navy transition-transform group-open:rotate-45"
@@ -410,33 +407,6 @@ export function CallUsAndTerms({ stacked = false }: { stacked?: boolean }) {
   );
 }
 
-export function AskForPrice({ compact = false }: { compact?: boolean }) {
-  return (
-    <section className="section-site">
-      <div className="container-site grid gap-8 lg:grid-cols-2 lg:gap-14">
-        <div className="quote-scene relative min-h-72 lg:min-h-[460px]">
-          <Image
-            src={quotePhoto}
-            alt="A tow truck, an old blue car and cash on a white background"
-            fill
-            placeholder="blur"
-            sizes="(min-width: 1024px) 45vw, 90vw"
-            style={{ objectFit: "contain" }}
-            className="object-contain"
-          />
-        </div>
-        <div id="get-price" data-quote className="min-w-0 scroll-mt-32">
-          <h2 className="h-section">
-            <span className="text-brand">Let’s talk</span> about your car.
-          </h2>
-          <p className="mb-6 mt-3">Free quote. Free pickup. No obligation.</p>
-          <QuoteForm variant={compact ? "compact" : "full"} />
-        </div>
-      </div>
-    </section>
-  );
-}
-
 export function ReviewsBand() {
   if (reviews.length === 0 && !site.googleBusinessUrl) return null;
   const googleLink = site.googleBusinessUrl && (
@@ -444,9 +414,15 @@ export function ReviewsBand() {
       Read our reviews on Google
     </a>
   );
-  // Our Google profile is under a different name, so say so before people click through and wonder.
-  const listedAs = site.googleBusinessName && site.googleBusinessName !== site.name && (
-    <>Our Rocklea yard is listed on Google as {site.googleBusinessName}.</>
+  // Our Google profile is under a different name, so say so once, next to the rating, before people click through and wonder.
+  const listedAs = site.googleBusinessName && site.googleBusinessName !== site.name && site.parentUrl && (
+    <p className="mt-2">
+      1800 Cash For Cars is part of{" "}
+      <a href={site.parentUrl} className="font-semibold underline underline-offset-4">
+        {site.googleBusinessName}
+      </a>
+      , and our Rocklea yard is listed on Google under that name.
+    </p>
   );
   const rating = site.googleRating.score && (
     <p className="mt-2 flex flex-wrap items-center gap-x-2 text-[18px] font-semibold text-navy">
@@ -462,8 +438,7 @@ export function ReviewsBand() {
           <div>
             <h2 className="h-content">See what our customers say</h2>
             {rating}
-            <ParentBrandLine className="mt-2" />
-            {listedAs && <p className="mt-2">{listedAs}</p>}
+            {listedAs}
           </div>
           {googleLink}
         </div>
@@ -476,7 +451,7 @@ export function ReviewsBand() {
       <div className="container-site">
         <SectionHead title="Happy sellers" />
         {rating}
-        <ParentBrandLine className="mt-2" />
+        {listedAs}
         <div className="mt-10 grid gap-6 md:grid-cols-3">
           {reviews.slice(0, 3).map((r) => (
             <figure
@@ -495,7 +470,6 @@ export function ReviewsBand() {
         </div>
         {googleLink && (
           <div className="mt-8 text-center">
-            {listedAs && <p className="mb-4">{listedAs}</p>}
             {googleLink}
           </div>
         )}
@@ -543,7 +517,7 @@ export function MakesRow() {
             </li>
           ))}
         </ul>
-        <p className="mx-auto mt-8 max-w-2xl text-center text-[13px] text-body">
+        <p className="mx-auto mt-8 max-w-2xl text-center text-[14px] text-body">
           Logos are trademarks of their owners and only show which vehicles we
           buy. We&apos;re not affiliated with any manufacturer.
         </p>
@@ -557,9 +531,7 @@ export function FinalCta() {
     <section className="section-site bg-navy text-white">
       <div className="container-site grid items-center gap-8 md:grid-cols-[1.4fr_1fr]">
         <div>
-          <h2 className="font-heading text-[34px] font-bold leading-tight sm:text-[42px]">
-            Old car taking up space?
-          </h2>
+          <h2 className="h-section !text-white">Old car taking up space?</h2>
           <p className="mt-3 max-w-lg text-[20px]">
             Get a free quote. We’ll arrange pickup and pay you before your car
             leaves.
