@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { AskForPrice, Faq, FinalCta, HowItWorks, RelatedLinks, ReviewsBand, SectionHead, WhatWeBuy } from "@/components/Blocks";
+import { Faq, FinalCta, HowItWorks, RelatedLinks, ReviewsBand, SectionHead, WhatWeBuy } from "@/components/Blocks";
 import { ArrowIcon, ChevronRight, PinIcon } from "@/components/icons";
 import { Hero } from "@/components/Hero";
 import { Breadcrumbs, JsonLd, ServiceLd } from "@/components/JsonLd";
@@ -47,7 +47,7 @@ export default async function LocationPage({ params }: PageProps<"/locations/[sl
           <div className="max-w-3xl">
             <h2 className="h-section">Selling a car {area.where}</h2>
             <p className="mt-4 text-[18px]">{area.local.intro}</p>
-            <h3 className="mt-8 font-heading text-[22px] font-semibold leading-tight text-navy">Pickup from our Rocklea yard</h3>
+            <h3 className="h-sub mt-8">Pickup from our Rocklea yard</h3>
             <p className="mt-3">{area.local.pickup}</p>
             <ul className="mt-6 space-y-3">
               {area.local.notes.map((n) => (
@@ -56,7 +56,7 @@ export default async function LocationPage({ params }: PageProps<"/locations/[sl
                 </li>
               ))}
             </ul>
-            <h3 className="mt-10 font-heading text-[22px] font-semibold leading-tight text-navy">{area.name} questions</h3>
+            <h3 className="h-sub mt-10">{area.name} questions</h3>
             <div className="mt-4">
               <Faq bare items={area.local.faqs} />
             </div>
@@ -78,7 +78,7 @@ export default async function LocationPage({ params }: PageProps<"/locations/[sl
           <PinIcon aria-hidden="true" className="mx-auto mb-5 h-16 w-16 text-brand" strokeWidth={1.5} />
           <SectionHead title={`Pickup ${area.where}`} intro="Home, work, mechanic or roadside." />
           <details className="group mx-auto mt-6 max-w-3xl border border-line bg-white p-5">
-            <summary className="flex cursor-pointer list-none items-center justify-between gap-3 text-[15px] font-semibold text-navy">View covered suburbs <ChevronRight aria-hidden="true" className="h-4 w-4 text-brand transition-transform group-open:rotate-90" /></summary>
+            <summary className="flex cursor-pointer list-none items-center justify-between gap-3 text-[16px] font-semibold text-navy">View covered suburbs <ChevronRight aria-hidden="true" className="h-4 w-4 text-brand transition-transform group-open:rotate-90" /></summary>
             <ul className="mt-5 flex flex-wrap gap-2.5">
               {area.suburbs.map((s) => <li key={s} className="border border-line bg-sand px-3 py-2 text-[14px]">{s}</li>)}
             </ul>
@@ -88,7 +88,6 @@ export default async function LocationPage({ params }: PageProps<"/locations/[sl
       </section>
 
       <WhatWeBuy />
-      <AskForPrice />
       <ReviewsBand />
       <FinalCta />
     </>

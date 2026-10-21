@@ -36,7 +36,7 @@ export function QuoteLink({ from, className, children, onActivate }: { from: str
 }
 
 // Phone-only bar pinned to the bottom of the screen. Getting a price online is the main action; calling is
-// the small one. It slides away while a quote form is on screen so it never covers the form's buttons.
+// next to it with the number shown. It slides away while a quote form is on screen so it never covers the form's buttons.
 export function StickyQuoteBar() {
   const pathname = usePathname();
   const [formInView, setFormInView] = useState(false);
@@ -60,14 +60,14 @@ export function StickyQuoteBar() {
 
   return (
     <div
-      className={`mobile-actions fixed inset-x-0 bottom-0 z-50 grid grid-cols-2 bg-navy pb-[env(safe-area-inset-bottom)] transition-transform duration-300 md:hidden ${formInView ? "translate-y-full" : ""}`}
+      className={`mobile-actions fixed inset-x-0 bottom-0 z-50 grid grid-cols-[2fr_3fr] bg-navy pb-[env(safe-area-inset-bottom)] transition-transform duration-300 md:hidden ${formInView ? "translate-y-full" : ""}`}
       inert={formInView}
     >
-      <QuoteLink from="mobile-bar" className="flex min-h-14 items-center justify-center bg-navy px-3 py-3 text-[20px] font-bold text-white transition-colors hover:bg-brand-dark">
+      <QuoteLink from="mobile-bar" className="flex min-h-14 items-center justify-center bg-navy px-3 py-3 text-[18px] font-bold text-white transition-colors hover:bg-brand-dark">
         Get a quote
       </QuoteLink>
-      <a href={site.phoneHref} className="flex min-h-14 items-center justify-center gap-1.5 bg-brand px-5 py-3 text-[20px] font-bold text-white">
-        <PhoneIcon aria-hidden="true" className="h-4 w-4" /> Call
+      <a href={site.phoneHref} className="flex min-h-14 items-center justify-center gap-2 bg-brand px-3 py-3 text-[18px] font-bold text-white">
+        <PhoneIcon aria-hidden="true" className="h-4 w-4 shrink-0" /> <span className="whitespace-nowrap">Call {site.phoneDisplay}</span>
       </a>
     </div>
   );

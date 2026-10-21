@@ -4,7 +4,7 @@ import { site } from "./site";
 export function heroCopy(where?: string, override?: { title?: string; lead?: string; sub?: string }) {
   return {
     title: override?.title ?? (where ? `Cash for scrap cars ${where}.` : "Cash for scrap cars."),
-    lead: override?.lead ?? "Any car. Any condition.",
+    lead: override?.lead ?? site.tagline,
     sub:
       override?.sub ??
       (site.maxPayout

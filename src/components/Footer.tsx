@@ -7,7 +7,7 @@ import { MailIcon, PhoneIcon } from "./icons";
 
 export function Footer() {
   return (
-    <footer className="bg-white pb-24 text-navy md:pb-0">
+    <footer className="bg-white pb-24 text-body md:pb-0">
       <div className="bg-navy text-white">
         <div className="container-site flex flex-col items-start justify-between gap-5 py-8 lg:flex-row lg:items-center">
           {site.showEmail && (
@@ -42,7 +42,7 @@ export function Footer() {
               <Link
                 key={n.href}
                 href={n.href}
-                className="inline-flex min-h-11 items-center text-[16px] font-semibold hover:underline hover:decoration-brand hover:underline-offset-4"
+                className="inline-flex min-h-11 items-center text-[16px] font-semibold text-navy hover:underline hover:decoration-brand hover:underline-offset-4"
               >
                 {n.label}
               </Link>

@@ -22,7 +22,7 @@ export default function QuotePage() {
         <div className="md:col-start-1 md:row-start-1">
           <p className="eyebrow">Free quote</p>
           <h1 className="h-page mt-3">
-            <span className="text-brand">Let’s talk</span> about your car.
+            Get a free quote for your car
           </h1>
           <p className="mt-4 text-[18px] sm:mt-5 sm:text-[20px]">
             Tell us what you’ve got and we’ll text or call you with a price,
