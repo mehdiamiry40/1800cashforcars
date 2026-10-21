@@ -88,7 +88,7 @@ export function Header() {
               aria-expanded={open}
               aria-controls="mobile-navigation"
               aria-label="Open menu"
-              className="grid h-11 w-11 place-items-center border border-control"
+              className="grid h-11 w-11 place-items-center border border-line"
             >
               <MenuIcon aria-hidden="true" className="h-6 w-6" />
             </button>

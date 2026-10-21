@@ -6,10 +6,14 @@ import {
   HomeFaq,
   HomeServices,
   PickupSection,
+  ProcessStrip,
   QuoteOptions,
+  SellerSection,
+  SellingAdvice,
+  VehicleGallery,
   WhyChooseSection,
 } from "@/components/HomeSections";
-import { HowItWorks, ReviewsBand } from "@/components/Blocks";
+import { ReviewsBand } from "@/components/Blocks";
 import { JsonLd } from "@/components/JsonLd";
 import { brisbaneSuburbs, faqs, site } from "@/lib/site";
 
@@ -70,10 +74,13 @@ export default function Home() {
       <HomeServices />
       <PickupSection />
       <BrisbaneCashForCars />
-      <HowItWorks />
       <QuoteOptions />
+      <SellerSection />
+      <VehicleGallery />
       <WhyChooseSection />
       <ReviewsBand />
+      <ProcessStrip />
+      <SellingAdvice />
       <HomeFaq items={homeFaqs} />
       <HomeAreas />
     </>

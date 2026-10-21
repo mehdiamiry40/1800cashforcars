@@ -1,28 +1,24 @@
 @import "tailwindcss";
 
 @theme {
-  /* Orange for actions (README brand orange). #c2410c clears WCAG AA with white text and as text on white (5.2:1) at every size. */
-  --color-brand: #c2410c;
+  --color-brand: #e16633;
   /* Darker than brand so 16px white "1800" on the logo clears WCAG AA (4.5:1). */
   --color-logo: #c14a22;
   --color-brand-dark: #1e25a4;
-  --color-brand-light: #c2410c;
-  --color-roo: #c2410c;
-  --color-rust: #c2410c;
+  --color-brand-light: #e16633;
+  --color-roo: #e16633;
+  --color-rust: #e16633;
   --color-sand: #ffffff;
   --color-paper: #ffffff;
-  /* Blue is for headings, links, the logo and solid brand panels. */
   --color-navy: #1e25a4;
   --color-navy-800: #171d84;
   --color-navy-950: #1e25a4;
   --color-money: #1e25a4;
-  /* Body copy, borders and form controls use neutrals so the blue reads as an accent, not as everything. */
-  --color-ink: #2f3742;
-  --color-body: #2f3742;
-  --color-line: #e2e6ea;
-  /* Form field borders: 3:1 against white so inputs stay visible. */
-  --color-control: #8995a3;
-  --color-muted: #5b6472;
+  --color-ink: #1e25a4;
+  --color-body: #1e25a4;
+  --color-line: #1e25a4;
+  --color-control: #1e25a4;
+  --color-muted: #555ab2;
   --font-sans: var(--font-barlow);
   --font-heading: var(--font-barlow);
   --font-display: var(--font-barlow);
@@ -325,10 +321,10 @@ textarea {
   .page-quote {
     padding: 12px;
     background: #f7f8fc;
-    border: 1px solid #e2e6ea;
+    border: 1px solid #dcdfea;
     border-top: 3px solid var(--color-brand);
   }
-  .hero-quote h2,
+  .hero-quote > h2,
   .page-quote > h2 {
     font-size: 22px;
     margin-bottom: 12px;
@@ -378,7 +374,7 @@ textarea {
     align-items: center;
     gap: 16px;
     padding-block: 12px;
-    border-bottom: 1px solid #e2e6ea;
+    border-bottom: 1px solid #dcdfea;
   }
   .service-media {
     width: 96px;
@@ -437,7 +433,7 @@ textarea {
     grid-template-columns: 96px minmax(0, 1fr);
     column-gap: 16px;
     padding-block: 16px;
-    border-bottom: 1px solid #e2e6ea;
+    border-bottom: 1px solid #dcdfea;
   }
   .seller-media,
   .advice-media {
@@ -477,7 +473,7 @@ textarea {
     align-items: center;
     gap: 16px;
     padding-block: 12px;
-    border-bottom: 1px solid #e2e6ea;
+    border-bottom: 1px solid #dcdfea;
   }
   .vehicle-media {
     width: 104px;
