@@ -10,7 +10,8 @@ import { areas } from "@/lib/site";
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return areas.filter((a) => !a.href).map((a) => ({ slug: a.slug }));
+  // Logan and Ipswich have their own routes under /locations, so they are not built here.
+  return areas.filter((a) => !a.href && a.slug !== "logan" && a.slug !== "ipswich").map((a) => ({ slug: a.slug }));
 }
 
 export async function generateMetadata({ params }: PageProps<"/locations/[slug]">): Promise<Metadata> {
@@ -42,7 +43,7 @@ export default async function LocationPage({ params }: PageProps<"/locations/[sl
         areaServed={[`${area.name}, ${area.state}`, ...area.suburbs.map((s) => `${s}, ${area.state}`)]}
       />
       <Hero where={area.where} title={`Cash for cars ${area.where}`} />
-      {area.local && (
+      {area.local?.pickup && area.local.notes && area.local.faqs && (
         <section className="container-site section-site">
           <div className="max-w-3xl">
             <h2 className="h-section">Selling a car {area.where}</h2>

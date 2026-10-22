@@ -1,3 +1,6 @@
+import { ipswichSuburbs } from "./areas/ipswich-suburbs";
+import { loganSuburbs } from "./areas/logan-suburbs";
+
 // Central business details. Edit these values and every page updates.
 export const site = {
   name: "1800-CASH-FOR-CARS",
@@ -53,12 +56,15 @@ export type Area = {
   suburbs: string[];
   /** Overrides the default /locations/<slug> page (Brisbane has dedicated pages). */
   href?: string;
-  /** Local copy for the /locations page, so each area page says something specific to that area. */
+  /**
+   * Short blurb on /locations, plus the older templated area page.
+   * Logan and Ipswich only set `intro` here. Their pages are dedicated routes.
+   */
   local?: {
     intro: string;
-    pickup: string;
-    notes: { bold: string; text: string }[];
-    faqs: { q: string; a: string }[];
+    pickup?: string;
+    notes?: { bold: string; text: string }[];
+    faqs?: { q: string; a: string }[];
   };
 };
 
@@ -99,20 +105,9 @@ export const areas: Area[] = [
     name: "Logan",
     where: "in Logan",
     state: "QLD",
-    suburbs: ["Springwood", "Beenleigh", "Browns Plains", "Shailer Park", "Logan Central", "Slacks Creek", "Jimboomba", "Loganholme"],
+    suburbs: loganSuburbs,
     local: {
-      intro: "We buy unwanted cars across Logan, from Springwood and Slacks Creek to Browns Plains, Beenleigh and Jimboomba. Any make, any condition, with free removal.",
-      pickup: "Logan is just down the road from our Rocklea yard, so pickups are quick, often the same day you accept our price. We collect from your driveway, the street, your work or a mechanic's.",
-      notes: [
-        { bold: "Failed a roadworthy", text: "if the repair quote is more than the car is worth, we'll make you an offer for it as it is." },
-        { bold: "Acreage blocks", text: "a car sitting in a paddock around Jimboomba for years is fine. Tell us how we get to it." },
-        { bold: "Work vehicles", text: "utes, vans and trucks from Logan businesses, one vehicle or several." },
-      ],
-      faqs: [
-        { q: "How fast can you collect a car in Logan?", a: "Logan is close to our yard in Rocklea, so it's often the same day. You choose the time." },
-        { q: "Do you buy cars without rego in Logan?", a: "Yes. We tow it, so it doesn't need rego or a roadworthy. Have your photo ID and proof of ownership ready." },
-        { q: "What if the car is stuck in a backyard?", a: "Tell us when you ask for a price. If a tilt tray can reach it, we can usually winch it on." },
-      ],
+      intro: "We buy scrap, old and damaged cars across all 69 suburbs of Logan, and tow them free from our Rocklea yard.",
     },
   },
   {
@@ -120,20 +115,9 @@ export const areas: Area[] = [
     name: "Ipswich",
     where: "in Ipswich",
     state: "QLD",
-    suburbs: ["Ipswich Central", "Springfield", "Goodna", "Redbank Plains", "Booval", "Rosewood", "Yamanto", "Ripley"],
+    suburbs: ipswichSuburbs,
     local: {
-      intro: "Cash for cars in Ipswich and surrounds: Springfield, Goodna, Redbank Plains, Booval, Yamanto, Ripley and out to Rosewood. Running or not, we pay you and tow it away free.",
-      pickup: "Ipswich is a short drive from our Rocklea yard, so pickups are often the same day and nearly always within a day or two. We collect from homes, workshops and rural properties west of Ipswich.",
-      notes: [
-        { bold: "Older family cars and utes", text: "Commodores, Falcons, Camrys and older utes are still worth something for their parts and metal." },
-        { bold: "Rural properties", text: "cars and old work vehicles on acreage around Rosewood are fine. Tell us about access when you ask for a price." },
-        { bold: "Flood-damaged cars", text: "we buy water-damaged cars as they are. Let us know how high the water came." },
-      ],
-      faqs: [
-        { q: "Do you pick up in Springfield and Ripley?", a: "Yes. We cover Springfield, Ripley and the rest of Greater Ipswich, with free towing." },
-        { q: "Will you buy a flood-damaged car?", a: "Yes. Flood damage lowers the value, but we still pay for the metal and any usable parts." },
-        { q: "How do I get paid in Ipswich?", a: "Cash or bank transfer, your choice, before the car leaves." },
-      ],
+      intro: "We buy unwanted cars across the City of Ipswich, from Springfield and Ripley out to rural Rosewood, and the tow is free.",
     },
   },
   {
