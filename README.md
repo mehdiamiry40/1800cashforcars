@@ -16,12 +16,18 @@ Website for [1800cashforcars.com.au](https://1800cashforcars.com.au): Next.js (A
 - **Visual content**: `src/lib/vehicle-visuals.ts` maps the three white-background category photos to vehicle cards and service-page headers. Keep section summaries brief and use the existing SVG icons. Service blocks have a short `summary` and optional `icon`; their original paragraphs and list explanations remain available in expandable details. Suburb coverage is expandable too, so the main pages stay easy to scan.
 
 ## Quote requests
-Both quote forms post to a server action (`src/app/actions.ts`). It:
-- blocks spam with a honeypot field and a "filled in too fast" check,
+Both quote forms post to `POST /api/quote` (`src/app/api/quote/route.ts`, logic in `src/lib/quote.ts`). It:
+- blocks spam with a honeypot field and a "filled in too fast" check, and drops those quietly (no email, and the page still says thanks),
+- allows 5 complete submissions per IP per 10 minutes, then returns 429 with a short message the form shows,
 - normalises the expected price (`2.5k` becomes `$2,500`),
 - emails the lead via **Resend** (Vercel Marketplace) from `quotes@1800cashforcars.com.au` to `LEAD_TO_EMAIL`,
-- writes every lead to the Vercel function logs (`[lead] …`) as a backup.
+- writes every accepted lead to the Vercel function logs (`[lead] …`) as a backup.
 - retries a failed email once; if it still fails it logs `LEAD NOT DELIVERED` and asks the customer to call or text instead of showing a false "thanks".
+- shows a generic message if something unexpected fails, and keeps the detail in the server logs.
+
+The limiter is an in-memory sliding window. Each serverless instance keeps its own counts, and a cold start clears them. A durable limit would need a store such as Upstash, which is a new service and new environment variables, so it is not connected here.
+
+AutoVal lookup allows 20 requests per IP per 10 minutes, and a valuation allows 5. Both return the same short 429 message. Lookup and valuation failures return a generic message; the underlying error is only logged.
 
 Env vars (Vercel): `RESEND_API_KEY`, `RESEND_EMAIL_DOMAIN` (from the integration), `LEAD_TO_EMAIL` (comma-separate multiple).
 

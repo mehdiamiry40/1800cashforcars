@@ -1,5 +1,6 @@
 import { gateway, generateText, isStepCount, Output } from "ai";
-import { clientIp, rateLimit } from "@/lib/autoval/rate-limit";
+import { AUTOVAL_DETAILS_INVALID, AUTOVAL_VALUATION_FAILED } from "@/lib/autoval/messages";
+import { autovalRateLimitResponse } from "@/lib/autoval/limit";
 import { valuationRequestSchema, valuationSchema, type ValuationRequest } from "@/lib/autoval/valuation";
 
 export const maxDuration = 120;
@@ -54,20 +55,13 @@ function describe(v: ValuationRequest) {
 }
 
 export async function POST(request: Request) {
-  const retryAfter = rateLimit(clientIp(request));
-  if (retryAfter) {
-    return Response.json(
-      { error: `You've run a few valuations already. Please try again in ${Math.ceil(retryAfter / 60)} minutes.` },
-      { status: 429, headers: { "Retry-After": String(retryAfter) } },
-    );
-  }
+  const limited = autovalRateLimitResponse("valuate", request.headers);
+  if (limited) return limited;
 
   const parsed = valuationRequestSchema.safeParse(await request.json().catch(() => null));
   if (!parsed.success) {
-    return Response.json(
-      { error: parsed.error.issues.map((i) => `${i.path.join(".")}: ${i.message}`).join("; ") },
-      { status: 400 },
-    );
+    console.error("[autoval] invalid valuation request", parsed.error.issues);
+    return Response.json({ error: AUTOVAL_DETAILS_INVALID }, { status: 400 });
   }
 
   try {
@@ -84,16 +78,7 @@ export async function POST(request: Request) {
     });
     return Response.json({ valuation: output });
   } catch (err) {
-    console.error("valuation failed", err);
-    const message = (err as Error).message ?? "Valuation failed";
-    const auth = /api key|unauthori[sz]ed|401|authentication/i.test(message);
-    return Response.json(
-      {
-        error: auth
-          ? "AI isn't configured: set AI_GATEWAY_API_KEY in .env.local (or run `vercel env pull` on a linked project)."
-          : `Valuation failed: ${message}`,
-      },
-      { status: auth ? 503 : 502 },
-    );
+    console.error("[autoval] valuation failed", err);
+    return Response.json({ error: AUTOVAL_VALUATION_FAILED }, { status: 502 });
   }
 }

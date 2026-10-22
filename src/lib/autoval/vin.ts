@@ -1,3 +1,4 @@
+import { PublicError } from "@/lib/public-error";
 import type { LookupResult, VehicleDetails } from "./types";
 
 const VIN_RE = /^[A-HJ-NPR-Z0-9]{17}$/;
@@ -61,7 +62,7 @@ const titleCase = (s?: string) =>
 export async function decodeVin(rawVin: string): Promise<LookupResult> {
   const vin = normaliseVin(rawVin);
   if (!isValidVin(vin)) {
-    throw new Error(
+    throw new PublicError(
       "A VIN is 17 characters (letters and numbers, no I, O or Q). Older Japanese imports use a shorter chassis number — enter details manually instead.",
     );
   }
@@ -74,7 +75,7 @@ export async function decodeVin(rawVin: string): Promise<LookupResult> {
       `https://vpic.nhtsa.dot.gov/api/vehicles/DecodeVinValues/${vin}?format=json`,
       { signal: AbortSignal.timeout(10_000) },
     );
-    if (!res.ok) throw new Error(`vPIC returned ${res.status}`);
+    if (!res.ok) throw new Error("vPIC request failed");
     const data = (await res.json()) as { Results?: VpicResult[] };
     const r = data.Results?.[0];
     if (r) {
@@ -95,7 +96,8 @@ export async function decodeVin(rawVin: string): Promise<LookupResult> {
       } satisfies VehicleDetails);
     }
   } catch (err) {
-    notes.push(`VIN database unavailable (${(err as Error).message}); only the model year was decoded.`);
+    console.error("[autoval] vin decode failed", err);
+    notes.push("VIN database unavailable; only the model year was decoded.");
   }
 
   if (!vehicle.model) {
