@@ -150,7 +150,17 @@ export default function CarRemovalBrisbane() {
 
       <div className="mt-12">
         <h2 className="h-content">Brisbane suburbs we cover</h2>
-        <p className="mt-3">Brisbane, plus Logan and Ipswich. Select a region for suburbs.</p>
+        <p className="mt-3">
+          Brisbane, plus Logan and Ipswich. Select a region for suburbs. Southside pickups continue{" "}
+          <Link href="/locations/logan" className="font-semibold text-navy underline underline-offset-2">
+            heading south into Logan
+          </Link>
+          . From Oxley, Darra, Inala and Forest Lake we also collect{" "}
+          <Link href="/locations/ipswich" className="font-semibold text-navy underline underline-offset-2">
+            further west into Ipswich
+          </Link>
+          .
+        </p>
         <BrisbaneSuburbs narrow />
       </div>
 
