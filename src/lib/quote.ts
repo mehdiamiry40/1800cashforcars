@@ -1,6 +1,7 @@
 import { Resend } from "resend";
 import { site } from "@/lib/site";
 import type { QuoteState } from "@/lib/quote-state";
+import { insertQuoteSubmission, type QuoteLead } from "@/lib/quote-store";
 import { QUOTE_LIMIT, clientIp, rateLimit, type HeaderSource } from "@/lib/rate-limit";
 
 export type QuoteResult = {
@@ -60,7 +61,7 @@ export async function processQuote(formData: FormData, headerSource: HeaderSourc
 
     const lead = Object.fromEntries(
       FIELDS.map(([key]) => [key, String(formData.get(key) ?? "").trim().slice(0, 2000)]),
-    ) as Record<(typeof FIELDS)[number][0], string>;
+    ) as QuoteLead;
 
     lead.expected = formatPrice(lead.expected);
 
@@ -80,6 +81,13 @@ export async function processQuote(formData: FormData, headerSource: HeaderSourc
     if (decision.limited) {
       console.warn("[lead] rate limited", ip);
       return { ok: false, message: QUOTE_RATE_LIMIT_MESSAGE, status: 429, retryAfter: decision.retryAfter };
+    }
+
+    // Honeypot, timing, validation and the rate limit have all passed. A failed insert must not block the email.
+    try {
+      await insertQuoteSubmission(lead, headerSource.get("user-agent"));
+    } catch (err) {
+      console.error("[lead] supabase insert failed", err);
     }
 
     const subject = `New quote request: ${lead.vehicle.split("\n")[0].slice(0, 60)}${lead.description ? ` (${lead.description.split("\n")[0].slice(0, 40)})` : ""}${lead.address ? ` — ${lead.address}` : ""}${lead.expected ? ` — wants ${lead.expected}` : ""}`;
