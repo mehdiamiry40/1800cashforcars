@@ -2,14 +2,14 @@ import type { Metadata } from "next";
 import { QuoteForm } from "@/components/QuoteForm";
 import { Breadcrumbs } from "@/components/JsonLd";
 import { CheckIcon, PhoneIcon } from "@/components/icons";
-import { site } from "@/lib/site";
+import { pageOpenGraph, site } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Get a Free Cash Offer For Your Car",
   description:
     "Tell us about your car and get a free, no-obligation cash offer by text, usually within the hour. Free removal and paid on pickup.",
   alternates: { canonical: "/quote" },
-  openGraph: { url: "/quote" },
+  openGraph: pageOpenGraph("/quote"),
   // Same form as /contact-us; keep only the contact page in search results so the two don't compete.
   robots: { index: false, follow: true },
 };

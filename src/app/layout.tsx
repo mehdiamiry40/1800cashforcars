@@ -22,6 +22,8 @@ export const metadata: Metadata = {
     "Cash for scrap, old, broken and unwanted cars across Brisbane, the Gold Coast and South East QLD. Any condition, free towing, paid on pickup. Free quote, usually within the hour.",
   // No og:url or canonical here. A site-wide URL would mark every page, including 404s, as the homepage.
   // Each page sets its own canonical and openGraph.url.
+  // Pages that set their own openGraph must use pageOpenGraph(). Next.js replaces
+  // this object instead of merging it, which would drop og:site_name.
   openGraph: {
     type: "website",
     locale: "en_AU",
@@ -96,23 +98,11 @@ const jsonLd = {
   knowsAbout: ["Cash for cars", "Car removal", "Scrap car removal", "Car wreckers", "Truck removal"],
 };
 
-// Helps Google show the brand name (not the domain) above results.
-const websiteLd = {
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "@id": `${site.url}/#website`,
-  name: site.name,
-  alternateName: "1800 Cash For Cars",
-  url: site.url,
-  publisher: { "@id": `${site.url}/#business` },
-};
-
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en-AU" className={`${barlow.variable} antialiased`}>
       <body className="flex min-h-screen flex-col font-sans">
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }} />
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteLd).replace(/</g, "\\u003c") }} />
         <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-3 focus:top-3 focus:z-[60] focus:bg-white focus:px-4 focus:py-2 focus:font-semibold focus:text-ink">Skip to content</a>
         <Header />
         <main id="main" className="flex-1">{children}</main>

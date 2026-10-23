@@ -3,14 +3,14 @@ import Link from "next/link";
 import { BrisbaneSuburbs, ContentBlocks, Faq, RelatedLinks } from "@/components/Blocks";
 import { JsonLd } from "@/components/JsonLd";
 import { PageShell } from "@/components/PageShell";
-import { brisbaneSuburbs, site } from "@/lib/site";
+import { brisbaneSuburbs, pageOpenGraph, site } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: { absolute: "Car Removal Brisbane | Free Pickup, Cash Paid | 1800-CASH-FOR-CARS" },
+  title: "Car Removal Brisbane | Free Pickup, Cash Paid",
   description:
     "Free car removal Brisbane wide. We pick up scrap, old and unwanted cars, pay you before they leave and tow them free. Same-day pickups from our Rocklea yard.",
   alternates: { canonical: "/car-removal-brisbane" },
-  openGraph: { url: "/car-removal-brisbane" },
+  openGraph: pageOpenGraph("/car-removal-brisbane"),
 };
 
 const faqs = [

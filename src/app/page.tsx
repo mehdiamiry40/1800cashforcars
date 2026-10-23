@@ -15,16 +15,17 @@ import {
 } from "@/components/HomeSections";
 import { ReviewsBand } from "@/components/Blocks";
 import { JsonLd } from "@/components/JsonLd";
-import { brisbaneSuburbs, faqs, site } from "@/lib/site";
+import { brisbaneSuburbs, faqs, pageOpenGraph, site } from "@/lib/site";
 
 export const metadata: Metadata = {
+  // The home page shares the root layout's route segment, so the title template does not apply here.
   title: {
     absolute: "Cash for Cars Brisbane | Free Car Removal | 1800-CASH-FOR-CARS",
   },
   description:
     "Cash for cars Brisbane: we buy scrap, old and unwanted cars in any condition. Paid on pickup, free car removal, often same day, from our local Rocklea yard.",
   alternates: { canonical: "/" },
-  openGraph: { url: "/" },
+  openGraph: pageOpenGraph("/"),
 };
 
 // Brisbane questions first, then the general ones.
@@ -39,6 +40,17 @@ const homeFaqs = [
   },
   ...faqs,
 ];
+
+// Home page only. Google reads this WebSite node for the site name on every result.
+const websiteLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": `${site.url}/#website`,
+  name: site.name,
+  alternateName: ["1800 Cash For Cars", site.domain],
+  url: `${site.url}/`,
+  publisher: { "@id": `${site.url}/#business` },
+};
 
 const faqLd = {
   "@context": "https://schema.org",
@@ -68,6 +80,7 @@ const serviceLd = {
 export default function Home() {
   return (
     <>
+      <JsonLd data={websiteLd} />
       <JsonLd data={faqLd} />
       <JsonLd data={serviceLd} />
       <Hero title="Cash for cars Brisbane." />

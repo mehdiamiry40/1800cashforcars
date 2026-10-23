@@ -7,7 +7,7 @@ import { Breadcrumbs, JsonLd } from "@/components/JsonLd";
 import { QuoteLink } from "@/components/QuoteLink";
 import { areaServiceGraph } from "@/lib/area-schema";
 import { loganSuburbGroups, loganSuburbLabel, loganSuburbs } from "@/lib/areas/logan-suburbs";
-import { site } from "@/lib/site";
+import { pageOpenGraph, site } from "@/lib/site";
 
 const PATH = "/locations/logan";
 const PRICE = "/scrap-car-prices-brisbane";
@@ -58,10 +58,10 @@ const faqs = [
 ];
 
 export const metadata: Metadata = {
-  title: { absolute: "Cash for Cars Logan | Free Car Removal, Any Condition" },
+  title: "Cash for Cars Logan | Free Car Removal, Any Condition",
   description: DESCRIPTION,
   alternates: { canonical: PATH },
-  openGraph: { url: PATH },
+  openGraph: pageOpenGraph(PATH),
 };
 
 export default function LoganLocationPage() {

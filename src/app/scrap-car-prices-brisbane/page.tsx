@@ -7,7 +7,7 @@ import { ParentBrandLine } from "@/components/ParentBrand";
 import { QuoteForm } from "@/components/QuoteForm";
 import { QuoteLink } from "@/components/QuoteLink";
 import { ArrowIcon, PhoneIcon, SmsIcon } from "@/components/icons";
-import { site } from "@/lib/site";
+import { pageOpenGraph, site } from "@/lib/site";
 import { servicePhotos } from "@/lib/vehicle-visuals";
 
 const PATH = "/scrap-car-prices-brisbane";
@@ -21,10 +21,10 @@ const DIRECT_ANSWER =
 const QUOTE_SPEED = "Quotes often come back in minutes, sometimes in under a minute.";
 
 export const metadata: Metadata = {
-  title: { absolute: "Scrap Car Prices Brisbane 2026 | 1800-CASH-FOR-CARS" },
+  title: "Scrap Car Prices Brisbane 2026",
   description: DESCRIPTION,
   alternates: { canonical: PATH },
-  openGraph: { url: PATH },
+  openGraph: pageOpenGraph(PATH),
 };
 
 const priceRows: { vehicle: string; price: string }[] = [

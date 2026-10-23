@@ -42,7 +42,7 @@ export const pages: ContentPage[] = [
     slug: "cash-for-cars",
     intro: "Sell any car or work vehicle. Free pickup, paid on collection.",
     title: "Cash for cars",
-    metaTitle: "Sell Your Car for Cash in QLD | How It Works | 1800-CASH-FOR-CARS",
+    metaTitle: "Sell Your Car for Cash in QLD | How It Works",
     description:
       "Sell your car for cash. We buy cars, utes, vans, 4WDs and trucks in any condition across Brisbane, the Gold Coast and SEQ. Free pickup, paid on the day.",
     blocks: [
@@ -129,7 +129,7 @@ export const pages: ContentPage[] = [
     slug: "services",
     intro: "Cars, scrap and work vehicles. Quote, pickup, payment.",
     title: "Our services",
-    metaTitle: "Car Removal & Cash For Cars Services | 1800-CASH-FOR-CARS",
+    metaTitle: "Car Removal & Cash For Cars Services",
     description:
       "Cash for cars, free car removal, scrap car removal, car wrecking, truck removal and car disposal across Brisbane, the Gold Coast and South East Queensland.",
     blocks: [
