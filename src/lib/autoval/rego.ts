@@ -1,7 +1,14 @@
+import { PublicError } from "@/lib/public-error";
 import { AU_STATES, type AuState, type LookupResult, type VehicleDetails } from "./types";
 import { stripUndefined } from "./vin";
 
-export class RegoLookupUnavailableError extends Error {}
+export class RegoLookupUnavailableError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = "RegoLookupUnavailableError";
+    Object.setPrototypeOf(this, new.target.prototype);
+  }
+}
 
 export function normaliseRego(raw: string) {
   return raw.toUpperCase().replace(/[^A-Z0-9]/g, "");
@@ -25,8 +32,8 @@ function text(v: unknown): string | undefined {
  */
 export async function lookupRego(rawRego: string, state: string): Promise<LookupResult> {
   const rego = normaliseRego(rawRego);
-  if (rego.length < 2 || rego.length > 9) throw new Error("Enter a valid Australian number plate.");
-  if (!isAuState(state)) throw new Error("Choose the state the car is registered in.");
+  if (rego.length < 2 || rego.length > 9) throw new PublicError("Enter a valid Australian number plate.");
+  if (!isAuState(state)) throw new PublicError("Choose the state the car is registered in.");
 
   const username = process.env.REGO_API_USERNAME;
   if (!username) {
@@ -43,15 +50,15 @@ export async function lookupRego(rawRego: string, state: string): Promise<Lookup
   const res = await fetch(url, { signal: AbortSignal.timeout(15_000) });
   const body = await res.text();
   if (!res.ok) {
-    throw new Error(
-      res.status === 500 && /not found|no result/i.test(body)
-        ? `No vehicle found for ${rego} in ${state}.`
-        : `Rego service error (${res.status}).`,
-    );
+    console.error("[autoval] rego service error", res.status);
+    if (res.status === 500 && /not found|no result/i.test(body)) {
+      throw new PublicError(`No vehicle found for ${rego} in ${state}.`);
+    }
+    throw new Error("rego service failed");
   }
 
   const match = body.match(/<vehicleJson>([\s\S]*?)<\/vehicleJson>/);
-  if (!match) throw new Error(`No vehicle found for ${rego} in ${state}.`);
+  if (!match) throw new PublicError(`No vehicle found for ${rego} in ${state}.`);
   const json = JSON.parse(decodeXmlEntities(match[1])) as Record<string, unknown>;
 
   const vehicle: VehicleDetails = stripUndefined({

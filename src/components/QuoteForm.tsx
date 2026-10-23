@@ -3,8 +3,8 @@
 import { track } from "@vercel/analytics";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useActionState, useEffect, useRef } from "react";
-import { submitQuote, type QuoteState } from "@/app/actions";
+import { useEffect, useRef, useState, type FormEvent } from "react";
+import type { QuoteState } from "@/lib/quote-state";
 import { site } from "@/lib/site";
 import { Roo } from "./Roo";
 import { ArrowIcon } from "./icons";
@@ -18,7 +18,8 @@ export function QuoteForm({
   variant?: "full" | "compact";
   defaults?: { vehicle?: string; description?: string };
 }) {
-  const [state, action, pending] = useActionState<QuoteState, FormData>(submitQuote, null);
+  const [state, setState] = useState<QuoteState>(null);
+  const [pending, setPending] = useState(false);
   const pathname = usePathname();
   const full = variant === "full";
 
@@ -32,6 +33,35 @@ export function QuoteForm({
   const onInput = () => {
     if (elapsed.current && mountedAt.current) elapsed.current.value = String(Math.round(performance.now() - mountedAt.current));
   };
+
+  const sending = useRef(false);
+  async function onSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (sending.current) return;
+    sending.current = true;
+    setPending(true);
+    const body = new FormData(event.currentTarget);
+    try {
+      const res = await fetch("/api/quote", { method: "POST", body });
+      const data = (await res.json().catch(() => null)) as QuoteState | null;
+      if (!data || typeof data.ok !== "boolean" || typeof data.message !== "string") {
+        setState({
+          ok: false,
+          message: `Sorry, something went wrong. Please call or text ${site.phoneDisplay} and we'll give you a price straight away.`,
+        });
+        return;
+      }
+      setState({ ok: data.ok, message: data.message, lead: data.lead });
+    } catch {
+      setState({
+        ok: false,
+        message: `Sorry, something went wrong. Please call or text ${site.phoneDisplay} and we'll give you a price straight away.`,
+      });
+    } finally {
+      sending.current = false;
+      setPending(false);
+    }
+  }
 
   useEffect(() => {
     if (!state?.ok || !state.lead) return;
@@ -73,7 +103,7 @@ export function QuoteForm({
   const input = "field";
 
   return (
-    <form action={action} onInput={onInput} className="quote-form grid gap-3">
+    <form action="/api/quote" method="POST" onSubmit={onSubmit} onInput={onInput} className="quote-form grid gap-3">
       <input type="text" name="company" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden />
       <input type="hidden" name="page" value={pathname} />
       <input type="hidden" name="e" ref={elapsed} defaultValue="" />
