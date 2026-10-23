@@ -7,7 +7,7 @@ import { useEffect, useRef, useState, type FormEvent } from "react";
 import type { QuoteState } from "@/lib/quote-state";
 import { site } from "@/lib/site";
 import { Roo } from "./Roo";
-import { ArrowIcon } from "./icons";
+import { ArrowIcon, PhoneIcon } from "./icons";
 
 // One short form: the car, then how to reach you, then a single submit button.
 // `defaults` pre-fills the car fields, e.g. from an AutoVal valuation.
@@ -103,6 +103,7 @@ export function QuoteForm({
   const input = "field";
 
   return (
+    <div className="grid gap-3">
     <form action="/api/quote" method="POST" onSubmit={onSubmit} onInput={onInput} className="quote-form grid gap-3">
       <input type="text" name="company" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden />
       <input type="hidden" name="page" value={pathname} />
@@ -157,6 +158,17 @@ export function QuoteForm({
         <Link href="/privacy" className="inline-flex min-h-6 items-center underline">Privacy</Link>
       </p>
     </form>
+    <CallQuoteButton />
+    </div>
+  );
+}
+
+function CallQuoteButton() {
+  return (
+    <a href={site.phoneHref} className="btn-line quote-call">
+      <PhoneIcon aria-hidden="true" className="h-5 w-5" />
+      Call {site.phoneDisplay}
+    </a>
   );
 }
 
