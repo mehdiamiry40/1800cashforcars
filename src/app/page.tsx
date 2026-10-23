@@ -18,8 +18,10 @@ import { JsonLd } from "@/components/JsonLd";
 import { brisbaneSuburbs, faqs, pageOpenGraph, site } from "@/lib/site";
 
 export const metadata: Metadata = {
-  // Layout template appends " | 1800-CASH-FOR-CARS".
-  title: "Cash for Cars Brisbane | Free Car Removal",
+  // The home page shares the root layout's route segment, so the title template does not apply here.
+  title: {
+    absolute: "Cash for Cars Brisbane | Free Car Removal | 1800-CASH-FOR-CARS",
+  },
   description:
     "Cash for cars Brisbane: we buy scrap, old and unwanted cars in any condition. Paid on pickup, free car removal, often same day, from our local Rocklea yard.",
   alternates: { canonical: "/" },
