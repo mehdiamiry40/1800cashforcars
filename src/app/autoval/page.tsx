@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Breadcrumbs } from "@/components/JsonLd";
 import { Roo } from "@/components/Roo";
 import { CheckIcon } from "@/components/icons";
+import { pageOpenGraph } from "@/lib/site";
 import { AutoValuer } from "./AutoValuer";
 
 export const metadata: Metadata = {
@@ -10,7 +11,7 @@ export const metadata: Metadata = {
   description:
     "Find out what your car is worth in about a minute. Enter your rego or VIN. AutoVal checks live Australian listings for trade-in, private and dealer prices.",
   alternates: { canonical: "/autoval" },
-  openGraph: { url: "/autoval" },
+  openGraph: pageOpenGraph("/autoval"),
 };
 
 export default function AutoValPage() {

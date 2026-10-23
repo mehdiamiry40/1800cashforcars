@@ -7,7 +7,7 @@ import { Breadcrumbs, JsonLd } from "@/components/JsonLd";
 import { QuoteLink } from "@/components/QuoteLink";
 import { areaServiceGraph } from "@/lib/area-schema";
 import { ipswichSuburbGroups, ipswichSuburbs } from "@/lib/areas/ipswich-suburbs";
-import { site } from "@/lib/site";
+import { pageOpenGraph, site } from "@/lib/site";
 
 const PATH = "/locations/ipswich";
 const PRICE = "/scrap-car-prices-brisbane";
@@ -59,10 +59,10 @@ const faqs = [
 ];
 
 export const metadata: Metadata = {
-  title: { absolute: "Cash for Cars Ipswich & Car Removal Ipswich | Free Towing" },
+  title: "Cash for Cars Ipswich & Car Removal Ipswich | Free Towing",
   description: DESCRIPTION,
   alternates: { canonical: PATH },
-  openGraph: { url: PATH },
+  openGraph: pageOpenGraph(PATH),
 };
 
 export default function IpswichLocationPage() {

@@ -7,7 +7,7 @@ import { JsonLd, ServiceLd } from "@/components/JsonLd";
 import { PageShell } from "@/components/PageShell";
 import type { RooProps } from "@/components/Roo";
 import { pages } from "@/lib/content";
-import { areas } from "@/lib/site";
+import { areas, pageOpenGraph } from "@/lib/site";
 
 export const dynamicParams = false;
 
@@ -69,10 +69,10 @@ export async function generateMetadata({
   const p = pages.find((x) => x.slug === page);
   if (!p) return {};
   return {
-    title: { absolute: p.metaTitle },
+    title: p.metaTitle,
     description: p.description,
     alternates: { canonical: `/${p.slug}` },
-    openGraph: { url: `/${p.slug}` },
+    openGraph: pageOpenGraph(`/${p.slug}`),
   };
 }
 

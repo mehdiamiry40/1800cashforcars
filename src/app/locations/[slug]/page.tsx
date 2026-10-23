@@ -5,7 +5,7 @@ import { AskForPrice, Faq, FinalCta, HowItWorks, RelatedLinks, ReviewsBand, Sect
 import { ArrowIcon, ChevronRight, PinIcon } from "@/components/icons";
 import { Hero } from "@/components/Hero";
 import { Breadcrumbs, JsonLd, ServiceLd } from "@/components/JsonLd";
-import { areas } from "@/lib/site";
+import { areas, pageOpenGraph } from "@/lib/site";
 
 export const dynamicParams = false;
 
@@ -19,11 +19,11 @@ export async function generateMetadata({ params }: PageProps<"/locations/[slug]"
   const area = areas.find((a) => a.slug === slug);
   if (!area) return {};
   return {
-    // Under ~60 characters so Google shows it whole; the area name once is enough.
-    title: { absolute: `Cash for Cars ${area.name} | Free Car Removal, Paid on Pickup` },
+    // Root layout appends " | 1800-CASH-FOR-CARS". The area name appears once.
+    title: `Cash for Cars ${area.name} | Free Car Removal, Paid on Pickup`,
     description: `Sell your car for cash ${area.where}, ${area.state}. Free car removal in ${area.suburbs.slice(0, 3).join(", ")} and surrounds. Any condition, paid on pickup.`,
     alternates: { canonical: `/locations/${area.slug}` },
-    openGraph: { url: `/locations/${area.slug}` },
+    openGraph: pageOpenGraph(`/locations/${area.slug}`),
   };
 }
 

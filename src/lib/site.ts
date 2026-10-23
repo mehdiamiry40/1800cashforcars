@@ -44,6 +44,17 @@ export const site = {
   },
 };
 
+// Next.js shallow-merges metadata, so a page that sets `openGraph` replaces the
+// root object and drops og:site_name. Every route should use this helper.
+export function pageOpenGraph(path: string) {
+  return {
+    type: "website" as const,
+    locale: "en_AU",
+    siteName: site.name,
+    url: path,
+  };
+}
+
 // Real customer reviews only (e.g. copied from your Google Business profile with permission).
 // While this is empty the reviews band shows "why choose us" cards instead.
 export const reviews: { name: string; text: string; suburb?: string }[] = [];

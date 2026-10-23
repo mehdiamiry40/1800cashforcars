@@ -3,14 +3,14 @@ import Link from "next/link";
 import { BrisbaneSuburbs, CallUsAndTerms } from "@/components/Blocks";
 import { ArrowIcon, PinIcon } from "@/components/icons";
 import { PageShell } from "@/components/PageShell";
-import { areaHref, areas } from "@/lib/site";
+import { areaHref, areas, pageOpenGraph } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: { absolute: "Areas We Cover | Cash for Cars & Car Removal SEQ" },
+  title: "Areas We Cover | Cash for Cars & Car Removal SEQ",
   description:
     "We buy cars and offer free car removal across Brisbane, the Gold Coast, Logan, Ipswich, the Sunshine Coast and Tweed Heads. Find your area and suburbs.",
   alternates: { canonical: "/locations" },
-  openGraph: { url: "/locations" },
+  openGraph: pageOpenGraph("/locations"),
 };
 
 // Brisbane has no `local` copy (it has dedicated pages), so it gets its own blurb here.
