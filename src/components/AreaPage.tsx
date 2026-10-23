@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import heroPhoto from "@/assets/hero-car-truck-cash.png";
+import type { CopySection } from "@/lib/copy";
 import { QuoteForm } from "./QuoteForm";
 import { QuoteLink } from "./QuoteLink";
 
@@ -48,6 +49,34 @@ export function RichText({ text, links = [] }: { text: string; links?: { phrase:
         );
       })}
     </>
+  );
+}
+
+export function CopySections({ sections }: { sections: CopySection[] }) {
+  return (
+    <div className="mt-10 space-y-10">
+      {sections.map((section) => (
+        <section key={section.heading}>
+          <h2 className="h-content">{section.heading}</h2>
+          <div className="prose-site text-[18px]">
+            {section.paragraphs.map((paragraph, index) => (
+              <p key={`${section.heading}-${index}`}>
+                <RichText text={paragraph.text} links={paragraph.links} />
+              </p>
+            ))}
+            {section.list ? (
+              <ul className="mt-4 space-y-3">
+                {section.list.map((item) => (
+                  <li key={item.bold}>
+                    <b className="text-navy">{item.bold}.</b> <RichText text={item.text} links={item.links} />
+                  </li>
+                ))}
+              </ul>
+            ) : null}
+          </div>
+        </section>
+      ))}
+    </div>
   );
 }
 

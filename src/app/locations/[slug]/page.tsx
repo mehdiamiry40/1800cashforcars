@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { CopySections, TextCta } from "@/components/AreaPage";
 import { AskForPrice, Faq, FinalCta, HowItWorks, RelatedLinks, ReviewsBand, SectionHead, WhatWeBuy } from "@/components/Blocks";
 import { ArrowIcon, ChevronRight, PinIcon } from "@/components/icons";
 import { Hero } from "@/components/Hero";
@@ -43,21 +44,14 @@ export default async function LocationPage({ params }: PageProps<"/locations/[sl
         areaServed={[`${area.name}, ${area.state}`, ...area.suburbs.map((s) => `${s}, ${area.state}`)]}
       />
       <Hero where={area.where} title={`Cash for cars ${area.where}`} />
-      {area.local?.pickup && area.local.notes && area.local.faqs && (
+      {area.local?.sections && area.local.faqs && (
         <section className="container-site section-site">
           <div className="max-w-3xl">
-            <h2 className="h-section">Selling a car {area.where}</h2>
-            <p className="mt-4 text-[18px]">{area.local.intro}</p>
-            <h3 className="mt-8 font-heading text-[22px] font-semibold leading-tight text-navy">Pickup from our Rocklea yard</h3>
-            <p className="mt-3">{area.local.pickup}</p>
-            <ul className="mt-6 space-y-3">
-              {area.local.notes.map((n) => (
-                <li key={n.bold}>
-                  <strong className="text-navy">{n.bold}:</strong> {n.text}
-                </li>
-              ))}
-            </ul>
-            <h3 className="mt-10 font-heading text-[22px] font-semibold leading-tight text-navy">{area.name} questions</h3>
+            <h2 className="h-content">Selling a car {area.where}</h2>
+            <p className="mt-4 text-[18px] leading-relaxed">{area.local.intro}</p>
+            <CopySections sections={area.local.sections} />
+            {area.local.cta ? <TextCta from={area.local.cta.from}>{area.local.cta.text}</TextCta> : null}
+            <h2 className="h-content mt-12">{area.name} questions</h2>
             <div className="mt-4">
               <Faq bare items={area.local.faqs} />
             </div>

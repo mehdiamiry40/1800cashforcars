@@ -29,6 +29,7 @@ import {
   site,
 } from "@/lib/site";
 import { vehicleVisuals } from "@/lib/vehicle-visuals";
+import { RichText } from "./AreaPage";
 import { ParentBrandLine } from "./ParentBrand";
 import { QuoteForm } from "./QuoteForm";
 import { QuoteLink } from "./QuoteLink";
@@ -344,7 +345,7 @@ export function Faq({
 }: {
   bare?: boolean;
   limit?: number;
-  items?: { q: string; a: string }[];
+  items?: { q: string; a: string; links?: { phrase: string; href: string }[] }[];
 }) {
   const list = limit ? items.slice(0, limit) : items;
   return (
@@ -363,7 +364,7 @@ export function Faq({
               </span>
             </summary>
             <p className="pb-4 text-[16px] sm:pb-5 sm:pr-6 sm:text-[18px]">
-              {f.a}
+              <RichText text={f.a} links={"links" in f ? f.links : undefined} />
             </p>
           </details>
         ))}
