@@ -18,7 +18,7 @@ import {
   buildContentSecurityPolicy,
   missingScriptHashes,
 } from "../src/lib/csp-policy";
-import { requiredScriptHashes } from "../src/lib/csp-inline";
+import { requiredScriptHashes, stripPreviewToolbar } from "../src/lib/csp-inline";
 
 const root = process.cwd();
 const nextDir = path.join(root, ".next");
@@ -186,6 +186,27 @@ async function main() {
         }
       }
     }
+  }
+
+  const toolbarFiles: string[] = [];
+  await walk(nextDir, async (file) => {
+    if (!file.endsWith(".js") && !file.endsWith(".html")) return;
+    const body = await readFile(file, "utf8");
+    if (!body.includes("vercel.live/_next-live/feedback/feedback.js")) return;
+    let stripped: string;
+    try {
+      stripped = stripPreviewToolbar(body);
+    } catch (err) {
+      fail(`${path.relative(root, file)}: ${err instanceof Error ? err.message : String(err)}`);
+    }
+    if (stripped !== body) {
+      await writeFile(file, stripped);
+      toolbarFiles.push(path.relative(root, file));
+    }
+  });
+  if (toolbarFiles.length) {
+    console.log(`CSP: removed the preview-only Vercel toolbar injection from ${toolbarFiles.length} file(s)`);
+    for (const file of toolbarFiles) console.log(`  ${file}`);
   }
 
   const headerBytes = Buffer.byteLength(policy);

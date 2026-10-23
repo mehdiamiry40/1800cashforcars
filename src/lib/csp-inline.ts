@@ -92,3 +92,21 @@ export function requiredScriptHashes(html: string): string[] {
 export function uncoveredInlineScripts(html: string, policy: string): string[] {
   return missingScriptHashes(policy, requiredScriptHashes(html));
 }
+
+const PREVIEW_TOOLBAR_URL = "https://vercel.live/_next-live/feedback/feedback.js";
+
+/**
+ * Vercel injects this into preview client bundles. The public site never loads it,
+ * and the CSP does not allow vercel.live. Remove the known injection. If the URL
+ * remains, the build must fail instead of shipping a script the policy will block.
+ */
+const PREVIEW_TOOLBAR_INJECTION =
+  /var \w+=document\.createElement\("script"\);\w+\.src="https:\/\/vercel\.live\/_next-live\/feedback\/feedback\.js",\w+\.setAttribute\("data-deployment-id",globalThis\.NEXT_DEPLOYMENT_ID\),\(document\.head\|\|document\.documentElement\)\.appendChild\(\w+\)/g;
+
+export function stripPreviewToolbar(source: string): string {
+  const code = source.replace(PREVIEW_TOOLBAR_INJECTION, "void 0");
+  if (code.includes(PREVIEW_TOOLBAR_URL)) {
+    throw new Error("unrecognized Vercel preview toolbar injection still references vercel.live");
+  }
+  return code;
+}

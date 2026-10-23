@@ -1,6 +1,12 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
-import { inlineScripts, requiredScriptHashes, sha256Source, uncoveredInlineScripts } from "../src/lib/csp-inline";
+import {
+  inlineScripts,
+  requiredScriptHashes,
+  sha256Source,
+  stripPreviewToolbar,
+  uncoveredInlineScripts,
+} from "../src/lib/csp-inline";
 import {
   CSP_HASH_PLACEHOLDER,
   assertProductionScriptSrc,
@@ -40,6 +46,8 @@ describe("content security policy", () => {
     assert.equal(directiveValue(policy, "script-src").includes("'unsafe-inline'"), false);
     assert.equal(directiveValue(policy, "script-src").includes("'unsafe-eval'"), false);
     assert.equal(directiveValue(policy, "frame-ancestors"), "'none'");
+    assert.match(directiveValue(policy, "img-src"), /https:\/\/www\.googletagmanager\.com/);
+    assert.equal(policy.includes("vercel.live"), false);
     assert.doesNotThrow(() => assertProductionScriptSrc(policy));
     assert.equal(uncoveredInlineScripts("<script>var ready = true;</script>", policy).length, 0);
   });
@@ -54,6 +62,17 @@ describe("content security policy", () => {
     const dev = buildDevContentSecurityPolicy();
     assert.match(directiveValue(dev, "script-src"), /'unsafe-eval'/);
     assert.match(directiveValue(dev, "script-src"), /'unsafe-inline'/);
+  });
+
+  it("strips the preview toolbar injection and rejects an unknown one", () => {
+    const injected =
+      'before;var r=document.createElement("script");r.src="https://vercel.live/_next-live/feedback/feedback.js",r.setAttribute("data-deployment-id",globalThis.NEXT_DEPLOYMENT_ID),(document.head||document.documentElement).appendChild(r);after';
+    assert.equal(stripPreviewToolbar(injected), "before;void 0;after");
+    assert.equal(stripPreviewToolbar("var ready = true;"), "var ready = true;");
+    assert.throws(
+      () => stripPreviewToolbar('const src = "https://vercel.live/_next-live/feedback/feedback.js";'),
+      /unrecognized/,
+    );
   });
 
   it("fails closed when a prerendered inline script has no hash", () => {

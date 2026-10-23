@@ -43,7 +43,7 @@ The `quote_submissions` table has row level security enabled and no policies, so
 
 ## Platform
 - Vercel Web Analytics is on (no cookies).
-- www redirects to the bare domain. Security headers, including a strict Content-Security-Policy, are set in `next.config.ts`. `scripts/csp-hashes.ts` fills inline-script hashes into the build output after `next build`.
+- www redirects to the bare domain. Security headers, including a strict Content-Security-Policy, are set in `next.config.ts`. `scripts/csp-hashes.ts` fills inline-script hashes into the build output after `next build`, and removes Vercel's preview-only toolbar script (`vercel.live`), which the public site does not load.
 - Structured data: AutomotiveBusiness, FAQPage and BreadcrumbList.
 - Sitemap, robots, social share image, app icons and web manifest are generated in `src/app`.
 

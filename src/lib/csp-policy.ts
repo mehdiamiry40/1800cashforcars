@@ -12,7 +12,13 @@ const GOOGLE_TAG_CONNECT_HOSTS = [
   "https://googleads.g.doubleclick.net",
 ];
 
-const GOOGLE_TAG_IMG_HOSTS = ["https://www.google.com", "https://googleads.g.doubleclick.net"];
+// gtag.js is loaded from this host. A warm tag on the preview also requested
+// https://www.googletagmanager.com/a as an image (gtm.js / gtag.config).
+const GOOGLE_TAG_IMG_HOSTS = [
+  "https://www.google.com",
+  "https://www.googletagmanager.com",
+  "https://googleads.g.doubleclick.net",
+];
 
 function join(directive: string, sources: string[]): string {
   return `${directive} ${sources.join(" ")}`;
