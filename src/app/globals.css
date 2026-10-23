@@ -252,6 +252,10 @@ textarea {
   min-height: 1.25rem;
   margin-bottom: 0.75rem;
 }
+/* Full-width call control under the quote form. btn is content-sized from the small breakpoint. */
+.quote-call {
+  width: 100%;
+}
 /* Field pairs respond to their available width, including narrow tablet sidebars. */
 .quote-form {
   container: quote-fields / inline-size;
