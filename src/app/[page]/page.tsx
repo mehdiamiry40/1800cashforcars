@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { CopySections } from "@/components/AreaPage";
 import { CallUsAndTerms, ContentBlocks, Faq, RelatedLinks } from "@/components/Blocks";
 import { ServiceGrid } from "@/components/HomeSections";
 import { JsonLd, ServiceLd } from "@/components/JsonLd";
@@ -105,7 +106,7 @@ export default async function ContentPageRoute({
           <ServiceGrid />
         </div>
       )}
-      <ContentBlocks blocks={p.blocks} />
+      {p.sections?.length ? <CopySections sections={p.sections} /> : <ContentBlocks blocks={p.blocks} />}
       <PriceGuideLink slug={p.slug} />
       {p.faqs && (
         <div className="mt-12">

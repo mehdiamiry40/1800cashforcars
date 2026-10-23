@@ -1,23 +1,9 @@
 // Copy for the inner content pages. Each entry becomes a page at /<slug>.
 
-export type Block = {
-  heading: string;
-  summary?: string;
-  icon?: "car" | "truck" | "cash" | "recycle" | "paperwork";
-  paras?: string[];
-  list?: { bold: string; text: string }[];
-};
+import type { ContentPage } from "./copy";
+import { carRemovalsPage, cashForCarsPage, truckRemovalPage } from "./service-copy";
 
-export type ContentPage = {
-  slug: string;
-  title: string;
-  metaTitle: string;
-  description: string;
-  intro?: string;
-  blocks: Block[];
-  /** Shown as an FAQ list under the blocks, with FAQ schema. */
-  faqs?: { q: string; a: string }[];
-};
+export type { Block, ContentPage, CopyFaq, CopySection } from "./copy";
 
 export const services = [
   {
@@ -38,93 +24,8 @@ export const services = [
 ] as const;
 
 export const pages: ContentPage[] = [
-  {
-    slug: "cash-for-cars",
-    intro: "Sell any car or work vehicle. Free pickup, paid on collection.",
-    title: "Cash for cars",
-    metaTitle: "Sell Your Car for Cash in QLD | How It Works",
-    description:
-      "Sell your car for cash. We buy cars, utes, vans, 4WDs and trucks in any condition across Brisbane, the Gold Coast and SEQ. Free pickup, paid on the day.",
-    blocks: [
-      {
-        heading: "Selling your car to us",
-        summary: "Get a price, choose a pickup time, and get paid before your car leaves.",
-        icon: "car",
-        paras: [
-          "Selling privately means ads, phone calls, people not turning up and haggling over the price. We skip all of that. Tell us what you've got, running or not, and we'll give you a price the same day.",
-          "If you're happy with it, we book a pickup time that suits you. The driver checks the car matches what you told us, pays you in cash or by bank transfer, and tows it away. There's no charge for the tow.",
-        ],
-      },
-      {
-        heading: "What decides the price",
-        summary: "Your vehicle's details, condition, parts and metal value.",
-        icon: "cash",
-        list: [
-          { bold: "Make, model and year", text: "popular and newer models are worth more for resale and parts." },
-          { bold: "Condition", text: "a car that runs is worth more, but we still pay for ones that don't." },
-          { bold: "Parts", text: "a good engine, gearbox or panels can add a fair bit." },
-          { bold: "Metal prices", text: "for cars at the end of the road, the scrap metal price sets the floor." },
-        ],
-      },
-      {
-        heading: "No hidden fees",
-        summary: "No towing fees. We pay the quoted price when your car is as described.",
-        icon: "cash",
-        paras: [
-          "The price we quote is the price we pay, as long as the car is as described. We don't charge for towing and we don't take anything off at pickup.",
-        ],
-      },
-    ],
-  },
-  {
-    slug: "car-removals",
-    intro: "Free car pickup across South East Queensland. Any condition.",
-    title: "Free car removal",
-    // The SEQ-wide page. Each area has its own /locations page, so this title doesn't name them and compete.
-    metaTitle: "Free Car Removal South East QLD | Any Car, Paid on Pickup",
-    description:
-      "Free car removal across South East QLD: Brisbane, Gold Coast, Logan, Ipswich, Sunshine Coast and the Tweed. Any condition, and we pay you for the car.",
-    blocks: [
-      {
-        heading: "We come to you, 6 days a week",
-        summary: "Free pickup from home, work, your mechanic or the roadside.",
-        icon: "truck",
-        paras: [
-          "We pick up across South East Queensland and the Tweed. The car can be in your garage, on the street, at a mechanic's or broken down on the side of the road. Wherever it is, the towing is free.",
-          "Most pickups happen within a day of your call, and often the same day.",
-        ],
-      },
-      {
-        heading: "Where we pick up",
-        summary: "Brisbane, Gold Coast, Logan, Ipswich, Sunshine Coast and the Tweed.",
-        icon: "truck",
-        paras: [
-          "Our yard is in Rocklea, so pickups in Brisbane, Logan and Ipswich are often the same day. We also cover the Gold Coast from Ormeau down to Coolangatta, the Sunshine Coast up to Noosa, and Tweed Heads over the border.",
-          "Each area has its own page with the suburbs we cover and anything local to know, like bank transfer being the only way we can pay in NSW.",
-        ],
-      },
-      {
-        heading: "What we pick up",
-        summary: "Cars, work vehicles and trucks, registered or not.",
-        icon: "car",
-        list: [
-          { bold: "Cars and hatchbacks", text: "any make, any age." },
-          { bold: "4WDs and SUVs", text: "including high-kilometre and damaged ones." },
-          { bold: "Utes and vans", text: "work vehicles and whole fleets." },
-          { bold: "Trucks", text: "light, medium and heavy. See cash for trucks." },
-          { bold: "Unregistered vehicles", text: "no rego is fine, we can still take it." },
-        ],
-      },
-      {
-        heading: "What to have ready",
-        summary: "Photo ID, ownership papers and keys if you have them.",
-        icon: "paperwork",
-        paras: [
-          "Photo ID (driver's licence or passport), proof of ownership such as the rego papers, and the keys if you've got them. We'll give you a receipt for your records.",
-        ],
-      },
-    ],
-  },
+  cashForCarsPage,
+  carRemovalsPage,
   {
     slug: "services",
     intro: "Cars, scrap and work vehicles. Quote, pickup, payment.",
@@ -152,45 +53,7 @@ export const pages: ContentPage[] = [
       },
     ],
   },
-  {
-    slug: "truck-removal",
-    intro: "Light, medium and heavy trucks. Running or not.",
-    title: "Cash for trucks",
-    metaTitle: "Cash For Trucks Gold Coast & Brisbane | Truck Removal & Wreckers",
-    description:
-      "We buy light, medium and heavy trucks in any condition across South East QLD. Tippers, tray tops, pantechs and rigids, running or not. Paid on pickup.",
-    blocks: [
-      {
-        heading: "We buy trucks of all sizes",
-        summary: "Light, medium and heavy trucks, running or not.",
-        icon: "truck",
-        paras: [
-          "Light, medium or heavy, running or not. Whether it's a retired work truck, one that's failed its inspection, or a wreck that's been sitting in the yard, we'll give you a price for it.",
-          "Tell us the make, model, year, kilometres or hours, and what's wrong with it. Photos help a lot with trucks, so text a few through if you can.",
-        ],
-      },
-      {
-        heading: "Trucks we buy",
-        summary: "Work trucks, damaged trucks and business fleets.",
-        icon: "truck",
-        list: [
-          { bold: "Light trucks", text: "Isuzu NPR, Hino 300, Fuso Canter, Iveco Daily and similar." },
-          { bold: "Medium and heavy rigids", text: "tippers, tray tops, pantechs, curtainsiders and refrigerated trucks." },
-          { bold: "Damaged or non-running", text: "blown engines, crash damage, flood damage and trucks off the road for years." },
-          { bold: "Fleets", text: "several trucks from one business, picked up on a schedule that suits you." },
-        ],
-      },
-      {
-        heading: "Pickup and payment",
-        summary: "Free pickup for most trucks; heavy-vehicle pickup details are confirmed with your quote.",
-        icon: "cash",
-        paras: [
-          "We arrange the right tow truck or tilt tray for the job. Pickup is free for most trucks; for large heavy vehicles we'll confirm any pickup details when we give you the price, so there are no surprises.",
-          "You're paid in cash or by bank transfer when we collect the truck. In NSW it's bank transfer only.",
-        ],
-      },
-    ],
-  },
+  truckRemovalPage,
   {
     slug: "scrap-car-removal",
     intro: "Paid pickup for old, damaged or unwanted cars.",

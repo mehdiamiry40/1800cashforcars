@@ -1,5 +1,9 @@
+import { goldCoastLocal, goldCoastSuburbs } from "./areas/gold-coast";
 import { ipswichSuburbs } from "./areas/ipswich-suburbs";
 import { loganSuburbs } from "./areas/logan-suburbs";
+import { sunshineCoastLocal, sunshineCoastSuburbs } from "./areas/sunshine-coast";
+import { tweedHeadsLocal, tweedHeadsSuburbs } from "./areas/tweed-heads";
+import type { CopyFaq, CopySection } from "./copy";
 
 // Central business details. Edit these values and every page updates.
 export const site = {
@@ -75,7 +79,9 @@ export type Area = {
     intro: string;
     pickup?: string;
     notes?: { bold: string; text: string }[];
-    faqs?: { q: string; a: string }[];
+    sections?: CopySection[];
+    cta?: { text: string; from: string };
+    faqs?: CopyFaq[];
   };
 };
 
@@ -87,21 +93,8 @@ export const areas: Area[] = [
     name: "Gold Coast",
     where: "on the Gold Coast",
     state: "QLD",
-    suburbs: ["Southport", "Surfers Paradise", "Robina", "Nerang", "Coomera", "Burleigh Heads", "Helensvale", "Coolangatta", "Mudgeeraba", "Ormeau"],
-    local: {
-      intro: "Selling an old, broken or unwanted car on the Gold Coast? We buy cars, utes, 4WDs and vans from Ormeau and Coomera down to Coolangatta, running or not, and tow them away free.",
-      pickup: "Most Gold Coast pickups happen within a day or two, and often the same day. We collect from houses, unit complexes, workshops and roadside breakdowns, from the northern suburbs through to the hinterland around Nerang and Mudgeeraba.",
-      notes: [
-        { bold: "Coastal rust", text: "salt air is hard on older cars. Rust lowers the price, but we still buy rusty cars and pay for the metal and parts." },
-        { bold: "Unregistered cars", text: "a car that's been sitting in a garage or driveway without rego is fine. We tow it, so it doesn't need to be roadworthy." },
-        { bold: "Moving away", text: "selling before a move? Tell us your moving date and we'll book the pickup around it." },
-      ],
-      faqs: [
-        { q: "Do you charge extra to come to the Gold Coast?", a: "No. Pickup is free anywhere on the Gold Coast, and we don't take towing costs off your price." },
-        { q: "Which Gold Coast suburbs do you cover?", a: "All of them, from Ormeau and Coomera in the north to Coolangatta in the south, and out to the hinterland. If you're not sure, put your suburb in the quote form." },
-        { q: "Can you pick up a car from a unit complex?", a: "Yes. Tell us where the car is parked and about any height limits, so we bring the right truck." },
-      ],
-    },
+    suburbs: goldCoastSuburbs,
+    local: goldCoastLocal,
   },
   {
     slug: "brisbane",
@@ -136,42 +129,16 @@ export const areas: Area[] = [
     name: "Sunshine Coast",
     where: "on the Sunshine Coast",
     state: "QLD",
-    suburbs: ["Maroochydore", "Caloundra", "Noosa", "Nambour", "Mooloolaba", "Buderim", "Kawana", "Coolum Beach"],
-    local: {
-      intro: "We buy scrap, old and unwanted cars across the Sunshine Coast, from Caloundra and Kawana up to Maroochydore, Coolum and Noosa, and inland to Nambour.",
-      pickup: "The Sunshine Coast is further from our Rocklea yard, so we book a pickup time with you, usually within a day or two. Tell us the day that suits you.",
-      notes: [
-        { bold: "Hinterland properties", text: "cars on rural blocks behind Nambour and Buderim are fine. Let us know about the driveway or access." },
-        { bold: "Beach rust", text: "salt air takes a toll on older cars. We still pay for rusty cars, based on their metal and parts." },
-        { bold: "Downsizing", text: "selling a second car you no longer need? We handle the pickup and give you a receipt." },
-      ],
-      faqs: [
-        { q: "Is pickup free on the Sunshine Coast?", a: "Yes. There's no charge for towing and we don't take it off your price." },
-        { q: "How soon can you come to the Sunshine Coast?", a: "Usually within a day or two. Tell us when suits you and we'll book a time." },
-        { q: "Do you go as far as Noosa?", a: "Yes, we cover Noosa and the northern Sunshine Coast. Put your suburb in the quote form and we'll confirm." },
-      ],
-    },
+    suburbs: sunshineCoastSuburbs,
+    local: sunshineCoastLocal,
   },
   {
     slug: "tweed-heads",
     name: "Tweed Heads",
     where: "in Tweed Heads",
     state: "NSW",
-    suburbs: ["Tweed Heads", "Kingscliff", "Banora Point", "Murwillumbah", "Pottsville", "Terranora"],
-    local: {
-      intro: "Just over the border? We buy unwanted cars in Tweed Heads, Banora Point, Kingscliff, Pottsville, Terranora and Murwillumbah, in any condition, with free removal.",
-      pickup: "Pickups in the Tweed usually happen within a day or two, and often sooner. You pick the time.",
-      notes: [
-        { bold: "Paid by bank transfer", text: "NSW law doesn't allow cash for scrap vehicles, so in the Tweed we pay by bank transfer before the car leaves." },
-        { bold: "NSW or QLD rego", text: "we buy NSW and QLD registered cars, and unregistered ones too." },
-        { bold: "After pickup", text: "cancel the registration with Service NSW and let your insurer know." },
-      ],
-      faqs: [
-        { q: "Can you pay cash in Tweed Heads?", a: "No. NSW law doesn't allow cash payments for scrap vehicles, so we pay by bank transfer, before the car leaves." },
-        { q: "Do you buy NSW-registered cars?", a: "Yes. NSW rego, QLD rego or no rego at all. Just have photo ID and proof of ownership ready." },
-        { q: "Is towing free in the Tweed?", a: "Yes. Pickup is free across the Tweed and we don't take it off your price." },
-      ],
-    },
+    suburbs: tweedHeadsSuburbs,
+    local: tweedHeadsLocal,
   },
 ];
 
