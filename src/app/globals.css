@@ -244,6 +244,14 @@ textarea {
 .hero-quote textarea.field {
   min-height: 76px;
 }
+/* The rating sits under the quote heading. Keep the gap tight so the first field stays in view. */
+.hero-quote > .hero-quote-title {
+  margin-bottom: 0.25rem;
+}
+.hero-quote .google-reviews-signal {
+  min-height: 1.25rem;
+  margin-bottom: 0.75rem;
+}
 /* Field pairs respond to their available width, including narrow tablet sidebars. */
 .quote-form {
   container: quote-fields / inline-size;
@@ -328,6 +336,14 @@ textarea {
   .page-quote > h2 {
     font-size: 22px;
     margin-bottom: 12px;
+  }
+  .hero-quote > .hero-quote-title {
+    margin-bottom: 2px;
+  }
+  .hero-quote .google-reviews-signal {
+    margin-bottom: 8px;
+    font-size: 13px;
+    line-height: 1.2;
   }
   .quote-form {
     gap: 8px;
