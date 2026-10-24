@@ -442,7 +442,7 @@ export function ReviewsBand() {
   if (reviews.length === 0 && !site.googleBusinessUrl) return null;
   const googleLink = site.googleBusinessUrl && (
     <a href={site.googleBusinessUrl} target="_blank" rel="noopener noreferrer" className="btn-line">
-      Read our reviews on Google
+      {site.googleBusinessName ? `Read ${site.googleBusinessName}'s reviews on Google` : "Read our reviews on Google"}
     </a>
   );
   // Our Google profile is under a different name, so say so before people click through and wonder.
@@ -452,7 +452,8 @@ export function ReviewsBand() {
   const rating = site.googleRating.score && (
     <p className="mt-2 flex flex-wrap items-center gap-x-2 text-[18px] font-semibold text-navy">
       <span aria-hidden="true" className="tracking-wider text-brand">★★★★★</span>
-      Rated {site.googleRating.score} from {site.googleRating.count} Google reviews of our yard, {site.googleBusinessName}
+      Rated {site.googleRating.score} from {site.googleRating.count} Google reviews of our yard
+      {site.googleBusinessName ? `, for ${site.googleBusinessName}` : ""}
     </p>
   );
 

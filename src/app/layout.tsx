@@ -42,7 +42,8 @@ const GOOGLE_ADS_ID = "AW-11027669589";
 
 const socialSameAs = [site.social.facebook, site.social.instagram].filter(Boolean);
 
-// The Google listing belongs to A Plus Car Removal. The rating stays out of structured data.
+// The Google listing belongs to A Plus Car Removal. Its star rating stays visible
+// text only. Google Maps ratings are not allowed as review markup.
 // The licence sits on the parent only. Legal name, ABN and the issuing body are omitted until confirmed.
 const parentOrganization = site.googleBusinessName && site.parentUrl
   ? {
@@ -63,7 +64,6 @@ const jsonLd = {
   "@type": "AutomotiveBusiness",
   "@id": `${site.url}/#business`,
   name: site.name,
-  alternateName: "1800 Cash For Cars",
   url: site.url,
   image: `${site.url}/opengraph-image`,
   logo: `${site.url}/apple-icon`,

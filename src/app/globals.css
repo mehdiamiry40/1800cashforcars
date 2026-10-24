@@ -133,7 +133,7 @@ textarea {
   @apply inline-flex min-h-13 w-full items-center justify-center gap-3 px-5 py-3 font-sans text-[20px] font-bold leading-relaxed tracking-wide transition-colors sm:w-auto;
 }
 @utility btn-brand {
-  /* logo orange clears WCAG AA for white 20px bold text; brand orange does not */
+  /* Logo orange, not brand: white 20px text on #e16633 is 3.41:1. #c14a22 clears 4.5:1. */
   @apply btn bg-logo text-white hover:bg-navy;
 }
 @utility btn-navy {
@@ -177,7 +177,7 @@ textarea {
 .prose-site p {
   @apply mt-4;
 }
-.prose-site a {
+.prose-site a:not([class*="btn"]) {
   @apply font-semibold text-navy underline underline-offset-4;
 }
 .mobile-menu::backdrop {

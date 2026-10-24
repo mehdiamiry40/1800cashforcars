@@ -1,4 +1,4 @@
-// Roo: the 1800 Cash For Cars kangaroo. Flat, friendly illustration in a few poses.
+// Roo: the 1800-CASH-FOR-CARS kangaroo. Flat, friendly illustration in a few poses.
 // All poses share one body so the character stays consistent across the site.
 
 const FUR = "#C8743A";
