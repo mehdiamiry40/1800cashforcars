@@ -59,6 +59,23 @@ describe("quote submission", () => {
     }
   });
 
+  it("accepts an empty description and still emails the other fields", async () => {
+    process.env.RESEND_API_KEY = "re_test_key";
+    process.env.LEAD_TO_EMAIL = "leads@example.com";
+    const result = await processQuote(quoteForm({ description: "" }), ip("203.0.113.19"), NOW);
+    assert.equal(result.status, 200);
+    assert.equal(result.ok, true);
+    assert.equal(result.lead, true);
+    assert.equal(calls.length, 1);
+    const payload = JSON.parse(calls[0].body) as { text: string; subject: string };
+    assert.match(payload.subject, /2012 Toyota Corolla/);
+    assert.match(payload.text, /Name: Sam Lee/);
+    assert.match(payload.text, /Phone: 0423 514 111/);
+    assert.match(payload.text, /Vehicle: 2012 Toyota Corolla/);
+    assert.match(payload.text, /Suburb \/ address: Rocklea/);
+    assert.doesNotMatch(payload.text, /Description:/);
+  });
+
   it("accepts a normal submission and still sends the email", async () => {
     process.env.RESEND_API_KEY = "re_test_key";
     process.env.LEAD_TO_EMAIL = "leads@example.com, office@example.com";

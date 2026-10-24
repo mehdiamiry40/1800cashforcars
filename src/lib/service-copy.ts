@@ -18,10 +18,10 @@ export const cashForCarsPage: ContentPage = {
       heading: "How do I sell my car for cash?",
       paragraphs: [
         {
-          text: "Tell us what the car is, running or not, and we send a firm price, usually within minutes. Quotes are sent very fast, sometimes in under a minute. If you accept, we book a time Monday to Saturday, check the car matches what you said, pay you, and tow it free.",
+          text: "Tell us what the car is, running or not, and we send a firm price, usually within the hour. If you accept, we book a time Monday to Saturday, check the car matches what you said, pay you, and tow it free.",
         },
         {
-          text: "Selling privately means ads, phone calls, people not turning up and haggling over the price. 1800-CASH-FOR-CARS skips that. Tell us what you've got, running or not, and we'll give you a price the same day. A firm price usually comes back within minutes.",
+          text: "Selling privately means ads, phone calls, people not turning up and haggling over the price. 1800-CASH-FOR-CARS skips that. Tell us what you've got, running or not, and we'll give you a firm price, usually within the hour.",
         },
         {
           text: "If you're happy with it, we book a pickup time that suits you, Monday to Saturday. The driver checks the car matches what you told us, pays you, and tows it away. There's no charge for the tow, and nothing is taken off at the kerb when the car is as described.",
@@ -106,7 +106,7 @@ export const cashForCarsPage: ContentPage = {
       heading: "Where we buy",
       paragraphs: [
         {
-          text: "The yard is at 79B Breadwell St, Rocklea. Brisbane, Logan and Ipswich are often same-day. The Gold Coast is often the same day and usually within a day or two. The Sunshine Coast is further away, so it is booked, usually within a day or two. Local notes are on the Gold Coast, Sunshine Coast, Logan and Ipswich pages. Start with the quote form.",
+          text: "The yard is at 79B Breadwell St, Rocklea. Pickups in Brisbane, Logan, Ipswich, the Gold Coast and the Sunshine Coast are usually within a day or two. The Sunshine Coast is further away, so that run is booked rather than promised for the same hour. Local notes are on the Gold Coast, Sunshine Coast, Logan and Ipswich pages. Start with the quote form.",
           links: [
             { phrase: "Gold Coast", href: "/locations/gold-coast" },
             { phrase: "Sunshine Coast", href: "/locations/sunshine-coast" },
@@ -121,7 +121,7 @@ export const cashForCarsPage: ContentPage = {
   faqs: [
     {
       q: "How much will I get for my car?",
-      a: "It depends on the make, model, year, condition, and what parts and scrap metal are worth at the moment. Tell us about the car and we'll give you a firm price, usually within minutes. Towing fees are not taken off. Scrap and non-running ranges are on the scrap car prices page.",
+      a: "It depends on the make, model, year, condition, and what parts and scrap metal are worth at the moment. Tell us about the car and we'll give you a firm price, usually within the hour. Towing fees are not taken off. Scrap and non-running ranges are on the scrap car prices page.",
       links: [{ phrase: "scrap car prices page", href: PRICES }],
     },
     {
@@ -171,13 +171,13 @@ export const carRemovalsPage: ContentPage = {
       heading: "How soon can you collect the car?",
       paragraphs: [
         {
-          text: "Often the day you say yes, and almost always before two nights have passed. You name the hour. Jobs nearest Rocklea, meaning Brisbane plus Logan and Ipswich, commonly happen that day. The northern coast is booked, because that drive is longer.",
+          text: "Pickups are usually within a day or two. You choose the time. Jobs nearest Rocklea, meaning Brisbane plus Logan and Ipswich, are on that same timing. The northern coast is booked, because that drive is longer.",
         },
         {
           text: "We come to you Monday to Saturday. The car can be in a garage, on the street, at a mechanic's, or broken down roadside. Towing is free in every area on this page, and we pay you as well, including for scrap, damaged and unregistered cars. The quoted price is what we pay when the car is as described.",
         },
         {
-          text: "Most pickups happen within a day of your call, and often the same day. The Sunshine Coast is further from the yard, so those jobs are booked, usually within a day or two.",
+          text: "Pickups are usually within a day or two. The Sunshine Coast is further from the yard, so those jobs are booked on that same timing.",
         },
         {
           text: "Start with the quote form, or call 0423 514 111. The Rocklea yard answers weekdays 8am to 5pm and Saturdays 8am to 2pm. If you want a market estimate before the cash offer, check what your car is worth. That estimate is not the offer.",
@@ -196,14 +196,14 @@ export const carRemovalsPage: ContentPage = {
           text: "Six places. This city's suburbs, Logan and Ipswich each have a page. The southern strip runs to Coolangatta and is written up on its own. So is the northern coast. Past the state line, around Tweed Heads, notes are not used and only a transfer is offered.",
         },
         {
-          text: "Brisbane, Logan and Ipswich are the closest to the Rocklea yard, so pickups there are often the same day. Suburb-by-suburb Brisbane removal stays on the Brisbane page. Logan and Ipswich each have their own page, including the acreage notes for those cities.",
+          text: "Brisbane, Logan and Ipswich are the closest to the Rocklea yard. Pickups there are usually within a day or two. Suburb-by-suburb Brisbane removal stays on the Brisbane page. Logan and Ipswich each have their own page, including the acreage notes for those cities.",
           links: [
             { phrase: "Logan", href: "/locations/logan" },
             { phrase: "Ipswich", href: "/locations/ipswich" },
           ],
         },
         {
-          text: "The Gold Coast run goes from Ormeau and Coomera down to Coolangatta, including the hinterland around Nerang and Mudgeeraba. Most of those pickups happen within a day or two, and often the same day. Suburbs and unit-access notes are on the Gold Coast page.",
+          text: "The Gold Coast run goes from Ormeau and Coomera down to Coolangatta, including the hinterland around Nerang and Mudgeeraba. Those pickups are usually within a day or two. Suburbs and unit-access notes are on the Gold Coast page.",
           links: [{ phrase: "Gold Coast page", href: "/locations/gold-coast" }],
         },
         {
@@ -211,7 +211,7 @@ export const carRemovalsPage: ContentPage = {
           links: [{ phrase: "Sunshine Coast page", href: "/locations/sunshine-coast" }],
         },
         {
-          text: "Tweed Heads, Banora Point, Kingscliff, Pottsville, Terranora and Murwillumbah are over the border in NSW. The tow is still free. Payment there is by bank transfer only. Timing is usually within a day or two, and often sooner. The Tweed Heads page covers the NSW rego and transfer notes.",
+          text: "Tweed Heads, Banora Point, Kingscliff, Pottsville, Terranora and Murwillumbah are over the border in NSW. The tow is still free. Payment there is by bank transfer only. Timing is usually within a day or two. The Tweed Heads page covers the NSW rego and transfer notes.",
           links: [{ phrase: "Tweed Heads page", href: "/locations/tweed-heads" }],
         },
       ],
@@ -251,7 +251,7 @@ export const carRemovalsPage: ContentPage = {
     },
     {
       q: "Should I use this page or the Brisbane car removal page?",
-      a: "Use car removal Brisbane if the car is in Brisbane. It lists the Brisbane suburbs and the same-day notes from our Rocklea yard. Use this page for the full service across South East Queensland and the Tweed.",
+      a: "Use car removal Brisbane if the car is in Brisbane. It lists the Brisbane suburbs and the pickup timing from our Rocklea yard. Use this page for the full service across South East Queensland and the Tweed.",
       links: [{ phrase: "car removal Brisbane", href: "/car-removal-brisbane" }],
     },
     {
@@ -260,7 +260,7 @@ export const carRemovalsPage: ContentPage = {
     },
     {
       q: "When do you collect?",
-      a: "Monday to Saturday, at a time that suits you. Most pickups happen within a day of your call, and often the same day. Sunshine Coast jobs are usually within a day or two because the coast is further from Rocklea.",
+      a: "Monday to Saturday, at a time that suits you. Pickups are usually within a day or two. Sunshine Coast jobs are booked on that same timing because the coast is further from Rocklea.",
     },
   ],
 };
@@ -321,7 +321,7 @@ export const truckRemovalPage: ContentPage = {
           links: [{ phrase: "Tweed Heads page", href: "/locations/tweed-heads" }],
         },
         {
-          text: "Collections run Monday to Saturday. Brisbane, Logan and Ipswich are often the same day, because the yard is in Rocklea. Gold Coast trucks are often the same day and usually within a day or two. Sunshine Coast and Tweed Heads trucks are booked with you, usually within a day or two. The Gold Coast and Sunshine Coast pages cover those runs.",
+          text: "Collections run Monday to Saturday. Brisbane, Logan, Ipswich and Gold Coast trucks are usually within a day or two. Sunshine Coast and Tweed Heads trucks are booked with you, usually within a day or two. The Gold Coast and Sunshine Coast pages cover those runs.",
           links: [
             { phrase: "Gold Coast", href: "/locations/gold-coast" },
             { phrase: "Sunshine Coast", href: "/locations/sunshine-coast" },

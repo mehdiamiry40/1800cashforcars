@@ -11,8 +11,15 @@ export const site = {
   domain: "1800cashforcars.com.au",
   url: "https://1800cashforcars.com.au",
   tagline: "We buy cars in any condition. Free pickup, paid on the day.",
+  // Slowest timing already promised on the site. Faster lines are rewritten to these.
+  quoteTurnaround: "usually within the hour",
+  pickupTurnaround: "usually within a day or two",
   phoneDisplay: "0423 514 111",
   phoneHref: "tel:+61423514111",
+  // The brand reads like a free-call number. Callers need the mobile that is actually answered.
+  get phoneNote() {
+    return `Dial ${this.phoneDisplay}. This is not an 1800 number.`;
+  },
   email: "quotes@1800cashforcars.com.au",
   // Only show the email address on the site once the mailbox (or forwarding) is set up, otherwise emails bounce.
   showEmail: true,
@@ -53,16 +60,30 @@ export const site = {
   },
 };
 
+// Existing generated share image (app/opengraph-image.tsx). Same artwork on every page.
+export const shareImage = {
+  url: "/opengraph-image",
+  width: 1200,
+  height: 630,
+  alt: "1800-CASH-FOR-CARS. Cash for scrap cars. Any car, any condition.",
+};
+
 // Next.js shallow-merges metadata, so a page that sets `openGraph` replaces the
-// root object and drops og:site_name. Every route should use this helper.
+// root object and drops og:site_name and og:image. Every route should use this helper.
 export function pageOpenGraph(path: string) {
   return {
     type: "website" as const,
     locale: "en_AU",
     siteName: site.name,
     url: path,
+    images: [shareImage],
   };
 }
+
+export const pageTwitter = {
+  card: "summary_large_image" as const,
+  images: [shareImage],
+};
 
 // Real customer reviews only (e.g. copied from your Google Business profile with permission).
 // While this is empty the reviews band shows "why choose us" cards instead.
@@ -150,7 +171,7 @@ export const areas: Area[] = [
 export const faqs = [
   {
     q: "How much will I get for my car?",
-    a: "It depends on the make, model, year, condition, and what parts and scrap metal are worth at the moment. Tell us about the car and we'll give you a firm price, usually within minutes. There are no towing fees taken off.",
+    a: "It depends on the make, model, year, condition, and what parts and scrap metal are worth at the moment. Tell us about the car and we'll give you a firm price, usually within the hour. There are no towing fees taken off.",
   },
   {
     q: "Do you buy cars that don't run?",
@@ -170,7 +191,7 @@ export const faqs = [
   },
   {
     q: "How quickly can you pick it up?",
-    a: "Often the same day, and nearly always within a day or two. You choose the time.",
+    a: "Usually within a day or two. You choose the time, Monday to Saturday.",
   },
   {
     q: "What happens to the car?",

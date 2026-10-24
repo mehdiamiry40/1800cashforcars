@@ -321,7 +321,12 @@ textarea {
     line-height: 1.3;
   }
   .hero-image {
+    /* The file is 2:1. Without aspect-ratio: auto, those width/height attributes
+       reserve a taller box than this cap, then the cap snaps it shorter. Logan's
+       hero puts that image under a long answer, so the snap shifts the quote form. */
+    aspect-ratio: auto;
     height: clamp(130px, 32vw, 170px);
+    width: 100%;
     object-fit: contain;
   }
   .hero-benefits {

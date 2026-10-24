@@ -258,7 +258,7 @@ export function AutoValuer() {
 
           {lookup && (
             <div className="mt-6 flex items-start gap-4 border-l-4 border-navy bg-[#f2f3fb] p-4">
-              <CheckIcon aria-hidden="true" className="mt-1 h-5 w-5 shrink-0 text-logo" />
+              <CheckIcon aria-hidden="true" className="mt-1 h-5 w-5 shrink-0 text-navy" />
               <div className="text-[16px]">
                 <p className="font-bold">
                   {found || "Partial match"}
@@ -442,7 +442,7 @@ function ResearchProgress() {
       <ol className="space-y-2.5">
         {RESEARCH_STEPS.map((s, i) => (
           <li key={s} className={`flex items-center gap-3 text-[16px] ${i <= step ? "font-semibold text-navy" : "text-muted/70"}`}>
-            <span className={`grid h-6 w-6 shrink-0 place-items-center border-2 ${i < step ? "border-brand bg-brand text-white" : i === step ? "border-brand" : "border-line/20"}`}>
+            <span className={`grid h-6 w-6 shrink-0 place-items-center border-2 ${i < step ? "border-logo bg-logo text-white" : i === step ? "border-logo" : "border-line/20"}`}>
               {i < step ? <CheckIcon aria-hidden="true" className="h-3.5 w-3.5" /> : i === step ? <span className="h-2 w-2 animate-pulse bg-brand" /> : null}
             </span>
             {s}

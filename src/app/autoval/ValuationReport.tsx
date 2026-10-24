@@ -100,7 +100,7 @@ export function ValuationReport({ valuation: v, car }: { valuation: Valuation; c
                   </span>
                   <h4 className="mt-2 text-[18px] font-bold">{p.part}</h4>
                 </div>
-                <span className={`shrink-0 px-2.5 py-1 text-[13px] font-bold ${p.fixBeforeSelling ? "bg-brand text-white" : "border border-line/25 text-muted"}`}>
+                <span className={`shrink-0 px-2.5 py-1 text-[13px] font-bold ${p.fixBeforeSelling ? "bg-logo text-white" : "border border-line/25 text-muted"}`}>
                   {p.fixBeforeSelling ? "Fix first" : "Disclose"}
                 </span>
               </div>

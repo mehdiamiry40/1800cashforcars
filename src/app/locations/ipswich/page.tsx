@@ -44,7 +44,7 @@ const faqs = [
   },
   {
     q: "Do you collect from Rosewood, Marburg and Grandchester?",
-    a: "Yes. Rural Ipswich is included, not only the localities near Goodna and Springfield. Rosewood, Marburg and Grandchester are on the run, and towing is free and never deducted however far out the car sits. Tell us about gates, tracks and soft ground before we book. Collection is often the same day, at a time you choose.",
+    a: "Yes. Rural Ipswich is included, not only the localities near Goodna and Springfield. Rosewood, Marburg and Grandchester are on the run, and towing is free and never deducted however far out the car sits. Tell us about gates, tracks and soft ground before we book. Collection is usually within a day or two, at a time you choose.",
   },
   {
     q: "Is Ipswich covered by your Brisbane car removal service?",
@@ -111,7 +111,7 @@ export default function IpswichLocationPage() {
         <h2 className="h-content scroll-mt-24">How far into Ipswich do we come?</h2>
         <p className="mt-4 text-[18px] leading-relaxed">
           <RichText
-            text="We cover every locality in the City of Ipswich, including the rural west. The Ipswich Motorway starts at the Granard Road interchange in Rocklea and runs to Dinmore. Our yard is at the Rocklea end of that motorway, not on it, and we have no Ipswich address. Car removal across Brisbane includes Oxley and Darra on the way. Collection is often the same day."
+            text="We cover every locality in the City of Ipswich, including the rural west. The Ipswich Motorway starts at the Granard Road interchange in Rocklea and runs to Dinmore. Our yard is at the Rocklea end of that motorway, not on it, and we have no Ipswich address. Car removal across Brisbane includes Oxley and Darra on the way. Collection is usually within a day or two."
             links={[{ phrase: "Car removal across Brisbane", href: "/car-removal-brisbane" }]}
           />
         </p>
@@ -191,8 +191,8 @@ export default function IpswichLocationPage() {
         <h2 className="h-content mt-12 scroll-mt-24">Car removal in Ipswich, step by step</h2>
         <ol className="mt-4 list-decimal space-y-3 pl-5 text-[18px] leading-relaxed">
           <li>Tell us the make, model, year and condition, where the vehicle is, and how a tow truck reaches it. On a rural block, add gates, tracks and soft ground.</li>
-          <li>We send a price, and quotes are fast, sometimes under a minute.</li>
-          <li>Choose a day and time. Collection is often the same day.</li>
+          <li>We send a price, and quotes are usually within the hour.</li>
+          <li>Choose a day and time. Collection is usually within a day or two.</li>
           <li>You are paid before the car is loaded, in cash or by bank transfer. The tow is not deducted.</li>
           <li>
             <RichText

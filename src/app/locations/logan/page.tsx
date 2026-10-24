@@ -14,7 +14,7 @@ const PRICE = "/scrap-car-prices-brisbane";
 const QLD_CANCEL = "https://www.qld.gov.au/transport/registration/cancel";
 const COUNCIL = "https://www.logan.qld.gov.au/community/vehicles-and-parking/abandoned-vehicles";
 const DESCRIPTION =
-  "Cash for cars in Logan: scrap, old and damaged cars, utes, 4x4s, vans and trucks. Free towing, never deducted. Fast quotes on 0423 514 111.";
+  "Cash for cars in Logan: scrap, old and damaged cars, utes, 4x4s, vans and trucks. Free towing, never deducted. Quotes usually within the hour on 0423 514 111.";
 const DIRECT_ANSWER =
   `${site.name} buys scrap, old and damaged cars, utes, vans and trucks right across the City of Logan, from Springwood and Beenleigh to Browns Plains, Jimboomba and Yarrabilba. Towing is always free and never taken off your price. Most scrap or non-running cars fetch $150 to $800, and running or damaged utes $1,000 to $5,500.`;
 
@@ -39,7 +39,7 @@ const faqs = [
   },
   {
     q: "Can I sell an unregistered car that's parked on the street?",
-    a: "Yes. Bring photo ID and proof of ownership and we tow it without registration or a roadworthy. A car left on a Logan road can be fined and impounded, as covered under an unregistered car in Logan. If the rego has lapsed, selling it and moving it is the simpler option. Pickups are often the same day.",
+    a: "Yes. Bring photo ID and proof of ownership and we tow it without registration or a roadworthy. A car left on a Logan road can be fined and impounded, as covered under an unregistered car in Logan. If the rego has lapsed, selling it and moving it is the simpler option. Pickups are usually within a day or two.",
     links: [{ phrase: "unregistered car in Logan", href: "#unregistered-logan" }],
   },
   {
@@ -103,7 +103,7 @@ export default function LoganLocationPage() {
         </h2>
         <p className="mt-4 text-[18px] leading-relaxed">
           <RichText
-            text="We collect from all 69 suburbs of the City of Logan. The yard is in Rocklea, on Brisbane's southside, north of Logan, and it is not a Logan address. Free car removal in Brisbane runs from that yard. Pickups are often the same day. We book a time that suits you."
+            text="We collect from all 69 suburbs of the City of Logan. The yard is in Rocklea, on Brisbane's southside, north of Logan, and it is not a Logan address. Free car removal in Brisbane runs from that yard. Pickups are usually within a day or two. We book a time that suits you."
             links={[{ phrase: "Free car removal in Brisbane", href: "/car-removal-brisbane" }]}
           />
         </p>
@@ -187,8 +187,8 @@ export default function LoganLocationPage() {
         <h2 className="h-content mt-12 scroll-mt-24">How does selling your car in Logan work?</h2>
         <ol className="mt-4 list-decimal space-y-3 pl-5 text-[18px] leading-relaxed">
           <li>Send the make, model, year, condition, suburb and how we reach the car, plus photos if you can. The rego helps. A photo of where it is parked helps too. Access includes a gate, a unit car park, or a car that sits off the street.</li>
-          <li>Get your price. Quotes are fast, sometimes under a minute.</li>
-          <li>Pick a pickup time. Pickups are often the same day, and you choose when we come.</li>
+          <li>Get your price. Quotes are usually within the hour.</li>
+          <li>Pick a pickup time. Pickups are usually within a day or two, and you choose when we come.</li>
           <li>Get paid before the car leaves, in cash or by bank transfer. Towing is not deducted from that payment.</li>
         </ol>
         <p className="mt-4 text-[18px] leading-relaxed">

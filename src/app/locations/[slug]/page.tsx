@@ -21,7 +21,8 @@ export async function generateMetadata({ params }: PageProps<"/locations/[slug]"
   if (!area) return {};
   return {
     // Root layout appends " | 1800-CASH-FOR-CARS". The area name appears once.
-    title: `Cash for Cars ${area.name}, Free Removal`,
+    // "Sunshine Coast" plus ", Free Removal" and the brand suffix exceeds 60 characters.
+    title: area.name.length > 12 ? `Cash for Cars ${area.name}` : `Cash for Cars ${area.name}, Free Removal`,
     description: `Sell your car for cash ${area.where}, ${area.state}. Free car removal in ${area.suburbs.slice(0, 3).join(", ")} and surrounds. Any condition, paid on pickup.`,
     alternates: { canonical: `/locations/${area.slug}` },
     openGraph: pageOpenGraph(`/locations/${area.slug}`),
