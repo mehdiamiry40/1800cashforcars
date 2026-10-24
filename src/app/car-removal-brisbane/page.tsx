@@ -8,7 +8,7 @@ import { brisbaneSuburbs, pageOpenGraph, site } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Free Car Removal Brisbane, Cash Paid",
   description:
-    "Free car removal Brisbane wide. We pick up scrap, old and unwanted cars, pay you before they leave and tow them free. Same-day pickups from our Rocklea yard.",
+    "Free car removal Brisbane wide. We pick up scrap, old and unwanted cars, pay you before they leave and tow them free. Pickups are usually within a day or two from our Rocklea yard.",
   alternates: { canonical: "/car-removal-brisbane" },
   openGraph: pageOpenGraph("/car-removal-brisbane"),
 };
@@ -20,7 +20,7 @@ const faqs = [
   },
   {
     q: "How quickly can you remove my car?",
-    a: "We're based in Rocklea, so most Brisbane pickups happen the same day or the next day. You pick the time.",
+    a: "We're based in Rocklea. Most Brisbane pickups are usually within a day or two. You pick the time.",
   },
   {
     q: "Can you remove a car that doesn't run?",
@@ -86,7 +86,7 @@ export default function CarRemovalBrisbane() {
         <p>
           Need an old, broken or unwanted car gone? We offer free car removal right across Brisbane, and we pay you for the
           car as well. Scrap cars, wrecks, crashed cars, cars that don&apos;t run and cars without rego: we tow them all
-          away at no cost, usually the same day you call.
+          away at no cost. Pickups are usually within a day or two.
         </p>
         <p>
           We&apos;re a local Brisbane business with our own yard in Rocklea, so you deal with the people who actually
@@ -100,7 +100,7 @@ export default function CarRemovalBrisbane() {
             summary: "Yes. Clearing a Brisbane car costs you nothing on our side. Rocklea does not invoice a call-out, and the figure agreed for the vehicle stays intact. A shell that is only fit for scrap is paid as well. Name any day from Monday through to Saturday.",
             icon: "truck",
             paras: [
-              "Our yard is in Rocklea, on Brisbane's southside, so we can get a tow truck or tilt tray to most Brisbane suburbs the same day. We'll collect the car from your driveway, the street, a workshop, a car park or the side of the road.",
+              "Our yard is in Rocklea, on Brisbane's southside, so we can get a tow truck or tilt tray to most Brisbane suburbs, usually within a day or two. We'll collect the car from your driveway, the street, a workshop, a car park or the side of the road.",
               "Car removal is always free. On top of that, we pay you for the car, even if it's only fit for scrap.",
             ],
           },
@@ -119,11 +119,11 @@ export default function CarRemovalBrisbane() {
           },
           {
             heading: "How fast can you collect a car in Brisbane?",
-            summary: "Often before the afternoon is over. The yard is in Rocklea, so most of this city is a short hop, and collection is commonly the day you accept or the morning after. You set the meeting. A reply is sometimes back inside a minute, and it is usually quick.",
+            summary: "Pickups are usually within a day or two. The yard is in Rocklea, so most of this city is a short hop. You set the meeting, Monday to Saturday. A firm price is usually within the hour.",
             icon: "cash",
             list: [
               { bold: "Get a quote", text: "fill in the quick form with the car's details (or call us) and we'll text you a price." },
-              { bold: "Book a time", text: "same day or whenever suits you, Monday to Saturday." },
+              { bold: "Book a time", text: "usually within a day or two, Monday to Saturday, at a time that suits you." },
               { bold: "Get paid, we tow it", text: "cash or bank transfer before the car leaves, and the tow is free." },
             ],
           },
@@ -141,7 +141,7 @@ export default function CarRemovalBrisbane() {
             summary: "Northside, southside, west and bayside, Monday to Saturday.",
             icon: "truck",
             paras: [
-              "From Rocklea we reach the southside suburbs like Moorooka, Sunnybank and Mt Gravatt quickly, and we cover the northside (Chermside, Aspley, Nundah), the western suburbs (Indooroopilly, Kenmore, Forest Lake) and the bayside (Wynnum, Manly, Carindale) too.",
+              "From Rocklea we cover the southside suburbs like Moorooka, Sunnybank and Mt Gravatt, and we cover the northside (Chermside, Aspley, Nundah), the western suburbs (Indooroopilly, Kenmore, Forest Lake) and the bayside (Wynnum, Manly, Carindale) too.",
               "Tell us where the car is and about any tight access, like a steep driveway, a basement car park or a car in the backyard, and we'll bring the right truck.",
             ],
           },

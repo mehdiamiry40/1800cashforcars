@@ -3,9 +3,10 @@
 import { track } from "@vercel/analytics";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef, useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent, type ReactNode } from "react";
 import type { QuoteState } from "@/lib/quote-state";
 import { site } from "@/lib/site";
+import { PhoneNote } from "./PhoneNote";
 import { Roo } from "./Roo";
 import { ArrowIcon, PhoneIcon } from "./icons";
 
@@ -19,6 +20,7 @@ export function QuoteForm({
   defaults?: { vehicle?: string; description?: string };
 }) {
   const [state, setState] = useState<QuoteState>(null);
+  const [errors, setErrors] = useState<Record<string, string>>({});
   const [pending, setPending] = useState(false);
   const pathname = usePathname();
   const full = variant === "full";
@@ -37,17 +39,24 @@ export function QuoteForm({
   const sending = useRef(false);
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    const form = event.currentTarget;
+    const found = invalidFields(form);
+    setErrors(found);
+    if (Object.keys(found).length) {
+      form.querySelector<HTMLElement>(`[name="${Object.keys(found)[0]}"]`)?.focus();
+      return;
+    }
     if (sending.current) return;
     sending.current = true;
     setPending(true);
-    const body = new FormData(event.currentTarget);
+    const body = new FormData(form);
     try {
       const res = await fetch("/api/quote", { method: "POST", body });
       const data = (await res.json().catch(() => null)) as QuoteState | null;
       if (!data || typeof data.ok !== "boolean" || typeof data.message !== "string") {
         setState({
           ok: false,
-          message: `Sorry, something went wrong. Please call or text ${site.phoneDisplay} and we'll give you a price straight away.`,
+          message: `Sorry, something went wrong. Please call or text ${site.phoneDisplay} and we'll give you a price.`,
         });
         return;
       }
@@ -55,7 +64,7 @@ export function QuoteForm({
     } catch {
       setState({
         ok: false,
-        message: `Sorry, something went wrong. Please call or text ${site.phoneDisplay} and we'll give you a price straight away.`,
+        message: `Sorry, something went wrong. Please call or text ${site.phoneDisplay} and we'll give you a price.`,
       });
     } finally {
       sending.current = false;
@@ -83,7 +92,7 @@ export function QuoteForm({
           </div>
         </div>
         <ol className="mt-4 space-y-1.5 border-t border-line pt-4 text-[15px]">
-          {["We look over your car's details", "We send you a price, no obligation", "Happy with it? We pick it up and pay you on the spot"].map(
+          {["We look over your car's details", "We send you a price, no obligation", "Happy with it? We pick it up and pay you on the day"].map(
             (t, i) => (
               <li key={t} className="flex gap-2">
                 <span className="font-heading font-extrabold text-navy">{i + 1}.</span> {t}
@@ -104,50 +113,63 @@ export function QuoteForm({
 
   return (
     <div className="grid gap-3">
-    <form action="/api/quote" method="POST" onSubmit={onSubmit} onInput={onInput} className="quote-form grid gap-3">
+    <form action="/api/quote" method="POST" noValidate onSubmit={onSubmit} onInput={onInput} className="quote-form grid gap-3">
       <input type="text" name="company" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden />
       <input type="hidden" name="page" value={pathname} />
       <input type="hidden" name="e" ref={elapsed} defaultValue="" />
 
-      <label className="min-w-0">
+      <Field name="vehicle" error={errors.vehicle}>
         <span className="field-float">Year, make and model</span>
-        <input name="vehicle" className={input} placeholder="Year, make and model" maxLength={120} required defaultValue={defaults?.vehicle} />
-      </label>
-      <div className="quote-field-row grid items-end gap-3">
-        <label className="min-w-0">
-          <span className="field-float">Suburb</span>
-          <input name="address" className={input} placeholder="Suburb" autoComplete="address-level2" maxLength={100} required />
-        </label>
-        <PriceField className={input} />
-      </div>
+        <input name="vehicle" className={input} placeholder="Year, make and model" maxLength={120} required autoComplete="off" autoCapitalize="words" enterKeyHint="next" defaultValue={defaults?.vehicle} aria-invalid={errors.vehicle ? true : undefined} aria-describedby={errors.vehicle ? "quote-error-vehicle" : undefined} />
+      </Field>
+      <Field name="address" error={errors.address}>
+        <span className="field-float">Suburb</span>
+        <input name="address" className={input} placeholder="Suburb" autoComplete="address-level2" autoCapitalize="words" enterKeyHint="next" maxLength={100} required aria-invalid={errors.address ? true : undefined} aria-describedby={errors.address ? "quote-error-address" : undefined} />
+      </Field>
       <div className="quote-contact-row grid gap-3">
-      <label className="min-w-0">
+      <Field name="name" error={errors.name}>
         <span className="field-float">Your name</span>
-        <input name="name" className={input} placeholder="Your name" required autoComplete="name" />
-      </label>
-      <label className="min-w-0">
+        <input name="name" className={input} placeholder="Your name" required autoComplete="name" autoCapitalize="words" enterKeyHint="next" aria-invalid={errors.name ? true : undefined} aria-describedby={errors.name ? "quote-error-name" : undefined} />
+      </Field>
+      <Field name="phone" error={errors.phone}>
         <span className="field-float">Mobile</span>
-        <input name="phone" type="tel" inputMode="tel" className={input} placeholder="Mobile" required autoComplete="tel" pattern="[\d\s\(\)\+\-]{8,}" />
-      </label>
+        <input name="phone" type="tel" inputMode="tel" className={input} placeholder="Mobile" required autoComplete="tel" enterKeyHint="next" pattern={"[0-9\\s\\(\\)\\+\\-]{8,}"} title="Enter a mobile number with at least 8 digits. Spaces are fine." aria-invalid={errors.phone ? true : undefined} aria-describedby={errors.phone ? "quote-error-phone" : undefined} />
+      </Field>
       </div>
       {full && (
-        <label className="min-w-0">
+        <Field name="email" error={errors.email}>
           <span className="field-float">Email (optional)</span>
-          <input name="email" type="email" className={input} placeholder="Email (optional)" autoComplete="email" />
-        </label>
+          <input name="email" type="email" inputMode="email" className={input} placeholder="Email (optional)" autoComplete="email" autoCapitalize="none" autoCorrect="off" spellCheck={false} enterKeyHint="next" aria-invalid={errors.email ? true : undefined} aria-describedby={errors.email ? "quote-error-email" : undefined} />
+        </Field>
       )}
-      <label className="min-w-0">
-        <span className="field-float">Car condition</span>
+      <details className="text-[15px]">
+        <summary className="font-semibold">Add a price you are hoping for (optional)</summary>
+        <PriceField className={`${input} mt-2`} />
+      </details>
+      <Field name="description" error={errors.description}>
+        <span className="field-float">Car condition (optional)</span>
         <textarea
           name="description"
           rows={2}
           className={`${input} block resize-y`}
-          placeholder="Does it run? Any damage?"
+          placeholder="Condition (optional): does it run, any damage?"
           maxLength={1000}
-          required
+          enterKeyHint="send"
           defaultValue={defaults?.description}
+          aria-invalid={errors.description ? true : undefined}
+          aria-describedby={errors.description ? "quote-error-description" : undefined}
         />
-      </label>
+      </Field>
+      {Object.keys(errors).length > 0 && (
+        <div role="alert" className="bg-red-50 px-3 py-2 text-[14px] font-semibold text-red-800">
+          <p>Check the highlighted fields.</p>
+          <ul className="mt-1 list-disc pl-5 font-medium">
+            {Object.entries(errors).map(([name, message]) => (
+              <li key={name}>{message}</li>
+            ))}
+          </ul>
+        </div>
+      )}
       {state && !state.ok && <p role="alert" className="bg-red-50 px-3 py-2 text-[14px] font-semibold text-red-800">{state.message}</p>}
       <button type="submit" disabled={pending} className="btn-brand mt-1 w-full disabled:opacity-60">
         {pending ? "Sending..." : "Get a free quote"}
@@ -163,12 +185,47 @@ export function QuoteForm({
   );
 }
 
+const FIELD_ERROR: Record<string, string> = {
+  vehicle: "Enter the year, make and model.",
+  address: "Enter the suburb where the car is.",
+  name: "Enter your name.",
+  phone: "Enter a mobile number with at least 8 digits. Spaces are fine.",
+  email: "Enter a valid email address, or leave it blank.",
+};
+
+function invalidFields(form: HTMLFormElement) {
+  const next: Record<string, string> = {};
+  for (const name of Object.keys(FIELD_ERROR)) {
+    const el = form.elements.namedItem(name);
+    if (!(el instanceof HTMLInputElement) && !(el instanceof HTMLTextAreaElement)) continue;
+    if (el.validity.valid) continue;
+    next[name] = FIELD_ERROR[name] ?? el.validationMessage;
+  }
+  return next;
+}
+
+function Field({ name, error, children }: { name: string; error?: string; children: ReactNode }) {
+  return (
+    <label className="min-w-0">
+      {children}
+      {error ? (
+        <span id={`quote-error-${name}`} className="mt-1 block text-[14px] font-semibold text-red-800">
+          {error}
+        </span>
+      ) : null}
+    </label>
+  );
+}
+
 function CallQuoteButton() {
   return (
-    <a href={site.phoneHref} className="btn-line quote-call">
-      <PhoneIcon aria-hidden="true" className="h-5 w-5" />
-      Call {site.phoneDisplay}
-    </a>
+    <div className="grid gap-1">
+      <a href={site.phoneHref} className="btn-line quote-call">
+        <PhoneIcon aria-hidden="true" className="h-5 w-5" />
+        Call {site.phoneDisplay}
+      </a>
+      <PhoneNote className="text-center text-[13px] leading-snug" />
+    </div>
   );
 }
 

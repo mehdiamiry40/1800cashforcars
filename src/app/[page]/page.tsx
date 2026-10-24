@@ -31,6 +31,10 @@ function PriceGuideLink({ slug }: { slug: string }) {
         <Link href="/scrap-car-prices-brisbane" className={linkClass}>
           scrap car prices in Brisbane
         </Link>
+        . If usable parts may be worth more than the metal, see{" "}
+        <Link href="/car-wreckers" className={linkClass}>
+          car wreckers
+        </Link>
         . A car with no keys or no wheels is covered on{" "}
         <Link href="/car-removal-no-keys-no-wheels" className={linkClass}>
           car removal with no keys or no wheels
@@ -45,7 +49,26 @@ function PriceGuideLink({ slug }: { slug: string }) {
         <Link href="/scrap-car-prices-brisbane" className={linkClass}>
           See our price guide
         </Link>{" "}
-        for what scrap, damaged and non-running cars are typically worth.
+        for what scrap, damaged and non-running cars are typically worth. The metal floor, and what happens to the shell, is on{" "}
+        <Link href="/scrap-car-removal" className={linkClass}>
+          scrap car removal
+        </Link>
+        .
+      </p>
+    );
+  }
+  if (slug === "car-disposal") {
+    return (
+      <p className="mt-8 text-[18px]">
+        A car at the end of its life is priced on{" "}
+        <Link href="/scrap-car-removal" className={linkClass}>
+          scrap car removal
+        </Link>
+        . A damaged car whose parts may be worth more than the metal is on{" "}
+        <Link href="/car-wreckers" className={linkClass}>
+          car wreckers
+        </Link>
+        .
       </p>
     );
   }

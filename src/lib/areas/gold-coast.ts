@@ -66,7 +66,7 @@ export const goldCoastLocal = {
           text: "Yes. Towing is free anywhere on the Gold Coast, from Ormeau and Coomera down to Coolangatta and through the hinterland. We do not take that cost off your price. The price we quote is the price we pay when the car is as described. You choose the time, Monday to Saturday.",
         },
         {
-          text: "Most Gold Coast pickups happen within a day or two, and often the same day. You choose the time, Monday to Saturday. We come to houses, unit complexes, workshops and roadside breakdowns, from those northern suburbs through to the hinterland.",
+          text: "Gold Coast pickups are usually within a day or two. You choose the time, Monday to Saturday. We come to houses, unit complexes, workshops and roadside breakdowns, from those northern suburbs through to the hinterland.",
         },
         {
           text: "The car does not have to run, roll or have keys. We bring a tilt tray and winch it on. Flat tyres are fine. If it is in a basement at Surfers Paradise or Southport, under a height limit, or in a backyard at Mudgeeraba, say so on the quote form so the truck that turns up can load it.",

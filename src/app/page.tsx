@@ -20,10 +20,10 @@ import { brisbaneSuburbs, faqs, pageOpenGraph, site } from "@/lib/site";
 export const metadata: Metadata = {
   // The home page shares the root layout's route segment, so the title template does not apply here.
   title: {
-    absolute: "Cash for Cars Brisbane | Free Car Removal | 1800-CASH-FOR-CARS",
+    absolute: "Cash for Cars Brisbane | 1800-CASH-FOR-CARS",
   },
   description:
-    "Cash for cars Brisbane: we buy scrap, old and unwanted cars in any condition. Paid on pickup, free car removal, often same day, from our local Rocklea yard.",
+    "Cash for cars Brisbane: we buy scrap, old and unwanted cars in any condition. Paid on pickup, free car removal, usually within a day or two, from our local Rocklea yard.",
   alternates: { canonical: "/" },
   openGraph: pageOpenGraph("/"),
 };
@@ -36,7 +36,7 @@ const homeFaqs = [
   },
   {
     q: "Do you buy cars all over Brisbane?",
-    a: "Yes. Northside, southside, the western suburbs and the bayside, plus Logan and Ipswich. Our yard is in Rocklea, so most Brisbane pickups happen the same day or the next day.",
+    a: "Yes. Northside, southside, the western suburbs and the bayside, plus Logan and Ipswich. Our yard is in Rocklea, so Brisbane pickups are usually within a day or two.",
   },
   ...faqs,
 ];

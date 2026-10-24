@@ -8,7 +8,7 @@ const PATH = "/about";
 export const metadata: Metadata = {
   title: "About Us, Our Rocklea Yard",
   description:
-    "1800 Cash For Cars is part of A Plus Car Removal and shares the Rocklea yard. Free towing, payment before the car leaves, and cash offers across South East Queensland.",
+    `${site.name} is part of A Plus Car Removal and shares the Rocklea yard. Free towing, payment before the car leaves, and cash offers across South East Queensland.`,
   alternates: { canonical: PATH },
   openGraph: pageOpenGraph(PATH),
 };
@@ -34,12 +34,12 @@ export default function AboutPage() {
         <p className="eyebrow">About us</p>
         <h1 className="h-page mt-3">About our Rocklea yard</h1>
         <p className="mt-5 text-[18px] leading-relaxed">
-          1800 Cash For Cars buys scrap, old and damaged cars, and it also buys utes, vans and trucks. The business is part of A Plus Car Removal. Both names use the same yard. This page says who we are, how a car is priced, and how to reach the yard.
+          {site.name} buys scrap, old and damaged cars, and it also buys utes, vans and trucks. The business is part of A Plus Car Removal. Both names use the same yard. This page says who we are, how a car is priced, and how to reach the yard.
         </p>
 
-        <h2 className="h-content mt-12">Who is 1800 Cash For Cars?</h2>
+        <h2 className="h-content mt-12">Who is {site.name}?</h2>
         <p className="mt-4 text-[18px] leading-relaxed">
-          1800 Cash For Cars is the name on this website. It is part of{" "}
+          {site.name} is the name on this website. It is part of{" "}
           <a href={site.parentUrl} className={linkClass}>
             A Plus Car Removal
           </a>
@@ -48,7 +48,7 @@ export default function AboutPage() {
 
         <h2 className="h-content mt-12">Are you licensed?</h2>
         <p className="mt-4 text-[18px] leading-relaxed">
-          {site.licenceLine} The licence belongs to the parent company. 1800 Cash For Cars does not hold that dealer licence in its own name, and this page does not say that it does. The ABN for 1800 Cash For Cars is {site.abn}. That is the number printed with this brand.
+          {site.licenceLine} The licence belongs to the parent company. {site.name} does not hold that dealer licence in its own name, and this page does not say that it does. The ABN for {site.name} is {site.abn}. That is the number printed with this brand.
         </p>
 
         <h2 className="h-content mt-12">Where is your yard?</h2>
@@ -57,7 +57,7 @@ export default function AboutPage() {
           <a href={site.mapsUrl} className={linkClass} target="_blank" rel="noopener noreferrer">
             {site.address}
           </a>
-          . Rocklea sits on Brisbane&apos;s southside, which is why Brisbane, Logan and Ipswich collections are often the same day. Visits are to this address. We do not describe a second yard on this site.
+          . Rocklea sits on Brisbane&apos;s southside. Brisbane, Logan and Ipswich collections are usually within a day or two. Visits are to this address. We do not describe a second yard on this site.
         </p>
 
         <h2 className="h-content mt-12">What do you buy?</h2>
@@ -97,7 +97,7 @@ export default function AboutPage() {
 
         <h2 className="h-content mt-12">How fast can you pick up?</h2>
         <p className="mt-4 text-[18px] leading-relaxed">
-          Pickups are often the same day. You choose the time. Quotes are sent very fast, sometimes in under a minute, and usually within minutes. Collections run Monday to Saturday. Brisbane, Logan and Ipswich are the closest runs to Rocklea. The Sunshine Coast and the Tweed are booked with you, usually within a day or two, and are often sooner on the Tweed.
+          Pickups are usually within a day or two. You choose the time. Quotes are usually within the hour. Collections run Monday to Saturday. Brisbane, Logan and Ipswich are the closest runs to Rocklea. The Sunshine Coast and the Tweed are booked with you on that same timing.
         </p>
 
         <h2 className="h-content mt-12">Which areas do you cover?</h2>

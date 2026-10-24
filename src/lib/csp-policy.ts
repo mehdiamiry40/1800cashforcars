@@ -10,13 +10,17 @@ const GOOGLE_TAG_CONNECT_HOSTS = [
   "https://www.google.com",
   "https://ad.doubleclick.net",
   "https://googleads.g.doubleclick.net",
+  // Quote success calls gtag('event','conversion'), which fetches this host.
+  // It stays off script-src. vercel.live is not added.
+  "https://www.googleadservices.com",
 ];
 
 // gtag.js is loaded from googletagmanager.com. A warm tag on the preview also requested
 // https://www.googletagmanager.com/a as an image (gtm.js / gtag.config).
 // Australian visitors get the remarketing pixel from www.google.com.au.
 // Google's Ads CSP guidance lists www.googleadservices.com on img-src for
-// conversion and remarketing pixels. These hosts stay on img-src only.
+// conversion and remarketing pixels. The same host is also on connect-src
+// because a successful quote fires a conversion fetch, not only an image.
 const GOOGLE_TAG_IMG_HOSTS = [
   "https://www.google.com",
   "https://www.google.com.au",

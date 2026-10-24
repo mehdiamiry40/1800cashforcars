@@ -5,7 +5,7 @@ import { Barlow } from "next/font/google";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { ContactTracker, StickyQuoteBar } from "@/components/QuoteLink";
-import { areas, site } from "@/lib/site";
+import { areas, pageTwitter, shareImage, site } from "@/lib/site";
 import "./globals.css";
 
 // Barlow is shared by navigation, headings, forms and body copy.
@@ -28,7 +28,9 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_AU",
     siteName: site.name,
+    images: [shareImage],
   },
+  twitter: pageTwitter,
   // Google Search Console ownership (URL-prefix property). Keep this, or verification is lost.
   verification: { google: "hT98u-ufxCSpHuzlwhET1YrWOFSQEH_Eh_8oAwh7BkA" },
 };

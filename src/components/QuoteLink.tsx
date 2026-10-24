@@ -59,17 +59,21 @@ export function StickyQuoteBar() {
   }, [pathname]);
 
   return (
-    <div
+    <nav
+      aria-label="Quote or call"
       className={`mobile-actions fixed inset-x-0 bottom-0 z-50 grid grid-cols-2 bg-navy pb-[env(safe-area-inset-bottom)] transition-transform duration-300 md:hidden ${formInView ? "translate-y-full" : ""}`}
       inert={formInView}
     >
       <QuoteLink from="mobile-bar" className="flex min-h-14 items-center justify-center bg-navy px-3 py-3 text-[20px] font-bold text-white transition-colors hover:bg-brand-dark">
         Get a quote
       </QuoteLink>
-      <a href={site.phoneHref} className="flex min-h-14 items-center justify-center gap-1.5 bg-brand px-5 py-3 text-[20px] font-bold text-white">
-        <PhoneIcon aria-hidden="true" className="h-4 w-4" /> Call
+      <a href={site.phoneHref} className="flex min-h-14 flex-col items-center justify-center bg-logo px-3 py-2 text-[18px] font-bold leading-tight text-white">
+        <span className="inline-flex items-center gap-1.5">
+          <PhoneIcon aria-hidden="true" className="h-4 w-4" /> {site.phoneDisplay}
+        </span>
+        <span className="text-[11px] font-semibold leading-tight">Not an 1800 number</span>
       </a>
-    </div>
+    </nav>
   );
 }
 

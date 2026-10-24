@@ -67,7 +67,7 @@ export default function NoKeysNoWheelsPage() {
           <p className="eyebrow">No keys, no wheels</p>
           <h1 className="h-page mt-3">Car removal with no keys or no wheels</h1>
           <p className="mt-5 text-[18px] leading-relaxed">
-            Yes. 1800 Cash For Cars buys cars with no keys, cars with no wheels, and cars missing both. The car does not have to start, and it does not have to roll. Tell us what is missing and where the car is sitting.
+            Yes. {site.name} buys cars with no keys, cars with no wheels, and cars missing both. The car does not have to start, and it does not have to roll. Tell us what is missing and where the car is sitting.
           </p>
 
           <h2 className="h-content mt-12">Do you buy cars with no keys?</h2>
@@ -121,7 +121,7 @@ export default function NoKeysNoWheelsPage() {
             We pay before the car leaves, and you get a receipt. In Queensland that is cash or bank transfer, your choice. In NSW, including Tweed Heads, the law does not allow cash for scrap vehicles, so it is bank transfer only. Bring the account details if the car is in the Tweed.
           </p>
           <p className="mt-4 text-[18px] leading-relaxed">
-            Pickups are often the same day, and you choose the time. Brisbane, Logan and Ipswich are the short runs from Rocklea. The coasts and Tweed Heads are agreed with you, and Tweed jobs are often sooner. A price can come back very fast, sometimes in under a minute.
+            Pickups are usually within a day or two, and you choose the time. Brisbane, Logan and Ipswich are the short runs from Rocklea. The coasts and Tweed Heads are agreed with you on that same timing. A firm price is usually within the hour.
           </p>
 
           <h2 className="h-content mt-12">Where will you collect a car like this?</h2>
