@@ -1,7 +1,14 @@
 import type { NextConfig } from "next";
 import { CANONICAL_ORIGIN, PRODUCTION_VERCEL_ALIAS } from "./src/lib/canonical-host";
+import { buildContentSecurityPolicy, buildDevContentSecurityPolicy } from "./src/lib/csp-policy";
+
+// Production script hashes are unknown until prerender finishes. The placeholder is replaced
+// in the build output by scripts/csp-hashes.ts. Development cannot use those hashes.
+const contentSecurityPolicy =
+  process.env.NODE_ENV === "development" ? buildDevContentSecurityPolicy() : buildContentSecurityPolicy([]);
 
 const securityHeaders = [
+  { key: "Content-Security-Policy", value: contentSecurityPolicy },
   { key: "X-Content-Type-Options", value: "nosniff" },
   { key: "X-Frame-Options", value: "SAMEORIGIN" },
   { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
