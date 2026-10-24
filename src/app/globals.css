@@ -133,7 +133,8 @@ textarea {
   @apply inline-flex min-h-13 w-full items-center justify-center gap-3 px-5 py-3 font-sans text-[20px] font-bold leading-relaxed tracking-wide transition-colors sm:w-auto;
 }
 @utility btn-brand {
-  @apply btn bg-brand text-white hover:bg-navy;
+  /* logo orange clears WCAG AA for white 20px bold text; brand orange does not */
+  @apply btn bg-logo text-white hover:bg-navy;
 }
 @utility btn-navy {
   @apply btn bg-navy text-white hover:bg-navy-800;

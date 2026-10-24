@@ -58,7 +58,7 @@ const faqs = [
 ];
 
 export const metadata: Metadata = {
-  title: "Cash for Cars Logan | Free Car Removal, Any Condition",
+  title: "Cash for Cars Logan, Free Car Removal",
   description: DESCRIPTION,
   alternates: { canonical: PATH },
   openGraph: pageOpenGraph(PATH),
@@ -223,7 +223,7 @@ export default function LoganLocationPage() {
         <h2 className="h-content mt-12 scroll-mt-24">Who is 1800 Cash For Cars?</h2>
         <p className="mt-4 text-[18px] leading-relaxed">
           <RichText
-            text="1800 Cash For Cars is part of A Plus Car Removal. We work only from the shared yard at 79B Breadwell St, Rocklea QLD 4106. Licensed through our parent company, A Plus Car Removal (QLD motor dealer licence 4253110). Call 0423 514 111 or email quotes@1800cashforcars.com.au. ABN 62 351 619 456. The yard opens Monday to Friday, 8am to 5pm, and Saturday, 8am to 2pm. Our yard is listed on Google as A Plus Car Removal. For cash for cars across Brisbane and South East QLD, use the homepage, or contact our Rocklea yard."
+            text={`1800 Cash For Cars is part of A Plus Car Removal. We work only from the shared yard at 79B Breadwell St, Rocklea QLD 4106. ${site.licenceLine} Call 0423 514 111 or email quotes@1800cashforcars.com.au. ABN 62 351 619 456. The yard opens Monday to Friday, 8am to 5pm, and Saturday, 8am to 2pm. Our yard is listed on Google as A Plus Car Removal. For cash for cars across Brisbane and South East QLD, use the homepage, or contact our Rocklea yard.`}
             links={[
               { phrase: "part of A Plus Car Removal", href: site.parentUrl },
               { phrase: "0423 514 111", href: site.phoneHref },

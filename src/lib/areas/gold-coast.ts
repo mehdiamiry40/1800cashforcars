@@ -60,8 +60,11 @@ export const goldCoastLocal = {
       ],
     },
     {
-      heading: "How a Gold Coast pickup works",
+      heading: "Is towing free on the Gold Coast?",
       paragraphs: [
+        {
+          text: "Yes. Towing is free anywhere on the Gold Coast, from Ormeau and Coomera down to Coolangatta and through the hinterland. We do not take that cost off your price. The price we quote is the price we pay when the car is as described. You choose the time, Monday to Saturday.",
+        },
         {
           text: "Most Gold Coast pickups happen within a day or two, and often the same day. You choose the time, Monday to Saturday. We come to houses, unit complexes, workshops and roadside breakdowns, from those northern suburbs through to the hinterland.",
         },
@@ -76,8 +79,11 @@ export const goldCoastLocal = {
       ],
     },
     {
-      heading: "What we accept on the coast",
+      heading: "Do you buy Gold Coast cars with no keys or no wheels?",
       paragraphs: [
+        {
+          text: "Yes. Gold Coast cars with no keys or no wheels are still bought. The car does not have to run or roll. Tell us what is missing, and mention a basement, a height limit or a backyard, so the truck that arrives can load it. The tow stays free.",
+        },
         {
           text: "We buy cars and hatchbacks, 4WDs and SUVs, utes and vans, registered or not. Salt air is hard on older Gold Coast cars. Rust lowers the price, but we still buy rusty cars and pay for the metal and parts. A car that has sat in a garage or on a driveway without rego is fine, because we tow it and it does not need a roadworthy.",
         },
@@ -95,8 +101,11 @@ export const goldCoastLocal = {
       ],
     },
     {
-      heading: "Queensland paperwork for a Gold Coast sale",
+      heading: "How do I get paid on the Gold Coast?",
       paragraphs: [
+        {
+          text: "On the Gold Coast you choose cash or a bank transfer, paid before the car leaves, and you get a receipt. Coolangatta is still Queensland. Once the car is over the border in the Tweed, NSW rules apply and payment is by bank transfer only.",
+        },
         {
           text: "Have photo ID with you, a driver's licence or passport, and proof of ownership such as the rego papers. If you have lost the papers, say so when you ask for a price. We still need to see photo ID and be sure the car is yours, and we can usually sort that out.",
         },

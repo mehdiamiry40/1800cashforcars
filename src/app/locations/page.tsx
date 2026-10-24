@@ -6,7 +6,7 @@ import { PageShell } from "@/components/PageShell";
 import { areaHref, areas, pageOpenGraph } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Areas We Cover | Cash for Cars & Car Removal SEQ",
+  title: "Areas We Cover in South East QLD",
   description:
     "We buy cars and offer free car removal across Brisbane, the Gold Coast, Logan, Ipswich, the Sunshine Coast and Tweed Heads. Find your area and suburbs.",
   alternates: { canonical: "/locations" },

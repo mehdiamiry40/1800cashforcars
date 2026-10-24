@@ -42,23 +42,19 @@ const GOOGLE_ADS_ID = "AW-11027669589";
 
 const socialSameAs = [site.social.facebook, site.social.instagram].filter(Boolean);
 
-// Reviews and the Google listing belong to A Plus Car Removal, not this brand name.
+// The Google listing belongs to A Plus Car Removal. The rating stays out of structured data.
+// The licence sits on the parent only. Legal name, ABN and the issuing body are omitted until confirmed.
 const parentOrganization = site.googleBusinessName && site.parentUrl
   ? {
       "@type": "Organization",
       name: site.googleBusinessName,
       url: site.parentUrl,
       ...(site.googleBusinessUrl ? { sameAs: [site.googleBusinessUrl] } : {}),
-      ...(site.googleRating.score
-        ? {
-            aggregateRating: {
-              "@type": "AggregateRating",
-              ratingValue: site.googleRating.score,
-              reviewCount: site.googleRating.count,
-              bestRating: 5,
-            },
-          }
-        : {}),
+      hasCredential: {
+        "@type": "EducationalOccupationalCredential",
+        credentialCategory: "license",
+        name: site.parentLicence,
+      },
     }
   : undefined;
 

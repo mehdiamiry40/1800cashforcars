@@ -39,7 +39,7 @@ export function ValuationReport({ valuation: v, car }: { valuation: Valuation; c
       {/* Headline */}
       <section className="bg-navy p-6 text-white sm:p-10">
         <div className="flex flex-wrap items-center justify-between gap-3">
-          <p className="font-sans text-[14px] font-bold uppercase tracking-[0.14em] text-brand">Your AutoVal valuation</p>
+          <p className="font-sans text-[14px] font-bold uppercase tracking-[0.14em] text-white">Your AutoVal valuation</p>
           <span className="border border-white/40 px-3 py-1 text-[14px] font-semibold capitalize">{v.confidence} confidence</span>
         </div>
         <p className="mt-3 max-w-3xl text-[17px] text-white/80">{v.vehicleSummary}</p>
@@ -76,7 +76,7 @@ export function ValuationReport({ valuation: v, car }: { valuation: Valuation; c
           <ol className="space-y-5">
             {v.sellingPoints.map((s, i) => (
               <li key={s.title} className="flex gap-4">
-                <span className="font-display text-[26px] font-extrabold leading-none text-brand">{String(i + 1).padStart(2, "0")}</span>
+                <span className="font-display text-[26px] font-extrabold leading-none text-logo">{String(i + 1).padStart(2, "0")}</span>
                 <div className="text-[16px]">
                   <p className="font-bold">{s.title}</p>
                   <p className="mt-0.5 text-muted">{s.detail}</p>
@@ -129,7 +129,7 @@ export function ValuationReport({ valuation: v, car }: { valuation: Valuation; c
           <ul className="grid gap-3 md:grid-cols-2">
             {v.marketEvidence.map((m, i) => (
               <li key={i} className="border border-line/15 p-4 text-[16px]">
-                <p className="text-[13px] font-bold uppercase tracking-wide text-brand">{m.source}</p>
+                <p className="text-[13px] font-bold uppercase tracking-wide text-logo">{m.source}</p>
                 <p className="mt-1 text-muted">{m.detail}</p>
               </li>
             ))}
@@ -149,7 +149,7 @@ export function ValuationReport({ valuation: v, car }: { valuation: Valuation; c
 function EngineCard({ engine: e }: { engine: Valuation["engine"] }) {
   return (
     <section className="border border-line/15 bg-white p-6 sm:p-8">
-      <p className="eyebrow text-brand">Under the bonnet</p>
+      <p className="eyebrow text-logo">Under the bonnet</p>
       <h3 className="h-sub mt-1">{e.name}</h3>
       <p className="mt-2 text-[17px]">{e.summary}</p>
       <p className="mt-3 border-l-4 border-navy bg-[#f2f3fb] px-4 py-2.5 text-[15px] text-muted">{e.matchNote}</p>
@@ -203,7 +203,7 @@ function CashOfferCta({ car }: { car: ValuedCar }) {
   return (
     <section className="grid gap-8 border-2 border-brand bg-white p-6 sm:p-10 lg:grid-cols-[1fr_1.1fr] lg:gap-12">
       <div>
-        <p className="eyebrow text-brand">Skip the hassle</p>
+        <p className="eyebrow text-logo">Skip the hassle</p>
         <h3 className="h-section mt-2">Rather sell it this week?</h3>
         <p className="mt-4 text-[18px]">
           No ads, no tyre-kickers, no roadworthy. Get a firm cash offer from {site.name}, usually within the hour.
@@ -215,13 +215,13 @@ function CashOfferCta({ car }: { car: ValuedCar }) {
             { icon: CheckIcon, text: "No obligation to accept" },
           ].map(({ icon: Icon, text }) => (
             <li key={text} className="flex items-center gap-3 font-semibold">
-              <Icon aria-hidden="true" className="h-6 w-6 shrink-0 text-brand" />
+              <Icon aria-hidden="true" className="h-6 w-6 shrink-0 text-logo" />
               {text}
             </li>
           ))}
         </ul>
         <a href={site.phoneHref} className="mt-8 inline-flex min-h-11 items-center gap-3 text-[24px] font-bold">
-          <PhoneIcon aria-hidden="true" className="h-6 w-6 text-brand" />
+          <PhoneIcon aria-hidden="true" className="h-6 w-6 text-logo" />
           {site.phoneDisplay}
         </a>
       </div>
@@ -288,7 +288,7 @@ function RangeBar({ v }: { v: Valuation }) {
 function Card({ eyebrow, title, children, className = "" }: { eyebrow: string; title: string; children: React.ReactNode; className?: string }) {
   return (
     <section className={`border border-line/15 bg-white p-6 sm:p-8 ${className}`}>
-      <p className="eyebrow text-brand">{eyebrow}</p>
+      <p className="eyebrow text-logo">{eyebrow}</p>
       <h3 className="h-sub mb-6 mt-1">{title}</h3>
       {children}
     </section>
@@ -324,7 +324,7 @@ function ListingDraft({ title, description, price }: { title: string; descriptio
     <section className="border border-line/15 bg-white p-6 sm:p-8">
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <p className="eyebrow text-brand">Selling it yourself?</p>
+          <p className="eyebrow text-logo">Selling it yourself?</p>
           <h3 className="h-sub mt-1">Your draft listing</h3>
         </div>
         <button type="button" onClick={copy} className="min-h-11 border border-navy px-4 text-[16px] font-bold hover:bg-navy hover:text-white">
@@ -334,7 +334,7 @@ function ListingDraft({ title, description, price }: { title: string; descriptio
       <div className="mt-6 bg-[#f7f8fc] p-5 sm:p-6">
         <div className="flex flex-wrap items-baseline justify-between gap-2">
           <p className="text-[18px] font-bold">{title}</p>
-          <p className="font-display text-[24px] font-bold text-brand">{aud(price)}</p>
+          <p className="font-display text-[24px] font-bold text-logo">{aud(price)}</p>
         </div>
         <p className="mt-3 whitespace-pre-line text-[16px] text-muted">{description}</p>
       </div>

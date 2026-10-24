@@ -6,7 +6,7 @@ import { PageShell } from "@/components/PageShell";
 import { brisbaneSuburbs, pageOpenGraph, site } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Car Removal Brisbane | Free Pickup, Cash Paid",
+  title: "Free Car Removal Brisbane, Cash Paid",
   description:
     "Free car removal Brisbane wide. We pick up scrap, old and unwanted cars, pay you before they leave and tow them free. Same-day pickups from our Rocklea yard.",
   alternates: { canonical: "/car-removal-brisbane" },
@@ -75,7 +75,7 @@ const serviceLd = {
 export default function CarRemovalBrisbane() {
   return (
     <PageShell
-      title="Car removal Brisbane"
+      title="Free car removal in Brisbane"
       path="/car-removal-brisbane"
       intro="Free pickup across Brisbane. Paid before your car leaves."
       roo={{ pouchCar: true, hop: true }}
@@ -96,8 +96,8 @@ export default function CarRemovalBrisbane() {
       <ContentBlocks
         blocks={[
           {
-            heading: "Free car removal, anywhere in Brisbane",
-            summary: "From your driveway, work, mechanic or the roadside.",
+            heading: "Is car removal in Brisbane free?",
+            summary: "Yes. Car removal in Brisbane does not cost you anything. We do not charge a pickup fee, and we never take the tow off the price we pay. We also pay you for the car, including one that is only fit for scrap. You choose the time, Monday to Saturday.",
             icon: "truck",
             paras: [
               "Our yard is in Rocklea, on Brisbane's southside, so we can get a tow truck or tilt tray to most Brisbane suburbs the same day. We'll collect the car from your driveway, the street, a workshop, a car park or the side of the road.",
@@ -105,8 +105,8 @@ export default function CarRemovalBrisbane() {
             ],
           },
           {
-            heading: "Cars we remove",
-            summary: "Running or not, registered or not. We buy all conditions.",
+            heading: "Do you remove cars with no keys or no wheels?",
+            summary: "Yes. We buy Brisbane cars with no keys and cars with no wheels. Tell us which applies when you ask for a price, so the right truck is sent. A car that cannot roll can still be collected. Towing stays free and is never deducted, and you are paid before it leaves.",
             icon: "car",
             list: [
               { bold: "Scrap and wrecked cars", text: "rusted out, stripped or sitting in the yard for years." },
@@ -118,8 +118,8 @@ export default function CarRemovalBrisbane() {
             ],
           },
           {
-            heading: "How Brisbane car removal works",
-            summary: "Get a quote, choose a time, and get paid on pickup.",
+            heading: "How fast can you collect a car in Brisbane?",
+            summary: "Often the same day. Our yard is in Rocklea, so most Brisbane suburbs are a short run, and a pickup is often the same day or the next. You choose the time, Monday to Saturday. Quotes are sent very fast, sometimes in under a minute, and usually within minutes.",
             icon: "cash",
             list: [
               { bold: "Get a quote", text: "fill in the quick form with the car's details (or call us) and we'll text you a price." },
@@ -172,6 +172,8 @@ export default function CarRemovalBrisbane() {
       </div>
 
       <p className="mt-10 text-[17px]">
+        A car with no keys or no wheels is still collected. Read{" "}
+        <Link href="/car-removal-no-keys-no-wheels" className="font-bold text-navy underline underline-offset-2">car removal with no keys or no wheels</Link>.
         Want to know what your car is worth first? See{" "}
         <Link href="/" className="font-bold text-navy underline underline-offset-2">cash for cars Brisbane</Link>, or check out{" "}
         <Link href="/truck-removal" className="font-bold text-navy underline underline-offset-2">cash for trucks</Link>.

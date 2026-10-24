@@ -9,14 +9,17 @@ export const cashForCarsPage: ContentPage = {
   slug: "cash-for-cars",
   intro: "Sell any car or work vehicle. Free pickup, paid on collection.",
   title: "Cash for cars",
-  metaTitle: "Sell Your Car for Cash in QLD | How It Works",
+  metaTitle: "Sell Your Car for Cash in QLD",
   description:
     "How selling a car for cash works in Queensland and the Tweed. We price it from the details you send, pay on pickup, and the tow is free.",
   blocks: [],
   sections: [
     {
-      heading: "Selling your car to us",
+      heading: "How do I sell my car for cash?",
       paragraphs: [
+        {
+          text: "Tell us what the car is, running or not, and we send a firm price, usually within minutes. Quotes are sent very fast, sometimes in under a minute. If you accept, we book a time Monday to Saturday, check the car matches what you said, pay you, and tow it free.",
+        },
         {
           text: "Selling privately means ads, phone calls, people not turning up and haggling over the price. 1800-CASH-FOR-CARS skips that. Tell us what you've got, running or not, and we'll give you a price the same day. A firm price usually comes back within minutes.",
         },
@@ -45,14 +48,20 @@ export const cashForCarsPage: ContentPage = {
       ],
     },
     {
-      heading: "What decides the price",
+      heading: "What changes the price you pay?",
       paragraphs: [
+        {
+          text: "The price uses what you send: make, model, year, kilometres if you know them, what is wrong, and what is missing. A car that runs is worth more, but one that does not still has a price. Towing is not a line on the quote. The price we quote is the price we pay when the car is as described.",
+        },
         {
           text: "Every car gets its own price. The quote uses what you send: make, model, year, kilometres if you know them, what is wrong, and what is missing.",
         },
         {
-          text: "For scrap and non-running cars, the Brisbane scrap car prices page is the guide, and the same guide applies on the Gold Coast, the Sunshine Coast, in Logan, Ipswich and Tweed Heads. Towing is not a line on that quote. The price we quote is the price we pay, as long as the car is as described.",
-          links: [{ phrase: "Brisbane scrap car prices page", href: PRICES }],
+          text: "For scrap and non-running cars, the Brisbane scrap car prices page is the guide, and the same guide applies on the Gold Coast, the Sunshine Coast, in Logan, Ipswich and Tweed Heads. Towing is not a line on that quote. The price we quote is the price we pay, as long as the car is as described. If you want a market estimate first, check what your car is worth. That figure is not a cash offer.",
+          links: [
+            { phrase: "Brisbane scrap car prices page", href: PRICES },
+            { phrase: "check what your car is worth", href: "/autoval" },
+          ],
         },
       ],
       list: [
@@ -63,8 +72,11 @@ export const cashForCarsPage: ContentPage = {
       ],
     },
     {
-      heading: "How you get paid",
+      heading: "How do I get paid?",
       paragraphs: [
+        {
+          text: "In Queensland, including Brisbane, the Gold Coast, Logan, Ipswich and the Sunshine Coast, you choose cash or a bank transfer. We pay before the car leaves and give you a receipt. In NSW, including Tweed Heads, scrap vehicles are paid by bank transfer only.",
+        },
         {
           text: "In Queensland, including Brisbane, the Gold Coast, Logan, Ipswich and the Sunshine Coast, you choose cash or bank transfer. We pay before the car leaves, and we give you a receipt.",
         },
@@ -134,14 +146,17 @@ export const carRemovalsPage: ContentPage = {
   intro: "Free car pickup across South East Queensland and the Tweed. Any condition.",
   title: "Free car removal across South East Queensland",
   // Overview for every area. Brisbane stays on /car-removal-brisbane. No redirect or canonical between them.
-  metaTitle: "Free Car Removal Across SEQ | All Areas We Cover",
+  metaTitle: "Free Car Removal Across SEQ",
   description:
     "Free car removal across South East Queensland and the Tweed. Any condition, paid on pickup. Brisbane car removal has its own page.",
   blocks: [],
   sections: [
     {
-      heading: "Car removal for every area we cover",
+      heading: "Is car removal free across South East Queensland?",
       paragraphs: [
+        {
+          text: "Yes. Car removal is free in Brisbane, Logan, Ipswich, the Gold Coast, the Sunshine Coast and Tweed Heads. We do not charge a removal fee, and we do not take towing off your price. We pay you for the car as well, including scrap, damaged and unregistered cars.",
+        },
         {
           text: "This is the free car removal overview for South East Queensland and the Tweed. It sets out where we collect, what the tow includes, and what to have ready. Brisbane has its own page, with that city's suburbs and the notes for pickups from our Rocklea yard: car removal Brisbane.",
           links: [{ phrase: "car removal Brisbane", href: "/car-removal-brisbane" }],
@@ -153,8 +168,11 @@ export const carRemovalsPage: ContentPage = {
       ],
     },
     {
-      heading: "What the free pickup includes",
+      heading: "How soon can you collect the car?",
       paragraphs: [
+        {
+          text: "Often the same day, and nearly always within a day or two. You choose the time, Monday to Saturday. Brisbane, Logan and Ipswich are closest to the Rocklea yard, so those jobs are often same day. The Sunshine Coast is further, so it is booked, usually within a day or two.",
+        },
         {
           text: "We come to you Monday to Saturday. The car can be in a garage, on the street, at a mechanic's, or broken down roadside. Towing is free in every area on this page, and we pay you as well, including for scrap, damaged and unregistered cars. The quoted price is what we pay when the car is as described.",
         },
@@ -162,17 +180,21 @@ export const carRemovalsPage: ContentPage = {
           text: "Most pickups happen within a day of your call, and often the same day. The Sunshine Coast is further from the yard, so those jobs are booked, usually within a day or two.",
         },
         {
-          text: "Start with the quote form, or call 0423 514 111. The Rocklea yard answers weekdays 8am to 5pm and Saturdays 8am to 2pm.",
+          text: "Start with the quote form, or call 0423 514 111. The Rocklea yard answers weekdays 8am to 5pm and Saturdays 8am to 2pm. If you want a market estimate before the cash offer, check what your car is worth. That estimate is not the offer.",
           links: [
             { phrase: "quote form", href: QUOTE },
             { phrase: "0423 514 111", href: PHONE },
+            { phrase: "check what your car is worth", href: "/autoval" },
           ],
         },
       ],
     },
     {
-      heading: "Where the truck goes",
+      heading: "Which areas do you remove cars from?",
       paragraphs: [
+        {
+          text: "Brisbane, Logan, Ipswich, the Gold Coast, the Sunshine Coast and Tweed Heads. Brisbane has its own page. Logan and Ipswich each have one too. The Gold Coast run goes south to Coolangatta, and the Tweed is over the border in NSW, where payment is by bank transfer.",
+        },
         {
           text: "Brisbane, Logan and Ipswich are the closest to the Rocklea yard, so pickups there are often the same day. Suburb-by-suburb Brisbane removal stays on the Brisbane page. Logan and Ipswich each have their own page, including the acreage notes for those cities.",
           links: [
@@ -247,14 +269,17 @@ export const truckRemovalPage: ContentPage = {
   slug: "truck-removal",
   intro: "Light, medium and heavy trucks. Running or not.",
   title: "Cash for trucks",
-  metaTitle: "Cash For Trucks Gold Coast & Brisbane | Truck Removal & Wreckers",
+  metaTitle: "Cash for Trucks Brisbane & Gold Coast",
   description:
     "Cash for light, medium and heavy trucks across South East Queensland and the Tweed. Tippers, trays, pantechs and rigids, running or not. Paid on pickup.",
   blocks: [],
   sections: [
     {
-      heading: "A page for trucks",
+      heading: "Do you pay cash for trucks in Brisbane?",
       paragraphs: [
+        {
+          text: "Yes, in Queensland. Cash for trucks in Brisbane is paid in cash or by bank transfer when we collect the truck, before it leaves. In NSW, including Tweed Heads, the law does not allow cash for scrap vehicles, so a truck there is paid by bank transfer only.",
+        },
         {
           text: "1800-CASH-FOR-CARS buys trucks on this page. Cars, utes and vans are priced on cash for cars. The suburb-by-suburb tow, for any vehicle, is on free car removal across South East Queensland. If the vehicle is a truck, start here.",
           links: [
@@ -283,8 +308,11 @@ export const truckRemovalPage: ContentPage = {
       ],
     },
     {
-      heading: "Pickup and payment for a truck",
+      heading: "Is the tow free when you buy a truck?",
       paragraphs: [
+        {
+          text: "Pickup is free for most trucks. We arrange the right tow for the job and confirm any pickup details for a large heavy vehicle when we give the price, so there is no surprise fee on the day. You are paid before the truck leaves.",
+        },
         {
           text: "We arrange the right tow truck or tilt tray for the job. Pickup is free for most trucks. For large heavy vehicles we'll confirm any pickup details when we give you the price, so there are no surprises on the day.",
         },
@@ -302,8 +330,11 @@ export const truckRemovalPage: ContentPage = {
       ],
     },
     {
-      heading: "Paperwork for selling a truck",
+      heading: "How are trucks in NSW paid?",
       paragraphs: [
+        {
+          text: "By bank transfer. NSW law does not allow cash for scrap vehicles, and that includes trucks in Tweed Heads. Have the account details ready on the day. In Queensland you can choose cash or a transfer, paid when we collect the truck and before it leaves.",
+        },
         {
           text: "Bring photo ID and proof of ownership, the same as for a car. Rego papers if you have them. An unregistered truck is fine, because we tow it and it doesn't need a roadworthy. The truck shouldn't have finance owing. If it does, call us and we'll discuss that truck. We don't publish a finance process on this page.",
         },

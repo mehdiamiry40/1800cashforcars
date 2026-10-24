@@ -55,27 +55,37 @@ export function RichText({ text, links = [] }: { text: string; links?: { phrase:
 export function CopySections({ sections }: { sections: CopySection[] }) {
   return (
     <div className="mt-10 space-y-10">
-      {sections.map((section) => (
-        <section key={section.heading}>
-          <h2 className="h-content">{section.heading}</h2>
-          <div className="prose-site text-[18px]">
-            {section.paragraphs.map((paragraph, index) => (
-              <p key={`${section.heading}-${index}`}>
-                <RichText text={paragraph.text} links={paragraph.links} />
+      {sections.map((section) => {
+        const [lead, ...rest] = section.paragraphs;
+        return (
+          <section key={section.heading}>
+            <h2 className="h-content">{section.heading}</h2>
+            {lead ? (
+              <p className="mt-4 text-[18px] leading-relaxed">
+                <RichText text={lead.text} links={lead.links} />
               </p>
-            ))}
-            {section.list ? (
-              <ul className="mt-4 space-y-3">
-                {section.list.map((item) => (
-                  <li key={item.bold}>
-                    <b className="text-navy">{item.bold}.</b> <RichText text={item.text} links={item.links} />
-                  </li>
-                ))}
-              </ul>
             ) : null}
-          </div>
-        </section>
-      ))}
+            {rest.length > 0 || section.list ? (
+              <div className="prose-site text-[18px]">
+                {rest.map((paragraph, index) => (
+                  <p key={`${section.heading}-${index}`}>
+                    <RichText text={paragraph.text} links={paragraph.links} />
+                  </p>
+                ))}
+                {section.list ? (
+                  <ul className="mt-4 space-y-3">
+                    {section.list.map((item) => (
+                      <li key={item.bold}>
+                        <b className="text-navy">{item.bold}.</b> <RichText text={item.text} links={item.links} />
+                      </li>
+                    ))}
+                  </ul>
+                ) : null}
+              </div>
+            ) : null}
+          </section>
+        );
+      })}
     </div>
   );
 }

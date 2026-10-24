@@ -1,12 +1,12 @@
 import { site } from "@/lib/site";
 
-// Compact Google rating for the quote card. Figures come only from site.googleRating,
-// the same source as the reviews band and the AggregateRating structured data.
+// Compact Google rating for the quote card. Figures come only from site.googleRating.
+// The rating belongs to the parent's Google listing, so the badge names that business.
 export function GoogleReviewsSignal({ className = "" }: { className?: string }) {
   const { score, count } = site.googleRating;
-  if (!score || !count) return null;
+  if (!score || !count || !site.googleBusinessName) return null;
 
-  const label = `${score} from ${count} Google reviews`;
+  const label = `${score} from ${count} Google reviews of our yard, ${site.googleBusinessName}`;
   const classNames = `google-reviews-signal flex w-fit max-w-full flex-wrap items-center gap-x-1.5 text-[14px] font-semibold leading-none text-navy ${className}`;
   const content = (
     <>

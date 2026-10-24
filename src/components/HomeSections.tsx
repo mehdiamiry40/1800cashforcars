@@ -32,7 +32,7 @@ const serviceCards = [
     Icon: CashIcon,
   },
   {
-    title: "Free car removal",
+    title: "Free car removal Brisbane",
     href: "/car-removal-brisbane",
     visual: servicePhotos.removal,
     Icon: TruckIcon,
@@ -140,12 +140,9 @@ export function PickupSection() {
             className="mb-5 h-10 w-10 text-brand"
             strokeWidth={1.5}
           />
-          <h2 className="h-section">
-            <span className="text-brand">We pay you.</span> The tow is free.
-          </h2>
+          <h2 className="h-section !text-brand">Is the towing really free?</h2>
           <p className="mt-4 text-[18px] sm:text-[20px]">
-            Cash for your car, plus free pickup across Brisbane from home, work
-            or the mechanic. Running or not, we pay you for it.
+            Yes. The run out from Rocklea is not a line item, and it is not shaved off after you accept. Engines that turn over and engines that do not are both paid. Name a collecting day, Saturday included. The meeting point can be a house, a workplace or a repair shop. Cash, or a transfer, changes hands while the vehicle is still on your ground.
           </p>
           <p className="mb-6 mt-3">
             Tell us where it is and choose a time that suits you. You&apos;re
@@ -189,13 +186,19 @@ export function BrisbaneCashForCars() {
         "We buy sedans, hatchbacks, 4WDs, SUVs, utes, vans and trucks, from every make: Toyota, Holden, Ford, Mazda, Hyundai, Nissan, Mitsubishi, Kia and the rest. Running or not, registered or not.",
         "That includes crashed and written-off cars, flood and hail damaged cars, cars that failed a roadworthy, cars with a blown engine or no keys, and old cars that have been sitting in the backyard for years.",
       ],
+      link: {
+        href: "/car-removal-no-keys-no-wheels",
+        lead: "We also collect ",
+        text: "cars with no keys or no wheels",
+        tail: ".",
+      },
     },
     {
       title: "Free car removal, the same day you accept",
       paras: [
         "Our yard is in Rocklea, on Brisbane's southside, so we can usually have a tow truck or tilt tray at your place the same day. We pick up from houses, units, workshops, car parks and the roadside, Monday to Saturday.",
       ],
-      link: { href: "/car-removal-brisbane", text: "car removal Brisbane" },
+      link: { href: "/car-removal-brisbane", text: "free car removal Brisbane" },
     },
     {
       title: "Paperwork and rego when you sell",
@@ -210,10 +213,9 @@ export function BrisbaneCashForCars() {
     <section id="brisbane" className="section-site scroll-mt-32 border-t border-line">
       <div className="container-site">
         <div className="max-w-3xl">
-          <h2 className="h-section !text-brand">Cash for cars in Brisbane, from a local yard</h2>
+          <h2 className="h-section !text-brand">How fast can you pick up in Brisbane?</h2>
           <p className="mt-4 text-[18px] sm:text-[20px]">
-            {site.name} buys unwanted cars all over Brisbane, from the northside to the bayside. We give you a fair price,
-            pay you before the car leaves, and tow it away for free. No ads, no tyre-kickers, no haggling at the kerb.
+            Often that same afternoon. Rocklea sits on the south side of Brisbane, so a car in this city is commonly collected before the day ends and nearly always inside a couple of days. You set the clock. A price can land very quickly, on occasion inside a minute, and it is usually with you within minutes of the details arriving.
           </p>
         </div>
         <div className="mt-10 grid gap-x-14 gap-y-10 md:grid-cols-2">
@@ -278,7 +280,14 @@ export function QuoteOptions() {
   return (
     <section className="section-site">
       <div className="container-site">
-        <h2 className="h-section mb-8 !text-brand">Your car. Your way.</h2>
+        <h2 className="h-section !text-brand">Your car. Your way.</h2>
+        <p className="mb-8 max-w-3xl text-[18px]">
+          Call, text, or send the car&apos;s details. If you want a market estimate before a cash offer,{" "}
+          <Link href="/autoval" className="font-semibold underline underline-offset-4">
+            check what your car is worth
+          </Link>
+          .
+        </p>
         <div className="quote-options grid gap-7 md:grid-cols-3">
           {options.map(({ Icon, title, text, href, link }) => {
             const content = (
@@ -466,13 +475,9 @@ export function WhyChooseSection() {
           />
         </div>
         <div>
-          <h2 className="h-section">
-            <span className="text-brand">Straightforward</span> from start to
-            finish.
-          </h2>
-          <p className="mt-4 max-w-md text-[18px] sm:text-[20px]">
-            A local team in Rocklea. A clear quote. Pickup at a time that suits
-            you.
+          <h2 className="h-section !text-brand">How do I get paid?</h2>
+          <p className="mt-4 max-w-3xl text-[18px] sm:text-[20px]">
+            Settlement is notes in hand or a transfer into your account, completed at collection, and you leave with a receipt. Queensland sellers pick which of those two. Across the border, including around Tweed Heads, scrap-vehicle rules bar notes, so only a transfer is used. The drive is not subtracted from that settlement.
           </p>
           <ul className="my-7 space-y-6">
             {promises.map(({ Icon, title, text }) => (
@@ -533,7 +538,7 @@ export function SellingAdvice() {
   const advice = [
     {
       title: "What is your car worth?",
-      text: "Make, model, condition and usable parts all affect the price. Here’s how we work it out.",
+      text: "Year, badge and what still works all move the figure, and a sound engine or panel can lift it. A starter is worth more than a non-starter. The journey out is not subtracted. Describe the car and a firm figure is usually back within minutes.",
       href: "/cash-for-cars",
       visual: advicePhotos.value,
       link: "How pricing works",
