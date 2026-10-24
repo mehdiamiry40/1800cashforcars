@@ -28,11 +28,11 @@ export function GET() {
 
 > ${site.tagline} Cash for scrap, old, broken and unwanted cars across Brisbane, the Gold Coast and South East QLD. Any condition, free towing, paid on pickup.
 
-1800 Cash For Cars is part of A Plus Car Removal (${site.parentUrl}). They share the yard. The yard is listed on Google as ${site.googleBusinessName}.
+${site.name} is part of A Plus Car Removal (${site.parentUrl}). They share the yard. The yard is listed on Google as ${site.googleBusinessName}.
 
 ## Business
 
-- Name: ${site.name} (also written 1800 Cash For Cars)
+- Name: ${site.name}
 - Website: ${site.url}
 - Phone: ${site.phoneDisplay}
 - SMS: ${site.phoneDisplay}
@@ -65,7 +65,7 @@ ${faqLines}
 - [Cash for cars Brisbane](${site.url}/): Cash for cars Brisbane: we buy scrap, old and unwanted cars in any condition. Paid on pickup, free car removal, often same day, from our local Rocklea yard.
 - [Car removal Brisbane](${site.url}/car-removal-brisbane): Free car removal Brisbane wide. We pick up scrap, old and unwanted cars, pay you before they leave and tow them free. Same-day pickups from our Rocklea yard.
 - [Scrap car prices Brisbane](${site.url}/scrap-car-prices-brisbane): Most scrap and non-running cars we buy in Brisbane are worth $150 to $800. Older cars that still run usually fetch $500 to $1,600. Running or accident-damaged utes bring $1,000 to $5,500, and late-model damaged SUVs and 4WDs $2,500 to $6,000. These are guides: every car is quoted individually, and free towing is never taken off the price. Updated 20 October 2026.
-- [Cash for cars Logan](${site.url}/locations/logan): 1800 Cash For Cars buys scrap, old and damaged cars, utes, vans and trucks right across the City of Logan, from Springwood and Beenleigh to Browns Plains, Jimboomba and Yarrabilba. Towing is always free and never taken off your price. Most scrap or non-running cars fetch $150 to $800, and running or damaged utes $1,000 to $5,500.
+- [Cash for cars Logan](${site.url}/locations/logan): ${site.name} buys scrap, old and damaged cars, utes, vans and trucks right across the City of Logan, from Springwood and Beenleigh to Browns Plains, Jimboomba and Yarrabilba. Towing is always free and never taken off your price. Most scrap or non-running cars fetch $150 to $800, and running or damaged utes $1,000 to $5,500.
 - [Cash for cars Ipswich](${site.url}/locations/ipswich): Yes, we pay cash for unwanted cars, utes, vans and trucks anywhere in the City of Ipswich, from Goodna and Springfield to Rosewood and Marburg. Our Rocklea yard sits at the Brisbane end of the Ipswich Motorway, and towing is always free. A non-running sedan typically brings $300 to $800; trucks start from $1,000.
 - [Areas we cover](${site.url}/locations): We buy cars and offer free car removal across Brisbane, the Gold Coast, Logan, Ipswich, the Sunshine Coast and Tweed Heads.
 ${pageLines}

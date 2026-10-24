@@ -12,10 +12,15 @@ const GOOGLE_TAG_CONNECT_HOSTS = [
   "https://googleads.g.doubleclick.net",
 ];
 
-// gtag.js is loaded from this host. A warm tag on the preview also requested
+// gtag.js is loaded from googletagmanager.com. A warm tag on the preview also requested
 // https://www.googletagmanager.com/a as an image (gtm.js / gtag.config).
+// Australian visitors get the remarketing pixel from www.google.com.au.
+// Google's Ads CSP guidance lists www.googleadservices.com on img-src for
+// conversion and remarketing pixels. These hosts stay on img-src only.
 const GOOGLE_TAG_IMG_HOSTS = [
   "https://www.google.com",
+  "https://www.google.com.au",
+  "https://www.googleadservices.com",
   "https://www.googletagmanager.com",
   "https://googleads.g.doubleclick.net",
 ];
