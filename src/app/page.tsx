@@ -47,7 +47,7 @@ const websiteLd = {
   "@type": "WebSite",
   "@id": `${site.url}/#website`,
   name: site.name,
-  alternateName: ["1800 Cash For Cars", site.domain],
+  alternateName: site.domain,
   url: `${site.url}/`,
   publisher: { "@id": `${site.url}/#business` },
 };

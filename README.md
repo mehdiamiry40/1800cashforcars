@@ -1,4 +1,4 @@
-# 1800 Cash For Cars
+# 1800-CASH-FOR-CARS
 
 Website for [1800cashforcars.com.au](https://1800cashforcars.com.au): Next.js (App Router) + Tailwind, deployed on Vercel from GitHub. Every push to `main` goes live.
 
@@ -6,7 +6,7 @@ Website for [1800cashforcars.com.au](https://1800cashforcars.com.au): Next.js (A
 - **Business details** (`src/lib/site.ts`): phone, hours, ABN, address, service areas, FAQs, reviews, headline payout.
   - `showEmail`: keep `false` until the `quotes@` mailbox or forwarding exists. Otherwise customer emails bounce.
   - `reviews`: add real customer reviews only. The reviews section appears automatically when this has entries.
-  - `googleBusinessUrl` / `googleBusinessName`: the Google Business Profile (listed as A Plus Car Removal). Adds a "Read our reviews on Google" band on the homepage and links the profile in the structured data. Keep `address` identical to the profile (79B).
+  - `googleBusinessUrl` / `googleBusinessName`: the Google Business Profile (listed as A Plus Car Removal). Adds a "Read A Plus Car Removal's reviews on Google" band on the homepage and links the profile in the structured data. Keep `address` identical to the profile (79B). The Google rating is plain text only, never AggregateRating markup.
   - `areas[].local`: the intro, pickup notes and FAQs that make each `/locations/<slug>` page specific to that area.
 - **Service pages** (`src/lib/content.ts`): Cash for cars, Car removals, Services, Cash for trucks, Scrap car removal, Car wreckers, Car disposal.
 - **Brand mascot, Roo**: `src/components/Roo.tsx` (poses: `pouchCar`, `hand="phone" | "cash" | "wave"`, `hop`, `confused`, `flip`) and `RooMark` for the logo. Vehicle icons are in `src/components/VehicleIcons.tsx`.

@@ -51,6 +51,10 @@ describe("content security policy", () => {
     assert.equal(directiveValue(policy, "script-src").includes("'unsafe-eval'"), false);
     assert.equal(directiveValue(policy, "frame-ancestors"), "'none'");
     assert.match(directiveValue(policy, "img-src"), /https:\/\/www\.googletagmanager\.com/);
+    assert.match(directiveValue(policy, "img-src"), /https:\/\/www\.google\.com\.au(?![a-z])/);
+    assert.match(directiveValue(policy, "img-src"), /https:\/\/www\.googleadservices\.com/);
+    assert.equal(directiveValue(policy, "script-src").includes("googleadservices.com"), false);
+    assert.equal(directiveValue(policy, "script-src").includes("google.com.au"), false);
     assert.equal(policy.includes("vercel.live"), false);
     assert.doesNotThrow(() => assertProductionScriptSrc(policy));
     assert.equal(uncoveredInlineScripts("<script>var ready = true;</script>", policy).length, 0);

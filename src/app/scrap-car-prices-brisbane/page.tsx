@@ -286,7 +286,7 @@ export default function ScrapCarPricesBrisbane() {
           <div className="mt-6 overflow-x-auto">
             <table className="w-full border-collapse text-left text-[16px] leading-snug sm:text-[18px]">
               <caption className="mb-3 text-left text-[16px] leading-relaxed text-navy">
-                Guide prices paid by 1800 Cash For Cars, Brisbane and South East QLD. Updated {UPDATED_LABEL}. Every car is quoted individually; free towing is not deducted.
+                Guide prices paid by {site.name}, Brisbane and South East QLD. Updated {UPDATED_LABEL}. Every car is quoted individually; free towing is not deducted.
               </caption>
               <thead>
                 <tr className="border-b-2 border-navy">
@@ -510,7 +510,7 @@ export default function ScrapCarPricesBrisbane() {
             ))}
           </div>
 
-          <h2 className="h-content mt-12">Who is 1800 Cash For Cars?</h2>
+          <h2 className="h-content mt-12">Who is {site.name}?</h2>
           <ParentBrandLine />
           <p>
             We share the yard at {site.address}. The yard is open {hoursSentence()}. Call{" "}

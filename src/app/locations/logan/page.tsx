@@ -16,7 +16,7 @@ const COUNCIL = "https://www.logan.qld.gov.au/community/vehicles-and-parking/aba
 const DESCRIPTION =
   "Cash for cars in Logan: scrap, old and damaged cars, utes, 4x4s, vans and trucks. Free towing, never deducted. Fast quotes on 0423 514 111.";
 const DIRECT_ANSWER =
-  "1800 Cash For Cars buys scrap, old and damaged cars, utes, vans and trucks right across the City of Logan, from Springwood and Beenleigh to Browns Plains, Jimboomba and Yarrabilba. Towing is always free and never taken off your price. Most scrap or non-running cars fetch $150 to $800, and running or damaged utes $1,000 to $5,500.";
+  `${site.name} buys scrap, old and damaged cars, utes, vans and trucks right across the City of Logan, from Springwood and Beenleigh to Browns Plains, Jimboomba and Yarrabilba. Towing is always free and never taken off your price. Most scrap or non-running cars fetch $150 to $800, and running or damaged utes $1,000 to $5,500.`;
 
 const priceRows = [
   { vehicle: "Sedan, not running", price: "$300 – $800" },
@@ -89,7 +89,7 @@ export default function LoganLocationPage() {
           </a>
         </div>
         <p className="mt-4 text-[18px] leading-relaxed">
-          1800 Cash For Cars is part of{" "}
+          {site.name} is part of{" "}
           <a href={site.parentUrl} className="font-semibold text-navy underline underline-offset-4">
             A Plus Car Removal
           </a>
@@ -220,10 +220,10 @@ export default function LoganLocationPage() {
         </h2>
         <FaqList items={faqs} />
 
-        <h2 className="h-content mt-12 scroll-mt-24">Who is 1800 Cash For Cars?</h2>
+        <h2 className="h-content mt-12 scroll-mt-24">Who is {site.name}?</h2>
         <p className="mt-4 text-[18px] leading-relaxed">
           <RichText
-            text="1800 Cash For Cars is part of A Plus Car Removal. We work only from the shared yard at 79B Breadwell St, Rocklea QLD 4106. Licensed through our parent company, A Plus Car Removal (QLD motor dealer licence 4253110). Call 0423 514 111 or email quotes@1800cashforcars.com.au. ABN 62 351 619 456. The yard opens Monday to Friday, 8am to 5pm, and Saturday, 8am to 2pm. Our yard is listed on Google as A Plus Car Removal. For cash for cars across Brisbane and South East QLD, use the homepage, or contact our Rocklea yard."
+            text={`${site.name} is part of A Plus Car Removal. We work only from the shared yard at 79B Breadwell St, Rocklea QLD 4106. Licensed through our parent company, A Plus Car Removal (QLD motor dealer licence 4253110). Call 0423 514 111 or email quotes@1800cashforcars.com.au. ABN 62 351 619 456. The yard opens Monday to Friday, 8am to 5pm, and Saturday, 8am to 2pm. Our yard is listed on Google as A Plus Car Removal. For cash for cars across Brisbane and South East QLD, use the homepage, or contact our Rocklea yard.`}
             links={[
               { phrase: "part of A Plus Car Removal", href: site.parentUrl },
               { phrase: "0423 514 111", href: site.phoneHref },
