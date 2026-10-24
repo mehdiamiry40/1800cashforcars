@@ -175,7 +175,7 @@ export function AutoValuer() {
       <section className="border border-line/15 bg-white p-6 shadow-[0_24px_60px_-30px_rgba(30,37,164,0.45)] sm:p-10">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <div>
-            <p className="eyebrow text-brand">Step 1</p>
+            <p className="eyebrow text-logo">Step 1</p>
             <h2 className="h-sub mt-1 sm:text-[34px]">Find your car</h2>
           </div>
           <div role="tablist" aria-label="How to find your car" className="grid grid-cols-3 border border-navy">
@@ -220,7 +220,7 @@ export function AutoValuer() {
               <label className="min-w-0 flex-1">
                 <span className="field-label flex justify-between gap-4">
                   <span>VIN (17 characters)</span>
-                  <span className={`font-display ${vinClean.length === 17 ? "text-brand" : "text-muted"}`}>{vinClean.length}/17</span>
+                  <span className={`font-display ${vinClean.length === 17 ? "text-logo" : "text-muted"}`}>{vinClean.length}/17</span>
                 </span>
                 <input
                   className="field font-display text-[20px] uppercase tracking-[0.18em]"
@@ -258,7 +258,7 @@ export function AutoValuer() {
 
           {lookup && (
             <div className="mt-6 flex items-start gap-4 border-l-4 border-navy bg-[#f2f3fb] p-4">
-              <CheckIcon aria-hidden="true" className="mt-1 h-5 w-5 shrink-0 text-brand" />
+              <CheckIcon aria-hidden="true" className="mt-1 h-5 w-5 shrink-0 text-logo" />
               <div className="text-[16px]">
                 <p className="font-bold">
                   {found || "Partial match"}
@@ -274,7 +274,7 @@ export function AutoValuer() {
       {/* Step 2: details */}
       {showForm && (
         <form onSubmit={runValuation} className="border border-line/15 bg-white p-6 sm:p-10">
-          <p className="eyebrow text-brand">Step 2</p>
+          <p className="eyebrow text-logo">Step 2</p>
           <h2 className="h-sub mt-1 sm:text-[34px]">Tell us about it</h2>
           <p className="mt-1 text-[16px] text-muted">Kilometres and condition make the biggest difference to the price.</p>
 
@@ -324,7 +324,7 @@ export function AutoValuer() {
                     form.condition === c.id ? "border-brand bg-[#fdf3ee]" : "border-line/15 bg-white hover:border-navy"
                   }`}
                 >
-                  {form.condition === c.id && <CheckIcon aria-hidden="true" className="absolute right-3 top-3 h-5 w-5 text-brand" />}
+                  {form.condition === c.id && <CheckIcon aria-hidden="true" className="absolute right-3 top-3 h-5 w-5 text-logo" />}
                   <span className="block text-[18px] font-bold">{c.label}</span>
                   <span className="block text-[15px] text-muted">{c.hint}</span>
                 </button>
@@ -470,7 +470,7 @@ function Field({ label, required, children }: { label: string; required?: boolea
     <label className="block min-w-0">
       <span className="field-label">
         {label}
-        {required && <span className="text-brand"> *</span>}
+        {required && <span className="text-logo"> *</span>}
       </span>
       {children}
     </label>

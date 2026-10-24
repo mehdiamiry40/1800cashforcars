@@ -31,6 +31,10 @@ function PriceGuideLink({ slug }: { slug: string }) {
         <Link href="/scrap-car-prices-brisbane" className={linkClass}>
           scrap car prices in Brisbane
         </Link>
+        . A car with no keys or no wheels is covered on{" "}
+        <Link href="/car-removal-no-keys-no-wheels" className={linkClass}>
+          car removal with no keys or no wheels
+        </Link>
         .
       </p>
     );

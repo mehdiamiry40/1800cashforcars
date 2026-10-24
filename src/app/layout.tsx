@@ -44,12 +44,18 @@ const socialSameAs = [site.social.facebook, site.social.instagram].filter(Boolea
 
 // The Google listing belongs to A Plus Car Removal. Its star rating stays visible
 // text only. Google Maps ratings are not allowed as review markup.
+// The licence sits on the parent only. Legal name, ABN and the issuing body are omitted until confirmed.
 const parentOrganization = site.googleBusinessName && site.parentUrl
   ? {
       "@type": "Organization",
       name: site.googleBusinessName,
       url: site.parentUrl,
       ...(site.googleBusinessUrl ? { sameAs: [site.googleBusinessUrl] } : {}),
+      hasCredential: {
+        "@type": "EducationalOccupationalCredential",
+        credentialCategory: "license",
+        name: site.parentLicence,
+      },
     }
   : undefined;
 

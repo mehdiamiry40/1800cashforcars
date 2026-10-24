@@ -11,8 +11,11 @@ export const tweedHeadsLocal = {
     "Just over the border, 1800-CASH-FOR-CARS buys unwanted cars in Tweed Heads, Banora Point, Kingscliff, Pottsville, Terranora and Murwillumbah, in any condition, with free removal.",
   sections: [
     {
-      heading: "The Tweed places we come to",
+      heading: "Is towing free in the Tweed?",
       paragraphs: [
+        {
+          text: "Yes. Nobody in Tweed Heads, Banora Point, Kingscliff, Pottsville, Terranora or Murwillumbah is billed for the truck. Coming south from Rocklea does not add a border loading, and that journey is not subtracted later. You name the hour. Most of these collections land inside a couple of days, and plenty happen sooner.",
+        },
         {
           text: "Tweed Heads is the border town, directly south of Coolangatta. We also collect in Banora Point, above the river, and in Terranora. On the coast the run continues to Kingscliff and then Pottsville. Inland, Murwillumbah is the Tweed Valley town on this page.",
         },
@@ -26,8 +29,11 @@ export const tweedHeadsLocal = {
       ],
     },
     {
-      heading: "NSW payment is by bank transfer",
+      heading: "How do I get paid in Tweed Heads?",
       paragraphs: [
+        {
+          text: "Into your account, and only that way, while the car is still in the Tweed. New South Wales bars notes for a scrap vehicle, so cash is not an option in these six places. Have the account name with you. What you were quoted is what is transferred when the vehicle matches the description you gave.",
+        },
         {
           text: "NSW law does not allow cash for scrap vehicles, so in the Tweed we pay by bank transfer before the car leaves. Have your bank details ready on the day. That rule is the reason a Tweed Heads pickup is handled differently from a Brisbane or Gold Coast one.",
         },
@@ -57,8 +63,11 @@ export const tweedHeadsLocal = {
       ],
     },
     {
-      heading: "What we collect, and how the Tweed run is booked",
+      heading: "Do you buy Tweed cars with no keys or no wheels?",
       paragraphs: [
+        {
+          text: "Yes. A Tweed vehicle missing its key, its wheels, or both is still purchased. It need not roll, and current registration is irrelevant because we take it away. Flag what is absent when you ask. The account transfer still happens first, and the journey down from Rocklea is not billed.",
+        },
         {
           text: "Cars, 4WDs, utes and vans, running or not. Rust, a blown engine, accident damage, flood damage or years in the weather do not rule a vehicle out. Describe the condition so the quote holds on the day. Trucks are priced on cash for trucks. A car that will not be repaired is covered on the scrap car removal page.",
           links: [

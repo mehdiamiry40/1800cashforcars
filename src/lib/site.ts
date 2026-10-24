@@ -23,6 +23,10 @@ export const site = {
     { days: ["Saturday"], opens: "08:00", closes: "14:00" },
   ],
   abn: "62 351 619 456",
+  // The motor dealer licence is held by the parent, not by this brand. Legal name and ABN
+  // for A Plus are omitted until the owner confirms them.
+  parentLicence: "Queensland motor dealer licence 4253110",
+  licenceLine: "Licensed through our parent company, A Plus Car Removal (QLD motor dealer licence 4253110).",
   // Keep the address exactly as it is on the Google Business Profile (79B), so Google sees one consistent business.
   address: "79B Breadwell St, Rocklea QLD 4106", // shown in footer + contact page
   addressParts: { street: "79B Breadwell St", locality: "Rocklea", region: "QLD", postcode: "4106", country: "AU" },
@@ -35,7 +39,8 @@ export const site = {
   googleBusinessName: "A Plus Car Removal",
   parentUrl: "https://apluscarremoval.com.au",
   // Star rating and review count on the A Plus Car Removal Google listing. Update now and then; blank hides it.
-  // Shown as plain text attributed to A Plus Car Removal. Do not mark it up as AggregateRating or Review.
+  // Shown as plain text next to the A Plus name. It is not in structured data.
+  // Do not mark it up as AggregateRating or Review.
   googleRating: { score: "5.0", count: 438 },
   // Headline figure, e.g. "$15,000" → "GET UP TO $15,000". Leave blank to show "GET TOP CASH".
   // Only use a figure you genuinely pay; it's an advertised claim under Australian Consumer Law.

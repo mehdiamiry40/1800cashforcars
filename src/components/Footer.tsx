@@ -66,6 +66,7 @@ export function Footer() {
         <div className="mt-4 flex flex-wrap justify-between gap-3 text-[14px]">
           <p>
             © {new Date().getFullYear()} {site.name} · ABN {site.abn}
+            <span className="mt-1 block">{site.licenceLine}</span>
           </p>
           <Link
             href="/privacy"

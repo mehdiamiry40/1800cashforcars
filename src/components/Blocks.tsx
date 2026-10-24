@@ -452,8 +452,8 @@ export function ReviewsBand() {
   const rating = site.googleRating.score && (
     <p className="mt-2 flex flex-wrap items-center gap-x-2 text-[18px] font-semibold text-navy">
       <span aria-hidden="true" className="tracking-wider text-brand">★★★★★</span>
-      Rated {site.googleRating.score} from {site.googleRating.count} Google reviews
-      {site.googleBusinessName ? ` for ${site.googleBusinessName}` : ""}
+      Rated {site.googleRating.score} from {site.googleRating.count} Google reviews of our yard
+      {site.googleBusinessName ? `, for ${site.googleBusinessName}` : ""}
     </p>
   );
 
@@ -560,7 +560,7 @@ export function FinalCta() {
       <div className="container-site grid items-center gap-8 md:grid-cols-[1.4fr_1fr]">
         <div>
           <h2 className="font-heading text-[34px] font-bold leading-tight sm:text-[42px]">
-            Old car taking up space?
+            Old car taking up space.
           </h2>
           <p className="mt-3 max-w-lg text-[20px]">
             Get a free quote. We’ll arrange pickup and pay you before your car

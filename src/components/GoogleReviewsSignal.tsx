@@ -1,14 +1,12 @@
 import { site } from "@/lib/site";
 
 // Compact Google rating for the quote card. Figures come only from site.googleRating.
-// They belong to the parent company's Google listing and stay plain text, not review markup.
+// They belong to the parent company's Google listing, name that yard and business, and stay plain text.
 export function GoogleReviewsSignal({ className = "" }: { className?: string }) {
   const { score, count } = site.googleRating;
-  if (!score || !count) return null;
+  if (!score || !count || !site.googleBusinessName) return null;
 
-  const label = site.googleBusinessName
-    ? `${score} from ${count} Google reviews for ${site.googleBusinessName} (our parent company)`
-    : `${score} from ${count} Google reviews`;
+  const label = `${score} from ${count} Google reviews of our yard, for ${site.googleBusinessName} (our parent company)`;
   const classNames = `google-reviews-signal flex w-full min-w-0 max-w-full flex-wrap items-center gap-x-1.5 text-[14px] font-semibold leading-snug text-navy ${className}`;
   const content = (
     <>

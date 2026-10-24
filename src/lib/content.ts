@@ -58,12 +58,12 @@ export const pages: ContentPage[] = [
     slug: "scrap-car-removal",
     intro: "Paid pickup for old, damaged or unwanted cars.",
     title: "Scrap car removal",
-    metaTitle: "Scrap Car Removal Gold Coast & Brisbane | Cash For Scrap Cars",
+    metaTitle: "Scrap Car Removal Brisbane & Gold Coast",
     description: "Free scrap car removal across Brisbane, the Gold Coast and South East QLD. We pay cash for scrap, junk and wrecked cars in any condition, often same day.",
     blocks: [
       {
-        heading: "Your scrap car is still worth something",
-        summary: "Turn unwanted metal and parts into a paid pickup.",
+        heading: "Will you pay for a scrap car in Brisbane?",
+        summary: "Yes. A Brisbane scrap car is still worth the metal and any parts we can reuse, and we pay you before it is towed. The tow is free and is never taken off that price. Tell us the make, model, year and what is wrong, and a firm price usually comes back within minutes.",
         icon: "car",
         paras: [
           "A car that isn't worth fixing still has value in its metal and parts. We'll give you a price based on what it's worth today, tow it away for free, and make sure it's recycled properly.",
@@ -71,8 +71,8 @@ export const pages: ContentPage[] = [
         ],
       },
       {
-        heading: "What counts as a scrap car",
-        summary: "If it's not worth fixing or selling privately, it's a scrap car to us.",
+        heading: "Do you take scrap cars with no keys or no wheels?",
+        summary: "Yes. Scrap cars with no keys, no wheels, flat tyres or missing parts are still bought. Say what is missing when you ask for a price, so we know what is there and send a truck that can load it. The tow stays free and is never deducted.",
         icon: "car",
         list: [
           { bold: "Rusted out", text: "body rust, rusted floors or a rusty chassis." },
@@ -84,8 +84,8 @@ export const pages: ContentPage[] = [
         ],
       },
       {
-        heading: "How we price a scrap car",
-        summary: "Metal sets the floor. Usable parts add to it.",
+        heading: "Is scrap car towing free?",
+        summary: "Yes. Scrap car towing is free across Brisbane, the Gold Coast, Logan, Ipswich, the Sunshine Coast and Tweed Heads. We never take that cost off your price. The figure we quote is the figure we pay when the car is as you described it.",
         icon: "cash",
         list: [
           { bold: "Metal", text: "the weight of the car and what scrap metal is worth this week set the minimum we'll pay." },
@@ -152,12 +152,12 @@ export const pages: ContentPage[] = [
     slug: "car-wreckers",
     intro: "Parts reused. Metal recycled. Paid collection.",
     title: "Car wreckers",
-    metaTitle: "Car Wreckers Gold Coast & Brisbane | We Buy Wrecked Cars",
+    metaTitle: "Car Wreckers Brisbane & Gold Coast",
     description: "Local car wreckers buying wrecked, damaged and unwanted cars across Brisbane, the Gold Coast and SEQ. We pay for usable parts and metal, with free removal.",
     blocks: [
       {
-        heading: "Wreckers who pay you",
-        summary: "Usable parts give damaged cars value.",
+        heading: "Do car wreckers pay for a damaged car?",
+        summary: "Yes. We wreck cars ourselves, so a damaged car can still be worth its usable parts and its metal. A working engine, gearbox, panels or lights can add to the price. We pay you before the car leaves, and the tow is free and never deducted.",
         icon: "car",
         paras: [
           "Because we wreck cars ourselves, we can see value other buyers miss. A working engine, gearbox, panels, lights or interior all get pulled and reused, so we can often pay more for a damaged car than a dealer or private buyer would.",
@@ -177,7 +177,7 @@ export const pages: ContentPage[] = [
       },
       {
         heading: "Wrecker, private sale or trade-in?",
-        summary: "The right buyer depends on the car's condition.",
+        summary: "A private sale usually brings more for a clean car that still runs, though it means an ad and test drives. A dealer trade-in is quick when you are buying another car, and it pays little for something damaged or old. A wrecker suits a damaged, non-running or end-of-life car: we pay for the parts and the metal, and the tow is free.",
         icon: "cash",
         list: [
           { bold: "Private sale", text: "usually gets the most for a clean car that runs well, but it means ads, calls and test drives." },
@@ -196,8 +196,8 @@ export const pages: ContentPage[] = [
         ],
       },
       {
-        heading: "Selling your car to our wreckers",
-        summary: "Quote, pickup and payment, usually within a day or two.",
+        heading: "How do I get paid when a wrecker collects?",
+        summary: "Cash or bank transfer, before the wrecked car leaves, and you get a receipt. In Queensland you choose which. In NSW, including Tweed Heads, scrap vehicles are paid by bank transfer only. The price we quote is the price we pay when the car matches what you told us.",
         icon: "paperwork",
         list: [
           { bold: "Get a price", text: "tell us the make, model, year and what's wrong with it. Photos help." },
@@ -207,8 +207,8 @@ export const pages: ContentPage[] = [
         ],
       },
       {
-        heading: "Local wreckers in Rocklea",
-        summary: "Brisbane's southside, covering South East QLD and the Tweed.",
+        heading: "Is towing free from Brisbane car wreckers?",
+        summary: "Yes. Towing from our Rocklea yard is free across Brisbane, Logan, Ipswich, the Gold Coast, the Sunshine Coast and Tweed Heads. We do not charge a removal fee and we do not take the tow off your price. You pick a time, Monday to Saturday.",
         icon: "truck",
         paras: [
           "Our wrecking yard is in Rocklea, so you deal with the people who actually collect and wreck the car. We buy cars across Brisbane, Logan, Ipswich, the Gold Coast, the Sunshine Coast and Tweed Heads, with free towing everywhere we go.",
@@ -242,12 +242,12 @@ export const pages: ContentPage[] = [
     slug: "car-disposal",
     intro: "Unwanted car? We collect it and pay you.",
     title: "Car disposal",
-    metaTitle: "Car Disposal Gold Coast & Brisbane | Free Vehicle Disposal",
+    metaTitle: "Car Disposal Brisbane & Gold Coast",
     description: "Free car disposal across Brisbane, the Gold Coast and South East QLD. We collect unwanted cars, pay you before they leave and recycle them properly.",
     blocks: [
       {
-        heading: "Getting rid of a car you don't want",
-        summary: "One call, a fair price and a free pickup.",
+        heading: "Does car disposal cost anything?",
+        summary: "No. Disposing of a car with us does not cost you a fee. We tow it away free and we pay you for it, whether it runs or not. Nothing is taken off for the tow. You choose cash or a bank transfer in Queensland, paid before the car leaves.",
         icon: "truck",
         paras: [
           "Moving house, upgrading, or just tired of looking at it? One call, a fair price and a free pickup at a time that suits you.",
@@ -266,8 +266,8 @@ export const pages: ContentPage[] = [
         ],
       },
       {
-        heading: "How to dispose of a car in Queensland",
-        summary: "Six simple steps, and we do the heavy lifting.",
+        heading: "How do I get paid when you collect?",
+        summary: "Cash or bank transfer, before the car leaves, plus a receipt. In Queensland that is your choice. In NSW, including Tweed Heads, the law does not allow cash for scrap vehicles, so payment there is a bank transfer. Have your details ready if the car is on that side of the border.",
         icon: "paperwork",
         list: [
           { bold: "Get a price", text: "fill in the quick form or call us with the car's make, model, year and condition." },
@@ -287,8 +287,8 @@ export const pages: ContentPage[] = [
         ],
       },
       {
-        heading: "Disposed of properly",
-        summary: "Your car is recycled, not dumped.",
+        heading: "Can you dispose of a car with no keys or no wheels?",
+        summary: "Yes. A car with no keys or no wheels can still be disposed of. Tell us what is missing when you ask for a price. It does not need to run, and it does not need rego. The tow is free and is never taken off what we pay you.",
         icon: "recycle",
         paras: [
           "Every car we collect comes back to our Rocklea yard. Fluids are drained and disposed of properly, working parts are pulled and resold, and the rest goes to a metal recycler.",

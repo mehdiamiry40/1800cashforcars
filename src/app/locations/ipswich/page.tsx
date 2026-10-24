@@ -59,7 +59,7 @@ const faqs = [
 ];
 
 export const metadata: Metadata = {
-  title: "Cash for Cars Ipswich & Car Removal Ipswich | Free Towing",
+  title: "Cash for Cars & Car Removal Ipswich",
   description: DESCRIPTION,
   alternates: { canonical: PATH },
   openGraph: pageOpenGraph(PATH),
@@ -223,7 +223,7 @@ export default function IpswichLocationPage() {
         <h2 className="h-content mt-12 scroll-mt-24">About {site.name} and A Plus Car Removal</h2>
         <p className="mt-4 text-[18px] leading-relaxed">
           <RichText
-            text={`${site.name} is part of A Plus Car Removal. They share the yard at 79B Breadwell St, Rocklea QLD 4106. Most of these services differ from A Plus Car Removal's own pages, and towing here is always free and never deducted. Licensed through our parent company, A Plus Car Removal (QLD motor dealer licence 4253110). Phone 0423 514 111, email quotes@1800cashforcars.com.au, ABN 62 351 619 456. Open weekdays 8am to 5pm and Saturdays 8am to 2pm. Our yard is listed on Google as A Plus Car Removal. See ${site.name}, or visit or call the Rocklea yard.`}
+            text={`${site.name} is part of A Plus Car Removal. They share the yard at 79B Breadwell St, Rocklea QLD 4106. Most of these services differ from A Plus Car Removal's own pages, and towing here is always free and never deducted. ${site.licenceLine} Phone 0423 514 111, email quotes@1800cashforcars.com.au, ABN 62 351 619 456. Open weekdays 8am to 5pm and Saturdays 8am to 2pm. Our yard is listed on Google as A Plus Car Removal. See ${site.name}, or visit or call the Rocklea yard.`}
             links={[
               { phrase: "part of A Plus Car Removal", href: site.parentUrl },
               { phrase: "0423 514 111", href: site.phoneHref },

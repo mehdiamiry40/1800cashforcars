@@ -59,8 +59,11 @@ export const sunshineCoastLocal = {
       ],
     },
     {
-      heading: "Booking a pickup from further up the coast",
+      heading: "Is Sunshine Coast car removal free?",
       paragraphs: [
+        {
+          text: "Yes. Sunshine Coast car removal is free, from Caloundra and Kawana up to Maroochydore, Coolum and Noosa, and inland to Nambour. Distance changes the timing, not the fee. We do not add a towing charge and we never take the tow off your price.",
+        },
         {
           text: "The Sunshine Coast is further from our Rocklea yard than Brisbane or the Gold Coast, so we book a time with you, usually within a day or two. Tell us the day that suits. Collections run Monday to Saturday. That extra distance changes the timing. It does not add a towing fee, and the tow is never taken off the price.",
         },
@@ -74,8 +77,11 @@ export const sunshineCoastLocal = {
       ],
     },
     {
-      heading: "Beach rust, second cars and work utes",
+      heading: "Do you buy cars that do not run on the Sunshine Coast?",
       paragraphs: [
+        {
+          text: "Yes. Cars that do not run are bought across the Sunshine Coast, including a blown engine, flat tyres, or one that has sat for years. It does not need keys and it does not need rego. Tell us the condition so the quote matches the car on the day.",
+        },
         {
           text: "Salt air takes a toll on older cars parked near Mooloolaba, Coolum and Noosa. We still pay for rusty cars, based on the metal and the parts. A second car you no longer drive, sitting in a Buderim garage or a Kawana lock-up, is a straightforward collection: we pick it up and give you a receipt.",
         },
@@ -93,8 +99,11 @@ export const sunshineCoastLocal = {
       ],
     },
     {
-      heading: "Queensland paperwork on the Sunshine Coast",
+      heading: "How soon can you collect on the Sunshine Coast?",
       paragraphs: [
+        {
+          text: "Usually within a day or two. The Sunshine Coast is further from the Rocklea yard than Brisbane, so we book a time with you rather than promising the same hour. Collections run Monday to Saturday. That extra distance is not a surcharge.",
+        },
         {
           text: "Bring photo ID and proof the car is yours, usually the rego papers. Unregistered cars are accepted because we tow them, so a roadworthy is not required. Lost papers are worth mentioning up front. Have the photo ID ready either way.",
         },

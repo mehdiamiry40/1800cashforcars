@@ -4,5 +4,6 @@ export const nav = [
   { href: "/car-removal-brisbane", label: "Car removal" },
   { href: "/locations", label: "Areas" },
   { href: "/#faq", label: "FAQ" },
+  { href: "/about", label: "About" },
   { href: "/contact-us", label: "Contact" },
 ];
