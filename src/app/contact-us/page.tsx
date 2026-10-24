@@ -4,6 +4,7 @@ import { QuoteForm } from "@/components/QuoteForm";
 import { Faq } from "@/components/Blocks";
 import { Breadcrumbs, JsonLd } from "@/components/JsonLd";
 import { ParentBrandLine } from "@/components/ParentBrand";
+import { PhoneNote } from "@/components/PhoneNote";
 import { PhoneIcon, SmsIcon } from "@/components/icons";
 import { areaHref, areas, faqs, pageOpenGraph, site } from "@/lib/site";
 
@@ -17,7 +18,7 @@ const contactFaqs = [
 
 export const metadata: Metadata = {
   title: "Contact Us, Rocklea Yard",
-  description: `Contact ${site.name} for a free cash offer and free car removal. Call or text ${site.phoneDisplay}, or send your car's details for a price. Quotes usually within minutes.`,
+  description: `Contact ${site.name} for a free cash offer and free car removal. Call or text ${site.phoneDisplay}, or send your car's details for a price. Quotes ${site.quoteTurnaround}.`,
   alternates: { canonical: PATH },
   openGraph: pageOpenGraph(PATH),
 };
@@ -44,15 +45,16 @@ export default function ContactPage() {
             <span className="text-brand">Contact</span> us
           </h1>
           <p className="mt-4 text-[18px] leading-relaxed sm:mt-5 sm:text-[20px]">
-            Selling an old, scrap or damaged car? Call, text or send the details for a free quote. Quotes usually within minutes. Quotes are sent very fast, sometimes in under a minute.
+            Selling an old, scrap or damaged car? Call, text or send the details for a free quote. Quotes are {site.quoteTurnaround}.
           </p>
           <p className="mt-4 text-[18px] leading-relaxed">
-            1800 Cash For Cars is part of A Plus Car Removal and shares the yard at {site.address}. {site.licenceLine} Our ABN is {site.abn}. The yard is listed on Google as A Plus Car Removal.
+            {site.name} is part of A Plus Car Removal and shares the yard at {site.address}. {site.licenceLine} Our ABN is {site.abn}. The yard is listed on Google as A Plus Car Removal.
           </p>
           <a href={site.phoneHref} className="mt-8 inline-flex min-h-11 items-center gap-3 text-[28px] font-bold">
             <PhoneIcon aria-hidden="true" className="h-5 w-5 text-brand" />
             {site.phoneDisplay}
           </a>
+          <PhoneNote className="mt-1 text-[15px] leading-snug" />
           {site.smsNumber && (
             <p className="mt-3">
               <a href={`sms:${site.smsNumber}`} className="inline-flex min-h-11 items-center gap-3 font-semibold underline underline-offset-4">
@@ -84,7 +86,7 @@ export default function ContactPage() {
             )}
             <div>
               <dt className="text-[16px] font-semibold">Pickups</dt>
-              <dd className="mt-1">{site.pickups}. Pickups are often the same day. You choose the time.</dd>
+              <dd className="mt-1">{site.pickups}. Pickups are {site.pickupTurnaround}. You choose the time.</dd>
             </div>
             <div>
               <dt className="text-[16px] font-semibold">Yard hours</dt>

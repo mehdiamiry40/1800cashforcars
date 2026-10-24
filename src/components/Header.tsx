@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { nav } from "@/lib/navigation";
 import { site } from "@/lib/site";
 import { Logo } from "./Logo";
+import { PhoneNote } from "./PhoneNote";
 import { QuoteLink } from "./QuoteLink";
 import { ArrowIcon, MailIcon, MenuIcon, PhoneIcon } from "./icons";
 
@@ -41,13 +42,16 @@ export function Header() {
           <div className="hidden flex-col items-end xl:flex">
             <div className="flex items-center gap-7 py-2 text-[16px] font-semibold">
               <span>Brisbane &amp; South East QLD</span>
-              <a
-                href={site.phoneHref}
-                className="inline-flex min-h-9 items-center gap-2 hover:underline hover:decoration-brand hover:underline-offset-4"
-              >
-                <PhoneIcon aria-hidden="true" className="h-5 w-5" />
-                {site.phoneDisplay}
-              </a>
+              <span className="inline-flex flex-col items-end">
+                <a
+                  href={site.phoneHref}
+                  className="inline-flex min-h-9 items-center gap-2 hover:underline hover:decoration-brand hover:underline-offset-4"
+                >
+                  <PhoneIcon aria-hidden="true" className="h-5 w-5" />
+                  {site.phoneDisplay}
+                </a>
+                <PhoneNote className="max-w-56 text-right text-[13px] font-medium leading-snug" />
+              </span>
               {site.showEmail && (
                 <a
                   href={`mailto:${site.email}`}
@@ -159,6 +163,7 @@ export function Header() {
             <PhoneIcon aria-hidden="true" className="h-5 w-5" />
             {site.phoneDisplay}
           </a>
+          <PhoneNote className="mt-1 text-[15px] leading-snug" />
         </nav>
       </dialog>
     </>

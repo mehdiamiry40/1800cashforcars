@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 
 // Brisbane has no `local` copy (it has dedicated pages), so it gets its own blurb here.
 const brisbaneIntro =
-  "Our yard is in Rocklea, so we cover every part of Brisbane: northside, southside, the western suburbs and the bayside. Most pickups happen the same day or the next.";
+  "Our yard is in Rocklea, so we cover every part of Brisbane: northside, southside, the western suburbs and the bayside. Pickups are usually within a day or two.";
 
 export default function LocationsPage() {
   return (

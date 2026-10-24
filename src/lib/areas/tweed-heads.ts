@@ -14,7 +14,7 @@ export const tweedHeadsLocal = {
       heading: "Is towing free in the Tweed?",
       paragraphs: [
         {
-          text: "Yes. Nobody in Tweed Heads, Banora Point, Kingscliff, Pottsville, Terranora or Murwillumbah is billed for the truck. Coming south from Rocklea does not add a border loading, and that journey is not subtracted later. You name the hour. Most of these collections land inside a couple of days, and plenty happen sooner.",
+          text: "Yes. Nobody in Tweed Heads, Banora Point, Kingscliff, Pottsville, Terranora or Murwillumbah is billed for the truck. Coming south from Rocklea does not add a border loading, and that journey is not subtracted later. You choose the time. Pickups are usually within a day or two.",
         },
         {
           text: "Tweed Heads is the border town, directly south of Coolangatta. We also collect in Banora Point, above the river, and in Terranora. On the coast the run continues to Kingscliff and then Pottsville. Inland, Murwillumbah is the Tweed Valley town on this page.",
@@ -76,7 +76,7 @@ export const tweedHeadsLocal = {
           ],
         },
         {
-          text: "Pickups in the Tweed usually happen within a day or two, and often sooner. You pick the time, Monday to Saturday. We collect from home, from work, from a mechanic, or from the roadside. Mention a tight driveway in Terranora or Banora Point, or a car at Murwillumbah that cannot roll.",
+          text: "Pickups in the Tweed are usually within a day or two. You pick the time, Monday to Saturday. We collect from home, from work, from a mechanic, or from the roadside. Mention a tight driveway in Terranora or Banora Point, or a car at Murwillumbah that cannot roll.",
         },
         {
           text: "The yard we leave from is 79B Breadwell St, Rocklea, on Brisbane's southside. The Tweed is over the border from that yard, which is why we agree a time with you. The tow is still free across Tweed Heads, Banora Point, Kingscliff, Pottsville, Terranora and Murwillumbah. The office line is open through the working day until 5pm, and until 2pm Saturday. How the sale itself is priced is on the cash for cars page.",
@@ -109,7 +109,7 @@ export const tweedHeadsLocal = {
     },
     {
       q: "How quickly can you get to Murwillumbah or Pottsville?",
-      a: "Usually within a day or two, and often sooner. You choose the time, Monday to Saturday. Mention the access, especially on a rural block around Murwillumbah, when you use the quote form.",
+      a: "Usually within a day or two. You choose the time, Monday to Saturday. Mention the access, especially on a rural block around Murwillumbah, when you use the quote form.",
       links: [{ phrase: "quote form", href: QUOTE }],
     },
   ] satisfies CopyFaq[],

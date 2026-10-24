@@ -171,7 +171,7 @@ export function BrisbaneCashForCars() {
       title: "What we pay for cars in Brisbane",
       paras: [
         "Every car gets its own price. We look at the make, model, year and kilometres, whether it runs, the condition of the engine, gearbox and panels, and what scrap metal is worth this week. A late-model car that runs is worth the most, but even a rusted-out wreck has value in its parts and metal.",
-        "Tell us about the car and we'll give you a firm price, usually within minutes. The price we quote is the price we pay when the car is as described. Nothing comes off for towing.",
+        "Tell us about the car and we'll give you a firm price, usually within the hour. The price we quote is the price we pay when the car is as described. Nothing comes off for towing.",
       ],
       link: {
         href: "/scrap-car-prices-brisbane",
@@ -194,9 +194,9 @@ export function BrisbaneCashForCars() {
       },
     },
     {
-      title: "Free car removal, the same day you accept",
+      title: "Free car removal, usually within a day or two",
       paras: [
-        "Our yard is in Rocklea, on Brisbane's southside, so we can usually have a tow truck or tilt tray at your place the same day. We pick up from houses, units, workshops, car parks and the roadside, Monday to Saturday.",
+        "Our yard is in Rocklea, on Brisbane's southside, so a tow truck or tilt tray is usually at your place within a day or two. We pick up from houses, units, workshops, car parks and the roadside, Monday to Saturday.",
       ],
       link: { href: "/car-removal-brisbane", text: "free car removal Brisbane" },
     },
@@ -215,7 +215,7 @@ export function BrisbaneCashForCars() {
         <div className="max-w-3xl">
           <h2 className="h-section !text-brand">How fast can you pick up in Brisbane?</h2>
           <p className="mt-4 text-[18px] sm:text-[20px]">
-            Often that same afternoon. Rocklea sits on the south side of Brisbane, so a car in this city is commonly collected before the day ends and nearly always inside a couple of days. You set the clock. A price can land very quickly, on occasion inside a minute, and it is usually with you within minutes of the details arriving.
+            Pickups are usually within a day or two. Rocklea sits on the south side of Brisbane. You set the time, Monday to Saturday. A firm price is usually within the hour.
           </p>
         </div>
         <div className="mt-10 grid gap-x-14 gap-y-10 md:grid-cols-2">
@@ -538,7 +538,7 @@ export function SellingAdvice() {
   const advice = [
     {
       title: "What is your car worth?",
-      text: "Year, badge and what still works all move the figure, and a sound engine or panel can lift it. A starter is worth more than a non-starter. The journey out is not subtracted. Describe the car and a firm figure is usually back within minutes.",
+      text: "Year, badge and what still works all move the figure, and a sound engine or panel can lift it. A starter is worth more than a non-starter. The journey out is not subtracted. Describe the car and a firm figure is usually within the hour.",
       href: "/cash-for-cars",
       visual: advicePhotos.value,
       link: "How pricing works",

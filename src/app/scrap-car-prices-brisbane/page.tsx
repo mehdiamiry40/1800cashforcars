@@ -18,7 +18,7 @@ const DESCRIPTION =
 const H1 = "How much is my scrap car worth in Brisbane?";
 const DIRECT_ANSWER =
   "Most scrap and non-running cars we buy in Brisbane are worth $150 to $800. Older cars that still run usually fetch $500 to $1,600. Running or accident-damaged utes bring $1,000 to $5,500, and late-model damaged SUVs and 4WDs $2,500 to $6,000. These are guides: we quote every car individually, and free towing is never taken off the price.";
-const QUOTE_SPEED = "Quotes often come back in minutes, sometimes in under a minute.";
+const QUOTE_SPEED = "Quotes are usually within the hour.";
 
 export const metadata: Metadata = {
   title: "Scrap Car Prices Brisbane 2026",
@@ -469,13 +469,13 @@ export default function ScrapCarPricesBrisbane() {
             No. The same guide applies across all of those areas, with free towing in every one. Access and distance can affect an individual quote. They are not a surcharge, and towing is never taken off the price.
           </p>
           <p>
-            Brisbane: our Rocklea yard does <Link href="/car-removal-brisbane">free car removal across Brisbane</Link> on this same guide, often the same day you accept.
+            Brisbane: our Rocklea yard does <Link href="/car-removal-brisbane">free car removal across Brisbane</Link> on this same guide. Pickups are usually within a day or two.
           </p>
           <p>
             Gold Coast: <Link href="/locations/gold-coast">cash for cars on the Gold Coast</Link> uses this guide, with free towing from Ormeau to Coolangatta.
           </p>
           <p>
-            Logan: <Link href="/locations/logan">cash for cars in Logan</Link> uses the same ranges, and pickups are often quick because the yard is close.
+            Logan: <Link href="/locations/logan">cash for cars in Logan</Link> uses the same ranges. The yard is close, and pickups are usually within a day or two.
           </p>
           <p>
             Ipswich: <Link href="/locations/ipswich">cash for cars in Ipswich</Link> uses the same guide. Tell us if the car is on acreage.

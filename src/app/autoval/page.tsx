@@ -7,9 +7,9 @@ import { areas, pageOpenGraph, site } from "@/lib/site";
 import { AutoValuer } from "./AutoValuer";
 
 export const metadata: Metadata = {
-  title: "Free Car Valuation by Rego or VIN | AutoVal",
+  title: "Free Car Valuation | AutoVal",
   description:
-    "Free car valuation by rego or VIN for Australian cars. AutoVal is an estimate, not a cash offer. Damaged and non-running cars can go to a 1800 Cash For Cars quote.",
+    `Free car valuation by rego or VIN for Australian cars. AutoVal is an estimate, not a cash offer. Damaged and non-running cars can go to a ${site.name} quote.`,
   alternates: { canonical: "/autoval" },
   openGraph: pageOpenGraph("/autoval"),
 };
@@ -25,7 +25,7 @@ const autovalFaqs = [
   },
   {
     q: "Does AutoVal work outside Queensland?",
-    a: "The rego lookup accepts any Australian state or territory listed on the form. A cash offer from 1800 Cash For Cars is only for Brisbane, the Gold Coast, Logan, Ipswich, the Sunshine Coast and Tweed Heads. A car outside those areas can still be estimated here, and we cannot collect it.",
+    a: `The rego lookup accepts any Australian state or territory listed on the form. A cash offer from ${site.name} is only for Brisbane, the Gold Coast, Logan, Ipswich, the Sunshine Coast and Tweed Heads. A car outside those areas can still be estimated here, and we cannot collect it.`,
   },
   {
     q: "Is the valuation an offer?",
@@ -66,7 +66,7 @@ export default function AutoValPage() {
             <ul className="mt-7 flex flex-wrap gap-x-6 gap-y-2 text-[16px] font-semibold">
               {["Free, no sign-up", "Ready in about a minute", "Live Australian market data"].map((t) => (
                 <li key={t} className="flex items-center gap-2">
-                  <CheckIcon aria-hidden="true" className="h-5 w-5 text-brand" />
+                  <CheckIcon aria-hidden="true" className="h-5 w-5 text-white" />
                   {t}
                 </li>
               ))}

@@ -28,9 +28,9 @@ export const MIN_SUBMIT_MS = 2500;
 
 export const QUOTE_RATE_LIMIT_MESSAGE = `You've sent several quote requests recently. Please wait a few minutes and try again, or call or text ${site.phoneDisplay}.`;
 
-export const QUOTE_GENERIC_ERROR = `Sorry, something went wrong. Please call or text ${site.phoneDisplay} and we'll give you a price straight away.`;
+export const QUOTE_GENERIC_ERROR = `Sorry, something went wrong. Please call or text ${site.phoneDisplay} and we'll give you a price.`;
 
-const EMAIL_FAILED = `Sorry, your details didn't reach us. Please call or text ${site.phoneDisplay} and we'll give you a price straight away.`;
+const EMAIL_FAILED = `Sorry, your details didn't reach us. Please call or text ${site.phoneDisplay} and we'll give you a price.`;
 
 // "2500", "$2,500" or "2.5k" -> "$2,500". Anything else (e.g. "make an offer") is kept as typed.
 function formatPrice(raw: string): string {
@@ -65,10 +65,11 @@ export async function processQuote(formData: FormData, headerSource: HeaderSourc
 
     lead.expected = formatPrice(lead.expected);
 
-    if (!lead.name || !lead.phone || !lead.vehicle || !lead.description || !lead.address) {
+    // Description stays optional so a shorter form still posts the same fields.
+    if (!lead.name || !lead.phone || !lead.vehicle || !lead.address) {
       return {
         ok: false,
-        message: "Please enter your name, mobile number, suburb, the car's year, make and model, and a short description.",
+        message: "Please enter your name, mobile number, suburb, and the car's year, make and model.",
         status: 400,
       };
     }
