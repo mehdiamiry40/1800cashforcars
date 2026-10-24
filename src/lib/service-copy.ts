@@ -155,7 +155,7 @@ export const carRemovalsPage: ContentPage = {
       heading: "Is car removal free across South East Queensland?",
       paragraphs: [
         {
-          text: "Yes. Car removal is free in Brisbane, Logan, Ipswich, the Gold Coast, the Sunshine Coast and Tweed Heads. We do not charge a removal fee, and we do not take towing off your price. We pay you for the car as well, including scrap, damaged and unregistered cars.",
+          text: "Yes. Logan, Ipswich, both coasts, Brisbane and the border town are all on the free run. No removal invoice is raised, and the agreed figure is not trimmed afterwards. Scrap, damaged and unregistered vehicles are paid for, not merely hauled away.",
         },
         {
           text: "This is the free car removal overview for South East Queensland and the Tweed. It sets out where we collect, what the tow includes, and what to have ready. Brisbane has its own page, with that city's suburbs and the notes for pickups from our Rocklea yard: car removal Brisbane.",
@@ -171,7 +171,7 @@ export const carRemovalsPage: ContentPage = {
       heading: "How soon can you collect the car?",
       paragraphs: [
         {
-          text: "Often the same day, and nearly always within a day or two. You choose the time, Monday to Saturday. Brisbane, Logan and Ipswich are closest to the Rocklea yard, so those jobs are often same day. The Sunshine Coast is further, so it is booked, usually within a day or two.",
+          text: "Often the day you say yes, and almost always before two nights have passed. You name the hour. Jobs nearest Rocklea, meaning Brisbane plus Logan and Ipswich, commonly happen that day. The northern coast is booked, because that drive is longer.",
         },
         {
           text: "We come to you Monday to Saturday. The car can be in a garage, on the street, at a mechanic's, or broken down roadside. Towing is free in every area on this page, and we pay you as well, including for scrap, damaged and unregistered cars. The quoted price is what we pay when the car is as described.",
@@ -193,7 +193,7 @@ export const carRemovalsPage: ContentPage = {
       heading: "Which areas do you remove cars from?",
       paragraphs: [
         {
-          text: "Brisbane, Logan, Ipswich, the Gold Coast, the Sunshine Coast and Tweed Heads. Brisbane has its own page. Logan and Ipswich each have one too. The Gold Coast run goes south to Coolangatta, and the Tweed is over the border in NSW, where payment is by bank transfer.",
+          text: "Six places. This city's suburbs, Logan and Ipswich each have a page. The southern strip runs to Coolangatta and is written up on its own. So is the northern coast. Past the state line, around Tweed Heads, notes are not used and only a transfer is offered.",
         },
         {
           text: "Brisbane, Logan and Ipswich are the closest to the Rocklea yard, so pickups there are often the same day. Suburb-by-suburb Brisbane removal stays on the Brisbane page. Logan and Ipswich each have their own page, including the acreage notes for those cities.",

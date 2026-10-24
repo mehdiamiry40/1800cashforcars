@@ -17,11 +17,11 @@ export const metadata: Metadata = {
 const faqs = [
   {
     q: "Do you buy a car with no keys?",
-    a: "Yes. A missing key does not stop the purchase. Say so when you ask for a price, so the quote matches that car. Photo ID and proof it is yours are still required. The tow is free and is never deducted, and payment happens before the car leaves.",
+    a: "Yes. Say there is no key when you ask, so the quote is for that car. Photo ID and proof it is yours are still required. The tow is free and is never deducted, and payment happens before the car leaves.",
   },
   {
     q: "Do you buy a car with no wheels?",
-    a: "Yes. A car that cannot roll is still bought. Say how many wheels are missing, and whether it is at home, at a workshop, or where it has been sitting. Towing stays free. Queensland payment is cash or bank transfer. In NSW, including Tweed Heads, it is bank transfer only, and it happens before the car leaves.",
+    a: "Yes. A car that cannot roll is still bought. Say how many wheels are missing and where it is sitting. Towing stays free. In Queensland you choose cash or a transfer. In NSW, including Tweed Heads, it is a transfer only, before the car leaves.",
   },
   {
     q: "Is towing still free if the car has no keys or no wheels?",
@@ -29,11 +29,11 @@ const faqs = [
   },
   {
     q: "What do I need if the papers are missing too?",
-    a: "Photo ID, such as a driver's licence or passport, and proof of ownership, like the rego papers. If you have lost the papers, tell us when you ask for a price. We still need to see photo ID and be sure the car is yours, and we can usually still sort it out.",
+    a: "Photo ID, such as a driver's licence or passport, and proof of ownership, like the rego papers. If the papers are lost, say so when you ask. We still need the ID and to be sure the car is yours, and missing papers can usually be sorted.",
   },
   {
     q: "Will a missing key or missing wheels change the price?",
-    a: "It can. Less to reuse, or a car that is harder to move, can mean a lower figure than the same car complete. There is no fixed deduction. Each quote uses what you tell us. Guide ranges sit on the scrap car prices page, and the tow is not taken off.",
+    a: "It can. Less to reuse, or a car that is harder to move, can mean a lower figure than the same car complete. There is no fixed deduction. Guide ranges sit on the scrap car prices page, and the tow is not taken off.",
   },
 ];
 
@@ -67,30 +67,30 @@ export default function NoKeysNoWheelsPage() {
           <p className="eyebrow">No keys, no wheels</p>
           <h1 className="h-page mt-3">Car removal with no keys or no wheels</h1>
           <p className="mt-5 text-[18px] leading-relaxed">
-            Yes. 1800 Cash For Cars buys cars with no keys, cars with no wheels, and cars missing both. The car does not have to start, and it does not have to roll. Tell us what is missing and where the car is sitting. We still pay you for it, and the tow is free.
+            Yes. 1800 Cash For Cars buys cars with no keys, cars with no wheels, and cars missing both. The car does not have to start, and it does not have to roll. Tell us what is missing and where the car is sitting.
           </p>
 
           <h2 className="h-content mt-12">Do you buy cars with no keys?</h2>
           <p className="mt-4 text-[18px] leading-relaxed">
-            Yes. A key is useful when you still have one, and a sale does not depend on it. People lose keys, the only key can be locked inside, or a car has sat so long that nobody knows where it went. None of that is a reason to refuse the car. Mention the missing key so the price is for a car without one. A boot that will not open, or a steering lock you cannot undo, belongs in that same note. The quoted price holds when the car is as you described it.
+            Yes. A sale does not depend on a key. People lose them, or the only one is locked inside. Mention that, and a boot or a steering lock you cannot undo, so the price is for that car. The quoted price holds when the car matches what you described.
           </p>
 
           <h2 className="h-content mt-12">Do you buy cars with no wheels?</h2>
           <p className="mt-4 text-[18px] leading-relaxed">
-            Yes. Wheels go missing from cars that have been sitting in a yard, a shed or on a block. A car up on bricks, a car with perished tyres, or a car with only some wheels left is still a car we can buy. It does not need to roll out to the street. Say how many wheels are missing, and whether it is in mud, on grass, or hard against a fence. A steep slope, a narrow side path, a backyard or a unit basement changes the plan for the visit. Those details do not add a removal fee. If you are unsure we can reach it, describe the spot and we will say so in the quote.
+            Yes. Wheels go missing from cars that have sat in a yard, a shed or on a block. A car on bricks, one with perished tyres, or one with only some wheels left is still bought, and it does not need to roll out to the street. Say how many are missing, and whether it is in mud, on grass, or hard against a fence. A steep slope, a backyard or a unit basement changes the plan and does not add a fee.
           </p>
 
           <h2 className="h-content mt-12">What do you need from me?</h2>
           <p className="mt-4 text-[18px] leading-relaxed">
-            Photo ID and proof of ownership. A driver&apos;s licence or passport covers the ID. Rego papers are the usual proof the car is yours. If those papers were lost with the keys, say so when you ask. We still need to see the ID and be satisfied the car is yours, and missing papers can usually be sorted. Bring any key you do have, and clear out belongings and a toll tag before we arrive.
+            Photo ID and proof of ownership. A driver&apos;s licence or passport covers the ID. Rego papers are the usual proof the car is yours. If those papers were lost with the keys, say so when you ask. We still need the ID and to be satisfied the car is yours. Bring any key you do have, and clear out belongings before we arrive.
           </p>
           <p className="mt-4 text-[18px] leading-relaxed">
-            The car should not have finance owing. If it does, call {site.phoneDisplay} and we will talk about that car. This page does not set out a finance process. After collection, cancel the registration and the insurance. Queensland rego can be cancelled online with Transport and Main Roads, and unused time may be refunded. NSW rego is cancelled with Service NSW. You get a receipt.
+            If finance is owing, call {site.phoneDisplay}. This page does not set out a finance process. After collection, cancel the registration and the insurance: Queensland rego online with Transport and Main Roads, NSW rego with Service NSW.
           </p>
 
           <h2 className="h-content mt-12">Is the towing free?</h2>
           <p className="mt-4 text-[18px] leading-relaxed">
-            Yes. Towing is always free, and it is never deducted from the price. That includes a car with no keys and a car with no wheels. We do not add a call-out fee because the car cannot move itself. The areas are Brisbane, the Gold Coast, Logan, Ipswich, the Sunshine Coast and Tweed Heads. Outside those areas we do not offer this collection.
+            Yes. The tow is free, and it is never deducted, including when the car has no keys or no wheels. Collection is Brisbane, the Gold Coast, Logan, Ipswich, the Sunshine Coast and Tweed Heads.
           </p>
           <p className="mt-4 text-[18px] leading-relaxed">
             Free car removal across Brisbane is written up on the{" "}
@@ -106,27 +106,27 @@ export default function NoKeysNoWheelsPage() {
 
           <h2 className="h-content mt-12">How do missing keys or wheels affect the price?</h2>
           <p className="mt-4 text-[18px] leading-relaxed">
-            Only in a qualitative way. A complete car is worth more than the same car with a key, a wheel or a corner already gone, because there is less to reuse. A car that cannot roll can also take more work to collect. There is no published dollar amount off for that. Make, model, year and the rest of the condition sit in the same individual quote.
+            Only in a qualitative way. A complete car is worth more than the same car with a key, a wheel or a corner already gone, because there is less to reuse and a car that cannot roll takes more work to collect. There is no published dollar amount off.
           </p>
           <p className="mt-4 text-[18px] leading-relaxed">
             If you want the guide ranges for scrap and damaged cars before you ask, read{" "}
             <Link href="/scrap-car-prices-brisbane" className={linkClass}>
               scrap car prices in Brisbane
             </Link>
-            . The ranges there are guides, not a quote for your car, and free towing is never taken off them. Photos help. If you can text a few of the car, the missing wheels, and where it is parked, the price we send is more likely to match the car on the day.
+            . Those ranges are guides, not a quote for your car, and the tow is not taken off them.
           </p>
 
           <h2 className="h-content mt-12">When do you pay, and how fast is pickup?</h2>
           <p className="mt-4 text-[18px] leading-relaxed">
-            We pay before the car leaves. In Queensland that is cash or bank transfer, your choice. In NSW, including Tweed Heads, the law does not allow cash for scrap vehicles, so it is bank transfer only. Have the account details with you if the car is in the Tweed. You get a receipt either way.
+            We pay before the car leaves, and you get a receipt. In Queensland that is cash or bank transfer, your choice. In NSW, including Tweed Heads, the law does not allow cash for scrap vehicles, so it is bank transfer only. Bring the account details if the car is in the Tweed.
           </p>
           <p className="mt-4 text-[18px] leading-relaxed">
-            Pickups are often the same day, and you choose the time. Brisbane, Logan and Ipswich are the short runs from Rocklea. Gold Coast jobs are often that day. Sunshine Coast and Tweed Heads visits are agreed with you, and Tweed jobs are often sooner. A price can come back very fast, sometimes in under a minute.
+            Pickups are often the same day, and you choose the time. Brisbane, Logan and Ipswich are the short runs from Rocklea. The coasts and Tweed Heads are agreed with you, and Tweed jobs are often sooner. A price can come back very fast, sometimes in under a minute.
           </p>
 
           <h2 className="h-content mt-12">Where will you collect a car like this?</h2>
           <p className="mt-4 text-[18px] leading-relaxed">
-            From the same places as any other car we buy. The yard we leave from is {site.address}, shared with A Plus Car Removal. {site.licenceLine} Home, work, a mechanic, a backyard or the roadside are all fine if we can reach the car. Put the suburb in the quote.
+            From home, work, a mechanic, a backyard or the roadside, if we can reach the car. The yard we leave from is {site.address}, shared with A Plus Car Removal. {site.licenceLine} Put the suburb in the quote.
           </p>
           <ul className="mt-4 space-y-2 text-[18px]">
             {areas.map((area) => (

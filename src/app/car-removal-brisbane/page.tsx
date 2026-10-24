@@ -97,7 +97,7 @@ export default function CarRemovalBrisbane() {
         blocks={[
           {
             heading: "Is car removal in Brisbane free?",
-            summary: "Yes. Car removal in Brisbane does not cost you anything. We do not charge a pickup fee, and we never take the tow off the price we pay. We also pay you for the car, including one that is only fit for scrap. You choose the time, Monday to Saturday.",
+            summary: "Yes. Clearing a Brisbane car costs you nothing on our side. Rocklea does not invoice a call-out, and the figure agreed for the vehicle stays intact. A shell that is only fit for scrap is paid as well. Name any day from Monday through to Saturday.",
             icon: "truck",
             paras: [
               "Our yard is in Rocklea, on Brisbane's southside, so we can get a tow truck or tilt tray to most Brisbane suburbs the same day. We'll collect the car from your driveway, the street, a workshop, a car park or the side of the road.",
@@ -106,7 +106,7 @@ export default function CarRemovalBrisbane() {
           },
           {
             heading: "Do you remove cars with no keys or no wheels?",
-            summary: "Yes. We buy Brisbane cars with no keys and cars with no wheels. Tell us which applies when you ask for a price, so the right truck is sent. A car that cannot roll can still be collected. Towing stays free and is never deducted, and you are paid before it leaves.",
+            summary: "Yes. A Brisbane car missing its key, its wheels, or both is still purchased. Say which when you ask, so the truck that leaves Rocklea can deal with it. It need not roll. The journey is not billed, and settlement happens before we drive off.",
             icon: "car",
             list: [
               { bold: "Scrap and wrecked cars", text: "rusted out, stripped or sitting in the yard for years." },
@@ -119,7 +119,7 @@ export default function CarRemovalBrisbane() {
           },
           {
             heading: "How fast can you collect a car in Brisbane?",
-            summary: "Often the same day. Our yard is in Rocklea, so most Brisbane suburbs are a short run, and a pickup is often the same day or the next. You choose the time, Monday to Saturday. Quotes are sent very fast, sometimes in under a minute, and usually within minutes.",
+            summary: "Often before the afternoon is over. The yard is in Rocklea, so most of this city is a short hop, and collection is commonly the day you accept or the morning after. You set the meeting. A reply is sometimes back inside a minute, and it is usually quick.",
             icon: "cash",
             list: [
               { bold: "Get a quote", text: "fill in the quick form with the car's details (or call us) and we'll text you a price." },
