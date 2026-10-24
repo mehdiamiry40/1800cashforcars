@@ -96,17 +96,38 @@ export function uncoveredInlineScripts(html: string, policy: string): string[] {
 const PREVIEW_TOOLBAR_URL = "https://vercel.live/_next-live/feedback/feedback.js";
 
 /**
- * Vercel injects this into preview client bundles. The public site never loads it,
- * and the CSP does not allow vercel.live. Remove the known injection. If the URL
- * remains, the build must fail instead of shipping a script the policy will block.
+ * Preview builds fold the environment check away and append this script on every page.
+ * That would run for every preview visitor, and the CSP does not allow vercel.live.
  */
-const PREVIEW_TOOLBAR_INJECTION =
+const UNCONDITIONAL_TOOLBAR_INJECTION =
   /var \w+=document\.createElement\("script"\);\w+\.src="https:\/\/vercel\.live\/_next-live\/feedback\/feedback\.js",\w+\.setAttribute\("data-deployment-id",globalThis\.NEXT_DEPLOYMENT_ID\),\(document\.head\|\|document\.documentElement\)\.appendChild\(\w+\)/g;
 
-export function stripPreviewToolbar(source: string): string {
-  const code = source.replace(PREVIEW_TOOLBAR_INJECTION, "void 0");
-  if (code.includes(PREVIEW_TOOLBAR_URL)) {
-    throw new Error("unrecognized Vercel preview toolbar injection still references vercel.live");
+/**
+ * Production leaves the same injector in the client bundle, but only runs it when the
+ * document cookie `__vercel_toolbar=1` is set (Vercel's explicit toolbar opt-in).
+ * Public responses never set that cookie, so the reference does not load the script.
+ */
+function cookieGatedToolbarOnly(source: string): boolean {
+  let from = 0;
+  while (from < source.length) {
+    const index = source.indexOf(PREVIEW_TOOLBAR_URL, from);
+    if (index === -1) return true;
+    const before = source.slice(Math.max(0, index - 800), index);
+    const after = source.slice(index, index + 500);
+    const gated =
+      before.includes("__vercel_toolbar=1") &&
+      before.includes("document.cookie") &&
+      after.includes("data-cookie-opt-in") &&
+      after.includes("appendChild(");
+    if (!gated) return false;
+    from = index + PREVIEW_TOOLBAR_URL.length;
   }
-  return code;
+  return true;
+}
+
+export function stripPreviewToolbar(source: string): string {
+  const code = source.replace(UNCONDITIONAL_TOOLBAR_INJECTION, "void 0");
+  if (!code.includes(PREVIEW_TOOLBAR_URL)) return code;
+  if (cookieGatedToolbarOnly(code)) return code;
+  throw new Error("unrecognized Vercel preview toolbar injection still references vercel.live");
 }

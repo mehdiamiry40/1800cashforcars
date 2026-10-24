@@ -1,4 +1,7 @@
 import assert from "node:assert/strict";
+import { mkdtemp, readFile, rm, writeFile, mkdir } from "node:fs/promises";
+import { tmpdir } from "node:os";
+import path from "node:path";
 import { describe, it } from "node:test";
 import {
   inlineScripts,
@@ -14,6 +17,7 @@ import {
   buildDevContentSecurityPolicy,
   directiveValue,
 } from "../src/lib/csp-policy";
+import { assertDeploymentOutput, publishInlineScriptHashes } from "../src/lib/csp-publish";
 
 const GTAG = "window.dataLayer = window.dataLayer || [];";
 
@@ -64,15 +68,50 @@ describe("content security policy", () => {
     assert.match(directiveValue(dev, "script-src"), /'unsafe-inline'/);
   });
 
-  it("strips the preview toolbar injection and rejects an unknown one", () => {
+  it("strips the unconditional preview toolbar and keeps the production cookie gate", () => {
     const injected =
       'before;var r=document.createElement("script");r.src="https://vercel.live/_next-live/feedback/feedback.js",r.setAttribute("data-deployment-id",globalThis.NEXT_DEPLOYMENT_ID),(document.head||document.documentElement).appendChild(r);after';
     assert.equal(stripPreviewToolbar(injected), "before;void 0;after");
     assert.equal(stripPreviewToolbar("var ready = true;"), "var ready = true;");
+    const production =
+      'if(e.i(47167),/(?:^|;\\s)__vercel_toolbar=1(?:;|$)/.test(document.cookie)){var r=document.createElement("script");r.src="https://vercel.live/_next-live/feedback/feedback.js",r.setAttribute("data-explicit-opt-in","true"),r.setAttribute("data-cookie-opt-in","true"),r.setAttribute("data-deployment-id",globalThis.NEXT_DEPLOYMENT_ID),(document.head||document.documentElement).appendChild(r)}';
+    assert.equal(stripPreviewToolbar(production), production);
     assert.throws(
       () => stripPreviewToolbar('const src = "https://vercel.live/_next-live/feedback/feedback.js";'),
       /unrecognized/,
     );
+  });
+
+  it("rewrites a deployment config that the adapter wrote with the placeholder", async () => {
+    const root = await mkdtemp(path.join(tmpdir(), "csp-"));
+    const dist = path.join(root, ".next");
+    const html = "<!doctype html><script>var ready = true;</script>";
+    const placeholder = buildContentSecurityPolicy([]);
+    await mkdir(path.join(dist, "server", "app"), { recursive: true });
+    await mkdir(path.join(dist, "output"), { recursive: true });
+    await writeFile(path.join(dist, "server", "app", "index.html"), html);
+    await writeFile(
+      path.join(dist, "routes-manifest.json"),
+      JSON.stringify({
+        headers: [{ source: "/:path*", headers: [{ key: "Content-Security-Policy", value: placeholder }] }],
+      }),
+    );
+    const routing = { beforeMiddleware: [{ headers: { "content-security-policy": placeholder } }] };
+    const published = await publishInlineScriptHashes({ distDir: dist, routing });
+    assert.equal(JSON.stringify(routing).includes(CSP_HASH_PLACEHOLDER), false);
+    assert.ok(published.hashList.length >= 1);
+
+    const dropped = published.policy.replace(published.hashList[0]!, "");
+    await writeFile(
+      path.join(dist, "output", "config.json"),
+      JSON.stringify({ routes: [{ headers: { "Content-Security-Policy": dropped } }] }),
+    );
+    await assertDeploymentOutput({ projectRoot: root, distDir: dist, routing, requireDeploymentOutput: true });
+    const config = await readFile(path.join(dist, "output", "config.json"), "utf8");
+    assert.equal(config.includes(CSP_HASH_PLACEHOLDER), false);
+    assert.equal(config.includes(published.hashList[0]!), true);
+    assert.equal(config.includes(published.policy), true);
+    await rm(root, { recursive: true, force: true });
   });
 
   it("fails closed when a prerendered inline script has no hash", () => {
