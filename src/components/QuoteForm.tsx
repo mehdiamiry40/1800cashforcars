@@ -152,10 +152,10 @@ export function QuoteForm({
         <input name="email" type="email" inputMode="email" className={input} placeholder="Email (optional)" autoComplete="email" autoCapitalize="none" autoCorrect="off" spellCheck={false} enterKeyHint="next" aria-invalid={errors.email ? true : undefined} aria-describedby={errors.email ? "quote-error-email" : undefined} />
       </Field>
       <Field name="expected" error={errors.expected}>
-        <span className="field-float">Price</span>
+        <span className="field-float">Price (optional)</span>
         <span className="relative block">
           <span className="pointer-events-none absolute inset-y-0 left-3 flex items-center text-navy" aria-hidden="true">$</span>
-          <input name="expected" inputMode="decimal" className={`${input} pl-7`} placeholder="Price" maxLength={40} required autoComplete="off" enterKeyHint="next" aria-invalid={errors.expected ? true : undefined} aria-describedby={errors.expected ? "quote-error-expected" : undefined} />
+          <input name="expected" inputMode="decimal" className={`${input} pl-7`} placeholder="Price you're hoping for (optional)" maxLength={40} autoComplete="off" enterKeyHint="next" aria-invalid={errors.expected ? true : undefined} aria-describedby={errors.expected ? "quote-error-expected" : undefined} />
         </span>
       </Field>
       <Field name="description" error={errors.description}>
@@ -205,7 +205,6 @@ const FIELD_ERROR: Record<string, string> = {
   name: "Enter your name.",
   phone: "Enter a mobile number with at least 8 digits. Spaces are fine.",
   email: "Enter a valid email address, or leave it blank.",
-  expected: "Enter a price.",
 };
 
 function invalidFields(form: HTMLFormElement) {

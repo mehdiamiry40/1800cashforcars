@@ -60,7 +60,7 @@ export async function insertQuoteSubmission(
       email: lead.email,
       address: lead.address,
       // The live table has no make, model or year columns. Store them in vehicle as "2012 Toyota Corolla".
-      // expected is the required price, after the same normalisation as the email.
+      // expected is NOT NULL text. A blank price is stored as an empty string, after the same normalisation as the email.
       vehicle: lead.vehicle || [lead.year, lead.make, lead.model].filter(Boolean).join(" "),
       description: lead.description,
       expected: lead.expected,
