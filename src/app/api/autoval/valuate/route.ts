@@ -55,6 +55,17 @@ function describe(v: ValuationRequest) {
   return lines.filter(Boolean).join("\n");
 }
 
+function servedValuation(requested: string, result: Awaited<ReturnType<typeof generateValuation>>) {
+  return JSON.stringify({
+    requested,
+    responseModelId: result.response.modelId,
+    finishReason: result.finishReason,
+    steps: result.steps.length,
+    toolCalls: result.toolCalls.length,
+    gateway: result.providerMetadata?.gateway ?? null,
+  });
+}
+
 function generateValuation(model: string, vehicle: ValuationRequest, signal: AbortSignal) {
   return generateText({
     model,
@@ -83,9 +94,9 @@ export async function POST(request: Request) {
   const run = (model: string) => generateValuation(model, parsed.data, request.signal);
 
   try {
-    const { output } = await run(MODEL);
-    console.info("[autoval] valued with", MODEL);
-    return Response.json({ valuation: output });
+    const result = await run(MODEL);
+    console.info("[autoval] valued with", servedValuation(MODEL, result));
+    return Response.json({ valuation: result.output });
   } catch (err) {
     if (MODEL === AUTOVAL_FALLBACK_MODEL || request.signal.aborted) {
       console.error("[autoval] valuation failed", err);
@@ -93,9 +104,9 @@ export async function POST(request: Request) {
     }
     console.error("[autoval] valuation failed on", MODEL, err);
     try {
-      const { output } = await run(AUTOVAL_FALLBACK_MODEL);
-      console.info("[autoval] valued with", AUTOVAL_FALLBACK_MODEL);
-      return Response.json({ valuation: output });
+      const result = await run(AUTOVAL_FALLBACK_MODEL);
+      console.info("[autoval] valued with", servedValuation(AUTOVAL_FALLBACK_MODEL, result));
+      return Response.json({ valuation: result.output });
     } catch (fallbackErr) {
       console.error("[autoval] valuation fallback failed", fallbackErr);
       return Response.json({ error: AUTOVAL_VALUATION_FAILED }, { status: 502 });
