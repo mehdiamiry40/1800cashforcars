@@ -426,7 +426,7 @@ export function AskForPrice({ compact = false }: { compact?: boolean }) {
             className="object-contain"
           />
         </div>
-        <div id="get-price" data-quote className="min-w-0 scroll-mt-32">
+        <div id="get-price" data-quote className="quote-box min-w-0 scroll-mt-32">
           <h2 className="h-section">
             <span className="text-brand">Let’s talk</span> about your car.
           </h2>

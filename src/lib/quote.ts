@@ -1,7 +1,9 @@
 import { Resend } from "resend";
 import { site } from "@/lib/site";
 import type { QuoteState } from "@/lib/quote-state";
-import { insertQuoteSubmission, QUOTE_FIELDS, type QuoteLead } from "@/lib/quote-store";
+import { quoteEmailError } from "@/lib/quote-email";
+import { generateQuoteRef } from "@/lib/quote-ref";
+import { insertQuoteSubmission, isQuoteRefConflict, QUOTE_FIELDS, type QuoteLead } from "@/lib/quote-store";
 import { quoteYearError } from "@/lib/quote-year";
 import { QUOTE_LIMIT, clientIp, rateLimit, type HeaderSource } from "@/lib/rate-limit";
 
@@ -9,6 +11,7 @@ export type QuoteResult = {
   ok: boolean;
   message: string;
   lead?: boolean;
+  ref?: string;
   status: number;
   retryAfter?: number;
 };
@@ -35,7 +38,7 @@ const escape = (s: string) =>
   s.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]!);
 
 export function toQuoteState(result: QuoteResult): QuoteState {
-  return { ok: result.ok, message: result.message, lead: result.lead };
+  return { ok: result.ok, message: result.message, lead: result.lead, ref: result.ref };
 }
 
 export async function processQuote(formData: FormData, headerSource: HeaderSource, now = Date.now()): Promise<QuoteResult> {
@@ -52,6 +55,7 @@ export async function processQuote(formData: FormData, headerSource: HeaderSourc
     const textField = (key: string) => String(formData.get(key) ?? "").trim().slice(0, 2000);
     const yearInput = String(formData.get("year") ?? "").trim();
     const lead: QuoteLead = {
+      ref: "",
       name: textField("name"),
       phone: textField("phone"),
       email: textField("email"),
@@ -80,6 +84,10 @@ export async function processQuote(formData: FormData, headerSource: HeaderSourc
     if (!/^[\d\s()+-]{8,}$/.test(lead.phone)) {
       return { ok: false, message: "Please enter a valid phone number.", status: 400 };
     }
+    const emailProblem = quoteEmailError(lead.email);
+    if (emailProblem) {
+      return { ok: false, message: emailProblem, status: 400 };
+    }
 
     lead.year = yearInput;
     lead.vehicle = `${yearInput} ${lead.make} ${lead.model}`;
@@ -92,13 +100,20 @@ export async function processQuote(formData: FormData, headerSource: HeaderSourc
     }
 
     // Honeypot, timing, validation and the rate limit have all passed. A failed insert must not block the email.
-    try {
-      await insertQuoteSubmission(lead, headerSource.get("user-agent"));
-    } catch (err) {
-      console.error("[lead] supabase insert failed", err);
+    // A duplicate reference (409 / 23505) gets a new code, up to 3 retries.
+    for (let attempt = 0; attempt < 4; attempt++) {
+      lead.ref = generateQuoteRef();
+      try {
+        await insertQuoteSubmission(lead, headerSource.get("user-agent"));
+        break;
+      } catch (err) {
+        if (isQuoteRefConflict(err) && attempt < 3) continue;
+        console.error("[lead] supabase insert failed", err);
+        break;
+      }
     }
 
-    const subject = `New quote request: ${lead.vehicle.split("\n")[0].slice(0, 60)}${lead.description ? ` (${lead.description.split("\n")[0].slice(0, 40)})` : ""}${lead.address ? ` — ${lead.address}` : ""}${lead.expected ? ` — wants ${lead.expected}` : ""}`;
+    const subject = `[${lead.ref}] New quote request: ${lead.vehicle.split("\n")[0].slice(0, 60)}${lead.description ? ` (${lead.description.split("\n")[0].slice(0, 40)})` : ""}${lead.address ? ` — ${lead.address}` : ""}${lead.expected ? ` — wants ${lead.expected}` : ""}`;
     const rows = QUOTE_FIELDS.filter(([k]) => lead[k])
       .map(([k, label]) => `<tr><td style="padding:6px 12px;color:#555;vertical-align:top">${label}</td><td style="padding:6px 12px;font-weight:600;white-space:pre-wrap">${escape(lead[k])}</td></tr>`)
       .join("");
@@ -111,7 +126,7 @@ export async function processQuote(formData: FormData, headerSource: HeaderSourc
     const to = process.env.LEAD_TO_EMAIL;
     if (!apiKey || !to) {
       console.error("[lead] RESEND_API_KEY or LEAD_TO_EMAIL not set — lead only recorded in logs");
-      return { ok: true, message: "", status: 200, lead: true };
+      return { ok: true, message: "", status: 200, lead: true, ref: lead.ref };
     }
 
     const domain = process.env.RESEND_EMAIL_DOMAIN || site.domain;
@@ -119,14 +134,13 @@ export async function processQuote(formData: FormData, headerSource: HeaderSourc
     const email = {
       from: `${site.name} <quotes@${domain}>`,
       to: to.split(",").map((s) => s.trim()),
-      // An invalid reply-to makes Resend reject the whole email, so only pass one that looks like an address.
-      replyTo: /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(lead.email) ? lead.email : undefined,
+      replyTo: lead.email && !quoteEmailError(lead.email) ? lead.email : undefined,
       subject,
       text,
       html: `<h2 style="font-family:sans-serif">${escape(subject)}</h2><table style="font-family:sans-serif;border-collapse:collapse">${rows}</table>`,
     };
     // Retry once for a passing hiccup. The idempotency key stops a retry from sending the lead twice.
-    const idempotencyKey = `lead-${crypto.randomUUID()}`;
+    const idempotencyKey = `quote-${lead.ref}`;
     let { error } = await resend.emails.send(email, { idempotencyKey });
     if (error) {
       console.warn("[lead] email failed, retrying", error);
@@ -136,10 +150,10 @@ export async function processQuote(formData: FormData, headerSource: HeaderSourc
     if (error) {
       // Nobody would see this lead except in the logs, so ask the customer to get in touch directly.
       console.error("[lead] email failed, LEAD NOT DELIVERED", error);
-      return { ok: false, message: EMAIL_FAILED, status: 502 };
+      return { ok: false, message: EMAIL_FAILED, status: 502, ref: lead.ref };
     }
 
-    return { ok: true, message: "", status: 200, lead: true };
+    return { ok: true, message: "", status: 200, lead: true, ref: lead.ref };
   } catch (err) {
     console.error("[lead] submission failed", err);
     return { ok: false, message: QUOTE_GENERIC_ERROR, status: 500 };

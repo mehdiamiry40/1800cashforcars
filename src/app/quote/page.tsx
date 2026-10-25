@@ -32,7 +32,7 @@ export default function QuotePage() {
         <div
           id="quote"
           data-quote
-          className="min-w-0 scroll-mt-32 self-start md:col-start-2 md:row-span-2 md:row-start-1 lg:px-10"
+          className="quote-box min-w-0 scroll-mt-32 self-start md:col-start-2 md:row-span-2 md:row-start-1"
         >
           <h2 className="h-sub mb-6">Tell us about your vehicle</h2>
           <QuoteForm />

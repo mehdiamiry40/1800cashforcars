@@ -4,6 +4,7 @@ import { track } from "@vercel/analytics";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState, type FormEvent, type ReactNode } from "react";
+import { quoteEmailError } from "@/lib/quote-email";
 import type { QuoteState } from "@/lib/quote-state";
 import { QUOTE_YEAR_MIN, quoteYearError, quoteYearMax } from "@/lib/quote-year";
 import { site } from "@/lib/site";
@@ -23,7 +24,6 @@ export function QuoteForm({
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [pending, setPending] = useState(false);
   const pathname = usePathname();
-  const full = variant === "full";
 
   // Spam check: records how long after the page loaded the visitor last typed (a relative time, so clock
   // differences don't matter). The server drops forms filled in under ~2.5 seconds, which only bots manage.
@@ -60,7 +60,7 @@ export function QuoteForm({
         });
         return;
       }
-      setState({ ok: data.ok, message: data.message, lead: data.lead });
+      setState({ ok: data.ok, message: data.message, lead: data.lead, ref: typeof data.ref === "string" ? data.ref : undefined });
     } catch {
       setState({
         ok: false,
@@ -89,6 +89,7 @@ export function QuoteForm({
           <div>
             <p className="h-sub">Thanks, we&apos;re on it!</p>
             <p className="mt-1">We&apos;ll text or call you with a price, usually within the hour.</p>
+            {state.ref ? <p className="mt-1">Your reference: {state.ref}</p> : null}
           </div>
         </div>
         <ol className="mt-4 space-y-1.5 border-t border-line pt-4 text-[15px]">
@@ -146,12 +147,10 @@ export function QuoteForm({
         <input name="phone" type="tel" inputMode="tel" className={input} placeholder="Mobile" required autoComplete="tel" enterKeyHint="next" pattern={"[0-9\\s\\(\\)\\+\\-]{8,}"} title="Enter a mobile number with at least 8 digits. Spaces are fine." aria-invalid={errors.phone ? true : undefined} aria-describedby={errors.phone ? "quote-error-phone" : undefined} />
       </Field>
       </div>
-      {full && (
-        <Field name="email" error={errors.email}>
-          <span className="field-float">Email (optional)</span>
-          <input name="email" type="email" inputMode="email" className={input} placeholder="Email (optional)" autoComplete="email" autoCapitalize="none" autoCorrect="off" spellCheck={false} enterKeyHint="next" aria-invalid={errors.email ? true : undefined} aria-describedby={errors.email ? "quote-error-email" : undefined} />
-        </Field>
-      )}
+      <Field name="email" error={errors.email}>
+        <span className="field-float">Email (optional)</span>
+        <input name="email" type="email" inputMode="email" className={input} placeholder="Email (optional)" autoComplete="email" autoCapitalize="none" autoCorrect="off" spellCheck={false} enterKeyHint="next" aria-invalid={errors.email ? true : undefined} aria-describedby={errors.email ? "quote-error-email" : undefined} />
+      </Field>
       <Field name="expected" error={errors.expected}>
         <span className="field-float">Price</span>
         <span className="relative block">
@@ -221,6 +220,14 @@ function invalidFields(form: HTMLFormElement) {
         continue;
       }
     }
+    if (name === "email") {
+      const message = quoteEmailError(el.value);
+      if (message) {
+        next.email = message;
+        continue;
+      }
+      if (!el.value.trim()) continue;
+    }
     if (el.validity.valid) continue;
     next[name] = FIELD_ERROR[name] ?? el.validationMessage;
   }
@@ -237,6 +244,14 @@ function Field({ name, error, children }: { name: string; error?: string; childr
         </span>
       ) : null}
     </label>
+  );
+}
+
+export function QuoteFormHeading({ className = "" }: { className?: string }) {
+  return (
+    <h2 className={className}>
+      Get a free quote <span className="quote-instant">(Instant)</span>
+    </h2>
   );
 }
 

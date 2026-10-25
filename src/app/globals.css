@@ -226,6 +226,33 @@ textarea {
 .hero-quote {
   background: #f7f8fc;
 }
+.quote-box {
+  background: #f7f8fc;
+  border: 2px solid var(--color-navy);
+  border-top: 6px solid var(--color-brand);
+  box-shadow: 0 18px 36px -20px rgba(30, 37, 164, 0.55);
+  padding: 1.15rem 1.15rem 1rem;
+}
+@media (min-width: 640px) {
+  .quote-box {
+    padding: 1.35rem 1.35rem 1.15rem;
+  }
+}
+.quote-instant {
+  display: inline-block;
+  margin-left: 0.4rem;
+  padding: 0.12em 0.45em 0.16em;
+  background: var(--color-logo);
+  color: #fff;
+  font-size: 0.58em;
+  font-weight: 700;
+  line-height: 1.35;
+  vertical-align: 0.15em;
+}
+.quote-form .btn-brand {
+  min-height: 52px;
+  box-shadow: 0 8px 20px -10px rgba(30, 37, 164, 0.65);
+}
 .hero-quote form {
   gap: 10px;
 }
@@ -341,12 +368,15 @@ textarea {
     gap: 10px 20px;
     font-size: 14px;
   }
-  .hero-quote,
-  .page-quote {
-    padding: 12px;
+  .quote-box {
+    padding: 14px;
     background: #f7f8fc;
-    border: 1px solid #dcdfea;
-    border-top: 3px solid var(--color-brand);
+    border: 2px solid var(--color-navy);
+    border-top: 6px solid var(--color-brand);
+    box-shadow: 0 14px 28px -18px rgba(30, 37, 164, 0.5);
+  }
+  .quote-form .btn-brand {
+    min-height: 52px;
   }
   .hero-quote > h2,
   .page-quote > h2 {

@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { afterEach, beforeEach, describe, it } from "node:test";
 import { POST } from "@/app/api/quote/route";
 import { QUOTE_GENERIC_ERROR, QUOTE_RATE_LIMIT_MESSAGE, processQuote } from "@/lib/quote";
+import { generateQuoteRef, QUOTE_REF_PATTERN } from "@/lib/quote-ref";
 import { quoteYearMax } from "@/lib/quote-year";
 import { QUOTE_LIMIT, type HeaderSource } from "@/lib/rate-limit";
 import { site } from "@/lib/site";
@@ -36,8 +37,20 @@ function quoteForm(overrides: Record<string, string> = {}) {
   return fd;
 }
 
+describe("quote reference", () => {
+  it("uses six unambiguous characters", () => {
+    const refs = new Set<string>();
+    for (let i = 0; i < 40; i++) refs.add(generateQuoteRef());
+    assert.equal(refs.size, 40);
+    for (const ref of refs) {
+      assert.match(ref, QUOTE_REF_PATTERN);
+      assert.equal(/[01IOL]/.test(ref.slice(2)), false);
+    }
+  });
+});
+
 describe("quote submission", () => {
-  let calls: { url: string; body: string }[];
+  let calls: { url: string; body: string; idempotencyKey: string | null }[];
   let originalFetch: typeof fetch;
 
   beforeEach(() => {
@@ -46,7 +59,11 @@ describe("quote submission", () => {
     calls = [];
     originalFetch = globalThis.fetch;
     globalThis.fetch = (async (input: RequestInfo | URL, init?: RequestInit) => {
-      calls.push({ url: String(input), body: typeof init?.body === "string" ? init.body : "" });
+      calls.push({
+        url: String(input),
+        body: typeof init?.body === "string" ? init.body : "",
+        idempotencyKey: new Headers(init?.headers).get("Idempotency-Key"),
+      });
       return new Response(JSON.stringify({ id: "email_123" }), {
         status: 200,
         headers: { "content-type": "application/json" },
@@ -99,10 +116,12 @@ describe("quote submission", () => {
     const payload = JSON.parse(calls[0].body) as { from: string; to: string[]; subject: string; text: string; html: string; reply_to: string };
     assert.equal(payload.from, `${site.name} <quotes@1800cashforcars.com.au>`);
     assert.deepEqual(payload.to, ["leads@example.com", "office@example.com"]);
+    assert.match(payload.subject, /^\[Q-[ABCDEFGHJKMNPQRSTUVWXYZ23456789]{6}\] New quote request:/);
     assert.match(payload.subject, /2012 Toyota Corolla/);
     assert.match(payload.subject, /Rocklea/);
     assert.match(payload.subject, /\$2,500/);
-    assert.match(payload.text, /Name: Sam Lee/);
+    assert.match(result.ref ?? "", QUOTE_REF_PATTERN);
+    assert.match(payload.text, new RegExp(`^Reference: ${result.ref}\\nName: Sam Lee`));
     assert.match(payload.text, /Phone: 0423 514 111/);
     assert.match(payload.text, /Email: sam@example.com/);
     assert.match(payload.text, /Suburb \/ address: Rocklea/);
@@ -116,6 +135,8 @@ describe("quote submission", () => {
     assert.match(payload.text, /Sent from: \/quote/);
     assert.match(payload.html, /&lt;b&gt;/);
     assert.equal(payload.reply_to, "sam@example.com");
+    assert.equal(payload.subject.startsWith(`[${result.ref}]`), true);
+    assert.equal(calls[0].idempotencyKey, `quote-${result.ref}`);
     assert.doesNotMatch(payload.html, /<b>on<\/b>/);
   });
 
@@ -195,6 +216,40 @@ describe("quote submission", () => {
     const result = await processQuote(quoteForm({ e: "2500" }), ip("203.0.113.16"), NOW);
     assert.equal(result.status, 200);
     assert.equal(result.lead, true);
+  });
+
+  it("accepts a blank email and rejects an invalid one", async () => {
+    process.env.RESEND_API_KEY = "re_test_key";
+    process.env.LEAD_TO_EMAIL = "leads@example.com";
+
+    const blank = await processQuote(quoteForm({ email: "   " }), ip("203.0.113.40"), NOW);
+    assert.equal(blank.status, 200);
+    assert.equal(blank.lead, true);
+    assert.match(blank.ref ?? "", QUOTE_REF_PATTERN);
+    const blankPayload = JSON.parse(calls[0].body) as { text: string; reply_to?: string; subject: string };
+    assert.doesNotMatch(blankPayload.text, /Email:/);
+    assert.equal(blankPayload.reply_to, undefined);
+    assert.equal(blankPayload.subject.startsWith(`[${blank.ref}]`), true);
+    assert.equal(calls[0].idempotencyKey, `quote-${blank.ref}`);
+
+    const invalid = await processQuote(quoteForm({ email: "not-an-email" }), ip("203.0.113.41"), NOW);
+    assert.equal(invalid.status, 400);
+    assert.equal(invalid.ok, false);
+    assert.match(invalid.message, /valid email/i);
+    assert.equal(invalid.ref, undefined);
+    assert.equal(calls.length, 1);
+
+    const res = await POST(new Request("http://localhost/api/quote", {
+      method: "POST",
+      headers: { "x-forwarded-for": "203.0.113.42" },
+      body: quoteForm({ email: "" }),
+    }));
+    assert.equal(res.status, 200);
+    const body = (await res.json()) as { ok: boolean; ref?: string; lead?: boolean };
+    assert.equal(body.ok, true);
+    assert.equal(body.lead, true);
+    assert.match(body.ref ?? "", QUOTE_REF_PATTERN);
+    assert.equal("status" in body, false);
   });
 
   it("rejects a submission with no price", async () => {

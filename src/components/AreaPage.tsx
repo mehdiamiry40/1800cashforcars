@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import heroPhoto from "@/assets/hero-car-truck-cash.png";
 import type { CopySection } from "@/lib/copy";
-import { QuoteForm } from "./QuoteForm";
+import { QuoteForm, QuoteFormHeading } from "./QuoteForm";
 import { QuoteLink } from "./QuoteLink";
 
 const linkClass = "font-semibold text-navy underline underline-offset-4";
@@ -110,8 +110,8 @@ export function AreaHero({ h1, children }: { h1: string; children: ReactNode }) 
             className="hero-image mt-4 h-auto w-full"
           />
         </div>
-        <div id="quote" data-quote className="hero-quote min-w-0 scroll-mt-32 border border-navy/15 border-t-[3px] border-t-brand p-4 sm:p-6">
-          <h2 className="mb-5 text-[25px] font-semibold leading-tight">Get a free quote</h2>
+        <div id="quote" data-quote className="quote-box hero-quote min-w-0 scroll-mt-32">
+          <QuoteFormHeading className="mb-5 text-[25px] font-semibold leading-tight" />
           <QuoteForm variant="compact" />
         </div>
       </div>

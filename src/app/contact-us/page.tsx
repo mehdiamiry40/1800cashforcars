@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { QuoteForm } from "@/components/QuoteForm";
+import { QuoteForm, QuoteFormHeading } from "@/components/QuoteForm";
 import { Faq } from "@/components/Blocks";
 import { Breadcrumbs, JsonLd } from "@/components/JsonLd";
 import { ParentBrandLine } from "@/components/ParentBrand";
@@ -65,8 +65,8 @@ export default function ContactPage() {
             A text can include the make, model, year, suburb and a few photos. Say if the car has no keys or no wheels. We use that to price the car you actually have.
           </p>
         </div>
-        <div id="quote" data-quote className="min-w-0 scroll-mt-32 self-start md:col-start-2 md:row-span-2 md:row-start-1 lg:px-10">
-          <h2 className="h-sub mb-6">Get a free quote</h2>
+        <div id="quote" data-quote className="quote-box min-w-0 scroll-mt-32 self-start md:col-start-2 md:row-span-2 md:row-start-1">
+          <QuoteFormHeading className="h-sub mb-6" />
           <QuoteForm />
         </div>
         <div className="md:col-start-1 md:row-start-2">

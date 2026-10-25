@@ -2,7 +2,7 @@ import Image from "next/image";
 import heroPhoto from "@/assets/hero-car-truck-cash.png";
 import { heroCopy } from "@/lib/slides";
 import { GoogleReviewsSignal } from "./GoogleReviewsSignal";
-import { QuoteForm } from "./QuoteForm";
+import { QuoteForm, QuoteFormHeading } from "./QuoteForm";
 import { CashIcon, PinIcon, TruckIcon } from "./icons";
 
 export function Hero({
@@ -66,11 +66,9 @@ export function Hero({
         <div
           id="quote"
           data-quote
-          className="hero-quote min-w-0 scroll-mt-32 border border-navy/15 border-t-[3px] border-t-brand p-4 sm:p-6"
+          className="quote-box hero-quote min-w-0 scroll-mt-32"
         >
-          <h2 className="hero-quote-title text-[25px] font-semibold leading-tight">
-            Get a free quote
-          </h2>
+          <QuoteFormHeading className="hero-quote-title text-[25px] font-semibold leading-tight" />
           <GoogleReviewsSignal />
           <QuoteForm variant="compact" />
         </div>

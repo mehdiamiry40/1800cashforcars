@@ -228,7 +228,7 @@ function CashOfferCta({ car }: { car: ValuedCar }) {
           {site.phoneDisplay}
         </a>
       </div>
-      <div id="quote" data-quote className="min-w-0 scroll-mt-32">
+      <div id="quote" data-quote className="quote-box min-w-0 scroll-mt-32">
         <h4 className="h-sub mb-5">Get a cash offer for your car</h4>
         <QuoteForm variant="compact" defaults={{ make: car.make, model: car.model, year: car.year, description }} />
       </div>
