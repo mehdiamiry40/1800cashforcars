@@ -69,11 +69,11 @@ export async function processQuote(formData: FormData, headerSource: HeaderSourc
       page: textField("page"),
     };
 
-    // Email stays optional. Description stays optional. Price, make, model and year do not.
-    if (!lead.name || !lead.phone || !lead.address || !lead.make || !lead.model || !yearInput || !lead.expected) {
+    // Email, description and price stay optional. Make, model and year do not.
+    if (!lead.name || !lead.phone || !lead.address || !lead.make || !lead.model || !yearInput) {
       return {
         ok: false,
-        message: "Please enter your name, mobile number, suburb, make, model, year and price.",
+        message: "Please enter your name, mobile number, suburb, make, model and year.",
         status: 400,
       };
     }

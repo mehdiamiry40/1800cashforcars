@@ -119,7 +119,7 @@ describe("quote submission", () => {
     assert.match(payload.subject, /^\[Q-[ABCDEFGHJKMNPQRSTUVWXYZ23456789]{6}\] New quote request:/);
     assert.match(payload.subject, /2012 Toyota Corolla/);
     assert.match(payload.subject, /Rocklea/);
-    assert.match(payload.subject, /\$2,500/);
+    assert.match(payload.subject, /— wants \$2,500/);
     assert.match(result.ref ?? "", QUOTE_REF_PATTERN);
     assert.match(payload.text, new RegExp(`^Reference: ${result.ref}\\nName: Sam Lee`));
     assert.match(payload.text, /Phone: 0423 514 111/);
@@ -252,12 +252,43 @@ describe("quote submission", () => {
     assert.equal("status" in body, false);
   });
 
-  it("rejects a submission with no price", async () => {
+  it("accepts a blank price, omits it from the email, and stores an empty string", async () => {
+    process.env.RESEND_API_KEY = "re_test_key";
+    process.env.LEAD_TO_EMAIL = "leads@example.com";
+    process.env.SUPABASE_URL = "https://example.supabase.co";
+    process.env.SUPABASE_SERVICE_ROLE_KEY = "service-role-test";
+
     const result = await processQuote(quoteForm({ expected: "   " }), ip("203.0.113.20"), NOW);
-    assert.equal(result.status, 400);
-    assert.equal(result.ok, false);
-    assert.match(result.message, /price/i);
-    assert.equal(calls.length, 0);
+    assert.equal(result.status, 200);
+    assert.equal(result.ok, true);
+    assert.equal(result.lead, true);
+    assert.match(result.ref ?? "", QUOTE_REF_PATTERN);
+
+    const insert = calls.find((call) => call.url.includes("/rest/v1/quote_submissions"));
+    const email = calls.find((call) => call.url.includes("api.resend.com"));
+    assert.ok(insert);
+    assert.ok(email);
+    const stored = JSON.parse(insert.body) as { expected: string; vehicle: string };
+    assert.equal(stored.expected, "");
+    assert.equal(stored.vehicle, "2012 Toyota Corolla");
+    const payload = JSON.parse(email.body) as { text: string; html: string; subject: string };
+    assert.doesNotMatch(payload.subject, /wants/);
+    assert.match(payload.subject, /— Rocklea$/);
+    assert.doesNotMatch(payload.text, /Price:/);
+    assert.doesNotMatch(payload.html, />Price</);
+    assert.match(payload.text, /Make: Toyota/);
+    assert.match(payload.text, /Year: 2012/);
+
+    const res = await POST(new Request("http://localhost/api/quote", {
+      method: "POST",
+      headers: { "x-forwarded-for": "203.0.113.20b" },
+      body: quoteForm({ expected: "" }),
+    }));
+    assert.equal(res.status, 200);
+    const body = (await res.json()) as { ok: boolean; lead?: boolean; ref?: string };
+    assert.equal(body.ok, true);
+    assert.equal(body.lead, true);
+    assert.match(body.ref ?? "", QUOTE_REF_PATTERN);
   });
 
   it("rejects a submission with no make, model or year", async () => {
@@ -266,9 +297,9 @@ describe("quote submission", () => {
       ["model", "203.0.113.22"],
       ["year", "203.0.113.23"],
     ] as const) {
-      const result = await processQuote(quoteForm({ [field]: "" }), ip(address), NOW);
+      const result = await processQuote(quoteForm({ [field]: "", expected: "" }), ip(address), NOW);
       assert.equal(result.status, 400, field);
-      assert.match(result.message, /make, model, year and price/);
+      assert.equal(result.message, "Please enter your name, mobile number, suburb, make, model and year.");
     }
     assert.equal(calls.length, 0);
   });
