@@ -1,5 +1,5 @@
 import { gateway, generateText, isStepCount, Output } from "ai";
-import { AUTOVAL_FALLBACK_MODEL, autovalModel } from "@/lib/autoval/model";
+import { AUTOVAL_FALLBACK_MODEL, autovalDeepseekRequestOptions, autovalModel } from "@/lib/autoval/model";
 import { AUTOVAL_DETAILS_INVALID, AUTOVAL_VALUATION_FAILED } from "@/lib/autoval/messages";
 import { autovalRateLimitResponse } from "@/lib/autoval/limit";
 import { valuationRequestSchema, valuationSchema, type ValuationRequest } from "@/lib/autoval/valuation";
@@ -66,6 +66,7 @@ function generateValuation(model: string, vehicle: ValuationRequest, signal: Abo
     stopWhen: isStepCount(6),
     output: Output.object({ schema: valuationSchema }),
     abortSignal: signal,
+    ...autovalDeepseekRequestOptions(model),
   });
 }
 
