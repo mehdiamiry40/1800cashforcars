@@ -154,9 +154,9 @@ export const pages: ContentPage[] = [
     slug: "car-wreckers",
     intro: "Damaged cars, where parts can be worth more than the metal.",
     title: "Car wreckers",
-    metaTitle: "Car Wreckers Brisbane & Gold Coast",
+    metaTitle: "Car Wreckers Brisbane, Cash for Damaged Cars",
     description:
-      "Local car wreckers buying wrecked, damaged and unwanted cars across Brisbane, the Gold Coast and SEQ. We pay for usable parts as well as metal, with free removal.",
+      "Local car wreckers buying wrecked, damaged and unwanted cars across Brisbane. We pay for usable parts as well as metal, with free removal.",
     blocks: [
       {
         heading: "Do car wreckers pay for a damaged car?",
@@ -217,7 +217,8 @@ export const pages: ContentPage[] = [
       {
         heading: "Is towing free from Brisbane car wreckers?",
         summary:
-          "Yes. Towing from our Rocklea yard is free across Brisbane, Logan, Ipswich, the Gold Coast, the Sunshine Coast and Tweed Heads. We do not charge a removal fee and we do not take the tow off your price. Pickups are usually within a day or two. You pick a time, Monday to Saturday.",
+          "Yes. Towing from our Rocklea yard is free across Brisbane, Logan, Ipswich, the Gold Coast, the Sunshine Coast and Tweed Heads. We do not charge a removal fee and we do not take the tow off your price. Pickups are usually within a day or two. You pick a time, Monday to Saturday. Damaged cars further south are covered by car wreckers on the Gold Coast.",
+        links: [{ phrase: "car wreckers on the Gold Coast", href: "/car-wreckers-gold-coast" }],
         icon: "truck",
         paras: [
           "Our wrecking yard is in Rocklea, so you deal with the people who actually collect and wreck the car. We buy cars across Brisbane, Logan, Ipswich, the Gold Coast, the Sunshine Coast and Tweed Heads, with free towing everywhere we go.",

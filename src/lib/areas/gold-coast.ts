@@ -88,8 +88,9 @@ export const goldCoastLocal = {
           text: "We buy cars and hatchbacks, 4WDs and SUVs, utes and vans, registered or not. Salt air is hard on older Gold Coast cars. Rust lowers the price, but we still buy rusty cars and pay for the metal and parts. A car that has sat in a garage or on a driveway without rego is fine, because we tow it and it does not need a roadworthy.",
         },
         {
-          text: "Crashed cars, write-offs, and flood or hail damage are bought as they are. Tell us what is damaged. Scrap cars are covered on the scrap car removal page, and trucks on cash for trucks.",
+          text: "Crashed cars, write-offs, and flood or hail damage are bought as they are. Tell us what is damaged. That sale is also on car wreckers on the Gold Coast. Scrap cars are covered on the scrap car removal page, and trucks on cash for trucks.",
           links: [
+            { phrase: "car wreckers on the Gold Coast", href: "/car-wreckers-gold-coast" },
             { phrase: "scrap car removal", href: "/scrap-car-removal" },
             { phrase: "cash for trucks", href: "/truck-removal" },
           ],

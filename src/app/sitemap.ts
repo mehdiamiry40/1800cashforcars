@@ -71,6 +71,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${site.url}/car-removal-no-keys-no-wheels`, lastModified: updated(["src/app/car-removal-no-keys-no-wheels/page.tsx"]), changeFrequency: "monthly", priority: 0.85 },
     { url: `${site.url}/scrap-car-prices-brisbane`, lastModified: updated(["src/app/scrap-car-prices-brisbane/page.tsx"]), changeFrequency: "monthly", priority: 0.9 },
     { url: `${site.url}/locations`, lastModified: updated(["src/app/locations/page.tsx"]), changeFrequency: "monthly", priority: 0.7 },
+    { url: `${site.url}/locations/toowong`, lastModified: updated(["src/app/locations/toowong/page.tsx"]), changeFrequency: "monthly", priority: 0.8 },
+    { url: `${site.url}/car-wreckers-gold-coast`, lastModified: updated(["src/app/car-wreckers-gold-coast/page.tsx"]), changeFrequency: "monthly", priority: 0.8 },
     ...pages.map((p) => ({ url: `${site.url}/${p.slug}`, lastModified: serviceUpdated, changeFrequency: "monthly" as const, priority: 0.8 })),
     ...areas.filter((a) => !a.href).map((a) => ({ url: `${site.url}${areaHref(a)}`, lastModified: locationUpdated(a.slug), changeFrequency: "monthly" as const, priority: 0.8 })),
     { url: `${site.url}/autoval`, lastModified: updated(["src/app/autoval/page.tsx"]), changeFrequency: "monthly", priority: 0.7 },
