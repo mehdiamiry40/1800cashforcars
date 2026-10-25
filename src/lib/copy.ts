@@ -19,6 +19,8 @@ export type Block = {
   icon?: "car" | "truck" | "cash" | "recycle" | "paperwork";
   paras?: string[];
   list?: { bold: string; text: string }[];
+  /** Phrases inside `summary` that should be links. */
+  links?: InlineLink[];
 };
 
 export type ContentPage = {

@@ -9,6 +9,12 @@ function gitDate(file: string): number {
 }
 
 describe("sitemap lastmod", () => {
+  it("lists the Toowong page and the Gold Coast wreckers page", () => {
+    const urls = sitemap().map((item) => item.url);
+    assert.equal(urls.filter((url) => url.endsWith("/locations/toowong")).length, 1);
+    assert.equal(urls.filter((url) => url.endsWith("/car-wreckers-gold-coast")).length, 1);
+  });
+
   it("uses at least the git date of the Gold Coast area copy", () => {
     const entry = sitemap().find((item) => item.url.endsWith("/locations/gold-coast"));
     assert.ok(entry?.lastModified instanceof Date);

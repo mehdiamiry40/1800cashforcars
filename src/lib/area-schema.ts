@@ -8,16 +8,27 @@ export function areaServiceGraph({
   name,
   description,
   city,
-  suburbs,
+  suburbs = [],
   faqs,
+  serviceType = "Cash for cars and free car removal",
+  areaServed,
 }: {
   path: string;
   name: string;
   description: string;
-  city: string;
-  suburbs: string[];
+  city?: string;
+  suburbs?: string[];
   faqs: { q: string; a: string }[];
+  serviceType?: string;
+  /** Replaces the City + suburb list when a page needs its own place names. */
+  areaServed?: { "@type": string; name: string }[];
 }) {
+  const served =
+    areaServed ??
+    [
+      ...(city ? [{ "@type": "City", name: city }] : []),
+      ...suburbs.map((suburb) => ({ "@type": "Place", name: `${suburb}, QLD` })),
+    ];
   return {
     "@context": "https://schema.org",
     "@graph": [
@@ -25,14 +36,11 @@ export function areaServiceGraph({
         "@type": "Service",
         "@id": `${site.url}${path}#service`,
         name,
-        serviceType: "Cash for cars and free car removal",
+        serviceType,
         description,
         url: `${site.url}${path}`,
         provider: { "@id": `${site.url}/#business` },
-        areaServed: [
-          { "@type": "City", name: city },
-          ...suburbs.map((suburb) => ({ "@type": "Place", name: `${suburb}, QLD` })),
-        ],
+        areaServed: served,
       },
       {
         "@type": "FAQPage",
