@@ -16,10 +16,6 @@ export const site = {
   pickupTurnaround: "usually within a day or two",
   phoneDisplay: "0423 514 111",
   phoneHref: "tel:+61423514111",
-  // The brand reads like a free-call number. Callers need the mobile that is actually answered.
-  get phoneNote() {
-    return `Dial ${this.phoneDisplay}. This is not an 1800 number.`;
-  },
   email: "quotes@1800cashforcars.com.au",
   // Only show the email address on the site once the mailbox (or forwarding) is set up, otherwise emails bounce.
   showEmail: true,

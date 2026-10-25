@@ -4,7 +4,6 @@ import { QuoteForm } from "@/components/QuoteForm";
 import { Faq } from "@/components/Blocks";
 import { Breadcrumbs, JsonLd } from "@/components/JsonLd";
 import { ParentBrandLine } from "@/components/ParentBrand";
-import { PhoneNote } from "@/components/PhoneNote";
 import { PhoneIcon, SmsIcon } from "@/components/icons";
 import { areaHref, areas, faqs, pageOpenGraph, site } from "@/lib/site";
 
@@ -54,7 +53,6 @@ export default function ContactPage() {
             <PhoneIcon aria-hidden="true" className="h-5 w-5 text-brand" />
             {site.phoneDisplay}
           </a>
-          <PhoneNote className="mt-1 text-[15px] leading-snug" />
           {site.smsNumber && (
             <p className="mt-3">
               <a href={`sms:${site.smsNumber}`} className="inline-flex min-h-11 items-center gap-3 font-semibold underline underline-offset-4">

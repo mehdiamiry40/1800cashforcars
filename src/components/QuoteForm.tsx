@@ -6,7 +6,6 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState, type FormEvent, type ReactNode } from "react";
 import type { QuoteState } from "@/lib/quote-state";
 import { site } from "@/lib/site";
-import { PhoneNote } from "./PhoneNote";
 import { Roo } from "./Roo";
 import { ArrowIcon, PhoneIcon } from "./icons";
 
@@ -219,13 +218,10 @@ function Field({ name, error, children }: { name: string; error?: string; childr
 
 function CallQuoteButton() {
   return (
-    <div className="grid gap-1">
-      <a href={site.phoneHref} className="btn-line quote-call">
-        <PhoneIcon aria-hidden="true" className="h-5 w-5" />
-        Call {site.phoneDisplay}
-      </a>
-      <PhoneNote className="text-center text-[13px] leading-snug" />
-    </div>
+    <a href={site.phoneHref} className="btn-line quote-call">
+      <PhoneIcon aria-hidden="true" className="h-5 w-5" />
+      Call {site.phoneDisplay}
+    </a>
   );
 }
 

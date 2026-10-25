@@ -2,7 +2,6 @@ import Link from "next/link";
 import { areaHref, areas, site } from "@/lib/site";
 import { Logo } from "./Logo";
 import { ParentBrandLine } from "./ParentBrand";
-import { PhoneNote } from "./PhoneNote";
 import { nav } from "@/lib/navigation";
 import { MailIcon, PhoneIcon } from "./icons";
 
@@ -20,16 +19,13 @@ export function Footer() {
               <span className="break-all">{site.email}</span>
             </a>
           )}
-          <div className="shrink-0">
-            <a
-              href={site.phoneHref}
-              className="inline-flex min-h-11 items-center gap-3 text-[20px] font-semibold"
-            >
-              <PhoneIcon aria-hidden="true" className="h-5 w-5" />
-              {site.phoneDisplay}
-            </a>
-            <PhoneNote className="max-w-72 text-[14px] leading-snug text-white" />
-          </div>
+          <a
+            href={site.phoneHref}
+            className="inline-flex min-h-11 shrink-0 items-center gap-3 text-[20px] font-semibold"
+          >
+            <PhoneIcon aria-hidden="true" className="h-5 w-5" />
+            {site.phoneDisplay}
+          </a>
         </div>
       </div>
       <div className="container-site py-9">
