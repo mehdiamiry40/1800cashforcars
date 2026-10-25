@@ -9,6 +9,9 @@ import { site } from "@/lib/site";
 /** What the visitor told us, used to pre-fill the cash offer form. */
 export interface ValuedCar {
   name: string;
+  make?: string;
+  model?: string;
+  year?: string;
   odometerKm: number;
   condition: string;
   knownIssues: string;
@@ -227,7 +230,7 @@ function CashOfferCta({ car }: { car: ValuedCar }) {
       </div>
       <div id="quote" data-quote className="min-w-0 scroll-mt-32">
         <h4 className="h-sub mb-5">Get a cash offer for your car</h4>
-        <QuoteForm variant="compact" defaults={{ vehicle: car.name, description }} />
+        <QuoteForm variant="compact" defaults={{ make: car.make, model: car.model, year: car.year, description }} />
       </div>
     </section>
   );

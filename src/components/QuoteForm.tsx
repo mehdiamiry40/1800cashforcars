@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState, type FormEvent, type ReactNode } from "react";
 import type { QuoteState } from "@/lib/quote-state";
+import { QUOTE_YEAR_MIN, quoteYearError, quoteYearMax } from "@/lib/quote-year";
 import { site } from "@/lib/site";
 import { Roo } from "./Roo";
 import { ArrowIcon, PhoneIcon } from "./icons";
@@ -16,7 +17,7 @@ export function QuoteForm({
   defaults,
 }: {
   variant?: "full" | "compact";
-  defaults?: { vehicle?: string; description?: string };
+  defaults?: { make?: string; model?: string; year?: string; description?: string };
 }) {
   const [state, setState] = useState<QuoteState>(null);
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -117,10 +118,20 @@ export function QuoteForm({
       <input type="hidden" name="page" value={pathname} />
       <input type="hidden" name="e" ref={elapsed} defaultValue="" />
 
-      <Field name="vehicle" error={errors.vehicle}>
-        <span className="field-float">Year, make and model</span>
-        <input name="vehicle" className={input} placeholder="Year, make and model" maxLength={120} required autoComplete="off" autoCapitalize="words" enterKeyHint="next" defaultValue={defaults?.vehicle} aria-invalid={errors.vehicle ? true : undefined} aria-describedby={errors.vehicle ? "quote-error-vehicle" : undefined} />
-      </Field>
+      <div className="quote-vehicle-row grid gap-3">
+        <Field name="make" error={errors.make}>
+          <span className="field-float">Make</span>
+          <input name="make" className={input} placeholder="Make" maxLength={80} required autoComplete="off" autoCapitalize="words" enterKeyHint="next" defaultValue={defaults?.make} aria-invalid={errors.make ? true : undefined} aria-describedby={errors.make ? "quote-error-make" : undefined} />
+        </Field>
+        <Field name="model" error={errors.model}>
+          <span className="field-float">Model</span>
+          <input name="model" className={input} placeholder="Model" maxLength={80} required autoComplete="off" autoCapitalize="words" enterKeyHint="next" defaultValue={defaults?.model} aria-invalid={errors.model ? true : undefined} aria-describedby={errors.model ? "quote-error-model" : undefined} />
+        </Field>
+        <Field name="year" error={errors.year}>
+          <span className="field-float">Year</span>
+          <input name="year" inputMode="numeric" className={input} placeholder="Year" required minLength={4} maxLength={4} pattern="[0-9]{4}" autoComplete="off" enterKeyHint="next" defaultValue={defaults?.year} title={`Enter a 4-digit year from ${QUOTE_YEAR_MIN} to ${quoteYearMax()}.`} aria-invalid={errors.year ? true : undefined} aria-describedby={errors.year ? "quote-error-year" : undefined} />
+        </Field>
+      </div>
       <Field name="address" error={errors.address}>
         <span className="field-float">Suburb</span>
         <input name="address" className={input} placeholder="Suburb" autoComplete="address-level2" autoCapitalize="words" enterKeyHint="next" maxLength={100} required aria-invalid={errors.address ? true : undefined} aria-describedby={errors.address ? "quote-error-address" : undefined} />
@@ -141,10 +152,13 @@ export function QuoteForm({
           <input name="email" type="email" inputMode="email" className={input} placeholder="Email (optional)" autoComplete="email" autoCapitalize="none" autoCorrect="off" spellCheck={false} enterKeyHint="next" aria-invalid={errors.email ? true : undefined} aria-describedby={errors.email ? "quote-error-email" : undefined} />
         </Field>
       )}
-      <details className="text-[15px]">
-        <summary className="font-semibold">Add a price you are hoping for (optional)</summary>
-        <PriceField className={`${input} mt-2`} />
-      </details>
+      <Field name="expected" error={errors.expected}>
+        <span className="field-float">Price</span>
+        <span className="relative block">
+          <span className="pointer-events-none absolute inset-y-0 left-3 flex items-center text-navy" aria-hidden="true">$</span>
+          <input name="expected" inputMode="decimal" className={`${input} pl-7`} placeholder="Price" maxLength={40} required autoComplete="off" enterKeyHint="next" aria-invalid={errors.expected ? true : undefined} aria-describedby={errors.expected ? "quote-error-expected" : undefined} />
+        </span>
+      </Field>
       <Field name="description" error={errors.description}>
         <span className="field-float">Car condition (optional)</span>
         <textarea
@@ -185,11 +199,14 @@ export function QuoteForm({
 }
 
 const FIELD_ERROR: Record<string, string> = {
-  vehicle: "Enter the year, make and model.",
+  make: "Enter the make.",
+  model: "Enter the model.",
+  year: "Enter a 4-digit year.",
   address: "Enter the suburb where the car is.",
   name: "Enter your name.",
   phone: "Enter a mobile number with at least 8 digits. Spaces are fine.",
   email: "Enter a valid email address, or leave it blank.",
+  expected: "Enter a price.",
 };
 
 function invalidFields(form: HTMLFormElement) {
@@ -197,6 +214,13 @@ function invalidFields(form: HTMLFormElement) {
   for (const name of Object.keys(FIELD_ERROR)) {
     const el = form.elements.namedItem(name);
     if (!(el instanceof HTMLInputElement) && !(el instanceof HTMLTextAreaElement)) continue;
+    if (name === "year") {
+      const message = quoteYearError(el.value.trim());
+      if (message) {
+        next.year = message;
+        continue;
+      }
+    }
     if (el.validity.valid) continue;
     next[name] = FIELD_ERROR[name] ?? el.validationMessage;
   }
@@ -225,14 +249,3 @@ function CallQuoteButton() {
   );
 }
 
-function PriceField({ className }: { className: string }) {
-  return (
-    <label className="block min-w-0">
-      <span className="field-float">Price (optional)</span>
-      <span className="relative block">
-        <span className="pointer-events-none absolute inset-y-0 left-3 flex items-center text-navy" aria-hidden="true">$</span>
-        <input name="expected" inputMode="decimal" className={`${className} pl-7`} placeholder="Price (optional)" maxLength={40} autoComplete="off" />
-      </span>
-    </label>
-  );
-}

@@ -288,8 +288,14 @@ textarea {
 }
 
 /* Phone layouts use compact rows and keep the quote action within easy reach. */
-.quote-contact-row {
+.quote-contact-row,
+.quote-vehicle-row {
   grid-template-columns: minmax(0, 1fr);
+}
+@container quote-fields (min-width: 280px) {
+  .quote-vehicle-row {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1.15fr) minmax(4.25rem, 0.72fr);
+  }
 }
 @container quote-fields (min-width: 280px) {
   @media (max-width: 767px), (pointer: coarse) and (max-width: 1023px) {
@@ -371,7 +377,8 @@ textarea {
   .quote-form textarea.field {
     min-height: 64px;
   }
-  .quote-contact-row {
+  .quote-contact-row,
+  .quote-vehicle-row {
     gap: 10px;
   }
   .mobile-actions {

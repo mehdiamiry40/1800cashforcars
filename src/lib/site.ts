@@ -41,8 +41,8 @@ export const site = {
   googleBusinessUrl: "https://www.google.com/maps?cid=873860773398367904",
   googleBusinessName: "A Plus Car Removal",
   parentUrl: "https://apluscarremoval.com.au",
-  // Star rating and review count on the A Plus Car Removal Google listing. Update now and then; blank hides it.
-  // Shown as plain text next to the A Plus name. It is not in structured data.
+  // Star rating and review count on the A Plus Car Removal Google listing. Update now and then; blank count hides the quote-card line.
+  // The quote card shows the count as plain text. It is not in structured data.
   // Do not mark it up as AggregateRating or Review.
   googleRating: { score: "5.0", count: 438 },
   // Headline figure, e.g. "$15,000" → "GET UP TO $15,000". Leave blank to show "GET TOP CASH".

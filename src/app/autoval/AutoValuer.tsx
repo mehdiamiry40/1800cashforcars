@@ -152,6 +152,9 @@ export function AutoValuer() {
         valuation: data.valuation,
         car: {
           name: [form.year, form.make, form.model, form.variant].filter(Boolean).join(" "),
+          make: form.make,
+          model: [form.model, form.variant].filter(Boolean).join(" "),
+          year: form.year,
           odometerKm: payload.odometerKm,
           condition: form.condition,
           knownIssues: form.knownIssues,
