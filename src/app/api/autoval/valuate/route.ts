@@ -1,5 +1,5 @@
 import { gateway, generateText, isStepCount, Output } from "ai";
-import { AUTOVAL_FALLBACK_MODEL, autovalModel } from "@/lib/autoval/model";
+import { AUTOVAL_FALLBACK_MODEL, autovalDeepseekRequestOptions, autovalModel } from "@/lib/autoval/model";
 import { AUTOVAL_DETAILS_INVALID, AUTOVAL_VALUATION_FAILED } from "@/lib/autoval/messages";
 import { autovalRateLimitResponse } from "@/lib/autoval/limit";
 import { valuationRequestSchema, valuationSchema, type ValuationRequest } from "@/lib/autoval/valuation";
@@ -55,6 +55,28 @@ function describe(v: ValuationRequest) {
   return lines.filter(Boolean).join("\n");
 }
 
+function record(value: unknown): Record<string, unknown> | undefined {
+  if (!value || typeof value !== "object" || Array.isArray(value)) return undefined;
+  return value as Record<string, unknown>;
+}
+
+function servedValuation(requested: string, result: Awaited<ReturnType<typeof generateValuation>>) {
+  const routing = record(record(result.providerMetadata?.gateway)?.routing);
+  const sort = record(routing?.sort);
+  return JSON.stringify({
+    requested,
+    responseModelId: result.response.modelId,
+    provider: typeof routing?.finalProvider === "string" ? routing.finalProvider : undefined,
+    canonicalSlug: typeof routing?.canonicalSlug === "string" ? routing.canonicalSlug : undefined,
+    speed: typeof routing?.speed === "string" ? routing.speed : undefined,
+    sort: typeof sort?.option === "string" ? sort.option : undefined,
+    executionOrder: Array.isArray(sort?.executionOrder) ? sort.executionOrder : undefined,
+    finishReason: result.finishReason,
+    steps: result.steps.length,
+    toolCalls: result.toolCalls.length,
+  });
+}
+
 function generateValuation(model: string, vehicle: ValuationRequest, signal: AbortSignal) {
   return generateText({
     model,
@@ -66,6 +88,7 @@ function generateValuation(model: string, vehicle: ValuationRequest, signal: Abo
     stopWhen: isStepCount(6),
     output: Output.object({ schema: valuationSchema }),
     abortSignal: signal,
+    ...autovalDeepseekRequestOptions(model),
   });
 }
 
@@ -82,9 +105,9 @@ export async function POST(request: Request) {
   const run = (model: string) => generateValuation(model, parsed.data, request.signal);
 
   try {
-    const { output } = await run(MODEL);
-    console.info("[autoval] valued with", MODEL);
-    return Response.json({ valuation: output });
+    const result = await run(MODEL);
+    console.info("[autoval] valued with", servedValuation(MODEL, result));
+    return Response.json({ valuation: result.output });
   } catch (err) {
     if (MODEL === AUTOVAL_FALLBACK_MODEL || request.signal.aborted) {
       console.error("[autoval] valuation failed", err);
@@ -92,9 +115,9 @@ export async function POST(request: Request) {
     }
     console.error("[autoval] valuation failed on", MODEL, err);
     try {
-      const { output } = await run(AUTOVAL_FALLBACK_MODEL);
-      console.info("[autoval] valued with", AUTOVAL_FALLBACK_MODEL);
-      return Response.json({ valuation: output });
+      const result = await run(AUTOVAL_FALLBACK_MODEL);
+      console.info("[autoval] valued with", servedValuation(AUTOVAL_FALLBACK_MODEL, result));
+      return Response.json({ valuation: result.output });
     } catch (fallbackErr) {
       console.error("[autoval] valuation fallback failed", fallbackErr);
       return Response.json({ error: AUTOVAL_VALUATION_FAILED }, { status: 502 });
