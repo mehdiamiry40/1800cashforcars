@@ -55,14 +55,25 @@ function describe(v: ValuationRequest) {
   return lines.filter(Boolean).join("\n");
 }
 
+function record(value: unknown): Record<string, unknown> | undefined {
+  if (!value || typeof value !== "object" || Array.isArray(value)) return undefined;
+  return value as Record<string, unknown>;
+}
+
 function servedValuation(requested: string, result: Awaited<ReturnType<typeof generateValuation>>) {
+  const routing = record(record(result.providerMetadata?.gateway)?.routing);
+  const sort = record(routing?.sort);
   return JSON.stringify({
     requested,
     responseModelId: result.response.modelId,
+    provider: typeof routing?.finalProvider === "string" ? routing.finalProvider : undefined,
+    canonicalSlug: typeof routing?.canonicalSlug === "string" ? routing.canonicalSlug : undefined,
+    speed: typeof routing?.speed === "string" ? routing.speed : undefined,
+    sort: typeof sort?.option === "string" ? sort.option : undefined,
+    executionOrder: Array.isArray(sort?.executionOrder) ? sort.executionOrder : undefined,
     finishReason: result.finishReason,
     steps: result.steps.length,
     toolCalls: result.toolCalls.length,
-    gateway: result.providerMetadata?.gateway ?? null,
   });
 }
 
