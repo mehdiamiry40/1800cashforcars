@@ -63,6 +63,13 @@ export default function AutoValPage() {
               Enter your rego, VIN or just the details. AutoVal checks live Australian listings and price guides, then
               shows what it&apos;s worth and what to fix before you sell.
             </p>
+            <p className="mt-4 max-w-xl text-[16px] leading-relaxed text-white sm:text-[18px]">
+              For a scrap or wrecked car, see our{" "}
+              <Link href="/scrap-car-prices-brisbane" className="font-semibold underline underline-offset-4">
+                scrap car prices in Brisbane
+              </Link>
+              .
+            </p>
             <ul className="mt-7 flex flex-wrap gap-x-6 gap-y-2 text-[16px] font-semibold">
               {["Free, no sign-up", "Ready in about a minute", "Live Australian market data"].map((t) => (
                 <li key={t} className="flex items-center gap-2">

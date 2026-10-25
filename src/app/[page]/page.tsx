@@ -27,11 +27,7 @@ function PriceGuideLink({ slug }: { slug: string }) {
   if (slug === "scrap-car-removal") {
     return (
       <p className="mt-8 text-[18px]">
-        For guide ranges by car type and condition, see our{" "}
-        <Link href="/scrap-car-prices-brisbane" className={linkClass}>
-          scrap car prices in Brisbane
-        </Link>
-        . If usable parts may be worth more than the metal, see{" "}
+        If usable parts may be worth more than the metal, see{" "}
         <Link href="/car-wreckers" className={linkClass}>
           car wreckers
         </Link>
