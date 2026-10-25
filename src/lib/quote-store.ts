@@ -1,4 +1,5 @@
 export const QUOTE_FIELDS = [
+  ["ref", "Reference"],
   ["name", "Name"],
   ["phone", "Phone"],
   ["email", "Email"],
@@ -16,6 +17,22 @@ export type QuoteField = (typeof QUOTE_FIELDS)[number][0];
 export type QuoteLead = Record<QuoteField, string>;
 
 type FetchLike = typeof fetch;
+
+export class QuoteInsertError extends Error {
+  readonly status: number;
+  readonly body: string;
+
+  constructor(status: number, body: string) {
+    super(`Supabase insert failed (${status})${body ? `: ${body.slice(0, 300)}` : ""}`);
+    this.name = "QuoteInsertError";
+    this.status = status;
+    this.body = body;
+  }
+}
+
+export function isQuoteRefConflict(err: unknown): boolean {
+  return err instanceof QuoteInsertError && (err.status === 409 || err.body.includes("23505"));
+}
 
 /** Inserts one accepted quote. Does nothing when either Supabase env var is missing. */
 export async function insertQuoteSubmission(
@@ -37,6 +54,7 @@ export async function insertQuoteSubmission(
       Prefer: "return=minimal",
     },
     body: JSON.stringify({
+      ref: lead.ref,
       name: lead.name,
       phone: lead.phone,
       email: lead.email,
@@ -54,6 +72,6 @@ export async function insertQuoteSubmission(
 
   if (!res.ok) {
     const detail = await res.text().catch(() => "");
-    throw new Error(`Supabase insert failed (${res.status})${detail ? `: ${detail.slice(0, 300)}` : ""}`);
+    throw new QuoteInsertError(res.status, detail);
   }
 }

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { QuoteForm } from "@/components/QuoteForm";
+import { QuoteForm, QuoteFormHeading } from "@/components/QuoteForm";
 import { Breadcrumbs, JsonLd, ServiceLd } from "@/components/JsonLd";
 import { areaHref, areas, pageOpenGraph, site } from "@/lib/site";
 
@@ -148,8 +148,8 @@ export default function NoKeysNoWheelsPage() {
             ))}
           </div>
         </div>
-        <div id="quote" data-quote className="min-w-0 scroll-mt-32 self-start lg:sticky lg:top-28">
-          <h2 className="h-sub mb-6">Get a free quote</h2>
+        <div id="quote" data-quote className="quote-box min-w-0 scroll-mt-32 self-start lg:sticky lg:top-28">
+          <QuoteFormHeading className="h-sub mb-6" />
           <QuoteForm />
         </div>
       </article>

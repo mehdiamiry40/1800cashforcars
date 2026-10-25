@@ -4,7 +4,7 @@ import Link from "next/link";
 import { ReviewsBand } from "@/components/Blocks";
 import { Breadcrumbs, JsonLd } from "@/components/JsonLd";
 import { ParentBrandLine } from "@/components/ParentBrand";
-import { QuoteForm } from "@/components/QuoteForm";
+import { QuoteForm, QuoteFormHeading } from "@/components/QuoteForm";
 import { QuoteLink } from "@/components/QuoteLink";
 import { ArrowIcon, PhoneIcon, SmsIcon } from "@/components/icons";
 import { pageOpenGraph, site } from "@/lib/site";
@@ -272,8 +272,8 @@ export default function ScrapCarPricesBrisbane() {
 
       <section className="container-site section-site grid gap-12 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)] lg:gap-16">
         <aside className="min-w-0 lg:col-start-2 lg:row-start-1">
-          <div id="quote" data-quote className="page-quote quote-panel scroll-mt-32 lg:sticky lg:top-32">
-            <h2 className="h-sub mb-5">Get a free quote</h2>
+          <div id="quote" data-quote className="quote-box page-quote quote-panel scroll-mt-32 lg:sticky lg:top-32">
+            <QuoteFormHeading className="h-sub mb-5" />
             <QuoteForm />
           </div>
         </aside>
@@ -547,7 +547,7 @@ export default function ScrapCarPricesBrisbane() {
               )}
             </div>
           </div>
-          <div data-quote className="scroll-mt-32">
+          <div data-quote className="quote-box scroll-mt-32">
             <QuoteForm />
           </div>
         </div>

@@ -4,7 +4,7 @@ import pickupPhoto from "@/assets/hero-kangaroo-tow.jpg";
 import { serviceVisuals } from "@/lib/vehicle-visuals";
 import { AskForPrice, FinalCta, ReviewsBand } from "./Blocks";
 import { Breadcrumbs } from "./JsonLd";
-import { QuoteForm } from "./QuoteForm";
+import { QuoteForm, QuoteFormHeading } from "./QuoteForm";
 import { QuoteLink } from "./QuoteLink";
 import type { RooProps } from "./Roo";
 import { ArrowIcon, PhoneIcon } from "./icons";
@@ -93,9 +93,9 @@ export function PageShell({
             <div
               id="quote"
               data-quote
-              className="page-quote quote-panel scroll-mt-32 lg:sticky lg:top-32"
+              className="quote-box page-quote quote-panel scroll-mt-32 lg:sticky lg:top-32"
             >
-              <h2 className="h-sub mb-5">Get a free quote</h2>
+              <QuoteFormHeading className="h-sub mb-5" />
               <QuoteForm />
             </div>
           </aside>

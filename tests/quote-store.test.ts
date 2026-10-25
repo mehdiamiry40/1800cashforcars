@@ -8,6 +8,7 @@ const ENV_KEYS = ["RESEND_API_KEY", "LEAD_TO_EMAIL", "RESEND_EMAIL_DOMAIN", "SUP
 const saved: Partial<Record<(typeof ENV_KEYS)[number], string | undefined>> = {};
 
 const lead: QuoteLead = {
+  ref: "Q-7K3MPX",
   name: "Sam Lee",
   phone: "0423 514 111",
   email: "sam@example.com",
@@ -58,6 +59,7 @@ describe("quote submissions in Supabase", () => {
     assert.equal(headers.get("authorization"), "Bearer service-role-test");
     assert.equal(headers.get("content-type"), "application/json");
     assert.deepEqual(JSON.parse(String(calls[0].init?.body)), {
+      ref: "Q-7K3MPX",
       name: "Sam Lee",
       phone: "0423 514 111",
       email: "sam@example.com",
@@ -114,7 +116,8 @@ describe("quote submissions in Supabase", () => {
     const payload = JSON.parse(String(calls[0].init?.body)) as { text: string; subject: string; to: string[] };
     assert.deepEqual(payload.to, ["leads@example.com"]);
     assert.match(payload.subject, /2012 Toyota Corolla/);
-    assert.match(payload.text, /Name: Sam Lee/);
+    assert.match(payload.text, /^Reference: Q-[ABCDEFGHJKMNPQRSTUVWXYZ23456789]{6}\nName: Sam Lee/);
+    assert.match(payload.subject, /^\[Q-[ABCDEFGHJKMNPQRSTUVWXYZ23456789]{6}\]/);
     assert.match(payload.text, /Phone: 0423 514 111/);
     assert.match(payload.text, /Email: sam@example.com/);
     assert.match(payload.text, /Suburb \/ address: Rocklea/);
@@ -143,10 +146,11 @@ describe("quote submissions in Supabase", () => {
       assert.equal(result.lead, true);
     }
     assert.equal(calls.length, QUOTE_LIMIT.limit);
-    const stored = JSON.parse(String(calls[0].init?.body)) as { user_agent: string; expected: string; vehicle: string };
+    const stored = JSON.parse(String(calls[0].init?.body)) as { user_agent: string; expected: string; vehicle: string; ref: string };
     assert.equal(stored.user_agent, "Mozilla/5.0 (test)");
     assert.equal(stored.expected, "$2,500");
     assert.equal(stored.vehicle, "2012 Toyota Corolla");
+    assert.match(stored.ref, /^Q-[ABCDEFGHJKMNPQRSTUVWXYZ23456789]{6}$/);
     assert.equal("make" in stored, false);
     assert.equal("model" in stored, false);
     assert.equal("year" in stored, false);
@@ -154,6 +158,57 @@ describe("quote submissions in Supabase", () => {
     const blocked = await processQuote(quoteForm(), headers, now + QUOTE_LIMIT.limit);
     assert.equal(blocked.status, 429);
     assert.equal(calls.length, QUOTE_LIMIT.limit);
+  });
+
+  it("retries a duplicate reference up to 3 times and still emails if every insert conflicts", async () => {
+    process.env.SUPABASE_URL = "https://example.supabase.co";
+    process.env.SUPABASE_SERVICE_ROLE_KEY = "service-role-test";
+    process.env.RESEND_API_KEY = "re_test_key";
+    process.env.LEAD_TO_EMAIL = "leads@example.com";
+
+    let conflictsLeft = 1;
+    const inserts: string[] = [];
+    globalThis.fetch = (async (input: RequestInfo | URL, init?: RequestInit) => {
+      const url = String(input);
+      if (url.includes("/rest/v1/quote_submissions")) {
+        const ref = (JSON.parse(String(init?.body)) as { ref: string }).ref;
+        inserts.push(ref);
+        if (conflictsLeft > 0) {
+          conflictsLeft -= 1;
+          return new Response(JSON.stringify({ code: "23505", message: "duplicate key" }), { status: 409 });
+        }
+        return new Response(null, { status: 201 });
+      }
+      calls.push({ url, init });
+      return new Response(JSON.stringify({ id: "email_123" }), {
+        status: 200,
+        headers: { "content-type": "application/json" },
+      });
+    }) as typeof fetch;
+
+    const result = await processQuote(quoteForm(), quoteHeaders("203.0.113.80"), 1_930_000_000_000);
+    assert.equal(result.ok, true);
+    assert.equal(inserts.length, 2);
+    assert.notEqual(inserts[0], inserts[1]);
+    assert.equal(result.ref, inserts[1]);
+    const payload = JSON.parse(String(calls[0].init?.body)) as { subject: string; text: string };
+    assert.equal(payload.subject.startsWith(`[${result.ref}]`), true);
+    assert.match(payload.text, new RegExp(`^Reference: ${result.ref}`));
+    const idempotency = new Headers(calls[0].init?.headers).get("Idempotency-Key");
+    assert.equal(idempotency, `quote-${result.ref}`);
+
+    conflictsLeft = 99;
+    inserts.length = 0;
+    calls.length = 0;
+    const exhausted = await processQuote(quoteForm(), quoteHeaders("203.0.113.81"), 1_940_000_000_000);
+    assert.equal(exhausted.ok, true);
+    assert.equal(exhausted.lead, true);
+    assert.equal(inserts.length, 4);
+    assert.equal(new Set(inserts).size, 4);
+    assert.equal(exhausted.ref, inserts[3]);
+    assert.equal(calls.length, 1);
+    const sent = JSON.parse(String(calls[0].init?.body)) as { subject: string };
+    assert.equal(sent.subject.startsWith(`[${exhausted.ref}]`), true);
   });
 });
 
