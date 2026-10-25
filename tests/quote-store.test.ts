@@ -12,6 +12,9 @@ const lead: QuoteLead = {
   phone: "0423 514 111",
   email: "sam@example.com",
   address: "Rocklea",
+  make: "Toyota",
+  model: "Corolla",
+  year: "2012",
   vehicle: "2012 Toyota Corolla",
   description: "Runs, scratch <b>on</b> the bumper",
   expected: "$2,500",
@@ -115,9 +118,12 @@ describe("quote submissions in Supabase", () => {
     assert.match(payload.text, /Phone: 0423 514 111/);
     assert.match(payload.text, /Email: sam@example.com/);
     assert.match(payload.text, /Suburb \/ address: Rocklea/);
+    assert.match(payload.text, /Make: Toyota/);
+    assert.match(payload.text, /Model: Corolla/);
+    assert.match(payload.text, /Year: 2012/);
     assert.match(payload.text, /Vehicle: 2012 Toyota Corolla/);
     assert.match(payload.text, /Description: Runs, scratch <b>on<\/b> the bumper/);
-    assert.match(payload.text, /Hoping for: \$2,500/);
+    assert.match(payload.text, /Price: \$2,500/);
     assert.match(payload.text, /Sent from: \/quote/);
   });
 
@@ -137,9 +143,13 @@ describe("quote submissions in Supabase", () => {
       assert.equal(result.lead, true);
     }
     assert.equal(calls.length, QUOTE_LIMIT.limit);
-    const stored = JSON.parse(String(calls[0].init?.body)) as { user_agent: string; expected: string };
+    const stored = JSON.parse(String(calls[0].init?.body)) as { user_agent: string; expected: string; vehicle: string };
     assert.equal(stored.user_agent, "Mozilla/5.0 (test)");
     assert.equal(stored.expected, "$2,500");
+    assert.equal(stored.vehicle, "2012 Toyota Corolla");
+    assert.equal("make" in stored, false);
+    assert.equal("model" in stored, false);
+    assert.equal("year" in stored, false);
 
     const blocked = await processQuote(quoteForm(), headers, now + QUOTE_LIMIT.limit);
     assert.equal(blocked.status, 429);
@@ -164,7 +174,9 @@ function quoteForm(overrides: Record<string, string> = {}) {
     phone: "0423 514 111",
     email: "sam@example.com",
     address: "Rocklea",
-    vehicle: "2012 Toyota Corolla",
+    make: "Toyota",
+    model: "Corolla",
+    year: "2012",
     description: "Runs, scratch <b>on</b> the bumper",
     expected: "2.5k",
     page: "/quote",

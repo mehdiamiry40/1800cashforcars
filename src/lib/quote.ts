@@ -1,7 +1,8 @@
 import { Resend } from "resend";
 import { site } from "@/lib/site";
 import type { QuoteState } from "@/lib/quote-state";
-import { insertQuoteSubmission, type QuoteLead } from "@/lib/quote-store";
+import { insertQuoteSubmission, QUOTE_FIELDS, type QuoteLead } from "@/lib/quote-store";
+import { quoteYearError } from "@/lib/quote-year";
 import { QUOTE_LIMIT, clientIp, rateLimit, type HeaderSource } from "@/lib/rate-limit";
 
 export type QuoteResult = {
@@ -11,17 +12,6 @@ export type QuoteResult = {
   status: number;
   retryAfter?: number;
 };
-
-const FIELDS = [
-  ["name", "Name"],
-  ["phone", "Phone"],
-  ["email", "Email"],
-  ["address", "Suburb / address"],
-  ["vehicle", "Vehicle"],
-  ["description", "Description"],
-  ["expected", "Hoping for"],
-  ["page", "Sent from"],
-] as const;
 
 // Humans can't fill the form in under ~2.5s. An empty value means JavaScript didn't run, so we let it through.
 export const MIN_SUBMIT_MS = 2500;
@@ -59,23 +49,40 @@ export async function processQuote(formData: FormData, headerSource: HeaderSourc
       return { ok: true, message: "", status: 200 };
     }
 
-    const lead = Object.fromEntries(
-      FIELDS.map(([key]) => [key, String(formData.get(key) ?? "").trim().slice(0, 2000)]),
-    ) as QuoteLead;
+    const textField = (key: string) => String(formData.get(key) ?? "").trim().slice(0, 2000);
+    const yearInput = String(formData.get("year") ?? "").trim();
+    const lead: QuoteLead = {
+      name: textField("name"),
+      phone: textField("phone"),
+      email: textField("email"),
+      address: textField("address"),
+      make: textField("make"),
+      model: textField("model"),
+      year: "",
+      vehicle: "",
+      description: textField("description"),
+      expected: formatPrice(textField("expected")),
+      page: textField("page"),
+    };
 
-    lead.expected = formatPrice(lead.expected);
-
-    // Description stays optional so a shorter form still posts the same fields.
-    if (!lead.name || !lead.phone || !lead.vehicle || !lead.address) {
+    // Email stays optional. Description stays optional. Price, make, model and year do not.
+    if (!lead.name || !lead.phone || !lead.address || !lead.make || !lead.model || !yearInput || !lead.expected) {
       return {
         ok: false,
-        message: "Please enter your name, mobile number, suburb, and the car's year, make and model.",
+        message: "Please enter your name, mobile number, suburb, make, model, year and price.",
         status: 400,
       };
+    }
+    const yearProblem = quoteYearError(yearInput, new Date(now));
+    if (yearProblem) {
+      return { ok: false, message: yearProblem, status: 400 };
     }
     if (!/^[\d\s()+-]{8,}$/.test(lead.phone)) {
       return { ok: false, message: "Please enter a valid phone number.", status: 400 };
     }
+
+    lead.year = yearInput;
+    lead.vehicle = `${yearInput} ${lead.make} ${lead.model}`;
 
     const ip = clientIp(headerSource);
     const decision = rateLimit(`quote:${ip}`, QUOTE_LIMIT, now);
@@ -92,10 +99,10 @@ export async function processQuote(formData: FormData, headerSource: HeaderSourc
     }
 
     const subject = `New quote request: ${lead.vehicle.split("\n")[0].slice(0, 60)}${lead.description ? ` (${lead.description.split("\n")[0].slice(0, 40)})` : ""}${lead.address ? ` — ${lead.address}` : ""}${lead.expected ? ` — wants ${lead.expected}` : ""}`;
-    const rows = FIELDS.filter(([k]) => lead[k])
+    const rows = QUOTE_FIELDS.filter(([k]) => lead[k])
       .map(([k, label]) => `<tr><td style="padding:6px 12px;color:#555;vertical-align:top">${label}</td><td style="padding:6px 12px;font-weight:600;white-space:pre-wrap">${escape(lead[k])}</td></tr>`)
       .join("");
-    const text = FIELDS.filter(([k]) => lead[k]).map(([k, label]) => `${label}: ${lead[k]}`).join("\n");
+    const text = QUOTE_FIELDS.filter(([k]) => lead[k]).map(([k, label]) => `${label}: ${lead[k]}`).join("\n");
 
     // Always record the lead in the function logs so nothing is lost if email fails.
     console.log("[lead]", JSON.stringify(lead));

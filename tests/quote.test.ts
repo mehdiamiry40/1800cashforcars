@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { afterEach, beforeEach, describe, it } from "node:test";
 import { POST } from "@/app/api/quote/route";
 import { QUOTE_GENERIC_ERROR, QUOTE_RATE_LIMIT_MESSAGE, processQuote } from "@/lib/quote";
+import { quoteYearMax } from "@/lib/quote-year";
 import { QUOTE_LIMIT, type HeaderSource } from "@/lib/rate-limit";
 import { site } from "@/lib/site";
 
@@ -22,7 +23,9 @@ function quoteForm(overrides: Record<string, string> = {}) {
     phone: "0423 514 111",
     email: "sam@example.com",
     address: "Rocklea",
-    vehicle: "2012 Toyota Corolla",
+    make: "Toyota",
+    model: "Corolla",
+    year: "2012",
     description: "Runs, scratch <b>on</b> the bumper",
     expected: "2.5k",
     page: "/quote",
@@ -71,9 +74,14 @@ describe("quote submission", () => {
     assert.match(payload.subject, /2012 Toyota Corolla/);
     assert.match(payload.text, /Name: Sam Lee/);
     assert.match(payload.text, /Phone: 0423 514 111/);
+    assert.match(payload.text, /Make: Toyota/);
+    assert.match(payload.text, /Model: Corolla/);
+    assert.match(payload.text, /Year: 2012/);
     assert.match(payload.text, /Vehicle: 2012 Toyota Corolla/);
+    assert.match(payload.text, /Price: \$2,500/);
     assert.match(payload.text, /Suburb \/ address: Rocklea/);
     assert.doesNotMatch(payload.text, /Description:/);
+    assert.doesNotMatch(payload.text, /Hoping for/);
   });
 
   it("accepts a normal submission and still sends the email", async () => {
@@ -98,9 +106,13 @@ describe("quote submission", () => {
     assert.match(payload.text, /Phone: 0423 514 111/);
     assert.match(payload.text, /Email: sam@example.com/);
     assert.match(payload.text, /Suburb \/ address: Rocklea/);
+    assert.match(payload.text, /Make: Toyota/);
+    assert.match(payload.text, /Model: Corolla/);
+    assert.match(payload.text, /Year: 2012/);
     assert.match(payload.text, /Vehicle: 2012 Toyota Corolla/);
     assert.match(payload.text, /Description: Runs, scratch <b>on<\/b> the bumper/);
-    assert.match(payload.text, /Hoping for: \$2,500/);
+    assert.match(payload.text, /Price: \$2,500/);
+    assert.doesNotMatch(payload.text, /Hoping for/);
     assert.match(payload.text, /Sent from: \/quote/);
     assert.match(payload.html, /&lt;b&gt;/);
     assert.equal(payload.reply_to, "sam@example.com");
@@ -183,6 +195,54 @@ describe("quote submission", () => {
     const result = await processQuote(quoteForm({ e: "2500" }), ip("203.0.113.16"), NOW);
     assert.equal(result.status, 200);
     assert.equal(result.lead, true);
+  });
+
+  it("rejects a submission with no price", async () => {
+    const result = await processQuote(quoteForm({ expected: "   " }), ip("203.0.113.20"), NOW);
+    assert.equal(result.status, 400);
+    assert.equal(result.ok, false);
+    assert.match(result.message, /price/i);
+    assert.equal(calls.length, 0);
+  });
+
+  it("rejects a submission with no make, model or year", async () => {
+    for (const [field, address] of [
+      ["make", "203.0.113.21"],
+      ["model", "203.0.113.22"],
+      ["year", "203.0.113.23"],
+    ] as const) {
+      const result = await processQuote(quoteForm({ [field]: "" }), ip(address), NOW);
+      assert.equal(result.status, 400, field);
+      assert.match(result.message, /make, model, year and price/);
+    }
+    assert.equal(calls.length, 0);
+  });
+
+  it("rejects a year outside 1950 through next year, including a value that would look valid if truncated", async () => {
+    const max = quoteYearMax(new Date(NOW));
+    const tooEarly = await processQuote(quoteForm({ year: "1949" }), ip("203.0.113.24"), NOW);
+    assert.equal(tooEarly.status, 400);
+    assert.match(tooEarly.message, /1950/);
+    assert.match(tooEarly.message, new RegExp(String(max)));
+
+    const tooLate = await processQuote(quoteForm({ year: String(max + 1) }), ip("203.0.113.25"), NOW);
+    assert.equal(tooLate.status, 400);
+    assert.match(tooLate.message, new RegExp(String(max)));
+
+    const truncated = await processQuote(quoteForm({ year: "20125" }), ip("203.0.113.26"), NOW);
+    assert.equal(truncated.status, 400);
+    assert.match(truncated.message, /4-digit/);
+    assert.equal(calls.length, 0);
+  });
+
+  it("accepts the minimum and maximum model years", async () => {
+    const max = quoteYearMax(new Date(NOW));
+    const oldest = await processQuote(quoteForm({ year: "1950" }), ip("203.0.113.27"), NOW);
+    assert.equal(oldest.status, 200);
+    assert.equal(oldest.lead, true);
+    const newest = await processQuote(quoteForm({ year: String(max) }), ip("203.0.113.28"), NOW);
+    assert.equal(newest.status, 200);
+    assert.equal(newest.lead, true);
   });
 
   it("does not count incomplete submissions toward the limit", async () => {

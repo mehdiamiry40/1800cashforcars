@@ -1,12 +1,12 @@
 import { site } from "@/lib/site";
 
-// Compact Google rating for the quote card. Figures come only from site.googleRating.
-// They belong to the parent company's Google listing, name that yard and business, and stay plain text.
+// Compact review count for the quote card. The number comes only from site.googleRating.count.
+// Plain text only. It is not structured data.
 export function GoogleReviewsSignal({ className = "" }: { className?: string }) {
-  const { score, count } = site.googleRating;
-  if (!score || !count || !site.googleBusinessName) return null;
+  const { count } = site.googleRating;
+  if (!count) return null;
 
-  const label = `${score} from ${count} Google reviews of our yard, for ${site.googleBusinessName} (our parent company)`;
+  const label = `${count} reviews on Google`;
   const classNames = `google-reviews-signal flex w-full min-w-0 max-w-full flex-wrap items-center gap-x-1.5 text-[14px] font-semibold leading-snug text-navy ${className}`;
   const content = (
     <>
@@ -25,7 +25,6 @@ export function GoogleReviewsSignal({ className = "" }: { className?: string }) 
       target="_blank"
       rel="noopener noreferrer"
       className={`${classNames} underline-offset-4 hover:underline hover:decoration-brand`}
-      title={site.googleBusinessName ? `${site.googleBusinessName} on Google` : undefined}
     >
       {content}
       <span className="sr-only"> (opens in a new tab)</span>

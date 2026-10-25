@@ -3,9 +3,12 @@ export const QUOTE_FIELDS = [
   ["phone", "Phone"],
   ["email", "Email"],
   ["address", "Suburb / address"],
+  ["make", "Make"],
+  ["model", "Model"],
+  ["year", "Year"],
   ["vehicle", "Vehicle"],
   ["description", "Description"],
-  ["expected", "Hoping for"],
+  ["expected", "Price"],
   ["page", "Sent from"],
 ] as const;
 
@@ -38,7 +41,9 @@ export async function insertQuoteSubmission(
       phone: lead.phone,
       email: lead.email,
       address: lead.address,
-      vehicle: lead.vehicle,
+      // The live table has no make, model or year columns. Store them in vehicle as "2012 Toyota Corolla".
+      // expected is the required price, after the same normalisation as the email.
+      vehicle: lead.vehicle || [lead.year, lead.make, lead.model].filter(Boolean).join(" "),
       description: lead.description,
       expected: lead.expected,
       page: lead.page,
