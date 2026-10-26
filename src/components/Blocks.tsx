@@ -262,7 +262,12 @@ export function ContentBlocks({ blocks }: { blocks: Block[] }) {
 
 // Links to the other service and area pages, so every page passes visitors (and Google) on to its neighbours.
 export function RelatedLinks({ current }: { current: string }) {
-  const services = pages.filter((p) => p.slug !== "services" && `/${p.slug}` !== current);
+  const services = [
+    ...pages
+      .filter((p) => p.slug !== "services")
+      .map((p) => ({ href: `/${p.slug}`, label: p.title })),
+    { href: "/scrap-car-prices-brisbane", label: "Scrap car prices Brisbane" },
+  ].filter((l) => l.href !== current);
   const places = [
     { href: "/", label: "Cash for cars Brisbane" },
     { href: "/car-removal-brisbane", label: "Car removal Brisbane" },
@@ -275,7 +280,7 @@ export function RelatedLinks({ current }: { current: string }) {
         <h2 className="h-sub">More ways we can help</h2>
         <ul className="mt-3">
           {services.map((p) => (
-            <li key={p.slug}><Link href={`/${p.slug}`} className={linkClass}>{p.title}</Link></li>
+            <li key={p.href}><Link href={p.href} className={linkClass}>{p.label}</Link></li>
           ))}
         </ul>
       </div>

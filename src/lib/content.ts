@@ -66,7 +66,8 @@ export const pages: ContentPage[] = [
       {
         heading: "What is a scrap car worth?",
         summary:
-          "The metal sets the floor. The weight of the car and what scrap metal is worth this week set the minimum we pay. We pay you before it is towed. The tow is free and is never taken off that price. Tell us the make, model, year and what is wrong, and a firm price is usually within the hour.",
+          "The metal sets the floor. The weight of the car and what scrap metal is worth this week set the minimum we pay. We pay you before it is towed. The tow is free and is never taken off that price. Tell us the make, model, year and what is wrong, and a firm price is usually within the hour. For guide ranges by car type and condition, see our scrap car prices in Brisbane.",
+        links: [{ phrase: "scrap car prices in Brisbane", href: "/scrap-car-prices-brisbane" }],
         icon: "car",
         paras: [
           "A car that isn't worth fixing still has value in its metal. Rust, missing parts, flat tyres or no keys: tell us about it and we'll still make you an offer.",

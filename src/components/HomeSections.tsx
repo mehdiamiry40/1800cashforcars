@@ -176,7 +176,7 @@ export function BrisbaneCashForCars() {
       link: {
         href: "/scrap-car-prices-brisbane",
         lead: "Wondering ",
-        text: "how much is my scrap car worth",
+        text: "how much your scrap car is worth",
         tail: "? Our current Brisbane guide sets out the ranges.",
       },
     },
