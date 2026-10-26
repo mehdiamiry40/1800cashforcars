@@ -3,9 +3,11 @@ import { describe, it } from "node:test";
 import {
   AUTOVAL_DEFAULT_MODEL,
   AUTOVAL_FALLBACK_MODEL,
-  AUTOVAL_REASONING_EFFORT,
+  AUTOVAL_OUTPUT_REASONING,
+  AUTOVAL_SEARCH_REASONING,
   AUTOVAL_STANDARD_MODEL,
-  autovalDeepseekRequestOptions,
+  autovalAttempts,
+  autovalDeepseekOptions,
   autovalModel,
 } from "@/lib/autoval/model";
 
@@ -19,28 +21,39 @@ describe("AutoVal model", () => {
     assert.equal(autovalModel(env()), AUTOVAL_DEFAULT_MODEL);
   });
 
-  it("keeps the standard DeepSeek model as the gateway fallback and Claude as the last resort", () => {
+  it("tries the fast tier, then the standard model, then Claude", () => {
     assert.equal(AUTOVAL_STANDARD_MODEL, "deepseek/deepseek-v4.1-flash-1017");
     assert.equal(AUTOVAL_FALLBACK_MODEL, "anthropic/claude-sonnet-5-5");
+    assert.deepEqual(autovalAttempts(AUTOVAL_DEFAULT_MODEL), [
+      "deepseek/deepseek-v4.1-flash-1017-fast",
+      "deepseek/deepseek-v4.1-flash-1017",
+      "anthropic/claude-sonnet-5-5",
+    ]);
   });
 
-  it("sends the fast call through gateway model fallback, throughput sorting, and low reasoning", () => {
-    assert.equal(AUTOVAL_REASONING_EFFORT, "low");
-    assert.deepEqual(autovalDeepseekRequestOptions(AUTOVAL_DEFAULT_MODEL), {
+  it("sorts DeepSeek providers by throughput and keeps reasoning off the JSON step", () => {
+    assert.equal(AUTOVAL_SEARCH_REASONING, "low");
+    assert.equal(AUTOVAL_OUTPUT_REASONING, "none");
+    assert.deepEqual(autovalDeepseekOptions(AUTOVAL_DEFAULT_MODEL, "search"), {
       reasoning: "low",
-      providerOptions: {
-        gateway: {
-          models: ["deepseek/deepseek-v4.1-flash-1017"],
-          sort: "tps",
-        },
-      },
+      providerOptions: { gateway: { sort: "tps" } },
+    });
+    assert.deepEqual(autovalDeepseekOptions(AUTOVAL_STANDARD_MODEL, "output"), {
+      reasoning: "none",
+      providerOptions: { gateway: { sort: "tps" } },
     });
   });
 
   it("does not attach DeepSeek routing to an override or the Claude retry", () => {
-    assert.equal(autovalDeepseekRequestOptions(AUTOVAL_FALLBACK_MODEL), undefined);
-    assert.equal(autovalDeepseekRequestOptions(AUTOVAL_STANDARD_MODEL), undefined);
-    assert.equal(autovalDeepseekRequestOptions("google/gemini-3-flash"), undefined);
+    assert.deepEqual(autovalDeepseekOptions(AUTOVAL_FALLBACK_MODEL, "search"), {});
+    assert.deepEqual(autovalDeepseekOptions(AUTOVAL_FALLBACK_MODEL, "output"), {});
+    assert.deepEqual(autovalDeepseekOptions("google/gemini-3-flash", "output"), {});
+    assert.deepEqual(autovalAttempts(AUTOVAL_FALLBACK_MODEL), ["anthropic/claude-sonnet-5-5"]);
+    assert.deepEqual(autovalAttempts("google/gemini-3-flash"), ["google/gemini-3-flash", "anthropic/claude-sonnet-5-5"]);
+    assert.deepEqual(autovalAttempts(AUTOVAL_STANDARD_MODEL), [
+      "deepseek/deepseek-v4.1-flash-1017",
+      "anthropic/claude-sonnet-5-5",
+    ]);
   });
 
   it("prefers AUTOVAL_MODEL, then the existing VALUATION_MODEL name", () => {
