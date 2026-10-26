@@ -1,11 +1,12 @@
 import { gateway, generateText, isStepCount, Output } from "ai";
+import { AUTOVAL_FALLBACK_MODEL, autovalDeepseekRequestOptions, autovalModel } from "@/lib/autoval/model";
 import { AUTOVAL_DETAILS_INVALID, AUTOVAL_VALUATION_FAILED } from "@/lib/autoval/messages";
 import { autovalRateLimitResponse } from "@/lib/autoval/limit";
 import { valuationRequestSchema, valuationSchema, type ValuationRequest } from "@/lib/autoval/valuation";
 
 export const maxDuration = 120;
 
-const MODEL = process.env.VALUATION_MODEL ?? "anthropic/claude-sonnet-5-5";
+const MODEL = autovalModel();
 
 const SYSTEM = `You are an experienced Australian used-car valuer and sales advisor.
 You value cars in AUD for the Australian market and advise private sellers how to get the best price.
@@ -54,6 +55,43 @@ function describe(v: ValuationRequest) {
   return lines.filter(Boolean).join("\n");
 }
 
+function record(value: unknown): Record<string, unknown> | undefined {
+  if (!value || typeof value !== "object" || Array.isArray(value)) return undefined;
+  return value as Record<string, unknown>;
+}
+
+function servedValuation(requested: string, result: Awaited<ReturnType<typeof generateValuation>>) {
+  const routing = record(record(result.providerMetadata?.gateway)?.routing);
+  const sort = record(routing?.sort);
+  return JSON.stringify({
+    requested,
+    responseModelId: result.response.modelId,
+    provider: typeof routing?.finalProvider === "string" ? routing.finalProvider : undefined,
+    canonicalSlug: typeof routing?.canonicalSlug === "string" ? routing.canonicalSlug : undefined,
+    speed: typeof routing?.speed === "string" ? routing.speed : undefined,
+    sort: typeof sort?.option === "string" ? sort.option : undefined,
+    executionOrder: Array.isArray(sort?.executionOrder) ? sort.executionOrder : undefined,
+    finishReason: result.finishReason,
+    steps: result.steps.length,
+    toolCalls: result.toolCalls.length,
+  });
+}
+
+function generateValuation(model: string, vehicle: ValuationRequest, signal: AbortSignal) {
+  return generateText({
+    model,
+    system: SYSTEM,
+    prompt: `Today's date: ${new Date().toISOString().slice(0, 10)}\n\n${describe(vehicle)}\n\nResearch the market, then return the valuation.`,
+    tools: {
+      web_search: gateway.tools.perplexitySearch({ country: "AU", maxResults: 8, searchLanguageFilter: ["en"] }),
+    },
+    stopWhen: isStepCount(6),
+    output: Output.object({ schema: valuationSchema }),
+    abortSignal: signal,
+    ...autovalDeepseekRequestOptions(model),
+  });
+}
+
 export async function POST(request: Request) {
   const limited = autovalRateLimitResponse("valuate", request.headers);
   if (limited) return limited;
@@ -64,21 +102,25 @@ export async function POST(request: Request) {
     return Response.json({ error: AUTOVAL_DETAILS_INVALID }, { status: 400 });
   }
 
+  const run = (model: string) => generateValuation(model, parsed.data, request.signal);
+
   try {
-    const { output } = await generateText({
-      model: MODEL,
-      system: SYSTEM,
-      prompt: `Today's date: ${new Date().toISOString().slice(0, 10)}\n\n${describe(parsed.data)}\n\nResearch the market, then return the valuation.`,
-      tools: {
-        web_search: gateway.tools.perplexitySearch({ country: "AU", maxResults: 8, searchLanguageFilter: ["en"] }),
-      },
-      stopWhen: isStepCount(6),
-      output: Output.object({ schema: valuationSchema }),
-      abortSignal: request.signal,
-    });
-    return Response.json({ valuation: output });
+    const result = await run(MODEL);
+    console.info("[autoval] valued with", servedValuation(MODEL, result));
+    return Response.json({ valuation: result.output });
   } catch (err) {
-    console.error("[autoval] valuation failed", err);
-    return Response.json({ error: AUTOVAL_VALUATION_FAILED }, { status: 502 });
+    if (MODEL === AUTOVAL_FALLBACK_MODEL || request.signal.aborted) {
+      console.error("[autoval] valuation failed", err);
+      return Response.json({ error: AUTOVAL_VALUATION_FAILED }, { status: 502 });
+    }
+    console.error("[autoval] valuation failed on", MODEL, err);
+    try {
+      const result = await run(AUTOVAL_FALLBACK_MODEL);
+      console.info("[autoval] valued with", servedValuation(AUTOVAL_FALLBACK_MODEL, result));
+      return Response.json({ valuation: result.output });
+    } catch (fallbackErr) {
+      console.error("[autoval] valuation fallback failed", fallbackErr);
+      return Response.json({ error: AUTOVAL_VALUATION_FAILED }, { status: 502 });
+    }
   }
 }

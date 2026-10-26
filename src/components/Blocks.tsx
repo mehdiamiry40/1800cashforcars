@@ -203,10 +203,10 @@ export function ContentBlocks({ blocks }: { blocks: Block[] }) {
                 <h2 className="h-sub">{b.heading}</h2>
                 {(b.summary || b.paras?.[0]) && (
                   <p className="mt-2 text-[18px]">
-                    {b.summary ? (
-                      <RichText text={b.summary} links={b.summaryLinks} />
+                    {b.links?.length ? (
+                      <RichText text={b.summary ?? b.paras?.[0] ?? ""} links={b.links} />
                     ) : (
-                      b.paras?.[0]
+                      (b.summary ?? b.paras?.[0])
                     )}
                   </p>
                 )}
@@ -593,7 +593,14 @@ export function FinalCta() {
   );
 }
 
-export function BrisbaneSuburbs({ narrow = false }: { narrow?: boolean }) {
+export function BrisbaneSuburbs({
+  narrow = false,
+  links = {},
+}: {
+  narrow?: boolean;
+  /** Suburb name to an internal page. Other callers leave the list as plain text. */
+  links?: Record<string, string>;
+}) {
   return (
     <div
       className={`mt-5 grid items-start gap-3 sm:grid-cols-2 ${narrow ? "" : "lg:grid-cols-4"}`}
@@ -617,7 +624,21 @@ export function BrisbaneSuburbs({ narrow = false }: { narrow?: boolean }) {
             />
           </summary>
           <p className="border-t border-line py-4 text-[14px] leading-relaxed">
-            {g.suburbs.join(", ")}
+            {g.suburbs.map((suburb, index) => {
+              const href = links[suburb];
+              return (
+                <span key={suburb}>
+                  {index > 0 ? ", " : null}
+                  {href ? (
+                    <Link href={href} className="font-semibold underline underline-offset-2">
+                      {suburb}
+                    </Link>
+                  ) : (
+                    suburb
+                  )}
+                </span>
+              );
+            })}
           </p>
         </details>
       ))}

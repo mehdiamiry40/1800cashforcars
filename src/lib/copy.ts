@@ -16,11 +16,11 @@ export type CopyFaq = { q: string; a: string; links?: InlineLink[] };
 export type Block = {
   heading: string;
   summary?: string;
-  /** Phrases inside `summary` that should be crawlable internal links. */
-  summaryLinks?: InlineLink[];
   icon?: "car" | "truck" | "cash" | "recycle" | "paperwork";
   paras?: string[];
   list?: { bold: string; text: string }[];
+  /** Phrases inside `summary` that should be links. */
+  links?: InlineLink[];
 };
 
 export type ContentPage = {
