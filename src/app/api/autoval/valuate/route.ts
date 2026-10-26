@@ -1,4 +1,5 @@
-import { gateway, generateText, isStepCount, Output } from "ai";
+import { gateway, generateText, isStepCount, NoObjectGeneratedError, Output } from "ai";
+import { fitValuation, valuationIssueSummary } from "@/lib/autoval/fit-valuation";
 import { autovalAttempts, autovalDeepseekOptions, autovalModel } from "@/lib/autoval/model";
 import { AUTOVAL_DETAILS_INVALID, AUTOVAL_VALUATION_FAILED } from "@/lib/autoval/messages";
 import { autovalRateLimitResponse } from "@/lib/autoval/limit";
@@ -121,10 +122,41 @@ function writeValuation(model: string, vehicle: ValuationRequest, research: stri
     model,
     system: VALUATION_SYSTEM,
     prompt: `Today's date: ${new Date().toISOString().slice(0, 10)}\n\n${describe(vehicle)}\n\nMarket research from web search:\n${research}\n\nJSON schema:\n${VALUATION_JSON_SCHEMA}`,
-    output: Output.object({ name: "valuation", schema: valuationSchema }),
+    // JSON mode without a response schema. This provider does not apply a
+    // schema unless structuredOutputs is enabled, and Output.object then
+    // rejects a usable object. The schema is in the prompt and checked here.
+    output: Output.json(),
     abortSignal: signal,
     ...autovalDeepseekOptions(model, "output"),
   });
+}
+
+async function readValuation(model: string, vehicle: ValuationRequest, research: string, signal: AbortSignal) {
+  try {
+    const written = await writeValuation(model, vehicle, research, signal);
+    const fitted = fitValuation(written.output);
+    if (!fitted) {
+      console.error("[autoval] schema", model, valuationIssueSummary(written.output));
+      throw new Error("AutoVal JSON did not match the schema");
+    }
+    return { ...fitted, served: served(written) };
+  } catch (err) {
+    if (!NoObjectGeneratedError.isInstance(err) || !err.text) throw err;
+    const fitted = fitValuation(err.text);
+    if (!fitted) {
+      console.error("[autoval] schema", model, valuationIssueSummary(err.text));
+      throw err;
+    }
+    return {
+      ...fitted,
+      served: {
+        responseModelId: err.response?.modelId,
+        finishReason: err.finishReason,
+        steps: 1,
+        toolCalls: 0,
+      },
+    };
+  }
 }
 
 export async function POST(request: Request) {
@@ -144,19 +176,19 @@ export async function POST(request: Request) {
     try {
       const search = await searchMarket(model, parsed.data, request.signal);
       const research = researchNotes(search.toolResults);
-      if (!research) {
+      if (!research || search.toolCalls.length === 0) {
         console.error(
           "[autoval] web search returned no results",
           JSON.stringify({ model, search: served(search), text: search.text.slice(0, 500) }),
         );
         throw new Error("AutoVal web search returned no results");
       }
-      const valuation = await writeValuation(model, parsed.data, research, request.signal);
+      const written = await readValuation(model, parsed.data, research, request.signal);
       console.info(
         "[autoval] valued with",
-        JSON.stringify({ model, search: served(search), valuation: served(valuation) }),
+        JSON.stringify({ model, search: served(search), valuation: written.served, repaired: written.repaired }),
       );
-      return Response.json({ valuation: valuation.output });
+      return Response.json({ valuation: written.valuation });
     } catch (err) {
       lastError = err;
       console.error("[autoval] valuation failed on", model, err);
