@@ -1,11 +1,11 @@
 import type { GatewayProviderOptions } from "@ai-sdk/gateway";
 
-/** Previous AutoVal model. Retried once when the primary call fails. */
+/** Previous AutoVal model. Retried once when the DeepSeek attempts fail. */
 export const AUTOVAL_FALLBACK_MODEL = "anthropic/claude-sonnet-5-5";
 
 /**
- * Standard DeepSeek V4.1 Flash. Gateway fallback when the fast tier's
- * providers fail. Tried before the Claude retry.
+ * Standard DeepSeek V4.1 Flash. Tried after the fast tier when that tier
+ * does not search or does not return schema-valid JSON.
  */
 export const AUTOVAL_STANDARD_MODEL = "deepseek/deepseek-v4.1-flash-1017";
 
@@ -16,11 +16,12 @@ export const AUTOVAL_STANDARD_MODEL = "deepseek/deepseek-v4.1-flash-1017";
 export const AUTOVAL_DEFAULT_MODEL = "deepseek/deepseek-v4.1-flash-1017-fast";
 
 /**
- * Effort for the fast DeepSeek call. Both the fast tier (`none | low |
- * medium | high`) and the standard model (`none | low | high | max`)
- * accept `low`. Kept off the Claude retry.
+ * Search can use a little reasoning. The valuation JSON cannot: this
+ * provider does not enforce the response schema, so reasoning text in the
+ * body fails JSON parsing. Both models accept `none` and `low`.
  */
-export const AUTOVAL_REASONING_EFFORT = "low" as const;
+export const AUTOVAL_SEARCH_REASONING = "low" as const;
+export const AUTOVAL_OUTPUT_REASONING = "none" as const;
 
 /**
  * Gateway model id for AutoVal. `AUTOVAL_MODEL` overrides it; the older
@@ -31,23 +32,32 @@ export function autovalModel(env: NodeJS.ProcessEnv = process.env): string {
   return env.AUTOVAL_MODEL?.trim() || env.VALUATION_MODEL?.trim() || AUTOVAL_DEFAULT_MODEL;
 }
 
+export function isAutovalDeepseek(model: string): boolean {
+  return model === AUTOVAL_DEFAULT_MODEL || model === AUTOVAL_STANDARD_MODEL;
+}
+
 /**
- * Routing for the fast DeepSeek call only. `models` is the standard
- * variant; `sort: "tps"` ranks each model's providers by tokens per
- * second. Undefined for env overrides and for the Claude retry, so those
- * calls do not inherit DeepSeek provider routing.
- *
- * The object is checked against the installed gateway option type, then
- * kept as that narrow object so it stays valid `providerOptions` JSON.
+ * Models tried in order. Gateway `models` fallback only runs when the
+ * provider call fails. A schema failure is a successful provider response,
+ * so the standard model has to be the next application attempt.
  */
-export function autovalDeepseekRequestOptions(model: string) {
-  if (model !== AUTOVAL_DEFAULT_MODEL) return undefined;
-  const gateway = {
-    models: [AUTOVAL_STANDARD_MODEL],
-    sort: "tps",
-  } satisfies GatewayProviderOptions;
+export function autovalAttempts(model: string): string[] {
+  if (model === AUTOVAL_DEFAULT_MODEL) {
+    return [AUTOVAL_DEFAULT_MODEL, AUTOVAL_STANDARD_MODEL, AUTOVAL_FALLBACK_MODEL];
+  }
+  if (model === AUTOVAL_FALLBACK_MODEL) return [model];
+  return [model, AUTOVAL_FALLBACK_MODEL];
+}
+
+/**
+ * DeepSeek routing. `sort: "tps"` ranks providers by tokens per second.
+ * Claude and other overrides do not receive it.
+ */
+export function autovalDeepseekOptions(model: string, phase: "search" | "output") {
+  if (!isAutovalDeepseek(model)) return {};
+  const gateway = { sort: "tps" } satisfies GatewayProviderOptions;
   return {
-    reasoning: AUTOVAL_REASONING_EFFORT,
+    reasoning: phase === "search" ? AUTOVAL_SEARCH_REASONING : AUTOVAL_OUTPUT_REASONING,
     providerOptions: { gateway },
   };
 }
