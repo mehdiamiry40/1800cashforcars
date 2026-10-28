@@ -29,6 +29,13 @@ const GOOGLE_TAG_IMG_HOSTS = [
   "https://googleads.g.doubleclick.net",
 ];
 
+// ChatGPT Ads Measurement Pixel (https://developers.openai.com/ads/measurement-pixel).
+// script-src loads oaiq.min.js. connect-src sends events and fetches per-pixel config.
+// img-src is the image-request fallback. The inline bootstrap is hashed; do not add 'unsafe-inline'.
+const OPENAI_ADS_SCRIPT_HOSTS = ["https://bzrcdn.openai.com"];
+const OPENAI_ADS_CONNECT_HOSTS = ["https://bzr.openai.com", "https://bzrcdn.openai.com"];
+const OPENAI_ADS_IMG_HOSTS = ["https://bzr.openai.com"];
+
 function join(directive: string, sources: string[]): string {
   return `${directive} ${sources.join(" ")}`;
 }
@@ -42,13 +49,13 @@ export function buildContentSecurityPolicy(scriptHashes: string[]): string {
   const hashes = scriptHashes.length > 0 ? [...scriptHashes].sort() : [CSP_HASH_PLACEHOLDER];
   return [
     join("default-src", ["'self'"]),
-    join("script-src", ["'self'", ...hashes, ...GOOGLE_TAG_SCRIPT_HOSTS]),
+    join("script-src", ["'self'", ...hashes, ...GOOGLE_TAG_SCRIPT_HOSTS, ...OPENAI_ADS_SCRIPT_HOSTS]),
     join("script-src-attr", ["'none'"]),
     join("style-src-elem", ["'self'"]),
     join("style-src-attr", ["'unsafe-inline'"]),
-    join("img-src", ["'self'", "data:", ...GOOGLE_TAG_IMG_HOSTS]),
+    join("img-src", ["'self'", "data:", ...GOOGLE_TAG_IMG_HOSTS, ...OPENAI_ADS_IMG_HOSTS]),
     join("font-src", ["'self'"]),
-    join("connect-src", ["'self'", ...GOOGLE_TAG_CONNECT_HOSTS]),
+    join("connect-src", ["'self'", ...GOOGLE_TAG_CONNECT_HOSTS, ...OPENAI_ADS_CONNECT_HOSTS]),
     join("frame-src", ["'none'"]),
     join("worker-src", ["'self'"]),
     join("object-src", ["'none'"]),
@@ -63,13 +70,13 @@ export function buildContentSecurityPolicy(scriptHashes: string[]): string {
 export function buildDevContentSecurityPolicy(): string {
   return [
     join("default-src", ["'self'"]),
-    join("script-src", ["'self'", "'unsafe-inline'", "'unsafe-eval'", ...GOOGLE_TAG_SCRIPT_HOSTS]),
+    join("script-src", ["'self'", "'unsafe-inline'", "'unsafe-eval'", ...GOOGLE_TAG_SCRIPT_HOSTS, ...OPENAI_ADS_SCRIPT_HOSTS]),
     join("script-src-attr", ["'none'"]),
     join("style-src-elem", ["'self'", "'unsafe-inline'"]),
     join("style-src-attr", ["'unsafe-inline'"]),
-    join("img-src", ["'self'", "data:", "blob:", ...GOOGLE_TAG_IMG_HOSTS]),
+    join("img-src", ["'self'", "data:", "blob:", ...GOOGLE_TAG_IMG_HOSTS, ...OPENAI_ADS_IMG_HOSTS]),
     join("font-src", ["'self'", "data:"]),
-    join("connect-src", ["'self'", ...GOOGLE_TAG_CONNECT_HOSTS, "ws:", "wss:"]),
+    join("connect-src", ["'self'", ...GOOGLE_TAG_CONNECT_HOSTS, ...OPENAI_ADS_CONNECT_HOSTS, "ws:", "wss:"]),
     join("frame-src", ["'none'"]),
     join("worker-src", ["'self'", "blob:"]),
     join("object-src", ["'none'"]),

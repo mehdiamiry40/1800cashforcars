@@ -67,6 +67,29 @@ describe("content security policy", () => {
     assert.throws(() => assertProductionScriptSrc(policy), /placeholder/);
   });
 
+  it("allows the ChatGPT Ads measurement pixel without unsafe-inline", () => {
+    const sources = (directive: string) => directive.split(/\s+/);
+    const policy = buildContentSecurityPolicy([sha256Source("var ready = true;")]);
+    const scriptSrc = directiveValue(policy, "script-src");
+    const connectSrc = directiveValue(policy, "connect-src");
+    const imgSrc = directiveValue(policy, "img-src");
+    assert.equal(sources(scriptSrc).includes("https://bzrcdn.openai.com"), true);
+    assert.equal(sources(scriptSrc).includes("https://bzr.openai.com"), false);
+    assert.equal(scriptSrc.includes("'unsafe-inline'"), false);
+    assert.equal(scriptSrc.includes("'unsafe-eval'"), false);
+    assert.equal(sources(connectSrc).includes("https://bzr.openai.com"), true);
+    assert.equal(sources(connectSrc).includes("https://bzrcdn.openai.com"), true);
+    assert.equal(sources(imgSrc).includes("https://bzr.openai.com"), true);
+    assert.equal(sources(imgSrc).includes("https://bzrcdn.openai.com"), false);
+    assert.equal(policy.includes("script-src-elem"), false);
+    const dev = buildDevContentSecurityPolicy();
+    assert.equal(sources(directiveValue(dev, "script-src")).includes("https://bzrcdn.openai.com"), true);
+    assert.equal(sources(directiveValue(dev, "connect-src")).includes("https://bzr.openai.com"), true);
+    assert.equal(sources(directiveValue(dev, "connect-src")).includes("https://bzrcdn.openai.com"), true);
+    assert.equal(sources(directiveValue(dev, "img-src")).includes("https://bzr.openai.com"), true);
+    assert.doesNotThrow(() => assertProductionScriptSrc(policy));
+  });
+
   it("allows eval only in the development policy", () => {
     const dev = buildDevContentSecurityPolicy();
     assert.match(directiveValue(dev, "script-src"), /'unsafe-eval'/);
