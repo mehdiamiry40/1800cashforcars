@@ -56,6 +56,9 @@ export const site = {
   },
 };
 
+// ChatGPT Ads Measurement Pixel. Change this one constant to point the site at a different pixel.
+export const OPENAI_ADS_PIXEL_ID = "Tf8BpfGnY6eFM4ukchfyy3";
+
 // Existing generated share image (app/opengraph-image.tsx). Same artwork on every page.
 export const shareImage = {
   url: "/opengraph-image",

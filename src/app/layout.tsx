@@ -5,6 +5,7 @@ import { Barlow } from "next/font/google";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { ContactTracker, StickyQuoteBar } from "@/components/QuoteLink";
+import { openAiAdsBootstrapScript } from "@/lib/openai-ads";
 import { areas, pageTwitter, shareImage, site } from "@/lib/site";
 import "./globals.css";
 
@@ -41,6 +42,7 @@ export const viewport: Viewport = {
 };
 
 const GOOGLE_ADS_ID = "AW-11027669589";
+const openAiAdsPixelScript = openAiAdsBootstrapScript();
 
 const socialSameAs = [site.social.facebook, site.social.instagram].filter(Boolean);
 
@@ -108,6 +110,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <StickyQuoteBar />
         <ContactTracker />
         <Analytics />
+        {/* ChatGPT Ads Measurement Pixel. The queue and init run from the initial HTML, before hydration, and the SDK loads asynchronously. */}
+        <Script id="openai-ads-pixel" strategy="beforeInteractive">
+          {openAiAdsPixelScript}
+        </Script>
         {/* Queue Google Ads hits immediately, but download gtag.js after the page is idle so it does not compete with the hero image. QuoteForm calls window.gtag, which pushes into this queue if the library has not loaded yet. */}
         <Script id="google-ads-tag" strategy="beforeInteractive">{`
           window.dataLayer = window.dataLayer || [];

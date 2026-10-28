@@ -4,6 +4,7 @@ import { track } from "@vercel/analytics";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState, type FormEvent, type ReactNode } from "react";
+import { measureOpenAiLead, quoteLeadEventId } from "@/lib/openai-ads";
 import { quoteEmailError } from "@/lib/quote-email";
 import type { QuoteState } from "@/lib/quote-state";
 import { QUOTE_YEAR_MIN, quoteYearError, quoteYearMax } from "@/lib/quote-year";
@@ -79,6 +80,9 @@ export function QuoteForm({
     (window as { gtag?: (...args: unknown[]) => void }).gtag?.("event", "conversion", {
       send_to: "AW-11027669589/ZYZ_CMOYvYwdENXEs4op",
     });
+    // Same success gate as the calls above. One ChatGPT Ads lead per quote reference.
+    const eventId = quoteLeadEventId(state);
+    if (eventId) measureOpenAiLead(eventId);
   }, [state, pathname, variant]);
 
   if (state?.ok) {

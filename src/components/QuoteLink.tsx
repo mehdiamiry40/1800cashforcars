@@ -4,6 +4,7 @@ import { track } from "@vercel/analytics";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { measureOpenAiCallClick } from "@/lib/openai-ads";
 import { site } from "@/lib/site";
 import { PhoneIcon } from "./icons";
 
@@ -79,7 +80,14 @@ export function ContactTracker() {
   useEffect(() => {
     const onClick = (e: MouseEvent) => {
       const a = (e.target as Element | null)?.closest?.("a[href^='tel:'], a[href^='sms:']");
-      if (a) track(a.getAttribute("href")!.startsWith("tel:") ? "call_click" : "sms_click", { page: location.pathname });
+      if (!a) return;
+      const href = a.getAttribute("href")!;
+      if (href.startsWith("tel:")) {
+        track("call_click", { page: location.pathname });
+        measureOpenAiCallClick();
+        return;
+      }
+      track("sms_click", { page: location.pathname });
     };
     document.addEventListener("click", onClick);
     return () => document.removeEventListener("click", onClick);
