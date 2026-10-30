@@ -1,5 +1,12 @@
 import { gateway, generateText, isStepCount, NoObjectGeneratedError, Output } from "ai";
 import { fitValuation, valuationIssueSummary } from "@/lib/autoval/fit-valuation";
+import {
+  fallbackSearchQueries,
+  parseSearchQueries,
+  researchFromToolOutputs,
+  runSearchesInParallel,
+  SEARCH_TIMEOUT_MS,
+} from "@/lib/autoval/market-search";
 import { autovalAttempts, autovalDeepseekOptions, autovalModel } from "@/lib/autoval/model";
 import { AUTOVAL_DETAILS_INVALID, AUTOVAL_VALUATION_FAILED } from "@/lib/autoval/messages";
 import { autovalRateLimitResponse } from "@/lib/autoval/limit";
@@ -10,11 +17,16 @@ export const maxDuration = 120;
 const MODEL = autovalModel();
 const VALUATION_JSON_SCHEMA = JSON.stringify(valuationSchema.toJSONSchema());
 
-const SEARCH_SYSTEM = `You research the Australian used-car market.
-Use the web_search tool. Two or three focused searches are enough for this exact make, model, year and kilometres:
-private-sale asking prices, dealer or trade prices, and known faults.
-Prefer carsales.com.au, drive.com.au, redbook.com.au, gumtree.com.au and dealer sites.
-Do not write the valuation and do not invent prices.`;
+const QUERY_SYSTEM = `You write web search queries for the Australian used-car market.
+Return one JSON object and nothing else: {"queries":["...","...","..."]}
+Exactly three short queries for this exact make, model, year and kilometres:
+private-sale asking prices, dealer or trade-in prices, and known faults.
+Name carsales.com.au, gumtree.com.au, redbook.com.au, drive.com.au or a dealer site in a query when that is the right source.
+Do not invent prices and do not write a valuation.`;
+
+const SEARCH_SYSTEM = `Call the web_search tool once.
+Set the query argument to the user text, unchanged.
+Do not write a valuation and do not invent prices.`;
 
 const VALUATION_SYSTEM = `You are an experienced Australian used-car valuer and sales advisor.
 You value cars in AUD for the Australian market and advise private sellers how to get the best price.
@@ -90,31 +102,86 @@ function served(result: {
   };
 }
 
-function researchNotes(toolResults: readonly { output: unknown }[]): string | undefined {
-  const chunks: string[] = [];
-  for (const call of toolResults) {
-    const output = record(call.output);
-    const results = output?.results;
-    if (!Array.isArray(results) || results.length === 0) continue;
-    chunks.push(JSON.stringify(results));
-  }
-  if (chunks.length === 0) return undefined;
-  return chunks.join("\n\n").slice(0, 20_000);
+const SEARCH_PLAN_TIMEOUT_MS = 8_000;
+
+function webSearchTool() {
+  return gateway.tools.perplexitySearch({ country: "AU", maxResults: 8, searchLanguageFilter: ["en"] });
 }
 
-function searchMarket(model: string, vehicle: ValuationRequest, signal: AbortSignal) {
+async function planQueries(model: string, vehicle: ValuationRequest, signal: AbortSignal) {
+  const planSignal = AbortSignal.any([signal, AbortSignal.timeout(SEARCH_PLAN_TIMEOUT_MS)]);
+  try {
+    const planned = await generateText({
+      model,
+      system: QUERY_SYSTEM,
+      prompt: `Today's date: ${new Date().toISOString().slice(0, 10)}\n\n${describe(vehicle)}\n\nReturn the three search queries.`,
+      output: Output.json(),
+      abortSignal: planSignal,
+      maxRetries: 0,
+      ...autovalDeepseekOptions(model, "search"),
+    });
+    const queries = parseSearchQueries(planned.output);
+    if (queries) return { queries, planned: true };
+    console.error("[autoval] search queries unusable", model);
+  } catch (err) {
+    if (signal.aborted) throw err;
+    const recovered = NoObjectGeneratedError.isInstance(err) ? parseSearchQueries(err.text) : undefined;
+    if (recovered) return { queries: recovered, planned: true };
+    console.error("[autoval] search query plan failed", model, planSignal.aborted ? "timed out" : err);
+  }
+  return { queries: fallbackSearchQueries(vehicle), planned: false };
+}
+
+function searchOne(model: string, query: string, signal: AbortSignal) {
   return generateText({
     model,
     system: SEARCH_SYSTEM,
-    prompt: `Today's date: ${new Date().toISOString().slice(0, 10)}\n\n${describe(vehicle)}\n\nSearch the Australian market now.`,
-    tools: {
-      web_search: gateway.tools.perplexitySearch({ country: "AU", maxResults: 8, searchLanguageFilter: ["en"] }),
-    },
-    prepareStep: ({ stepNumber }) => (stepNumber === 0 ? { toolChoice: "required" } : { toolChoice: "auto" }),
-    stopWhen: isStepCount(4),
+    prompt: query,
+    tools: { web_search: webSearchTool() },
+    toolChoice: { type: "tool", toolName: "web_search" },
+    stopWhen: isStepCount(1),
     abortSignal: signal,
-    ...autovalDeepseekOptions(model, "search"),
-  });
+    maxRetries: 0,
+    // The query is already written. Skip search reasoning so the tool call
+    // is only the time Perplexity needs.
+    ...autovalDeepseekOptions(model, "output"),
+  }).then((result) => ({
+    outputs: result.toolResults.map((call) => call.output),
+    toolCalls: result.toolCalls.length,
+    served: served(result),
+  }));
+}
+
+async function researchMarket(model: string, vehicle: ValuationRequest, signal: AbortSignal) {
+  const planStarted = Date.now();
+  const { queries, planned } = await planQueries(model, vehicle, signal);
+  const planMs = Date.now() - planStarted;
+  const searchStarted = Date.now();
+  const attempts = await runSearchesInParallel(queries, (query, searchSignal) => searchOne(model, query, searchSignal), signal);
+  const outputs = attempts.flatMap((attempt) => (attempt.status === "ok" ? attempt.value.outputs : []));
+  const toolCalls = attempts.reduce((sum, attempt) => sum + (attempt.status === "ok" ? attempt.value.toolCalls : 0), 0);
+  const finished = attempts.find((attempt) => attempt.status === "ok");
+  const research = researchFromToolOutputs(outputs);
+  return {
+    research,
+    toolCalls,
+    search: {
+      planned,
+      planMs,
+      searchMs: Date.now() - searchStarted,
+      timeoutMs: SEARCH_TIMEOUT_MS,
+      queries,
+      toolCalls,
+      attempts: attempts.map((attempt) => ({
+        query: attempt.query,
+        status: attempt.status,
+        elapsedMs: attempt.elapsedMs,
+        toolCalls: attempt.status === "ok" ? attempt.value.toolCalls : 0,
+        ...(attempt.status === "error" ? { message: attempt.message } : {}),
+      })),
+      served: finished?.status === "ok" ? finished.value.served : undefined,
+    },
+  };
 }
 
 function writeValuation(model: string, vehicle: ValuationRequest, research: string, signal: AbortSignal) {
@@ -174,19 +241,15 @@ export async function POST(request: Request) {
   for (const model of attempts) {
     if (request.signal.aborted) break;
     try {
-      const search = await searchMarket(model, parsed.data, request.signal);
-      const research = researchNotes(search.toolResults);
-      if (!research || search.toolCalls.length === 0) {
-        console.error(
-          "[autoval] web search returned no results",
-          JSON.stringify({ model, search: served(search), text: search.text.slice(0, 500) }),
-        );
+      const found = await researchMarket(model, parsed.data, request.signal);
+      if (!found.research || found.toolCalls === 0) {
+        console.error("[autoval] web search returned no results", JSON.stringify({ model, search: found.search }));
         throw new Error("AutoVal web search returned no results");
       }
-      const written = await readValuation(model, parsed.data, research, request.signal);
+      const written = await readValuation(model, parsed.data, found.research, request.signal);
       console.info(
         "[autoval] valued with",
-        JSON.stringify({ model, search: served(search), valuation: written.served, repaired: written.repaired }),
+        JSON.stringify({ model, search: found.search, valuation: written.served, repaired: written.repaired }),
       );
       return Response.json({ valuation: written.valuation });
     } catch (err) {
