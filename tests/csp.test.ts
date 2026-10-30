@@ -54,6 +54,7 @@ describe("content security policy", () => {
     assert.match(directiveValue(policy, "img-src"), /https:\/\/www\.google\.com\.au(?![a-z])/);
     assert.match(directiveValue(policy, "img-src"), /https:\/\/www\.googleadservices\.com/);
     assert.match(directiveValue(policy, "connect-src"), /https:\/\/www\.googleadservices\.com/);
+    assert.match(directiveValue(policy, "connect-src"), /https:\/\/www\.googletagmanager\.com/);
     assert.equal(directiveValue(policy, "script-src").includes("googleadservices.com"), false);
     assert.equal(directiveValue(policy, "script-src").includes("google.com.au"), false);
     assert.equal(policy.includes("vercel.live"), false);
@@ -94,6 +95,7 @@ describe("content security policy", () => {
     const dev = buildDevContentSecurityPolicy();
     assert.match(directiveValue(dev, "script-src"), /'unsafe-eval'/);
     assert.match(directiveValue(dev, "script-src"), /'unsafe-inline'/);
+    assert.match(directiveValue(dev, "connect-src"), /https:\/\/www\.googletagmanager\.com/);
   });
 
   it("strips the unconditional preview toolbar and keeps the production cookie gate", () => {

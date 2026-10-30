@@ -13,6 +13,9 @@ const GOOGLE_TAG_CONNECT_HOSTS = [
   // Quote success calls gtag('event','conversion'), which fetches this host.
   // It stays off script-src. vercel.live is not added.
   "https://www.googleadservices.com",
+  // On page hide, gtag fetches https://www.googletagmanager.com/td?id=AW-...
+  // Script and image loads of this host are already allowed. Nothing else is added.
+  "https://www.googletagmanager.com",
 ];
 
 // gtag.js is loaded from googletagmanager.com. A warm tag on the preview also requested
