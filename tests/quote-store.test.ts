@@ -4,7 +4,7 @@ import { processQuote } from "@/lib/quote";
 import { QUOTE_LIMIT } from "@/lib/rate-limit";
 import { insertQuoteSubmission, type QuoteLead } from "@/lib/quote-store";
 
-const ENV_KEYS = ["RESEND_API_KEY", "LEAD_TO_EMAIL", "RESEND_EMAIL_DOMAIN", "SUPABASE_URL", "SUPABASE_SERVICE_ROLE_KEY"] as const;
+const ENV_KEYS = ["RESEND_API_KEY", "LEAD_TO_EMAIL", "RESEND_EMAIL_DOMAIN", "SUPABASE_URL", "SUPABASE_SERVICE_ROLE_KEY", "OPENAI_ADS_CAPI_KEY"] as const;
 const saved: Partial<Record<(typeof ENV_KEYS)[number], string | undefined>> = {};
 
 const lead: QuoteLead = {

@@ -7,7 +7,7 @@ import { quoteYearMax } from "@/lib/quote-year";
 import { QUOTE_LIMIT, type HeaderSource } from "@/lib/rate-limit";
 import { site } from "@/lib/site";
 
-const ENV_KEYS = ["RESEND_API_KEY", "LEAD_TO_EMAIL", "RESEND_EMAIL_DOMAIN", "SUPABASE_URL", "SUPABASE_SERVICE_ROLE_KEY"] as const;
+const ENV_KEYS = ["RESEND_API_KEY", "LEAD_TO_EMAIL", "RESEND_EMAIL_DOMAIN", "SUPABASE_URL", "SUPABASE_SERVICE_ROLE_KEY", "OPENAI_ADS_CAPI_KEY"] as const;
 const saved: Partial<Record<(typeof ENV_KEYS)[number], string | undefined>> = {};
 const NOW = 1_800_000_000_000;
 

@@ -21,7 +21,7 @@ Both quote forms post to `POST /api/quote` (`src/app/api/quote/route.ts`, logic 
 - allows 5 complete submissions per IP per 10 minutes, then returns 429 with a short message the form shows,
 - requires make, model and a 4-digit year from 1950 through next year. A price is optional; when one is entered it is normalised (`2.5k` becomes `$2,500`). A blank price is left out of the email subject and the Price row, and is stored as an empty string,
 - accepts a blank email and rejects a filled address that is not an email. A valid address is the reply-to on the lead email,
-- gives every accepted quote a reference such as `Q-7K3MPX` (no 0, O, 1, I or L). It leads the subject, is the first email row, and is shown on the thank-you message,
+- gives every accepted quote a reference such as `Q-7K3MPX` (no 0, O, 1, I or L). It leads the subject, is the first email row, and is shown on the thank-you message. The same reference is the OpenAI Ads event id when a server lead event is sent,
 - emails the lead via **Resend** (Vercel Marketplace) from `quotes@1800cashforcars.com.au` to `LEAD_TO_EMAIL`,
 - writes every accepted lead to the Vercel function logs (`[lead] …`) as a backup.
 - retries a failed email once; if it still fails it logs `LEAD NOT DELIVERED` and asks the customer to call or text instead of showing a false "thanks".
@@ -31,7 +31,9 @@ The limiter is an in-memory sliding window. Each serverless instance keeps its o
 
 AutoVal lookup allows 20 requests per IP per 10 minutes, and a valuation allows 5. Both return the same short 429 message. Lookup and valuation failures return a generic message; the underlying error is only logged.
 
-Env vars (Vercel): `RESEND_API_KEY`, `RESEND_EMAIL_DOMAIN` (from the integration), `LEAD_TO_EMAIL` (comma-separate multiple).
+Env vars (Vercel): `RESEND_API_KEY`, `RESEND_EMAIL_DOMAIN` (from the integration), `LEAD_TO_EMAIL` (comma-separate multiple), `OPENAI_ADS_CAPI_KEY`.
+
+`OPENAI_ADS_CAPI_KEY` is server-only. Do not prefix it with `NEXT_PUBLIC_`. When it is unset, quote submission is unchanged and no server lead event is sent.
 
 ## Saving quotes in Supabase
 
