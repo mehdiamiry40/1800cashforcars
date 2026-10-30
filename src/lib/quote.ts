@@ -1,4 +1,5 @@
 import { Resend } from "resend";
+import { scheduleOpenAiServerLead } from "@/lib/openai-ads-capi";
 import { site } from "@/lib/site";
 import type { QuoteState } from "@/lib/quote-state";
 import { quoteEmailError } from "@/lib/quote-email";
@@ -24,6 +25,25 @@ export const QUOTE_RATE_LIMIT_MESSAGE = `You've sent several quote requests rece
 export const QUOTE_GENERIC_ERROR = `Sorry, something went wrong. Please call or text ${site.phoneDisplay} and we'll give you a price.`;
 
 const EMAIL_FAILED = `Sorry, your details didn't reach us. Please call or text ${site.phoneDisplay} and we'll give you a price.`;
+
+// Same gate as the browser pixel: a saved quote the visitor is told succeeded. Honeypots, fast fills,
+// validation errors, rate limits and undelivered emails are not leads. Scheduling never changes the result.
+function reportOpenAiLead(lead: QuoteLead, headerSource: HeaderSource, timestampMs: number) {
+  try {
+    scheduleOpenAiServerLead({
+      ref: lead.ref,
+      email: lead.email,
+      phone: lead.phone,
+      page: lead.page,
+      cookieHeader: headerSource.get("cookie"),
+      userAgent: headerSource.get("user-agent"),
+      ip: clientIp(headerSource),
+      timestampMs,
+    });
+  } catch {
+    console.error("[openai-ads] could not schedule server lead event");
+  }
+}
 
 // "2500", "$2,500" or "2.5k" -> "$2,500". Anything else (e.g. "make an offer") is kept as typed.
 function formatPrice(raw: string): string {
@@ -126,6 +146,7 @@ export async function processQuote(formData: FormData, headerSource: HeaderSourc
     const to = process.env.LEAD_TO_EMAIL;
     if (!apiKey || !to) {
       console.error("[lead] RESEND_API_KEY or LEAD_TO_EMAIL not set — lead only recorded in logs");
+      reportOpenAiLead(lead, headerSource, now);
       return { ok: true, message: "", status: 200, lead: true, ref: lead.ref };
     }
 
@@ -153,6 +174,7 @@ export async function processQuote(formData: FormData, headerSource: HeaderSourc
       return { ok: false, message: EMAIL_FAILED, status: 502, ref: lead.ref };
     }
 
+    reportOpenAiLead(lead, headerSource, now);
     return { ok: true, message: "", status: 200, lead: true, ref: lead.ref };
   } catch (err) {
     console.error("[lead] submission failed", err);
