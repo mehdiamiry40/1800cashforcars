@@ -1,0 +1,27 @@
+{
+  "html": "404",
+  "bodyClass": "error404 wp-theme-flatsome wp-child-theme-apluscarremoval lightbox nav-dropdown-has-arrow nav-dropdown-has-shadow nav-dropdown-has-border",
+  "title": "Page not found - Aplus Car Removal",
+  "metas": [
+    {
+      "attr": "name",
+      "key": "robots",
+      "content": "noindex, follow"
+    },
+    {
+      "attr": "property",
+      "key": "og:locale",
+      "content": "en_US"
+    },
+    {
+      "attr": "property",
+      "key": "og:title",
+      "content": "Page not found - Aplus Car Removal"
+    },
+    {
+      "attr": "property",
+      "key": "og:site_name",
+      "content": "Aplus Car Removal"
+    }
+  ]
+}

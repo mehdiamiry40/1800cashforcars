@@ -1,0 +1,466 @@
+{
+  "style": "--tlzmda-cr-accent:#cf2e2e;--tlzmda-cr-accent-text:#ffffff;--tlzmda-cr-badge:#27313b;--tlzmda-cr-badge-text:#ffffff;--tlzmda-cr-desktop-columns:3;--tlzmda-cr-tablet-columns:2;--tlzmda-cr-mobile-columns:1;--tlzmda-cr-image-ratio:4 / 3;",
+  "perPage": 12,
+  "items": [
+    {
+      "title": "2008 Toyota Hilux",
+      "badge": "4WD",
+      "location": "Ipswich Central",
+      "condition": "Badly damaged in an accident",
+      "price": "Cash Paid: $1,250",
+      "image": {
+        "src": "/wp-content/uploads/2026/10/2008-Toyota-Hilux-Single-768x510.webp",
+        "width": 768,
+        "height": 510,
+        "alt": "2008 Toyota Hilux",
+        "srcset": "/wp-content/uploads/2026/10/2008-Toyota-Hilux-Single-768x510.webp 768w, /wp-content/uploads/2026/10/2008-Toyota-Hilux-Single-300x199.webp 300w, /wp-content/uploads/2026/10/2008-Toyota-Hilux-Single-800x531.webp 800w, /wp-content/uploads/2026/10/2008-Toyota-Hilux-Single.webp 1210w"
+      }
+    },
+    {
+      "title": "2009 Ford Fiesta",
+      "badge": "Hatchback",
+      "location": "Waterford, QLD",
+      "condition": "This Ford Fiesta has over 230,000 km, and the interior condition is very rough, but the main problem the owner was facing was a transmission replacement.",
+      "price": "Cash Paid: $1,600",
+      "image": {
+        "src": "/wp-content/uploads/2026/05/2009-Ford-Fiesta-768x537.webp",
+        "width": 768,
+        "height": 537,
+        "alt": "2009 Ford Fiesta",
+        "srcset": "/wp-content/uploads/2026/05/2009-Ford-Fiesta-768x537.webp 768w, /wp-content/uploads/2026/05/2009-Ford-Fiesta-300x210.webp 300w, /wp-content/uploads/2026/05/2009-Ford-Fiesta-800x559.webp 800w, /wp-content/uploads/2026/05/2009-Ford-Fiesta.webp 860w"
+      }
+    },
+    {
+      "title": "2021 Great Wall Cannon",
+      "badge": "Ute",
+      "condition": "This white 2021–2023 GWM Cannon Ute has only just passed 100,000 km, but heavy front-left accident damage has turned it into a serious repair or parts vehicle. It is a clear reminder that even a relatively low-kilometre ute can lose significant value after one major accident.",
+      "price": "Cash Paid: $4,000",
+      "image": {
+        "src": "/wp-content/uploads/2026/05/2021-Great-Wall-Cannon-Ute-768x549.webp",
+        "width": 768,
+        "height": 549,
+        "alt": "2021 Great Wall Cannon",
+        "srcset": "/wp-content/uploads/2026/05/2021-Great-Wall-Cannon-Ute-768x549.webp 768w, /wp-content/uploads/2026/05/2021-Great-Wall-Cannon-Ute-300x215.webp 300w, /wp-content/uploads/2026/05/2021-Great-Wall-Cannon-Ute-800x572.webp 800w, /wp-content/uploads/2026/05/2021-Great-Wall-Cannon-Ute.webp 860w"
+      }
+    },
+    {
+      "title": "2006 Volkswagen Golf",
+      "badge": "Hatchback",
+      "location": "Boondall, QLD",
+      "condition": "This small Golf has major engine problems which needed costly maintenance work.",
+      "price": "Cash Paid: $2,900",
+      "image": {
+        "src": "/wp-content/uploads/2025/05/2006-Volkswagen-Golf-19-768x522.webp",
+        "width": 768,
+        "height": 522,
+        "alt": "2006 Volkswagen Golf",
+        "srcset": "/wp-content/uploads/2025/05/2006-Volkswagen-Golf-19-768x522.webp 768w, /wp-content/uploads/2025/05/2006-Volkswagen-Golf-19-300x204.webp 300w, /wp-content/uploads/2025/05/2006-Volkswagen-Golf-19.webp 800w"
+      }
+    },
+    {
+      "title": "2004 Hyundai Elantra",
+      "badge": "Car",
+      "location": "Gold Coast",
+      "condition": "Starter motor fault",
+      "price": "Cash Paid: $1,200",
+      "image": {
+        "src": "/wp-content/uploads/2025/09/2004-Hyundai-Elantra-768x539.webp",
+        "width": 768,
+        "height": 539,
+        "alt": "2004 Hyundai Elantra",
+        "srcset": "/wp-content/uploads/2025/09/2004-Hyundai-Elantra-768x539.webp 768w, /wp-content/uploads/2025/09/2004-Hyundai-Elantra-300x211.webp 300w, /wp-content/uploads/2025/09/2004-Hyundai-Elantra-800x562.webp 800w, /wp-content/uploads/2025/09/2004-Hyundai-Elantra.webp 860w"
+      }
+    },
+    {
+      "title": "2007 Suzuki Swif",
+      "badge": "Car",
+      "location": "Caboolture",
+      "condition": "Gearbox and electrical problems",
+      "price": "Cash Paid: $3,200",
+      "image": {
+        "src": "/wp-content/uploads/2025/09/2007-Suzuki-Swift-768x435.webp",
+        "width": 768,
+        "height": 435,
+        "alt": "2007 Suzuki Swif",
+        "srcset": "/wp-content/uploads/2025/09/2007-Suzuki-Swift-768x435.webp 768w, /wp-content/uploads/2025/09/2007-Suzuki-Swift-300x170.webp 300w, /wp-content/uploads/2025/09/2007-Suzuki-Swift-800x453.webp 800w, /wp-content/uploads/2025/09/2007-Suzuki-Swift.webp 960w"
+      }
+    },
+    {
+      "title": "2012 VW Polo TSI",
+      "badge": "Hatchback",
+      "location": "Toowong",
+      "condition": "Gearbox and electrical problems",
+      "price": "Cash Paid: $6,300",
+      "image": {
+        "src": "/wp-content/uploads/2025/08/2012-VW-Polo-TSI-768x539.webp",
+        "width": 768,
+        "height": 539,
+        "alt": "2012 VW Polo TSI",
+        "srcset": "/wp-content/uploads/2025/08/2012-VW-Polo-TSI-768x539.webp 768w, /wp-content/uploads/2025/08/2012-VW-Polo-TSI-300x211.webp 300w, /wp-content/uploads/2025/08/2012-VW-Polo-TSI-800x562.webp 800w, /wp-content/uploads/2025/08/2012-VW-Polo-TSI.webp 860w"
+      }
+    },
+    {
+      "title": "1992 Toyota Land Cruiser",
+      "badge": "4WD",
+      "location": "Bardon",
+      "condition": "Damaged in an accident",
+      "price": "Cash Paid: $1,400",
+      "image": {
+        "src": "/wp-content/uploads/2023/10/1992-Toyota-Land-Cruiser.png",
+        "width": 500,
+        "height": 500,
+        "alt": "1992 Toyota Land Cruiser",
+        "srcset": "/wp-content/uploads/2023/10/1992-Toyota-Land-Cruiser.png 500w, /wp-content/uploads/2023/10/1992-Toyota-Land-Cruiser-300x300.png 300w, /wp-content/uploads/2023/10/1992-Toyota-Land-Cruiser-150x150.png 150w"
+      }
+    },
+    {
+      "title": "2009 Suzuki Alto",
+      "badge": "Hatchback",
+      "location": "Ashgrove",
+      "price": "Cash Paid: $2,900",
+      "image": {
+        "src": "/wp-content/uploads/2023/10/2009-Suzuki-Alto.png",
+        "width": 500,
+        "height": 500,
+        "alt": "2009 Suzuki Alto",
+        "srcset": "/wp-content/uploads/2023/10/2009-Suzuki-Alto.png 500w, /wp-content/uploads/2023/10/2009-Suzuki-Alto-300x300.png 300w, /wp-content/uploads/2023/10/2009-Suzuki-Alto-150x150.png 150w"
+      }
+    },
+    {
+      "title": "2004 Chrysler 30",
+      "badge": "Car",
+      "location": "Toowong",
+      "condition": "Still starts and drives. Seller upgraded her car.",
+      "price": "Cash Paid: $4,100",
+      "image": {
+        "src": "/wp-content/uploads/2024/06/2004-Chrysler-300-768x417.jpg",
+        "width": 768,
+        "height": 417,
+        "alt": "2004 Chrysler 30",
+        "srcset": "/wp-content/uploads/2024/06/2004-Chrysler-300-768x417.jpg 768w, /wp-content/uploads/2024/06/2004-Chrysler-300-300x163.jpg 300w, /wp-content/uploads/2024/06/2004-Chrysler-300.jpg 800w"
+      }
+    },
+    {
+      "title": "2002 Honda CRV",
+      "badge": "Wagon",
+      "location": "Gold Coast",
+      "condition": "oil leak + suspension problems",
+      "price": "Cash Paid: $900",
+      "image": {
+        "src": "/wp-content/uploads/2025/07/2003-Honda-CRV-768x545.webp",
+        "width": 768,
+        "height": 545,
+        "alt": "2002 Honda CRV",
+        "srcset": "/wp-content/uploads/2025/07/2003-Honda-CRV-768x545.webp 768w, /wp-content/uploads/2025/07/2003-Honda-CRV-300x213.webp 300w, /wp-content/uploads/2025/07/2003-Honda-CRV-800x568.webp 800w, /wp-content/uploads/2025/07/2003-Honda-CRV.webp 1200w"
+      }
+    },
+    {
+      "title": "2008 Ford Explorer",
+      "badge": "SUV",
+      "location": "Coomera",
+      "condition": "Gearbox issues",
+      "price": "Cash Paid: $2,500",
+      "image": {
+        "src": "/wp-content/uploads/2025/07/2008-Ford-Explorer-XLT-4x4-1-768x576.webp",
+        "width": 768,
+        "height": 576,
+        "alt": "2008 Ford Explorer",
+        "srcset": "/wp-content/uploads/2025/07/2008-Ford-Explorer-XLT-4x4-1-768x576.webp 768w, /wp-content/uploads/2025/07/2008-Ford-Explorer-XLT-4x4-1-300x225.webp 300w, /wp-content/uploads/2025/07/2008-Ford-Explorer-XLT-4x4-1-800x600.webp 800w, /wp-content/uploads/2025/07/2008-Ford-Explorer-XLT-4x4-1.webp 1200w"
+      }
+    },
+    {
+      "title": "2006 Nissan Nava",
+      "badge": "4WD",
+      "location": "Goodna",
+      "condition": "Driveable condition",
+      "price": "Cash Paid: $5,400",
+      "image": {
+        "src": "/wp-content/uploads/2025/05/2006-nissan-navara-dx-768x576.webp",
+        "width": 768,
+        "height": 576,
+        "alt": "2006 Nissan Nava",
+        "srcset": "/wp-content/uploads/2025/05/2006-nissan-navara-dx-768x576.webp 768w, /wp-content/uploads/2025/05/2006-nissan-navara-dx-300x225.webp 300w, /wp-content/uploads/2025/05/2006-nissan-navara-dx-800x600.webp 800w, /wp-content/uploads/2025/05/2006-nissan-navara-dx.webp 1200w"
+      }
+    },
+    {
+      "title": "2006 Subaru Forester",
+      "badge": "Wagon",
+      "location": "Sunnybank Hills",
+      "condition": "oil leaks and suspension issues",
+      "price": "Cash Paid: $2,800",
+      "image": {
+        "src": "/wp-content/uploads/2025/06/2006-Subaru-forester-red-768x576.webp",
+        "width": 768,
+        "height": 576,
+        "alt": "2006 Subaru Forester",
+        "srcset": "/wp-content/uploads/2025/06/2006-Subaru-forester-red-768x576.webp 768w, /wp-content/uploads/2025/06/2006-Subaru-forester-red-300x225.webp 300w, /wp-content/uploads/2025/06/2006-Subaru-forester-red-800x600.webp 800w, /wp-content/uploads/2025/06/2006-Subaru-forester-red.webp 1200w"
+      }
+    },
+    {
+      "title": "2009 Honda Jazz",
+      "badge": "Hatchback",
+      "location": "Capalaba",
+      "condition": "Accident damage",
+      "price": "Cash Paid: $800",
+      "image": {
+        "src": "/wp-content/uploads/2025/05/2009-Honda-Jazz-Manual-Yellow-768x576.webp",
+        "width": 768,
+        "height": 576,
+        "alt": "2009 Honda Jazz",
+        "srcset": "/wp-content/uploads/2025/05/2009-Honda-Jazz-Manual-Yellow-768x576.webp 768w, /wp-content/uploads/2025/05/2009-Honda-Jazz-Manual-Yellow-300x225.webp 300w, /wp-content/uploads/2025/05/2009-Honda-Jazz-Manual-Yellow-800x600.webp 800w, /wp-content/uploads/2025/05/2009-Honda-Jazz-Manual-Yellow.webp 1200w"
+      }
+    },
+    {
+      "title": "2007 Hyundai Elantra",
+      "badge": "Car",
+      "location": "Slacks Creek",
+      "condition": "Engine/fuel line issues",
+      "price": "Cash Paid: $1,500",
+      "image": {
+        "src": "/wp-content/uploads/2026/03/2007-Hyundai-Elantra-768x576.webp",
+        "width": 768,
+        "height": 576,
+        "alt": "2007 Hyundai Elantra",
+        "srcset": "/wp-content/uploads/2026/03/2007-Hyundai-Elantra-768x576.webp 768w, /wp-content/uploads/2026/03/2007-Hyundai-Elantra-300x225.webp 300w, /wp-content/uploads/2026/03/2007-Hyundai-Elantra-800x600.webp 800w, /wp-content/uploads/2026/03/2007-Hyundai-Elantra.webp 1200w"
+      }
+    },
+    {
+      "title": "2002 Mitsubishi Montero",
+      "badge": "Wagon",
+      "location": "Hamilton",
+      "condition": "Badly damage in an accident",
+      "price": "Cash Paid: $900",
+      "image": {
+        "src": "/wp-content/uploads/2023/09/2002-Mitsubishi-Montero.png",
+        "width": 500,
+        "height": 500,
+        "alt": "2002 Mitsubishi Montero",
+        "srcset": "/wp-content/uploads/2023/09/2002-Mitsubishi-Montero.png 500w, /wp-content/uploads/2023/09/2002-Mitsubishi-Montero-300x300.png 300w, /wp-content/uploads/2023/09/2002-Mitsubishi-Montero-150x150.png 150w"
+      }
+    },
+    {
+      "title": "2006 Toyota Corolla Ascent",
+      "badge": "Hatchback",
+      "location": "Moorooka",
+      "condition": "Front parts extensively damaged in an unfortunate accident",
+      "price": "Cash Paid: $600",
+      "image": {
+        "src": "/wp-content/uploads/2023/09/2006-Toyota-Corolla-Ascent.png",
+        "width": 500,
+        "height": 500,
+        "alt": "2006 Toyota Corolla Ascent",
+        "srcset": "/wp-content/uploads/2023/09/2006-Toyota-Corolla-Ascent.png 500w, /wp-content/uploads/2023/09/2006-Toyota-Corolla-Ascent-300x300.png 300w, /wp-content/uploads/2023/09/2006-Toyota-Corolla-Ascent-150x150.png 150w"
+      }
+    },
+    {
+      "title": "2013 Hyundai i30",
+      "badge": "Hatchback",
+      "location": "Toowong",
+      "condition": "Badly damage in an accident",
+      "price": "Cash Paid: $900",
+      "image": {
+        "src": "/wp-content/uploads/2023/10/2013-Hyundai-i30.png",
+        "width": 500,
+        "height": 500,
+        "alt": "2013 Hyundai i30",
+        "srcset": "/wp-content/uploads/2023/10/2013-Hyundai-i30.png 500w, /wp-content/uploads/2023/10/2013-Hyundai-i30-300x300.png 300w, /wp-content/uploads/2023/10/2013-Hyundai-i30-150x150.png 150w"
+      }
+    },
+    {
+      "title": "1999 Honda Civic",
+      "badge": "Car",
+      "location": "Manly",
+      "condition": "Junk car with high mileage",
+      "price": "Cash Paid: $750",
+      "image": {
+        "src": "/wp-content/uploads/2023/11/1999-Honda-Civic-Coupe-1.png",
+        "width": 500,
+        "height": 500,
+        "alt": "1999 Honda Civic",
+        "srcset": "/wp-content/uploads/2023/11/1999-Honda-Civic-Coupe-1.png 500w, /wp-content/uploads/2023/11/1999-Honda-Civic-Coupe-1-300x300.png 300w, /wp-content/uploads/2023/11/1999-Honda-Civic-Coupe-1-150x150.png 150w"
+      }
+    },
+    {
+      "title": "2002 Toyota Corolla",
+      "badge": "Hatchback",
+      "location": "Chermside",
+      "condition": "This car has engine, suspension and transmission issues.",
+      "price": "Cash Paid: $650",
+      "image": {
+        "src": "/wp-content/uploads/2025/04/2002-Toyota-Corolla-Hatchback-768x522.webp",
+        "width": 768,
+        "height": 522,
+        "alt": "2002 Toyota Corolla",
+        "srcset": "/wp-content/uploads/2025/04/2002-Toyota-Corolla-Hatchback-768x522.webp 768w, /wp-content/uploads/2025/04/2002-Toyota-Corolla-Hatchback-300x204.webp 300w, /wp-content/uploads/2025/04/2002-Toyota-Corolla-Hatchback.webp 800w"
+      }
+    },
+    {
+      "title": "2006 Holden Commodore VZ",
+      "badge": "Ute",
+      "location": "Springwood",
+      "condition": "Tradie damaged his ute after loosing control during the rush hour.",
+      "price": "Cash Paid: $2,700",
+      "image": {
+        "src": "/wp-content/uploads/2024/07/2006-Holden-Commodore-S-VZ-Ute-768x522.jpg",
+        "width": 768,
+        "height": 522,
+        "alt": "2006 Holden Commodore VZ",
+        "srcset": "/wp-content/uploads/2024/07/2006-Holden-Commodore-S-VZ-Ute-768x522.jpg 768w, /wp-content/uploads/2024/07/2006-Holden-Commodore-S-VZ-Ute-300x204.jpg 300w, /wp-content/uploads/2024/07/2006-Holden-Commodore-S-VZ-Ute.jpg 800w"
+      }
+    },
+    {
+      "title": "2005 Holden Frontera",
+      "badge": "Wagon",
+      "location": "Kingston",
+      "condition": "Deceased estate car.",
+      "price": "Cash Paid: $700",
+      "image": {
+        "src": "/wp-content/uploads/2024/07/2005-Holden-Frontera-768x522.jpg",
+        "width": 768,
+        "height": 522,
+        "alt": "2005 Holden Frontera",
+        "srcset": "/wp-content/uploads/2024/07/2005-Holden-Frontera-768x522.jpg 768w, /wp-content/uploads/2024/07/2005-Holden-Frontera-300x204.jpg 300w, /wp-content/uploads/2024/07/2005-Holden-Frontera.jpg 800w"
+      }
+    },
+    {
+      "title": "2004 Mazda 6",
+      "badge": "Car",
+      "location": "Beenleigh",
+      "condition": "Need gearbox replacement",
+      "price": "Cash Paid: $750",
+      "image": {
+        "src": "/wp-content/uploads/2024/11/2004-Mazda6-White-768x522.jpg",
+        "width": 768,
+        "height": 522,
+        "alt": "2004 Mazda 6",
+        "srcset": "/wp-content/uploads/2024/11/2004-Mazda6-White-768x522.jpg 768w, /wp-content/uploads/2024/11/2004-Mazda6-White-300x204.jpg 300w, /wp-content/uploads/2024/11/2004-Mazda6-White.jpg 800w"
+      }
+    },
+    {
+      "title": "2006 Holden Captiva",
+      "badge": "Wagon",
+      "location": "Sunnybank Hills",
+      "condition": "Engine problem.",
+      "price": "Cash Paid: $850",
+      "image": {
+        "src": "/wp-content/uploads/2024/08/Holden-Captiva-2006-Silver-Manual-768x522.jpg",
+        "width": 768,
+        "height": 522,
+        "alt": "2006 Holden Captiva",
+        "srcset": "/wp-content/uploads/2024/08/Holden-Captiva-2006-Silver-Manual-768x522.jpg 768w, /wp-content/uploads/2024/08/Holden-Captiva-2006-Silver-Manual-300x204.jpg 300w, /wp-content/uploads/2024/08/Holden-Captiva-2006-Silver-Manual.jpg 800w"
+      }
+    },
+    {
+      "title": "1999 Volkswagen Multivan",
+      "badge": "Van",
+      "location": "Springfield Lakes",
+      "condition": "Mechanical problems. Replacement required for front Shock absorbers and lower arms controls",
+      "price": "Cash Paid: $1,000",
+      "image": {
+        "src": "/wp-content/uploads/2024/12/1999-Volkswagen-Multivan-768x522.webp",
+        "width": 768,
+        "height": 522,
+        "alt": "1999 Volkswagen Multivan",
+        "srcset": "/wp-content/uploads/2024/12/1999-Volkswagen-Multivan-768x522.webp 768w, /wp-content/uploads/2024/12/1999-Volkswagen-Multivan-300x204.webp 300w, /wp-content/uploads/2024/12/1999-Volkswagen-Multivan.webp 800w"
+      }
+    },
+    {
+      "title": "2003 Ford Fairmont",
+      "badge": "Car",
+      "location": "Nundah",
+      "condition": "ABS problems, oil leak, and gasket issue car",
+      "price": "Cash Paid: $400",
+      "image": {
+        "src": "/wp-content/uploads/2024/12/2003-Ford-Fairmont-BA-768x522.webp",
+        "width": 768,
+        "height": 522,
+        "alt": "2003 Ford Fairmont",
+        "srcset": "/wp-content/uploads/2024/12/2003-Ford-Fairmont-BA-768x522.webp 768w, /wp-content/uploads/2024/12/2003-Ford-Fairmont-BA-300x204.webp 300w, /wp-content/uploads/2024/12/2003-Ford-Fairmont-BA.webp 800w"
+      }
+    },
+    {
+      "title": "2008 Suzuki Grand Vitara",
+      "badge": "Wagon",
+      "location": "Waterford, QLD",
+      "condition": "Car has engine problem and some parts are damaged/missing",
+      "price": "Cash Paid: $1,200",
+      "image": {
+        "src": "/wp-content/uploads/2025/01/2008-Suzuki-Grand-Vitara-White-768x522.webp",
+        "width": 768,
+        "height": 522,
+        "alt": "2008 Suzuki Grand Vitara",
+        "srcset": "/wp-content/uploads/2025/01/2008-Suzuki-Grand-Vitara-White-768x522.webp 768w, /wp-content/uploads/2025/01/2008-Suzuki-Grand-Vitara-White-300x204.webp 300w, /wp-content/uploads/2025/01/2008-Suzuki-Grand-Vitara-White.webp 800w"
+      }
+    },
+    {
+      "title": "2006 Land Rover Discovery",
+      "badge": "SUV",
+      "location": "Shailer Park",
+      "condition": "Electrical issues",
+      "price": "Cash Paid: $1,400",
+      "image": {
+        "src": "/wp-content/uploads/2025/01/2006-Land-Rover-Discovery-Black-768x522.webp",
+        "width": 768,
+        "height": 522,
+        "alt": "2006 Land Rover Discovery",
+        "srcset": "/wp-content/uploads/2025/01/2006-Land-Rover-Discovery-Black-768x522.webp 768w, /wp-content/uploads/2025/01/2006-Land-Rover-Discovery-Black-300x204.webp 300w, /wp-content/uploads/2025/01/2006-Land-Rover-Discovery-Black.webp 800w"
+      }
+    },
+    {
+      "title": "1998 Honda Prelude",
+      "badge": "Car",
+      "location": "Ashgrove",
+      "condition": "Old car with faded paint and a poor interior.",
+      "price": "Cash Paid: $100",
+      "image": {
+        "src": "/wp-content/uploads/2025/01/1998-honda-prelude-768x522.webp",
+        "width": 768,
+        "height": 522,
+        "alt": "1998 Honda Prelude",
+        "srcset": "/wp-content/uploads/2025/01/1998-honda-prelude-768x522.webp 768w, /wp-content/uploads/2025/01/1998-honda-prelude-300x204.webp 300w, /wp-content/uploads/2025/01/1998-honda-prelude.webp 800w"
+      }
+    },
+    {
+      "title": "2006 Mazda 3",
+      "badge": "Car",
+      "location": "Mount Cotton",
+      "condition": "Clutch disc replacement and manual transmission service needed.",
+      "price": "Cash Paid: $750",
+      "image": {
+        "src": "/wp-content/uploads/2025/03/2006-Mazda3-Silver-Manual-768x522.webp",
+        "width": 768,
+        "height": 522,
+        "alt": "2006 Mazda 3",
+        "srcset": "/wp-content/uploads/2025/03/2006-Mazda3-Silver-Manual-768x522.webp 768w, /wp-content/uploads/2025/03/2006-Mazda3-Silver-Manual-300x204.webp 300w, /wp-content/uploads/2025/03/2006-Mazda3-Silver-Manual.webp 800w"
+      }
+    },
+    {
+      "title": "2006 Lexus IS 250",
+      "badge": "Car",
+      "location": "Caboolture",
+      "condition": "This car has several suspension issues including shock absorbers, CV boots, and various other components.",
+      "price": "Cash Paid: $1,200",
+      "image": {
+        "src": "/wp-content/uploads/2025/03/2006-lexus-IS250-768x522.webp",
+        "width": 768,
+        "height": 522,
+        "alt": "2006 Lexus IS 250",
+        "srcset": "/wp-content/uploads/2025/03/2006-lexus-IS250-768x522.webp 768w, /wp-content/uploads/2025/03/2006-lexus-IS250-300x204.webp 300w, /wp-content/uploads/2025/03/2006-lexus-IS250.webp 800w"
+      }
+    },
+    {
+      "title": "2011 Mitsubishi Triton",
+      "badge": "4WD",
+      "location": "Pimpama",
+      "condition": "This 4×4 has transmission problem.",
+      "price": "Cash Paid: $5,400",
+      "image": {
+        "src": "/wp-content/uploads/2025/04/2011-mitsubishi-triton-768x522.webp",
+        "width": 768,
+        "height": 522,
+        "alt": "2011 Mitsubishi Triton",
+        "srcset": "/wp-content/uploads/2025/04/2011-mitsubishi-triton-768x522.webp 768w, /wp-content/uploads/2025/04/2011-mitsubishi-triton-300x204.webp 300w, /wp-content/uploads/2025/04/2011-mitsubishi-triton.webp 800w"
+      }
+    }
+  ]
+}
