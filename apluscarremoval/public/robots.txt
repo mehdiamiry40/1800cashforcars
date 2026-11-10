@@ -1,7 +1,0 @@
-User-agent: *
-Allow: /
-
-Disallow: /api/
-
-Sitemap: https://www.apluscarremoval.com.au/sitemap_index.xml
-Sitemap: https://www.apluscarremoval.com.au/page-sitemap.xml
