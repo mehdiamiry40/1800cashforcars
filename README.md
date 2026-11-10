@@ -2,6 +2,8 @@
 
 Website for [1800cashforcars.com.au](https://1800cashforcars.com.au): Next.js (App Router) + Tailwind, deployed on Vercel from GitHub. Every push to `main` goes live.
 
+> **Two sites live in this repository.** The root is 1800cashforcars.com.au. The `apluscarremoval/` folder is a separate Next.js app for [apluscarremoval.com.au](https://www.apluscarremoval.com.au), migrated from WordPress, with its own `package.json` and its own Vercel project (Root Directory `apluscarremoval`). See `apluscarremoval/README.md`.
+
 ## Editing content
 - **Business details** (`src/lib/site.ts`): phone, hours, ABN, address, service areas, FAQs, reviews, headline payout.
   - `showEmail`: keep `false` until the `quotes@` mailbox or forwarding exists. Otherwise customer emails bounce.

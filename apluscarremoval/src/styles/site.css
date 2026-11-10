@@ -1,0 +1,5 @@
+/*
+ * Additions for the Next.js build. Everything visual comes from the WordPress stylesheets in
+ * ./vendor, imported in the same order WordPress printed them. Add new rules here rather than
+ * editing the vendor files.
+ */
