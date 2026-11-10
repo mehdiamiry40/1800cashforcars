@@ -65,18 +65,51 @@ function createSlider(root: HTMLElement): () => void {
     root.append(dots);
   }
 
-  const select = (target: number, userInitiated = false) => {
-    if (groups.length === 0) return;
-    if (userInitiated) stopAutoplay();
-    const last = groups.length - 1;
-    index = options.wrapAround ? (target + groups.length) % groups.length : Math.min(Math.max(target, 0), last);
-    const group = groups[index];
+  const percent = (px: number) => `${width ? ((px / width) * 100).toFixed(2) : 0}%`;
+  const basePosition = new Map<HTMLElement, number>();
+  const fade = root.classList.contains("slider-type-fade");
+  let wrapTimer: number | undefined;
+
+  /** Put the track and cells back in their canonical places after a looped move. */
+  const settle = () => {
+    if (wrapTimer === undefined) return;
+    window.clearTimeout(wrapTimer);
+    wrapTimer = undefined;
+    track.style.transition = "";
+    for (const [cell, left] of basePosition) cell.style.left = percent(left);
+    track.style.transform = `translateX(${percent(restingOffset(groups[index]))})`;
+    void track.offsetWidth; // apply without animating before the next move starts
+  };
+
+  const restingOffset = (group: Group) => {
     let x = -group.left;
     if (options.cellAlign === "center") x += (width - group.width) / 2;
     else if (options.cellAlign === "right") x += width - group.width;
+    return x;
+  };
+
+  const select = (target: number, userInitiated = false) => {
+    if (groups.length === 0) return;
+    if (userInitiated) stopAutoplay();
+    settle();
+    const count = groups.length;
+    const last = count - 1;
+    // Looping past either end keeps moving in the same direction, as Flickity's wrap-around did.
+    const loops = options.wrapAround && count > 1 && animate && !fade ? (target === count ? 1 : target === -1 ? -1 : 0) : 0;
+    index = options.wrapAround ? (target + count) % count : Math.min(Math.max(target, 0), last);
+    const group = groups[index];
+    const x = restingOffset(group);
     track.style.transition = animate ? "transform .45s cubic-bezier(.25,.46,.45,.94)" : "";
     track.style.left = "0px";
-    track.style.transform = `translateX(${width ? ((x / width) * 100).toFixed(2) : 0}%)`;
+    if (loops) {
+      const span = groups.reduce((sum, g) => sum + g.width, 0) * loops;
+      for (const cell of group.cells) cell.style.left = percent((basePosition.get(cell) ?? 0) + span);
+      void track.offsetWidth;
+      track.style.transform = `translateX(${percent(x - span)})`;
+      wrapTimer = window.setTimeout(settle, 480);
+    } else {
+      track.style.transform = `translateX(${percent(x)})`;
+    }
 
     for (const cell of cells) {
       const selected = group.cells.includes(cell);
@@ -85,7 +118,7 @@ function createSlider(root: HTMLElement): () => void {
       else cell.setAttribute("aria-hidden", "true");
     }
     const sized = options.adaptiveHeight ? group.cells : cells;
-    viewport.style.height = `${Math.max(...sized.map((cell) => cell.offsetHeight))}px`;
+    viewport.style.height = `${Math.max(...sized.map((cell) => cell.getBoundingClientRect().height))}px`;
 
     if (dots) {
       Array.from(dots.children).forEach((dot, i) => {
@@ -100,6 +133,7 @@ function createSlider(root: HTMLElement): () => void {
   };
 
   const layout = () => {
+    settle();
     width = viewport.getBoundingClientRect().width;
     if (!width) return;
     // Measure the way Flickity did: cells already absolutely positioned, margins included
@@ -116,7 +150,11 @@ function createSlider(root: HTMLElement): () => void {
       x += w;
       return entry;
     });
-    for (const { cell, left } of measured) cell.style.left = `${((left / width) * 100).toFixed(2)}%`;
+    basePosition.clear();
+    for (const { cell, left } of measured) {
+      basePosition.set(cell, left);
+      cell.style.left = percent(left);
+    }
     groups = [];
     if (options.groupCells) {
       for (const entry of measured) {
@@ -238,6 +276,7 @@ function createSlider(root: HTMLElement): () => void {
 
   return () => {
     stopAutoplay();
+    window.clearTimeout(wrapTimer);
     cancelAnimationFrame(frame);
     listeners.forEach((off) => off());
   };
