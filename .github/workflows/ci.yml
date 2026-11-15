@@ -1,0 +1,36 @@
+# Runs on every pull request and on main, so a change that breaks the quote form's tests,
+# the types or the lint rules is caught before it is merged. Vercel still builds each preview.
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    name: Lint, typecheck and test
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          # The sitemap test reads each page's last commit date from git history.
+          fetch-depth: 0
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      # next-env.d.ts and the route types are generated, not committed.
+      - run: npx next typegen
+      - run: npm run typecheck
+      - run: npm test

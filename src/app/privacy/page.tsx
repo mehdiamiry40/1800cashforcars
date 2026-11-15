@@ -72,9 +72,10 @@ export default function PrivacyPage() {
 
       <h2>Where it&apos;s stored and for how long</h2>
       <p>
-        Quote requests are emailed to our business inbox, saved in our quote database, and also kept for a short
-        time in our website host&apos;s system logs as a backup. The providers listed above may store or process
-        this information on servers outside Australia, including in the United States. We use providers that
+        Quote requests are emailed to our business inbox and saved in our quote database. If the database
+        can&apos;t be reached, a copy is kept for a short time in our website host&apos;s system logs as a backup.
+        The providers listed above may store or process this information on servers outside Australia, including
+        in the United States. We use providers that
         protect personal information to a standard similar to the Australian Privacy Principles. We keep records of
         vehicles we buy for as long as the law requires, and other quote details only as long as we need them to deal
         with your enquiry.

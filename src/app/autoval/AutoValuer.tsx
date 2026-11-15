@@ -3,7 +3,7 @@
 import { track } from "@vercel/analytics";
 import { useEffect, useState } from "react";
 import { ArrowIcon, CheckIcon } from "@/components/icons";
-import { AU_STATES, type LookupResult, type VehicleDetails } from "@/lib/autoval/types";
+import { AU_STATES, VEHICLE_TEXT_MAX, type LookupResult, type VehicleDetails } from "@/lib/autoval/types";
 import type { Valuation, ValuationRequest } from "@/lib/autoval/valuation";
 import { ValuationReport, type ValuedCar } from "./ValuationReport";
 
@@ -92,6 +92,15 @@ export function AutoValuer({ regoLookup }: { regoLookup: boolean }) {
     setMode(next);
     setLookupError(null);
     if (next === "details") setShowForm(true);
+  }
+
+  // Left and right arrows move between the tabs, as a keyboard or screen reader user expects of a tab list.
+  function onTabKey(e: React.KeyboardEvent, index: number) {
+    if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
+    e.preventDefault();
+    const next = tabs[(index + (e.key === "ArrowRight" ? 1 : tabs.length - 1)) % tabs.length];
+    switchMode(next.id);
+    document.getElementById(`autoval-tab-${next.id}`)?.focus();
   }
 
   async function runLookup(e: React.FormEvent) {
@@ -186,12 +195,16 @@ export function AutoValuer({ regoLookup }: { regoLookup: boolean }) {
             <h2 className="h-sub mt-1 sm:text-[34px]">Find your car</h2>
           </div>
           <div role="tablist" aria-label="How to find your car" className={`grid border border-navy ${regoLookup ? "grid-cols-3" : "grid-cols-2"}`}>
-            {tabs.map((t) => (
+            {tabs.map((t, index) => (
               <button
                 key={t.id}
+                id={`autoval-tab-${t.id}`}
                 role="tab"
                 type="button"
                 aria-selected={mode === t.id}
+                aria-controls="autoval-tabpanel"
+                tabIndex={mode === t.id ? 0 : -1}
+                onKeyDown={(e) => onTabKey(e, index)}
                 onClick={() => switchMode(t.id)}
                 className={`min-h-12 px-4 text-[16px] font-bold transition-colors sm:px-7 ${
                   mode === t.id ? "bg-navy text-white" : "bg-white text-navy hover:bg-[#f2f3fb]"
@@ -203,7 +216,7 @@ export function AutoValuer({ regoLookup }: { regoLookup: boolean }) {
           </div>
         </div>
 
-        <div className="mt-8">
+        <div className="mt-8" role="tabpanel" id="autoval-tabpanel" aria-labelledby={`autoval-tab-${mode}`}>
           {mode === "rego" && (
             <form onSubmit={runLookup} className="flex flex-col gap-5 md:flex-row md:items-end">
               <PlateInput value={rego} onChange={setRego} state={regoState} />
@@ -291,11 +304,11 @@ export function AutoValuer({ regoLookup }: { regoLookup: boolean }) {
 
           <FormSection title="The car">
             <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
-              <Field label="Make" required><input className="field" required value={form.make ?? ""} onChange={(e) => set("make", e.target.value)} placeholder="Toyota" /></Field>
-              <Field label="Model" required><input className="field" required value={form.model ?? ""} onChange={(e) => set("model", e.target.value)} placeholder="Corolla" /></Field>
+              <Field label="Make" required><input className="field" required maxLength={VEHICLE_TEXT_MAX} value={form.make ?? ""} onChange={(e) => set("make", e.target.value)} placeholder="Toyota" /></Field>
+              <Field label="Model" required><input className="field" required maxLength={VEHICLE_TEXT_MAX} value={form.model ?? ""} onChange={(e) => set("model", e.target.value)} placeholder="Corolla" /></Field>
               <Field label="Year" required><input className="field" required inputMode="numeric" value={form.year} onChange={(e) => set("year", e.target.value)} placeholder="2018" /></Field>
-              <Field label="Variant"><input className="field" value={form.variant ?? ""} onChange={(e) => set("variant", e.target.value)} placeholder="Ascent Sport" /></Field>
-              <Field label="Body"><input className="field" value={form.bodyType ?? ""} onChange={(e) => set("bodyType", e.target.value)} placeholder="Hatch" /></Field>
+              <Field label="Variant"><input className="field" maxLength={VEHICLE_TEXT_MAX} value={form.variant ?? ""} onChange={(e) => set("variant", e.target.value)} placeholder="Ascent Sport" /></Field>
+              <Field label="Body"><input className="field" maxLength={VEHICLE_TEXT_MAX} value={form.bodyType ?? ""} onChange={(e) => set("bodyType", e.target.value)} placeholder="Hatch" /></Field>
               <Field label="Transmission">
                 <select className="field" value={form.transmission ?? ""} onChange={(e) => set("transmission", e.target.value)}>
                   <option value="">Select</option>
@@ -308,14 +321,14 @@ export function AutoValuer({ regoLookup }: { regoLookup: boolean }) {
                   {withCurrent(FUELS, form.fuelType).map((o) => <option key={o}>{o}</option>)}
                 </select>
               </Field>
-              <Field label="Engine"><input className="field" value={form.engine ?? ""} onChange={(e) => set("engine", e.target.value)} placeholder="1.8L 4-cyl or 2ZR-FE" /></Field>
+              <Field label="Engine"><input className="field" maxLength={VEHICLE_TEXT_MAX} value={form.engine ?? ""} onChange={(e) => set("engine", e.target.value)} placeholder="1.8L 4-cyl or 2ZR-FE" /></Field>
               <Field label="State">
                 <select className="field" value={form.state ?? ""} onChange={(e) => set("state", (e.target.value || undefined) as VehicleDetails["state"])}>
                   <option value="">Select</option>
                   {AU_STATES.map((s) => <option key={s}>{s}</option>)}
                 </select>
               </Field>
-              <Field label="Colour"><input className="field" value={form.colour ?? ""} onChange={(e) => set("colour", e.target.value)} placeholder="White" /></Field>
+              <Field label="Colour"><input className="field" maxLength={VEHICLE_TEXT_MAX} value={form.colour ?? ""} onChange={(e) => set("colour", e.target.value)} placeholder="White" /></Field>
               <Field label="Kilometres" required>
                 <input className="field" required inputMode="numeric" value={form.odometerKm} onChange={(e) => set("odometerKm", e.target.value)} placeholder="85,000" />
               </Field>
@@ -373,10 +386,10 @@ export function AutoValuer({ regoLookup }: { regoLookup: boolean }) {
           <FormSection title="Extras and issues">
             <div className="grid gap-4 md:grid-cols-2">
               <Field label="Extras and upgrades">
-                <textarea className="field min-h-24 resize-y" value={form.extras} onChange={(e) => set("extras", e.target.value)} placeholder="New tyres, tow bar, dash cam, two keys…" />
+                <textarea className="field min-h-24 resize-y" maxLength={1000} value={form.extras} onChange={(e) => set("extras", e.target.value)} placeholder="New tyres, tow bar, dash cam, two keys…" />
               </Field>
               <Field label="Known issues">
-                <textarea className="field min-h-24 resize-y" value={form.knownIssues} onChange={(e) => set("knownIssues", e.target.value)} placeholder="Scratch on rear bumper, aircon weak…" />
+                <textarea className="field min-h-24 resize-y" maxLength={1000} value={form.knownIssues} onChange={(e) => set("knownIssues", e.target.value)} placeholder="Scratch on rear bumper, aircon weak…" />
               </Field>
             </div>
           </FormSection>

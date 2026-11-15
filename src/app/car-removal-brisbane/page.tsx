@@ -8,7 +8,7 @@ import { brisbaneSuburbs, pageOpenGraph, site } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Free Car Removal Brisbane, Cash Paid",
   description:
-    "Free car removal Brisbane wide. We pick up scrap, old and unwanted cars, pay you before they leave and tow them free. Pickups are usually within a day or two from our Rocklea yard.",
+    "Free car removal Brisbane wide. We pick up scrap, old and unwanted cars and pay you before they leave. Pickups are usually within a day or two.",
   alternates: { canonical: "/car-removal-brisbane" },
   openGraph: pageOpenGraph("/car-removal-brisbane"),
 };

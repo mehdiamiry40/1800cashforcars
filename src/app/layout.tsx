@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     template: `%s | ${site.name}`,
   },
   description:
-    "Cash for scrap, old, broken and unwanted cars across Brisbane, the Gold Coast and South East QLD. Any condition, free towing, paid on pickup. Free quote, usually within the hour.",
+    "Cash for scrap, old, broken and unwanted cars across Brisbane, the Gold Coast and South East QLD. Any condition, free towing, paid on pickup.",
   // No og:url or canonical here. A site-wide URL would mark every page, including 404s, as the homepage.
   // Each page sets its own canonical and openGraph.url.
   // Pages that set their own openGraph must use pageOpenGraph(). Next.js replaces

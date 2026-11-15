@@ -17,7 +17,7 @@ const contactFaqs = [
 
 export const metadata: Metadata = {
   title: "Contact Us, Rocklea Yard",
-  description: `Contact ${site.name} for a free cash offer and free car removal. Call or text ${site.phoneDisplay}, or send your car's details for a price. Quotes ${site.quoteTurnaround}.`,
+  description: `Contact ${site.name} for a free cash offer and free car removal. Call or text ${site.phoneDisplay}, or send your car's details. Quotes ${site.quoteTurnaround}.`,
   alternates: { canonical: PATH },
   openGraph: pageOpenGraph(PATH),
 };

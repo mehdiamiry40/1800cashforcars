@@ -61,7 +61,7 @@ export const pages: ContentPage[] = [
     title: "Scrap car removal",
     metaTitle: "Scrap Car Removal Brisbane & Gold Coast",
     description:
-      "Free scrap car removal across Brisbane, the Gold Coast and South East QLD. We pay for scrap, junk and wrecked cars in any condition. Pickups are usually within a day or two.",
+      "Free scrap car removal across Brisbane, the Gold Coast and South East QLD. We pay for scrap, junk and wrecked cars. Pickups are usually within a day or two.",
     blocks: [
       {
         heading: "What is a scrap car worth?",

@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     absolute: "Cash for Cars Brisbane | 1800-CASH-FOR-CARS",
   },
   description:
-    "Cash for cars Brisbane: we buy scrap, old and unwanted cars in any condition. Paid on pickup, free car removal, usually within a day or two, from our local Rocklea yard.",
+    "Cash for cars Brisbane: we buy scrap, old and unwanted cars in any condition. Free car removal, usually within a day or two, and you're paid on pickup.",
   alternates: { canonical: "/" },
   openGraph: pageOpenGraph("/"),
 };
