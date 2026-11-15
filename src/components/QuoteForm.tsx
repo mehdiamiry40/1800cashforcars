@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState, type FormEvent, type ReactNode } from "react";
 import { measureOpenAiLead, quoteLeadEventId } from "@/lib/openai-ads";
 import { quoteEmailError } from "@/lib/quote-email";
+import { QUOTE_HONEYPOT_FIELD } from "@/lib/quote-spam";
 import type { QuoteState } from "@/lib/quote-state";
 import { QUOTE_YEAR_MIN, quoteYearError, quoteYearMax } from "@/lib/quote-year";
 import { site } from "@/lib/site";
@@ -26,16 +27,12 @@ export function QuoteForm({
   const [pending, setPending] = useState(false);
   const pathname = usePathname();
 
-  // Spam check: records how long after the page loaded the visitor last typed (a relative time, so clock
-  // differences don't matter). The server drops forms filled in under ~2.5 seconds, which only bots manage.
+  // Spam check: how long the form was on screen before it was sent (a relative time, so clock differences
+  // don't matter). The server asks for a resend when that is under ~2.5 seconds, which only bots manage.
   const mountedAt = useRef(0);
-  const elapsed = useRef<HTMLInputElement>(null);
   useEffect(() => {
     mountedAt.current = performance.now();
   }, []);
-  const onInput = () => {
-    if (elapsed.current && mountedAt.current) elapsed.current.value = String(Math.round(performance.now() - mountedAt.current));
-  };
 
   const sending = useRef(false);
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
@@ -51,6 +48,7 @@ export function QuoteForm({
     sending.current = true;
     setPending(true);
     const body = new FormData(form);
+    if (mountedAt.current) body.set("e", String(Math.round(performance.now() - mountedAt.current)));
     try {
       const res = await fetch("/api/quote", { method: "POST", body });
       const data = (await res.json().catch(() => null)) as QuoteState | null;
@@ -118,10 +116,12 @@ export function QuoteForm({
 
   return (
     <div className="grid gap-3">
-    <form action="/api/quote" method="POST" noValidate onSubmit={onSubmit} onInput={onInput} className="quote-form grid gap-3">
-      <input type="text" name="company" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden />
+    <form action="/api/quote" method="POST" noValidate onSubmit={onSubmit} className="quote-form grid gap-3">
+      {/* Honeypot. The data attributes tell 1Password, LastPass, Bitwarden and Dashlane to leave it empty. */}
+      <input type="text" name={QUOTE_HONEYPOT_FIELD} tabIndex={-1} autoComplete="off" className="hidden" aria-hidden data-1p-ignore data-lpignore="true" data-bwignore data-form-type="other" />
       <input type="hidden" name="page" value={pathname} />
-      <input type="hidden" name="e" ref={elapsed} defaultValue="" />
+      {/* Time on screen, filled in when the form is sent. Empty when JavaScript didn't run. */}
+      <input type="hidden" name="e" defaultValue="" />
 
       <div className="quote-vehicle-row grid gap-3">
         <Field name="make" error={errors.make}>
@@ -253,7 +253,7 @@ function Field({ name, error, children }: { name: string; error?: string; childr
 export function QuoteFormHeading({ className = "" }: { className?: string }) {
   return (
     <h2 className={className}>
-      Get a free quote <span className="quote-instant">(Instant)</span>
+      Get a free quote <span className="quote-turnaround">{site.quoteTurnaround}</span>
     </h2>
   );
 }

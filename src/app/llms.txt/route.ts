@@ -1,3 +1,4 @@
+import { regoLookupEnabled } from "@/lib/autoval/rego";
 import { pages } from "@/lib/content";
 import { areaHref, areas, brisbaneSuburbs, faqs, site } from "@/lib/site";
 
@@ -76,7 +77,7 @@ ${faqLines}
 - [Car removal with no keys or no wheels](${site.url}/car-removal-no-keys-no-wheels): We buy cars with no keys or no wheels. Towing is free and never deducted. Payment is before the car leaves. Pickups are usually within a day or two.
 - [Areas we cover](${site.url}/locations): We buy cars and offer free car removal across Brisbane, the Gold Coast, Logan, Ipswich, the Sunshine Coast and Tweed Heads.
 ${pageLines}
-- [AutoVal car valuation](${site.url}/autoval): Find out what your car is worth in about a minute. Enter your rego or VIN. AutoVal checks live Australian listings for trade-in, private and dealer prices.
+- [AutoVal car valuation](${site.url}/autoval): Find out what your car is worth in about a minute. ${regoLookupEnabled() ? "Enter your rego or VIN." : "Enter your car's details or a VIN."} AutoVal checks live Australian listings for trade-in, private and dealer prices.
 - [Contact](${site.url}/contact-us): Contact ${site.name} for a free cash offer and free car removal. Call or text ${site.phoneDisplay}, or send the car's details for a price.
 - [Privacy policy](${site.url}/privacy): How ${site.name} collects, uses, stores and protects personal information given when asking for a quote or selling a car.
 `;

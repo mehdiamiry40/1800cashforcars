@@ -1,8 +1,9 @@
 import assert from "node:assert/strict";
 import { afterEach, beforeEach, describe, it } from "node:test";
 import { POST } from "@/app/api/quote/route";
-import { QUOTE_GENERIC_ERROR, QUOTE_RATE_LIMIT_MESSAGE, processQuote } from "@/lib/quote";
+import { QUOTE_GENERIC_ERROR, QUOTE_RATE_LIMIT_MESSAGE, QUOTE_TOO_FAST_MESSAGE, processQuote } from "@/lib/quote";
 import { generateQuoteRef, QUOTE_REF_PATTERN } from "@/lib/quote-ref";
+import { QUOTE_HONEYPOT_FIELD } from "@/lib/quote-spam";
 import { quoteYearMax } from "@/lib/quote-year";
 import { QUOTE_LIMIT, type HeaderSource } from "@/lib/rate-limit";
 import { site } from "@/lib/site";
@@ -191,25 +192,94 @@ describe("quote submission", () => {
     assert.equal("status" in body, false);
   });
 
-  it("drops a filled honeypot without sending email", async () => {
+  it("never emails a filled honeypot, and tells the bot it worked", async () => {
     process.env.RESEND_API_KEY = "re_test_key";
     process.env.LEAD_TO_EMAIL = "leads@example.com";
-    const result = await processQuote(quoteForm({ company: "Acme Bots" }), ip("203.0.113.14"), NOW);
+    const result = await processQuote(quoteForm({ [QUOTE_HONEYPOT_FIELD]: "Buy cheap pills" }), ip("203.0.113.14"), NOW);
+    assert.equal(result.status, 200);
+    assert.equal(result.ok, true);
+    assert.equal(result.lead, undefined);
+    assert.equal(result.ref, undefined);
+    assert.equal(calls.length, 0);
+  });
+
+  it("stores a complete honeypot submission as suspected spam instead of discarding it", async () => {
+    process.env.RESEND_API_KEY = "re_test_key";
+    process.env.LEAD_TO_EMAIL = "leads@example.com";
+    process.env.SUPABASE_URL = "https://example.supabase.co";
+    process.env.SUPABASE_SERVICE_ROLE_KEY = "service-role-test";
+
+    const result = await processQuote(quoteForm({ [QUOTE_HONEYPOT_FIELD]: "Buy cheap pills" }), ip("203.0.113.50"), NOW);
+    assert.equal(result.ok, true);
+    assert.equal(result.lead, undefined);
+    assert.equal(calls.length, 1);
+    assert.match(calls[0].url, /\/rest\/v1\/quote_submissions$/);
+    const stored = JSON.parse(calls[0].body) as { spam_reason?: string; name: string; phone: string; ref: string };
+    assert.equal(stored.spam_reason, "honeypot");
+    assert.equal(stored.name, "Sam Lee");
+    assert.equal(stored.phone, "0423 514 111");
+    assert.match(stored.ref, QUOTE_REF_PATTERN);
+  });
+
+  it("does not store a honeypot submission with incomplete details", async () => {
+    process.env.SUPABASE_URL = "https://example.supabase.co";
+    process.env.SUPABASE_SERVICE_ROLE_KEY = "service-role-test";
+    const result = await processQuote(quoteForm({ [QUOTE_HONEYPOT_FIELD]: "x", phone: "call me" }), ip("203.0.113.51"), NOW);
     assert.equal(result.status, 200);
     assert.equal(result.ok, true);
     assert.equal(result.lead, undefined);
     assert.equal(calls.length, 0);
   });
 
-  it("drops a too-fast submission without sending email", async () => {
+  it("stops storing honeypot submissions past the limit, without using up the visitor's own allowance", async () => {
+    process.env.SUPABASE_URL = "https://example.supabase.co";
+    process.env.SUPABASE_SERVICE_ROLE_KEY = "service-role-test";
+    const address = "203.0.113.52";
+    for (let i = 0; i < QUOTE_LIMIT.limit + 3; i++) {
+      const result = await processQuote(quoteForm({ [QUOTE_HONEYPOT_FIELD]: "x" }), ip(address), NOW + i);
+      assert.equal(result.ok, true);
+      assert.equal(result.lead, undefined);
+    }
+    assert.equal(calls.length, QUOTE_LIMIT.limit);
+
+    const real = await processQuote(quoteForm(), ip(address), NOW + 100);
+    assert.equal(real.status, 200);
+    assert.equal(real.lead, true);
+  });
+
+  it("does not send spam_reason with a normal quote", async () => {
+    process.env.SUPABASE_URL = "https://example.supabase.co";
+    process.env.SUPABASE_SERVICE_ROLE_KEY = "service-role-test";
+    const result = await processQuote(quoteForm(), ip("203.0.113.53"), NOW);
+    assert.equal(result.lead, true);
+    assert.equal("spam_reason" in (JSON.parse(calls[0].body) as object), false);
+  });
+
+  it("accepts a real quote when autofill has filled the old hidden field name", async () => {
     process.env.RESEND_API_KEY = "re_test_key";
     process.env.LEAD_TO_EMAIL = "leads@example.com";
-    const result = await processQuote(quoteForm({ e: "2499" }), ip("203.0.113.15"), NOW);
+    const result = await processQuote(quoteForm({ company: "Sam's Plumbing Pty Ltd" }), ip("203.0.113.54"), NOW);
     assert.equal(result.status, 200);
-    assert.equal(result.ok, true);
-    assert.equal(result.message, "");
+    assert.equal(result.lead, true);
+    assert.equal(calls.length, 1);
+  });
+
+  it("asks a too-fast submission to resend instead of pretending it worked", async () => {
+    process.env.RESEND_API_KEY = "re_test_key";
+    process.env.LEAD_TO_EMAIL = "leads@example.com";
+    const address = "203.0.113.15";
+    const result = await processQuote(quoteForm({ e: "2499" }), ip(address), NOW);
+    assert.equal(result.status, 400);
+    assert.equal(result.ok, false);
+    assert.equal(result.message, QUOTE_TOO_FAST_MESSAGE);
+    assert.match(result.message, /press the button again/);
     assert.equal(result.lead, undefined);
     assert.equal(calls.length, 0);
+
+    const again = await processQuote(quoteForm({ e: "6200" }), ip(address), NOW + 3700);
+    assert.equal(again.status, 200);
+    assert.equal(again.lead, true);
+    assert.equal(calls.length, 1);
   });
 
   it("lets a submission through at the minimum time", async () => {

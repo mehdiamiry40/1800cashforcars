@@ -34,16 +34,21 @@ export function isQuoteRefConflict(err: unknown): boolean {
   return err instanceof QuoteInsertError && (err.status === 409 || err.body.includes("23505"));
 }
 
-/** Inserts one accepted quote. Does nothing when either Supabase env var is missing. */
+/**
+ * Inserts one quote. Resolves to false, without a request, when either Supabase env var is missing.
+ * `spamReason` marks a suspected-spam submission that was kept instead of emailed. It is only
+ * sent when set, so a normal quote never depends on the spam_reason column existing.
+ */
 export async function insertQuoteSubmission(
   lead: QuoteLead,
   userAgent: string | null,
   env: NodeJS.ProcessEnv = process.env,
   fetchImpl: FetchLike = fetch,
-): Promise<void> {
+  spamReason?: string,
+): Promise<boolean> {
   const url = env.SUPABASE_URL?.trim();
   const key = env.SUPABASE_SERVICE_ROLE_KEY?.trim();
-  if (!url || !key) return;
+  if (!url || !key) return false;
 
   const res = await fetchImpl(`${url.replace(/\/$/, "")}/rest/v1/quote_submissions`, {
     method: "POST",
@@ -66,6 +71,7 @@ export async function insertQuoteSubmission(
       expected: lead.expected,
       page: lead.page,
       user_agent: userAgent,
+      ...(spamReason ? { spam_reason: spamReason } : {}),
     }),
     signal: AbortSignal.timeout(8_000),
   });
@@ -74,4 +80,5 @@ export async function insertQuoteSubmission(
     const detail = await res.text().catch(() => "");
     throw new QuoteInsertError(res.status, detail);
   }
+  return true;
 }

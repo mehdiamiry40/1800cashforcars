@@ -238,9 +238,9 @@ textarea {
     padding: 1.35rem 1.35rem 1.15rem;
   }
 }
-.quote-instant {
+/* The quote turnaround from site.ts, as a tag after the heading. It wraps under the heading on a narrow box. */
+.quote-turnaround {
   display: inline-block;
-  margin-left: 0.4rem;
   padding: 0.12em 0.45em 0.16em;
   background: var(--color-logo);
   color: #fff;
@@ -248,6 +248,9 @@ textarea {
   font-weight: 700;
   line-height: 1.35;
   vertical-align: 0.15em;
+}
+.quote-turnaround::first-letter {
+  text-transform: uppercase;
 }
 .quote-form .btn-brand {
   min-height: 52px;

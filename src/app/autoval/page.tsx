@@ -3,13 +3,19 @@ import Link from "next/link";
 import { Breadcrumbs, JsonLd } from "@/components/JsonLd";
 import { Roo } from "@/components/Roo";
 import { CheckIcon } from "@/components/icons";
+import { regoLookupEnabled } from "@/lib/autoval/rego";
 import { areas, pageOpenGraph, site } from "@/lib/site";
 import { AutoValuer } from "./AutoValuer";
+
+// Rego lookup needs REGO_API_USERNAME. Without it the page must not offer a lookup that fails, so the
+// Rego tab and every mention of it are left out. This page is prerendered, so the value is read at build
+// time: after adding or removing the variable, redeploy.
+const regoLookup = regoLookupEnabled();
 
 export const metadata: Metadata = {
   title: "Free Car Valuation | AutoVal",
   description:
-    `Free car valuation by rego or VIN for Australian cars. AutoVal is an estimate, not a cash offer. Damaged and non-running cars can go to a ${site.name} quote.`,
+    `${regoLookup ? "Free car valuation by rego or VIN for Australian cars." : "Free car valuation for Australian cars, from a VIN or the car's details."} AutoVal is an estimate, not a cash offer. Damaged and non-running cars can go to a ${site.name} quote.`,
   alternates: { canonical: "/autoval" },
   openGraph: pageOpenGraph("/autoval"),
 };
@@ -17,19 +23,19 @@ export const metadata: Metadata = {
 const autovalFaqs = [
   {
     q: "Is AutoVal free?",
-    a: "Yes. Looking up a rego, decoding a VIN and reading the estimate are free. You do not pay to see the result, and you do not have to sell the car to us afterwards.",
+    a: `Yes. ${regoLookup ? "Looking up a rego, decoding a VIN" : "Decoding a VIN"} and reading the estimate are free. You do not pay to see the result, and you do not have to sell the car to us afterwards.`,
   },
   {
     q: "Do I need to sign up?",
-    a: "No. There is no account and no login. Enter a number plate and the state, a VIN, or type the car's details yourself. That is the whole form.",
+    a: `No. There is no account and no login. ${regoLookup ? "Enter a number plate and the state, a VIN, or type the car's details yourself." : "Type the car's details yourself, or enter a VIN to fill some of them in."} That is the whole form.`,
   },
   {
     q: "Does AutoVal work outside Queensland?",
-    a: `The rego lookup accepts any Australian state or territory listed on the form. A cash offer from ${site.name} is only for Brisbane, the Gold Coast, Logan, Ipswich, the Sunshine Coast and Tweed Heads. A car outside those areas can still be estimated here, and we cannot collect it.`,
+    a: `${regoLookup ? "The rego lookup accepts any Australian state or territory listed on the form." : "AutoVal can estimate a car from any Australian state or territory."} A cash offer from ${site.name} is only for Brisbane, the Gold Coast, Logan, Ipswich, the Sunshine Coast and Tweed Heads. A car outside those areas can still be estimated here, and we cannot collect it.`,
   },
   {
     q: "Is the valuation an offer?",
-    a: "No. AutoVal is an estimate, not an offer to buy the car. It uses a registration lookup or a VIN decode, then an estimate that searches current Australian listings and price guides. The condition is what you report yourself. A cash offer is a separate price we send after you describe the car.",
+    a: `No. AutoVal is an estimate, not an offer to buy the car. It uses ${regoLookup ? "a registration lookup or a VIN decode" : "the details you enter or a VIN decode"}, then an estimate that searches current Australian listings and price guides. The condition is what you report yourself. A cash offer is a separate price we send after you describe the car.`,
   },
   {
     q: "What if my car doesn't run?",
@@ -60,7 +66,7 @@ export default function AutoValPage() {
               What&apos;s your car <span className="text-white">really</span> worth?
             </h1>
             <p className="mt-5 max-w-xl text-[18px] leading-relaxed text-white/85 sm:text-[20px]">
-              Enter your rego, VIN or just the details. AutoVal checks live Australian listings and price guides, then
+              {regoLookup ? "Enter your rego, VIN or just the details." : "Enter your car's details, or a VIN."} AutoVal checks live Australian listings and price guides, then
               shows what it&apos;s worth and what to fix before you sell.
             </p>
             <p className="mt-4 max-w-xl text-[16px] leading-relaxed text-white sm:text-[18px]">
@@ -88,13 +94,15 @@ export default function AutoValPage() {
       </nav>
 
       <div className="container-site relative -mt-20 pb-16 sm:-mt-28 sm:pb-24">
-        <AutoValuer />
+        <AutoValuer regoLookup={regoLookup} />
       </div>
 
       <section className="container-site max-w-3xl pb-16 sm:pb-24">
         <h2 className="h-content">How AutoVal works</h2>
         <p className="mt-4 text-[18px] leading-relaxed">
-          AutoVal is a free estimate for an Australian car. You can start with a number plate. Choose the state the car is registered in and AutoVal looks it up through a registration API, which fills in the make, model and other details the lookup returns. You can start with a VIN instead. That number is decoded so the form has a vehicle to value. You can also type the details yourself if you do not have a plate or a VIN handy, or if the lookup misses a variant.
+          {regoLookup
+            ? "AutoVal is a free estimate for an Australian car. You can start with a number plate. Choose the state the car is registered in and AutoVal looks it up through a registration API, which fills in the make, model and other details the lookup returns. You can start with a VIN instead. That number is decoded so the form has a vehicle to value. You can also type the details yourself if you do not have a plate or a VIN handy, or if the lookup misses a variant."
+            : "AutoVal is a free estimate for an Australian car. You start by typing the make, model and year. If you have the VIN, you can enter that instead. The number is decoded so the form has a vehicle to value, and you can correct anything the decode misses, such as the variant."}
         </p>
         <p className="mt-4 text-[18px] leading-relaxed">
           After the car is identified, AutoVal builds an estimate by searching current Australian listings and price guides. The search is there to see what similar cars are being advertised for, not to invent a market. You then say how the car is: kilometres, condition, service history and whether it has been in an accident. Those answers are yours. The tool does not inspect the car, and it does not visit it.
@@ -108,7 +116,10 @@ export default function AutoValPage() {
           It is an estimate, not an offer. Condition is self-reported, so a car you describe as good will be estimated as good even if a buyer would mark it down. Rust, a noisy gearbox, a warning light or worn tyres only affect the figure if you include them. The tool cannot see photos and it cannot drive the car.
         </p>
         <p className="mt-4 text-[18px] leading-relaxed">
-          A registration lookup can miss a variant, and a VIN decode can miss the exact model sold in Australia. You can correct the details before the estimate runs. If listings for that car are thin, the estimate has less to go on. None of this is a promise that the car will sell for the figure on the screen.
+          {regoLookup
+            ? "A registration lookup can miss a variant, and a VIN decode can miss the exact model sold in Australia."
+            : "A VIN decode can miss the variant or the exact model sold in Australia."}{" "}
+          You can correct the details before the estimate runs. If listings for that car are thin, the estimate has less to go on. None of this is a promise that the car will sell for the figure on the screen.
         </p>
 
         <h2 className="h-content mt-12">How does a valuation differ from a cash offer?</h2>
