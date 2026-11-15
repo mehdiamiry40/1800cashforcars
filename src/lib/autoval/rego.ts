@@ -10,6 +10,14 @@ export class RegoLookupUnavailableError extends Error {
   }
 }
 
+/**
+ * Rego lookup is a paid service that stays off until REGO_API_USERNAME is set.
+ * The AutoVal page hides the Rego tab and rewrites its copy when it is off.
+ */
+export function regoLookupEnabled(env: NodeJS.ProcessEnv = process.env): boolean {
+  return Boolean(env.REGO_API_USERNAME?.trim());
+}
+
 export function normaliseRego(raw: string) {
   return raw.toUpperCase().replace(/[^A-Z0-9]/g, "");
 }
@@ -35,7 +43,7 @@ export async function lookupRego(rawRego: string, state: string): Promise<Lookup
   if (rego.length < 2 || rego.length > 9) throw new PublicError("Enter a valid Australian number plate.");
   if (!isAuState(state)) throw new PublicError("Choose the state the car is registered in.");
 
-  const username = process.env.REGO_API_USERNAME;
+  const username = process.env.REGO_API_USERNAME?.trim();
   if (!username) {
     throw new RegoLookupUnavailableError(
       "Rego lookup isn't configured on this server (set REGO_API_USERNAME). Use the VIN or enter the car details instead.",

@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { afterEach, beforeEach, describe, it } from "node:test";
 import { processQuote } from "@/lib/quote";
+import { QUOTE_HONEYPOT_FIELD } from "@/lib/quote-spam";
 import { QUOTE_LIMIT } from "@/lib/rate-limit";
 import { insertQuoteSubmission, type QuoteLead } from "@/lib/quote-store";
 
@@ -130,15 +131,19 @@ describe("quote submissions in Supabase", () => {
     assert.match(payload.text, /Sent from: \/quote/);
   });
 
-  it("inserts only after the honeypot, timing check and rate limit", async () => {
+  it("inserts a quote only after the timing check and rate limit, and flags a honeypot one", async () => {
     process.env.SUPABASE_URL = "https://example.supabase.co";
     process.env.SUPABASE_SERVICE_ROLE_KEY = "service-role-test";
     const headers = quoteHeaders("203.0.113.71");
     const now = 1_920_000_000_000;
 
-    await processQuote(quoteForm({ company: "Acme Bots" }), headers, now);
     await processQuote(quoteForm({ e: "100" }), headers, now);
     assert.equal(calls.length, 0);
+
+    await processQuote(quoteForm({ [QUOTE_HONEYPOT_FIELD]: "Acme Bots" }), headers, now);
+    assert.equal(calls.length, 1);
+    assert.equal((JSON.parse(String(calls[0].init?.body)) as { spam_reason?: string }).spam_reason, "honeypot");
+    calls.length = 0;
 
     for (let i = 0; i < QUOTE_LIMIT.limit; i++) {
       const result = await processQuote(quoteForm(), headers, now + i);

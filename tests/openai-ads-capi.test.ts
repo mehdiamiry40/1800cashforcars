@@ -13,6 +13,7 @@ import {
   type OpenAiLeadEventInput,
 } from "@/lib/openai-ads-capi";
 import { processQuote } from "@/lib/quote";
+import { QUOTE_HONEYPOT_FIELD } from "@/lib/quote-spam";
 import { QUOTE_LIMIT, type HeaderSource } from "@/lib/rate-limit";
 import { OPENAI_ADS_PIXEL_ID, site } from "@/lib/site";
 
@@ -249,7 +250,7 @@ describe("OpenAI Ads Conversions API", () => {
     calls.length = 0;
     const invalid = await processQuote(quoteForm({ make: "" }), headers({ "x-forwarded-for": "203.0.113.78" }), NOW);
     assert.equal(invalid.status, 400);
-    const honeypot = await processQuote(quoteForm({ company: "Acme Bots" }), headers({ "x-forwarded-for": "203.0.113.79" }), NOW);
+    const honeypot = await processQuote(quoteForm({ [QUOTE_HONEYPOT_FIELD]: "Acme Bots" }), headers({ "x-forwarded-for": "203.0.113.79" }), NOW);
     assert.equal(honeypot.lead, undefined);
     const tooFast = await processQuote(quoteForm({ e: "100" }), headers({ "x-forwarded-for": "203.0.113.80" }), NOW);
     assert.equal(tooFast.lead, undefined);

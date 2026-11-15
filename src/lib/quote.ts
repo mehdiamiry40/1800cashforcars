@@ -4,6 +4,7 @@ import { site } from "@/lib/site";
 import type { QuoteState } from "@/lib/quote-state";
 import { quoteEmailError } from "@/lib/quote-email";
 import { generateQuoteRef } from "@/lib/quote-ref";
+import { MIN_SUBMIT_MS, QUOTE_HONEYPOT_FIELD } from "@/lib/quote-spam";
 import { insertQuoteSubmission, isQuoteRefConflict, QUOTE_FIELDS, type QuoteLead } from "@/lib/quote-store";
 import { quoteYearError } from "@/lib/quote-year";
 import { QUOTE_LIMIT, clientIp, rateLimit, type HeaderSource } from "@/lib/rate-limit";
@@ -17,14 +18,16 @@ export type QuoteResult = {
   retryAfter?: number;
 };
 
-// Humans can't fill the form in under ~2.5s. An empty value means JavaScript didn't run, so we let it through.
-export const MIN_SUBMIT_MS = 2500;
-
 export const QUOTE_RATE_LIMIT_MESSAGE = `You've sent several quote requests recently. Please wait a few minutes and try again, or call or text ${site.phoneDisplay}.`;
 
 export const QUOTE_GENERIC_ERROR = `Sorry, something went wrong. Please call or text ${site.phoneDisplay} and we'll give you a price.`;
 
 const EMAIL_FAILED = `Sorry, your details didn't reach us. Please call or text ${site.phoneDisplay} and we'll give you a price.`;
+
+export const QUOTE_TOO_FAST_MESSAGE = `Sorry, that didn't go through. Please press the button again, or call or text ${site.phoneDisplay}.`;
+
+// What a bot that filled the hidden field is told, so it doesn't retry.
+const SPAM_ACCEPTED: QuoteResult = { ok: true, message: "Thanks!", status: 200 };
 
 // Same gate as the browser pixel: a saved quote the visitor is told succeeded. Honeypots, fast fills,
 // validation errors, rate limits and undelivered emails are not leads. Scheduling never changes the result.
@@ -61,15 +64,48 @@ export function toQuoteState(result: QuoteResult): QuoteState {
   return { ok: result.ok, message: result.message, lead: result.lead, ref: result.ref };
 }
 
+/** The first problem with the details, or null when the quote is complete. */
+function leadProblem(lead: QuoteLead, yearInput: string, now: number): string | null {
+  // Email, description and price stay optional. Make, model and year do not.
+  if (!lead.name || !lead.phone || !lead.address || !lead.make || !lead.model || !yearInput) {
+    return "Please enter your name, mobile number, suburb, make, model and year.";
+  }
+  const yearProblem = quoteYearError(yearInput, new Date(now));
+  if (yearProblem) return yearProblem;
+  if (!/^[\d\s()+-]{8,}$/.test(lead.phone)) return "Please enter a valid phone number.";
+  return quoteEmailError(lead.email);
+}
+
+/**
+ * Saves the lead under a new reference. A duplicate reference (409 / 23505) gets a new code, up to 3 retries.
+ * Resolves to whether a row was saved.
+ */
+async function storeLead(lead: QuoteLead, userAgent: string | null, spamReason?: string): Promise<boolean> {
+  for (let attempt = 0; attempt < 4; attempt++) {
+    lead.ref = generateQuoteRef();
+    try {
+      return await insertQuoteSubmission(lead, userAgent, undefined, undefined, spamReason);
+    } catch (err) {
+      if (isQuoteRefConflict(err) && attempt < 3) continue;
+      console.error(spamReason ? "[lead] suspected spam not stored" : "[lead] supabase insert failed", err);
+      return false;
+    }
+  }
+  return false;
+}
+
 export async function processQuote(formData: FormData, headerSource: HeaderSource, now = Date.now()): Promise<QuoteResult> {
   try {
-    // Honeypot: real visitors never fill this hidden field. Pretend it worked so a bot doesn't retry.
-    if (formData.get("company")) return { ok: true, message: "Thanks!", status: 200 };
+    // Honeypot: real visitors never fill this hidden field. A hit is never emailed, but it is no longer
+    // thrown away unseen: a complete one is saved as suspected spam, and every hit is counted in the logs.
+    const honeypot = String(formData.get(QUOTE_HONEYPOT_FIELD) ?? "").trim() !== "";
 
+    // An empty value means JavaScript didn't run, so we let it through. A person who trips this is asked
+    // to press the button again, which works, so a real quote is never lost to this check.
     const elapsedMs = parseInt(String(formData.get("e") ?? ""), 10);
-    if (Number.isFinite(elapsedMs) && elapsedMs < MIN_SUBMIT_MS) {
-      console.warn("[lead] dropped: submitted too fast");
-      return { ok: true, message: "", status: 200 };
+    if (!honeypot && Number.isFinite(elapsedMs) && elapsedMs < MIN_SUBMIT_MS) {
+      console.warn("[lead] sent too fast, asked to resubmit");
+      return { ok: false, message: QUOTE_TOO_FAST_MESSAGE, status: 400 };
     }
 
     const textField = (key: string) => String(formData.get(key) ?? "").trim().slice(0, 2000);
@@ -89,30 +125,29 @@ export async function processQuote(formData: FormData, headerSource: HeaderSourc
       page: textField("page"),
     };
 
-    // Email, description and price stay optional. Make, model and year do not.
-    if (!lead.name || !lead.phone || !lead.address || !lead.make || !lead.model || !yearInput) {
-      return {
-        ok: false,
-        message: "Please enter your name, mobile number, suburb, make, model and year.",
-        status: 400,
-      };
+    const problem = leadProblem(lead, yearInput, now);
+    if (honeypot && problem) {
+      console.warn("[lead] suspected spam dropped: honeypot, details incomplete");
+      return SPAM_ACCEPTED;
     }
-    const yearProblem = quoteYearError(yearInput, new Date(now));
-    if (yearProblem) {
-      return { ok: false, message: yearProblem, status: 400 };
-    }
-    if (!/^[\d\s()+-]{8,}$/.test(lead.phone)) {
-      return { ok: false, message: "Please enter a valid phone number.", status: 400 };
-    }
-    const emailProblem = quoteEmailError(lead.email);
-    if (emailProblem) {
-      return { ok: false, message: emailProblem, status: 400 };
-    }
+    if (problem) return { ok: false, message: problem, status: 400 };
 
     lead.year = yearInput;
     lead.vehicle = `${yearInput} ${lead.make} ${lead.model}`;
 
     const ip = clientIp(headerSource);
+
+    if (honeypot) {
+      // Its own limit, so a bot can neither fill the table nor use up a real visitor's allowance.
+      if (rateLimit(`quote-spam:${ip}`, QUOTE_LIMIT, now).limited) {
+        console.warn("[lead] suspected spam dropped: honeypot, rate limited");
+        return SPAM_ACCEPTED;
+      }
+      const stored = await storeLead(lead, headerSource.get("user-agent"), "honeypot");
+      console.warn(`[lead] suspected spam ${stored ? "stored" : "dropped"}: honeypot`);
+      return SPAM_ACCEPTED;
+    }
+
     const decision = rateLimit(`quote:${ip}`, QUOTE_LIMIT, now);
     if (decision.limited) {
       console.warn("[lead] rate limited", ip);
@@ -120,18 +155,7 @@ export async function processQuote(formData: FormData, headerSource: HeaderSourc
     }
 
     // Honeypot, timing, validation and the rate limit have all passed. A failed insert must not block the email.
-    // A duplicate reference (409 / 23505) gets a new code, up to 3 retries.
-    for (let attempt = 0; attempt < 4; attempt++) {
-      lead.ref = generateQuoteRef();
-      try {
-        await insertQuoteSubmission(lead, headerSource.get("user-agent"));
-        break;
-      } catch (err) {
-        if (isQuoteRefConflict(err) && attempt < 3) continue;
-        console.error("[lead] supabase insert failed", err);
-        break;
-      }
-    }
+    await storeLead(lead, headerSource.get("user-agent"));
 
     const subject = `[${lead.ref}] New quote request: ${lead.vehicle.split("\n")[0].slice(0, 60)}${lead.description ? ` (${lead.description.split("\n")[0].slice(0, 40)})` : ""}${lead.address ? ` — ${lead.address}` : ""}${lead.expected ? ` — wants ${lead.expected}` : ""}`;
     const rows = QUOTE_FIELDS.filter(([k]) => lead[k])

@@ -37,6 +37,8 @@ const TABS: { id: Mode; label: string }[] = [
   { id: "vin", label: "VIN" },
   { id: "details", label: "Details" },
 ];
+// Without the rego lookup service, typing the details is the way that always works, so it comes first.
+const TABS_WITHOUT_REGO: typeof TABS = [TABS[2], TABS[1]];
 
 const STATE_NAMES: Record<string, string> = {
   NSW: "New South Wales",
@@ -66,8 +68,10 @@ const SERVICE: { id: FormState["serviceHistory"]; label: string }[] = [
 const TRANSMISSIONS = ["Automatic", "Manual", "CVT", "Dual-clutch"];
 const FUELS = ["Petrol", "Diesel", "Hybrid", "Plug-in hybrid", "Electric", "LPG"];
 
-export function AutoValuer() {
-  const [mode, setMode] = useState<Mode>("rego");
+/** `regoLookup` is false when the rego lookup service isn't set up. The Rego tab is then left out. */
+export function AutoValuer({ regoLookup }: { regoLookup: boolean }) {
+  const tabs = regoLookup ? TABS : TABS_WITHOUT_REGO;
+  const [mode, setMode] = useState<Mode>(tabs[0].id);
   const [rego, setRego] = useState("");
   const [regoState, setRegoState] = useState<string>("QLD");
   const [vin, setVin] = useState("");
@@ -76,7 +80,7 @@ export function AutoValuer() {
   const [lookingUp, setLookingUp] = useState(false);
 
   const [form, setForm] = useState<FormState>(EMPTY);
-  const [showForm, setShowForm] = useState(false);
+  const [showForm, setShowForm] = useState(tabs[0].id === "details");
   const [valuing, setValuing] = useState(false);
   const [result, setResult] = useState<{ valuation: Valuation; car: ValuedCar } | null>(null);
   const [valuationError, setValuationError] = useState<string | null>(null);
@@ -181,8 +185,8 @@ export function AutoValuer() {
             <p className="eyebrow text-logo">Step 1</p>
             <h2 className="h-sub mt-1 sm:text-[34px]">Find your car</h2>
           </div>
-          <div role="tablist" aria-label="How to find your car" className="grid grid-cols-3 border border-navy">
-            {TABS.map((t) => (
+          <div role="tablist" aria-label="How to find your car" className={`grid border border-navy ${regoLookup ? "grid-cols-3" : "grid-cols-2"}`}>
+            {tabs.map((t) => (
               <button
                 key={t.id}
                 role="tab"
@@ -247,7 +251,11 @@ export function AutoValuer() {
           )}
 
           {mode === "details" && (
-            <p className="max-w-xl text-[18px]">No rego or VIN handy? Fill in the details below and we&apos;ll do the rest.</p>
+            <p className="max-w-xl text-[18px]">
+              {regoLookup
+                ? "No rego or VIN handy? Fill in the details below and we'll do the rest."
+                : "Fill in the details below and we'll do the rest. Have the VIN handy? The VIN tab can fill some of them in for you."}
+            </p>
           )}
 
           {lookupError && (
