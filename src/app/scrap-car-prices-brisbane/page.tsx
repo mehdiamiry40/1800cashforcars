@@ -11,17 +11,22 @@ import { pageOpenGraph, site } from "@/lib/site";
 import { servicePhotos } from "@/lib/vehicle-visuals";
 
 const PATH = "/scrap-car-prices-brisbane";
+// The date the yard last reviewed these prices. It is the only date to change when they are reviewed
+// again: the title, description, headings, wording and schema dates below all follow it.
 const UPDATED_ISO = "2026-10-20";
-const UPDATED_LABEL = "20 October 2026";
+const MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+const [UPDATED_YEAR, updatedMonth, updatedDay] = UPDATED_ISO.split("-");
+const UPDATED_MONTH = `${MONTHS[Number(updatedMonth) - 1]} ${UPDATED_YEAR}`;
+const UPDATED_LABEL = `${Number(updatedDay)} ${UPDATED_MONTH}`;
 const DESCRIPTION =
-  "Scrap car prices in Brisbane for 2026: guide ranges by car type and condition, what changes the price, and free towing. Quotes on 0423 514 111.";
+  `Scrap car prices in Brisbane for ${UPDATED_YEAR}: guide ranges by car type and condition, what changes the price, and free towing. Quotes on ${site.phoneDisplay}.`;
 const H1 = "How much is my scrap car worth in Brisbane?";
 const DIRECT_ANSWER =
   "Most scrap and non-running cars we buy in Brisbane are worth $150 to $800. Older cars that still run usually fetch $500 to $1,600. Running or accident-damaged utes bring $1,000 to $5,500, and late-model damaged SUVs and 4WDs $2,500 to $6,000. These are guides: we quote every car individually, and free towing is never taken off the price.";
 const QUOTE_SPEED = "Quotes are usually within the hour.";
 
 export const metadata: Metadata = {
-  title: "Scrap Car Prices Brisbane 2026",
+  title: `Scrap Car Prices Brisbane ${UPDATED_YEAR}`,
   description: DESCRIPTION,
   alternates: { canonical: PATH },
   openGraph: pageOpenGraph(PATH),
@@ -57,7 +62,7 @@ const faqs: { q: string; a: string }[] = [
   },
   {
     q: "Are scrap cars priced by weight?",
-    a: "Partly. Weight sets the scrap floor, not the whole price. At about A$150 to $205 a tonne for whole scrap vehicles in October 2026, a 1.4 tonne sedan holds roughly $210 to $287 of metal. Parts and the catalytic converter add on top. Rates move week to week, and this metal value is not what we pay you per tonne.",
+    a: `Partly. Weight sets the scrap floor, not the whole price. At about A$150 to $205 a tonne for whole scrap vehicles in ${UPDATED_MONTH}, a 1.4 tonne sedan holds roughly $210 to $287 of metal. Parts and the catalytic converter add on top. Rates move week to week, and this metal value is not what we pay you per tonne.`,
   },
   {
     q: "Do you take towing off the price?",
@@ -281,7 +286,7 @@ export default function ScrapCarPricesBrisbane() {
         <div className="prose-site min-w-0 text-[18px] lg:col-start-1 lg:row-start-1 [&>p:first-child]:mt-0">
           <p>Not sure which row your car fits? Send us the rego and a few photos and we&apos;ll tell you.</p>
 
-          <h2 className="h-content mt-10">Scrap car prices in Brisbane: our price guide (October 2026)</h2>
+          <h2 className="h-content mt-10">Scrap car prices in Brisbane: our price guide ({UPDATED_MONTH})</h2>
           <p>Here&apos;s what we typically pay, by vehicle type and condition.</p>
           <div className="mt-6 overflow-x-auto">
             <table className="w-full border-collapse text-left text-[16px] leading-snug sm:text-[18px]">

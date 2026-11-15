@@ -24,3 +24,6 @@ export interface LookupResult {
   vehicle: VehicleDetails;
   notes: string[];
 }
+
+/** Longest text kept for one vehicle field (make, model, variant and so on). In this file so the form can use it without loading the schema library. */
+export const VEHICLE_TEXT_MAX = 80;

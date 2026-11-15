@@ -9,7 +9,7 @@ const PATH = "/car-removal-no-keys-no-wheels";
 export const metadata: Metadata = {
   title: "Car Removal With No Keys or No Wheels",
   description:
-    "We buy cars with no keys or no wheels across Brisbane, the Gold Coast, Logan, Ipswich, the Sunshine Coast and Tweed Heads. Free towing, never deducted, paid before the car leaves.",
+    "We buy cars with no keys or no wheels across Brisbane, the Gold Coast and South East QLD. Free towing, never deducted, and paid before the car leaves.",
   alternates: { canonical: PATH },
   openGraph: pageOpenGraph(PATH),
 };

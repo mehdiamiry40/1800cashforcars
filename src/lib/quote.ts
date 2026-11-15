@@ -1,3 +1,4 @@
+import { after } from "next/server";
 import { Resend } from "resend";
 import { scheduleOpenAiServerLead } from "@/lib/openai-ads-capi";
 import { site } from "@/lib/site";
@@ -28,6 +29,36 @@ export const QUOTE_TOO_FAST_MESSAGE = `Sorry, that didn't go through. Please pre
 
 // What a bot that filled the hidden field is told, so it doesn't retry.
 const SPAM_ACCEPTED: QuoteResult = { ok: true, message: "Thanks!", status: 200 };
+
+/**
+ * Waits before each background resend, once both attempts made while the visitor waits have failed.
+ * They cover a mail-provider outage of a few minutes. Tests shorten them.
+ */
+export const leadEmailRetry = { delaysMs: [15_000, 45_000, 120_000] };
+
+/**
+ * Keeps trying to deliver the lead email after the visitor has been told to call. The same idempotency
+ * key is used throughout, so the lead can never arrive twice. Runs after the response via `after`; with
+ * no request scope (unit tests) it runs detached.
+ */
+function scheduleEmailRetry(send: () => Promise<unknown>, ref: string): void {
+  const task = async () => {
+    for (const delay of leadEmailRetry.delaysMs) {
+      await new Promise<void>((resolve) => setTimeout(resolve, delay).unref());
+      const error = await send().catch((err: unknown) => err ?? new Error("send failed"));
+      if (!error) {
+        console.warn("[lead] email delivered on a background retry", ref);
+        return;
+      }
+    }
+    console.error("[lead] email failed on every retry, LEAD NOT DELIVERED", ref);
+  };
+  try {
+    after(task);
+  } catch {
+    void task();
+  }
+}
 
 // Same gate as the browser pixel: a saved quote the visitor is told succeeded. Honeypots, fast fills,
 // validation errors, rate limits and undelivered emails are not leads. Scheduling never changes the result.
@@ -150,12 +181,12 @@ export async function processQuote(formData: FormData, headerSource: HeaderSourc
 
     const decision = rateLimit(`quote:${ip}`, QUOTE_LIMIT, now);
     if (decision.limited) {
-      console.warn("[lead] rate limited", ip);
+      console.warn("[lead] rate limited");
       return { ok: false, message: QUOTE_RATE_LIMIT_MESSAGE, status: 429, retryAfter: decision.retryAfter };
     }
 
     // Honeypot, timing, validation and the rate limit have all passed. A failed insert must not block the email.
-    await storeLead(lead, headerSource.get("user-agent"));
+    const stored = await storeLead(lead, headerSource.get("user-agent"));
 
     const subject = `[${lead.ref}] New quote request: ${lead.vehicle.split("\n")[0].slice(0, 60)}${lead.description ? ` (${lead.description.split("\n")[0].slice(0, 40)})` : ""}${lead.address ? ` — ${lead.address}` : ""}${lead.expected ? ` — wants ${lead.expected}` : ""}`;
     const rows = QUOTE_FIELDS.filter(([k]) => lead[k])
@@ -163,8 +194,10 @@ export async function processQuote(formData: FormData, headerSource: HeaderSourc
       .join("");
     const text = QUOTE_FIELDS.filter(([k]) => lead[k]).map(([k, label]) => `${label}: ${lead[k]}`).join("\n");
 
-    // Always record the lead in the function logs so nothing is lost if email fails.
-    console.log("[lead]", JSON.stringify(lead));
+    // The saved row is the record of the lead. Its details go to the function logs only when there is no
+    // saved row, so nothing is lost if the email also fails and names and numbers are not logged otherwise.
+    if (stored) console.log("[lead] saved", lead.ref);
+    else console.log("[lead]", JSON.stringify(lead));
 
     const apiKey = process.env.RESEND_API_KEY;
     const to = process.env.LEAD_TO_EMAIL;
@@ -186,15 +219,18 @@ export async function processQuote(formData: FormData, headerSource: HeaderSourc
     };
     // Retry once for a passing hiccup. The idempotency key stops a retry from sending the lead twice.
     const idempotencyKey = `quote-${lead.ref}`;
-    let { error } = await resend.emails.send(email, { idempotencyKey });
+    const send = async () => (await resend.emails.send(email, { idempotencyKey })).error;
+    let error = await send();
     if (error) {
       console.warn("[lead] email failed, retrying", error);
       await new Promise((r) => setTimeout(r, 1500));
-      ({ error } = await resend.emails.send(email, { idempotencyKey }));
+      error = await send();
     }
     if (error) {
-      // Nobody would see this lead except in the logs, so ask the customer to get in touch directly.
-      console.error("[lead] email failed, LEAD NOT DELIVERED", error);
+      // The lead has not reached the inbox, so ask the customer to get in touch directly, and keep
+      // trying in the background in case the mail provider recovers.
+      console.error("[lead] email failed twice, retrying in the background", lead.ref, error);
+      scheduleEmailRetry(send, lead.ref);
       return { ok: false, message: EMAIL_FAILED, status: 502, ref: lead.ref };
     }
 

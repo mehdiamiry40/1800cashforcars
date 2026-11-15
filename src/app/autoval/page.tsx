@@ -15,7 +15,7 @@ const regoLookup = regoLookupEnabled();
 export const metadata: Metadata = {
   title: "Free Car Valuation | AutoVal",
   description:
-    `${regoLookup ? "Free car valuation by rego or VIN for Australian cars." : "Free car valuation for Australian cars, from a VIN or the car's details."} AutoVal is an estimate, not a cash offer. Damaged and non-running cars can go to a ${site.name} quote.`,
+    `${regoLookup ? "Free car valuation by rego or VIN for Australian cars." : "Free car valuation for Australian cars, from a VIN or the car's details."} AutoVal is an estimate, not a cash offer. For a damaged car, ask us for a quote.`,
   alternates: { canonical: "/autoval" },
   openGraph: pageOpenGraph("/autoval"),
 };

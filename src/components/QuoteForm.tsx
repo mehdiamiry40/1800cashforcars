@@ -1,17 +1,21 @@
 "use client";
 
-import { track } from "@vercel/analytics";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef, useState, type FormEvent, type ReactNode } from "react";
-import { measureOpenAiLead, quoteLeadEventId } from "@/lib/openai-ads";
+import { useEffect, useRef, useState, useSyncExternalStore, type FormEvent, type ReactNode } from "react";
+import { quoteLeadEventId } from "@/lib/openai-ads";
+import { reportQuoteLead } from "@/lib/quote-conversion";
 import { quoteEmailError } from "@/lib/quote-email";
 import { QUOTE_HONEYPOT_FIELD } from "@/lib/quote-spam";
 import type { QuoteState } from "@/lib/quote-state";
 import { QUOTE_YEAR_MIN, quoteYearError, quoteYearMax } from "@/lib/quote-year";
 import { site } from "@/lib/site";
-import { Roo } from "./Roo";
+import { QuoteThanks } from "./QuoteThanks";
 import { ArrowIcon, PhoneIcon } from "./icons";
+
+// False in the server-rendered page and until this script is running, then true.
+const neverChanges = () => () => {};
+const useScriptRunning = () => useSyncExternalStore(neverChanges, () => true, () => false);
 
 // One short form: the car, then how to reach you, then a single submit button.
 // `defaults` pre-fills the car fields, e.g. from an AutoVal valuation.
@@ -26,6 +30,9 @@ export function QuoteForm({
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [pending, setPending] = useState(false);
   const pathname = usePathname();
+  // Until this script runs, the browser sends the form itself, so its own checks of the required
+  // fields are left on. Once it runs, they are replaced by the messages below.
+  const scriptRunning = useScriptRunning();
 
   // Spam check: how long the form was on screen before it was sent (a relative time, so clock differences
   // don't matter). The server asks for a resend when that is under ~2.5 seconds, which only bots manage.
@@ -73,41 +80,11 @@ export function QuoteForm({
 
   useEffect(() => {
     if (!state?.ok || !state.lead) return;
-    track("quote_submitted", { page: pathname, form: variant });
-    // Google Ads conversion: "1800CFC - Quote form".
-    (window as { gtag?: (...args: unknown[]) => void }).gtag?.("event", "conversion", {
-      send_to: "AW-11027669589/ZYZ_CMOYvYwdENXEs4op",
-    });
-    // Same success gate as the calls above. One ChatGPT Ads lead per quote reference.
-    const eventId = quoteLeadEventId(state);
-    if (eventId) measureOpenAiLead(eventId);
+    reportQuoteLead(quoteLeadEventId(state), pathname, variant);
   }, [state, pathname, variant]);
 
   if (state?.ok) {
-    return (
-      <div className="border border-line bg-sand p-5" role="status">
-        <div className="flex items-center gap-4">
-          <Roo hand="cash" className="h-24 w-auto shrink-0" />
-          <div>
-            <p className="h-sub">Thanks, we&apos;re on it!</p>
-            <p className="mt-1">We&apos;ll text or call you with a price, usually within the hour.</p>
-            {state.ref ? <p className="mt-1">Your reference: {state.ref}</p> : null}
-          </div>
-        </div>
-        <ol className="mt-4 space-y-1.5 border-t border-line pt-4 text-[15px]">
-          {["We look over your car's details", "We send you a price, no obligation", "Happy with it? We pick it up and pay you on the day"].map(
-            (t, i) => (
-              <li key={t} className="flex gap-2">
-                <span className="font-heading font-extrabold text-navy">{i + 1}.</span> {t}
-              </li>
-            ),
-          )}
-        </ol>
-        <p className="mt-3 text-[14px]">
-          In a hurry? <a href={site.phoneHref} className="font-bold text-navy underline">Call us</a>.
-        </p>
-      </div>
-    );
+    return <QuoteThanks>{state.ref ? <p className="mt-1">Your reference: {state.ref}</p> : null}</QuoteThanks>;
   }
 
   // Placeholders keep the form compact. Each label is screen-reader only until the field has a value, then it
@@ -116,7 +93,7 @@ export function QuoteForm({
 
   return (
     <div className="grid gap-3">
-    <form action="/api/quote" method="POST" noValidate onSubmit={onSubmit} className="quote-form grid gap-3">
+    <form action="/api/quote" method="POST" noValidate={scriptRunning} onSubmit={onSubmit} className="quote-form grid gap-3">
       {/* Honeypot. The data attributes tell 1Password, LastPass, Bitwarden and Dashlane to leave it empty. */}
       <input type="text" name={QUOTE_HONEYPOT_FIELD} tabIndex={-1} autoComplete="off" className="hidden" aria-hidden data-1p-ignore data-lpignore="true" data-bwignore data-form-type="other" />
       <input type="hidden" name="page" value={pathname} />

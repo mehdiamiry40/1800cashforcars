@@ -83,7 +83,8 @@ export function HomeServices() {
   );
 }
 
-export function ServiceGrid() {
+/** `heading` is the level of each card's title: "h2" where the grid sits straight under the page's h1. */
+export function ServiceGrid({ heading: Heading = "h3" }: { heading?: "h2" | "h3" }) {
   return (
     <div className="service-grid grid grid-cols-2 gap-x-3 gap-y-5 sm:gap-x-6 sm:gap-y-8 lg:grid-cols-3">
       {serviceCards.map(({ title, href, visual, Icon }) => (
@@ -105,9 +106,9 @@ export function ServiceGrid() {
               className="hidden h-7 w-7 shrink-0 text-brand sm:block"
               strokeWidth={1.5}
             />
-            <h3 className="min-w-0 flex-1 text-[17px] font-semibold leading-snug sm:text-[20px]">
+            <Heading className="min-w-0 flex-1 text-[17px] font-semibold leading-snug sm:text-[20px]">
               {title}
-            </h3>
+            </Heading>
             <ArrowIcon
               aria-hidden="true"
               className="h-5 w-5 shrink-0 transition-transform group-hover:translate-x-1"

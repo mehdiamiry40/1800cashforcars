@@ -64,7 +64,7 @@ export const shareImage = {
   url: "/opengraph-image",
   width: 1200,
   height: 630,
-  alt: "1800-CASH-FOR-CARS. Cash for scrap cars. Any car, any condition.",
+  alt: "1800-CASH-FOR-CARS. Cash for cars. Any car, any condition.",
 };
 
 // Next.js shallow-merges metadata, so a page that sets `openGraph` replaces the

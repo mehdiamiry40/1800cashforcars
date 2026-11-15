@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { afterEach, beforeEach, describe, it } from "node:test";
 import { POST } from "@/app/api/quote/route";
-import { QUOTE_GENERIC_ERROR, QUOTE_RATE_LIMIT_MESSAGE, QUOTE_TOO_FAST_MESSAGE, processQuote } from "@/lib/quote";
+import { QUOTE_GENERIC_ERROR, QUOTE_RATE_LIMIT_MESSAGE, QUOTE_TOO_FAST_MESSAGE, leadEmailRetry, processQuote } from "@/lib/quote";
 import { generateQuoteRef, QUOTE_REF_PATTERN } from "@/lib/quote-ref";
 import { QUOTE_HONEYPOT_FIELD } from "@/lib/quote-spam";
 import { quoteYearMax } from "@/lib/quote-year";
@@ -54,9 +54,13 @@ describe("quote submission", () => {
   let calls: { url: string; body: string; idempotencyKey: string | null }[];
   let originalFetch: typeof fetch;
 
+  const retryDelays = leadEmailRetry.delaysMs;
+
   beforeEach(() => {
     for (const key of ENV_KEYS) saved[key] = process.env[key];
     for (const key of ENV_KEYS) delete process.env[key];
+    // No background resends unless a test asks for them, so none can outlive its test.
+    leadEmailRetry.delaysMs = [];
     calls = [];
     originalFetch = globalThis.fetch;
     globalThis.fetch = (async (input: RequestInfo | URL, init?: RequestInit) => {
@@ -73,6 +77,7 @@ describe("quote submission", () => {
   });
 
   afterEach(() => {
+    leadEmailRetry.delaysMs = retryDelays;
     globalThis.fetch = originalFetch;
     for (const key of ENV_KEYS) {
       if (saved[key] === undefined) delete process.env[key];
@@ -436,5 +441,89 @@ describe("quote submission", () => {
     assert.match(result.message, /didn't reach us/);
     assert.match(result.message, /0423 514 111/);
     assert.doesNotMatch(result.message, /sk_live_secret|Invalid API key/);
+  });
+
+  it("keeps trying to deliver the email in the background after telling the visitor to call", async () => {
+    process.env.RESEND_API_KEY = "re_test_key";
+    process.env.LEAD_TO_EMAIL = "leads@example.com";
+    leadEmailRetry.delaysMs = [5, 5];
+    const keys: (string | null)[] = [];
+    globalThis.fetch = (async (_input: RequestInfo | URL, init?: RequestInit) => {
+      keys.push(new Headers(init?.headers).get("Idempotency-Key"));
+      // Both attempts made while the visitor waits fail, and so does the first background one.
+      if (keys.length <= 3) {
+        return new Response(JSON.stringify({ message: "Service unavailable" }), {
+          status: 503,
+          headers: { "content-type": "application/json" },
+        });
+      }
+      return new Response(JSON.stringify({ id: "email_123" }), { status: 200, headers: { "content-type": "application/json" } });
+    }) as typeof fetch;
+
+    const result = await processQuote(quoteForm(), ip("203.0.113.61"), NOW);
+    assert.equal(result.status, 502);
+    assert.match(result.message, /didn't reach us/);
+    assert.equal(keys.length, 2);
+
+    await new Promise((resolve) => setTimeout(resolve, 150));
+    assert.equal(keys.length, 4);
+    // One key for every attempt, so the mail provider can never deliver the lead twice.
+    assert.deepEqual(new Set(keys), new Set([`quote-${result.ref}`]));
+  });
+
+  it("logs the lead's details only when there is no saved row to fall back on", async () => {
+    const logged: string[] = [];
+    const originalLog = console.log;
+    console.log = (...args: unknown[]) => {
+      logged.push(args.map(String).join(" "));
+    };
+    try {
+      await processQuote(quoteForm(), ip("203.0.113.62"), NOW);
+      assert.equal(logged.some((line) => line.includes("Sam Lee") && line.includes("0423 514 111")), true);
+
+      logged.length = 0;
+      process.env.SUPABASE_URL = "https://example.supabase.co";
+      process.env.SUPABASE_SERVICE_ROLE_KEY = "service-role-test";
+      const result = await processQuote(quoteForm(), ip("203.0.113.63"), NOW);
+      assert.equal(result.lead, true);
+      assert.deepEqual(logged.filter((line) => line.startsWith("[lead]")), [`[lead] saved ${result.ref}`]);
+      assert.equal(logged.join(" ").includes("Sam Lee"), false);
+      assert.equal(logged.join(" ").includes("0423"), false);
+    } finally {
+      console.log = originalLog;
+    }
+  });
+
+  it("sends a browser that posted the form itself to a result page, not to JSON", async () => {
+    const browserPost = (address: string, overrides: Record<string, string> = {}) =>
+      POST(new Request("http://localhost/api/quote", {
+        method: "POST",
+        headers: { "x-forwarded-for": address, accept: "text/html,application/xhtml+xml,*/*;q=0.8" },
+        // No script ran, so the time-on-screen field is empty.
+        body: quoteForm({ e: "", ...overrides }),
+      }));
+
+    const sent = await browserPost("203.0.113.64");
+    assert.equal(sent.status, 303);
+    assert.match(sent.headers.get("Location") ?? "", /^\/quote\/sent\?ref=Q-[ABCDEFGHJKMNPQRSTUVWXYZ23456789]{6}$/);
+    assert.equal(await sent.text(), "");
+
+    const incomplete = await browserPost("203.0.113.65", { phone: "" });
+    assert.equal(incomplete.status, 303);
+    assert.equal(incomplete.headers.get("Location"), "/quote/not-sent");
+
+    // A bot that fills the hidden field sees the same page as a real sender, with no reference.
+    const spam = await browserPost("203.0.113.66", { [QUOTE_HONEYPOT_FIELD]: "x" });
+    assert.equal(spam.status, 303);
+    assert.equal(spam.headers.get("Location"), "/quote/sent");
+
+    // The form's own script still gets JSON.
+    const scripted = await POST(new Request("http://localhost/api/quote", {
+      method: "POST",
+      headers: { "x-forwarded-for": "203.0.113.67", accept: "*/*" },
+      body: quoteForm(),
+    }));
+    assert.equal(scripted.status, 200);
+    assert.equal(((await scripted.json()) as { lead?: boolean }).lead, true);
   });
 });

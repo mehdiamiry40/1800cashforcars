@@ -126,7 +126,7 @@ export default async function ContentPageRoute({
       )}
       {p.slug === "services" && (
         <div className="mb-16">
-          <ServiceGrid />
+          <ServiceGrid heading="h2" />
         </div>
       )}
       {p.sections?.length ? <CopySections sections={p.sections} /> : <ContentBlocks blocks={p.blocks} />}

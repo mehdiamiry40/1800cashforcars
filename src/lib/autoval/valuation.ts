@@ -1,19 +1,26 @@
 import { z } from "zod";
-import { AU_STATES } from "./types";
+import { AU_STATES, VEHICLE_TEXT_MAX } from "./types";
+
+// Every text field has a ceiling. They all go into the model prompt and the search queries, so an
+// unbounded one is an open-ended cost. Longer text is cut rather than refused: a lookup can return a
+// long description, and that should not stop a valuation. The form's inputs carry the same limit.
+const cut = (max: number) => z.string().transform((value) => value.slice(0, max));
+const text = cut(VEHICLE_TEXT_MAX);
+const requiredText = (message: string) => z.string().trim().min(1, message).pipe(text);
 
 export const valuationRequestSchema = z.object({
-  make: z.string().min(1, "Make is required"),
-  model: z.string().min(1, "Model is required"),
+  make: requiredText("Make is required"),
+  model: requiredText("Model is required"),
   year: z.coerce.number().int().min(1950).max(new Date().getFullYear() + 1),
-  variant: z.string().optional(),
-  bodyType: z.string().optional(),
-  transmission: z.string().optional(),
-  fuelType: z.string().optional(),
-  engine: z.string().optional(),
-  drivetrain: z.string().optional(),
-  colour: z.string().optional(),
-  vin: z.string().optional(),
-  rego: z.string().optional(),
+  variant: text.optional(),
+  bodyType: text.optional(),
+  transmission: text.optional(),
+  fuelType: text.optional(),
+  engine: text.optional(),
+  drivetrain: text.optional(),
+  colour: text.optional(),
+  vin: cut(20).optional(),
+  rego: cut(12).optional(),
   state: z.enum(AU_STATES).optional(),
   odometerKm: z.coerce.number().int().min(0).max(2_000_000),
   condition: z.enum(["excellent", "good", "fair", "poor"]),

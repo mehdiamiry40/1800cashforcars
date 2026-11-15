@@ -17,6 +17,12 @@ export const metadata: Metadata = {
 const brisbaneIntro =
   "Our yard is in Rocklea, so we cover every part of Brisbane: northside, southside, the western suburbs and the bayside. Pickups are usually within a day or two.";
 
+// Pages that sit under an area without being its main page. Listed here so the hub links to them.
+const morePages: Record<string, { href: string; label: string }[]> = {
+  brisbane: [{ href: "/locations/toowong", label: "Car removal Toowong" }],
+  "gold-coast": [{ href: "/car-wreckers-gold-coast", label: "Car wreckers Gold Coast" }],
+};
+
 export default function LocationsPage() {
   return (
     <PageShell
@@ -43,10 +49,12 @@ export default function LocationsPage() {
             </p>
             <div className="mt-3 flex flex-wrap gap-x-6">
               {/* Brisbane's cash-for-cars page is the homepage; its removal page is the area link. */}
-              {(a.href
-                ? [{ href: "/", label: `Cash for cars ${a.name}` }, { href: areaHref(a), label: `Car removal ${a.name}` }]
-                : [{ href: areaHref(a), label: `Cash for cars ${a.name}` }]
-              ).map((l) => (
+              {[
+                ...(a.href
+                  ? [{ href: "/", label: `Cash for cars ${a.name}` }, { href: areaHref(a), label: `Car removal ${a.name}` }]
+                  : [{ href: areaHref(a), label: `Cash for cars ${a.name}` }]),
+                ...(morePages[a.slug] ?? []),
+              ].map((l) => (
                 <Link key={l.href} href={l.href} className="inline-flex min-h-11 items-center gap-2 font-semibold text-navy underline underline-offset-2">
                   {l.label}
                   <ArrowIcon aria-hidden="true" className="h-4 w-4" />
@@ -59,7 +67,7 @@ export default function LocationsPage() {
       <div className="mt-12">
         <h2 className="h-content">Brisbane suburbs we cover</h2>
         <p className="mt-3">Select a region for suburbs.</p>
-        <BrisbaneSuburbs narrow />
+        <BrisbaneSuburbs narrow links={{ Toowong: "/locations/toowong" }} />
       </div>
       <div className="mt-12">
         <CallUsAndTerms />
