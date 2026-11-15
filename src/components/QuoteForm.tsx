@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef, useState, useSyncExternalStore, type FormEvent, type ReactNode } from "react";
+import { useEffect, useId, useRef, useState, useSyncExternalStore, type FormEvent, type MouseEvent, type ReactNode } from "react";
+import { flushSync } from "react-dom";
 import { quoteLeadEventId } from "@/lib/openai-ads";
 import { reportQuoteLead } from "@/lib/quote-conversion";
 import { quoteEmailError } from "@/lib/quote-email";
@@ -29,6 +30,17 @@ export function QuoteForm({
   const [state, setState] = useState<QuoteState>(null);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [pending, setPending] = useState(false);
+  // The three optional fields (email, price, condition). On a phone they are folded away until asked
+  // for; on wider screens they always show (globals.css). A condition filled in for the visitor, as
+  // AutoVal does, starts them open so it can be seen and changed.
+  const [showMore, setShowMore] = useState(Boolean(defaults?.description));
+  const moreId = useId();
+  function openMore(event: MouseEvent<HTMLButtonElement>) {
+    const form = event.currentTarget.form;
+    // Rendered straight away, so focus can move to the first of the fields. The button it was on is gone.
+    flushSync(() => setShowMore(true));
+    form?.querySelector<HTMLElement>('[name="email"]')?.focus();
+  }
   const pathname = usePathname();
   // Until this script runs, the browser sends the form itself, so its own checks of the required
   // fields are left on. Once it runs, they are replaced by the messages below.
@@ -48,6 +60,8 @@ export function QuoteForm({
     const found = invalidFields(form);
     setErrors(found);
     if (Object.keys(found).length) {
+      // Email is the one optional field that can be wrong. Unfold it so its message and the field show.
+      if (found.email) flushSync(() => setShowMore(true));
       form.querySelector<HTMLElement>(`[name="${Object.keys(found)[0]}"]`)?.focus();
       return;
     }
@@ -128,6 +142,7 @@ export function QuoteForm({
         <input name="phone" type="tel" inputMode="tel" className={input} placeholder="Mobile" required autoComplete="tel" enterKeyHint="next" pattern={"[0-9\\s\\(\\)\\+\\-]{8,}"} title="Enter a mobile number with at least 8 digits. Spaces are fine." aria-invalid={errors.phone ? true : undefined} aria-describedby={errors.phone ? "quote-error-phone" : undefined} />
       </Field>
       </div>
+      <div id={moreId} className="quote-more" data-open={showMore || undefined}>
       <Field name="email" error={errors.email}>
         <span className="field-float">Email (optional)</span>
         <input name="email" type="email" inputMode="email" className={input} placeholder="Email (optional)" autoComplete="email" autoCapitalize="none" autoCorrect="off" spellCheck={false} enterKeyHint="next" aria-invalid={errors.email ? true : undefined} aria-describedby={errors.email ? "quote-error-email" : undefined} />
@@ -153,6 +168,13 @@ export function QuoteForm({
           aria-describedby={errors.description ? "quote-error-description" : undefined}
         />
       </Field>
+      </div>
+      {!showMore && (
+        <button type="button" className="quote-more-toggle" aria-expanded="false" aria-controls={moreId} onClick={openMore}>
+          <span aria-hidden="true">+</span>
+          <span className="underline underline-offset-4">Add email, price or condition (optional)</span>
+        </button>
+      )}
       {Object.keys(errors).length > 0 && (
         <div role="alert" className="bg-red-50 px-3 py-2 text-[14px] font-semibold text-red-800">
           <p>Check the highlighted fields.</p>
