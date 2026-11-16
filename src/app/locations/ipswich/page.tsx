@@ -14,9 +14,9 @@ const PRICE = "/scrap-car-prices-brisbane";
 const QLD_CANCEL = "https://www.qld.gov.au/transport/registration/cancel";
 const COUNCIL = "https://www.ipswich.qld.gov.au/Live/Roads-and-Parking/Abandoned-Vehicles";
 const DESCRIPTION =
-  "Cash for cars and car removal in Ipswich, Springfield, Ripley and Rosewood. Free towing, never deducted. Scrap and running cars, utes, trucks. 0423 514 111.";
+  "Sell my car in Ipswich: cash for cars and free car removal in Springfield, Ripley and Rosewood. Towing is never deducted. Quotes on 0423 514 111.";
 const DIRECT_ANSWER =
-  "Yes, we pay cash for unwanted cars, utes, vans and trucks anywhere in the City of Ipswich, from Goodna and Springfield to Rosewood and Marburg. Our Rocklea yard sits at the Brisbane end of the Ipswich Motorway, and towing is always free. A non-running sedan typically brings $300 to $800; trucks start from $1,000.";
+  "Yes, you can sell your car in Ipswich to us. We pay cash for unwanted cars, utes, vans and trucks anywhere in the City of Ipswich, from Goodna and Springfield to Rosewood and Marburg. Our Rocklea yard sits at the Brisbane end of the Ipswich Motorway, and towing is always free. A non-running sedan typically brings $300 to $800; trucks start from $1,000.";
 
 const priceRows = [
   { vehicle: "Stripped shell", price: "$150 – $500" },
@@ -32,6 +32,11 @@ const faqs = [
     q: "How much cash can I get for my car in Ipswich?",
     a: "A scrap small hatch is $150 to $400, a non-running sedan is $300 to $800, and an older car that still runs is $500 to $1,600. Trucks start from $1,000. Every vehicle is quoted individually, and towing is free and never deducted. You can see all vehicle types in our price guide.",
     links: [{ phrase: "see all vehicle types in our price guide", href: PRICE }],
+  },
+  {
+    q: "How do I sell my car in Ipswich?",
+    a: "Tell us the make, model, year, condition and suburb, and how a truck reaches the car if it is on acreage. A firm price is usually within the hour. We collect from anywhere in the City of Ipswich, pickups are usually within a day or two, and we pay cash or bank transfer before the car leaves. Towing is free and never deducted. Each step is set out under car removal in Ipswich, step by step.",
+    links: [{ phrase: "car removal in Ipswich, step by step", href: "#ipswich-steps" }],
   },
   {
     q: "Do I need a roadworthy or current rego to sell my car?",
@@ -59,7 +64,8 @@ const faqs = [
 ];
 
 export const metadata: Metadata = {
-  title: "Cash for Cars & Car Removal Ipswich",
+  // "Sell my car" leads, and "cash for cars" stays: it is still this page's biggest query.
+  title: "Sell My Car Ipswich & Cash for Cars",
   description: DESCRIPTION,
   alternates: { canonical: PATH },
   openGraph: pageOpenGraph(PATH),
@@ -80,7 +86,7 @@ export default function IpswichLocationPage() {
         })}
       />
 
-      <AreaHero h1="Cash for cars and car removal in Ipswich">
+      <AreaHero h1="Sell my car in Ipswich, cash for cars">
         <p className="mt-4 text-[18px] leading-relaxed">{DIRECT_ANSWER}</p>
         <p className="mt-3 text-[18px] leading-relaxed">
           Guide prices from our{" "}
@@ -188,7 +194,9 @@ export default function IpswichLocationPage() {
           Flat tyres or a seized engine are fine. Missing wheels or a missing key does not stop the purchase. Mention either one in the request and we will send a truck that can load the car. Describe shed or backyard access and we will set a time that suits you.
         </p>
 
-        <h2 className="h-content mt-12 scroll-mt-24">Car removal in Ipswich, step by step</h2>
+        <h2 id="ipswich-steps" className="h-content mt-12 scroll-mt-24">
+          Car removal in Ipswich, step by step
+        </h2>
         <ol className="mt-4 list-decimal space-y-3 pl-5 text-[18px] leading-relaxed">
           <li>Tell us the make, model, year and condition, where the vehicle is, and how a tow truck reaches it. On a rural block, add gates, tracks and soft ground.</li>
           <li>We send a price, and quotes are usually within the hour.</li>

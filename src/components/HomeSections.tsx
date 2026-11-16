@@ -9,6 +9,7 @@ import {
   servicePhotos,
   vehicleVisuals,
 } from "@/lib/vehicle-visuals";
+import { RichText } from "./AreaPage";
 import { BrisbaneSuburbs, Faq } from "./Blocks";
 import { QuoteLink } from "./QuoteLink";
 import {
@@ -24,9 +25,18 @@ import {
   TruckIcon,
 } from "./icons";
 
-const serviceCards = [
+// `homeTitle` is the label on the homepage only. It sends the how-to and scrap queries to
+// their own pages, so the homepage can stay the "cash for cars Brisbane" hub.
+const serviceCards: {
+  title: string;
+  homeTitle?: string;
+  href: string;
+  visual: (typeof servicePhotos)[keyof typeof servicePhotos];
+  Icon: typeof CashIcon;
+}[] = [
   {
     title: "Cash for cars",
+    homeTitle: "Sell your car for cash in Brisbane",
     href: "/cash-for-cars",
     visual: servicePhotos.cash,
     Icon: CashIcon,
@@ -45,6 +55,7 @@ const serviceCards = [
   },
   {
     title: "Scrap car removal",
+    homeTitle: "Cash for scrap cars in Brisbane",
     href: "/scrap-car-removal",
     visual: servicePhotos.scrap,
     Icon: CarIcon,
@@ -77,17 +88,21 @@ export function HomeServices() {
             <ArrowIcon aria-hidden="true" className="h-4 w-4" />
           </Link>
         </div>
-        <ServiceGrid />
+        <ServiceGrid home />
       </div>
     </section>
   );
 }
 
-/** `heading` is the level of each card's title: "h2" where the grid sits straight under the page's h1. */
-export function ServiceGrid({ heading: Heading = "h3" }: { heading?: "h2" | "h3" }) {
+/**
+ * `heading` is the level of each card's title: "h2" where the grid sits straight under the page's h1.
+ * `home` uses the homepage labels.
+ */
+export function ServiceGrid({ heading: Heading = "h3", home = false }: { heading?: "h2" | "h3"; home?: boolean }) {
+  const cards = serviceCards.map((card) => ({ ...card, title: (home && card.homeTitle) || card.title }));
   return (
     <div className="service-grid grid grid-cols-2 gap-x-3 gap-y-5 sm:gap-x-6 sm:gap-y-8 lg:grid-cols-3">
-      {serviceCards.map(({ title, href, visual, Icon }) => (
+      {cards.map(({ title, href, visual, Icon }) => (
         <Link key={href} href={href} className="service-card group block">
           <div className="service-media relative aspect-[4/3] overflow-hidden">
             <Image
@@ -174,11 +189,12 @@ export function BrisbaneCashForCars() {
         "Every car gets its own price. We look at the make, model, year and kilometres, whether it runs, the condition of the engine, gearbox and panels, and what scrap metal is worth this week. A late-model car that runs is worth the most, but even a rusted-out wreck has value in its parts and metal.",
         "Tell us about the car and we'll give you a firm price, usually within the hour. The price we quote is the price we pay when the car is as described. Nothing comes off for towing.",
       ],
-      link: {
-        href: "/scrap-car-prices-brisbane",
-        lead: "Wondering ",
-        text: "how much your scrap car is worth",
-        tail: "? Our current Brisbane guide sets out the ranges.",
+      note: {
+        text: "Wondering how much your scrap car is worth? Our current Brisbane guide sets out the ranges, and cash for scrap cars in Brisbane is handled on the scrap car removal page.",
+        links: [
+          { phrase: "how much your scrap car is worth", href: "/scrap-car-prices-brisbane" },
+          { phrase: "cash for scrap cars in Brisbane", href: "/scrap-car-removal" },
+        ],
       },
     },
     {
@@ -187,11 +203,9 @@ export function BrisbaneCashForCars() {
         "We buy sedans, hatchbacks, 4WDs, SUVs, utes, vans and trucks, from every make: Toyota, Holden, Ford, Mazda, Hyundai, Nissan, Mitsubishi, Kia and the rest. Running or not, registered or not.",
         "That includes crashed and written-off cars, flood and hail damaged cars, cars that failed a roadworthy, cars with a blown engine or no keys, and old cars that have been sitting in the backyard for years.",
       ],
-      link: {
-        href: "/car-removal-no-keys-no-wheels",
-        lead: "We also collect ",
-        text: "cars with no keys or no wheels",
-        tail: ".",
+      note: {
+        text: "We also collect cars with no keys or no wheels.",
+        links: [{ phrase: "cars with no keys or no wheels", href: "/car-removal-no-keys-no-wheels" }],
       },
     },
     {
@@ -199,7 +213,10 @@ export function BrisbaneCashForCars() {
       paras: [
         "Our yard is in Rocklea, on Brisbane's southside, so a tow truck or tilt tray is usually at your place within a day or two. We pick up from houses, units, workshops, car parks and the roadside, Monday to Saturday.",
       ],
-      link: { href: "/car-removal-brisbane", text: "free car removal Brisbane" },
+      note: {
+        text: "More about our free car removal Brisbane service.",
+        links: [{ phrase: "free car removal Brisbane", href: "/car-removal-brisbane" }],
+      },
     },
     {
       title: "Paperwork and rego when you sell",
@@ -227,11 +244,9 @@ export function BrisbaneCashForCars() {
                 {t.paras.map((p) => (
                   <p key={p}>{p}</p>
                 ))}
-                {t.link && (
+                {t.note && (
                   <p>
-                    {"lead" in t.link ? t.link.lead : "More about our "}
-                    <Link href={t.link.href}>{t.link.text}</Link>
-                    {"tail" in t.link ? t.link.tail : " service."}
+                    <RichText text={t.note.text} links={t.note.links} />
                   </p>
                 )}
               </div>
@@ -607,7 +622,7 @@ export function HomeFaq({ items }: { items?: { q: string; a: string }[] }) {
             href="/cash-for-cars"
             className="inline-flex min-h-11 items-center gap-2 font-semibold"
           >
-            More about selling your car{" "}
+            Sell your car for cash in Brisbane{" "}
             <ArrowIcon aria-hidden="true" className="h-4 w-4" />
           </Link>
         </div>

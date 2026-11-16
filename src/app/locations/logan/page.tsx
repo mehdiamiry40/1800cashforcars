@@ -55,6 +55,12 @@ const faqs = [
     a: "All 69 suburbs, from Rochedale South and Springwood down to Jimboomba, Flagstone and Yarrabilba. The names follow Logan City Council, including Beenleigh, Browns Plains and the southern acreage. Towing is free across that area and is never deducted. See Logan suburbs we cover for every name.",
     links: [{ phrase: "Logan suburbs we cover", href: "#logan-suburbs" }],
   },
+  {
+    // Springwood searches were landing on the homepage. It is covered here, not on a page of its own.
+    q: "Do you buy cars in Springwood?",
+    a: "Yes. Springwood is in the City of Logan, about 18 km by road from our Rocklea yard, and it is covered on this page. The same free tow and the same price guide apply. Nearby suburbs are covered in the section along the Pacific Motorway.",
+    links: [{ phrase: "along the Pacific Motorway", href: "#pacific-motorway" }],
+  },
 ];
 
 export const metadata: Metadata = {
@@ -111,9 +117,9 @@ export default function LoganLocationPage() {
         <p className="mt-3 text-[18px] leading-relaxed">
           West and south-west Logan follows Beaudesert Road onto the Mount Lindesay Highway: Browns Plains, Park Ridge, Greenbank, Jimboomba and Flagstone. Browns Plains is about 17 km by road from the yard. Jimboomba is about 36 km by road.
         </p>
-        <h3 className="mt-8 font-heading text-[22px] font-semibold leading-tight text-navy">Along the Pacific Motorway</h3>
+        <h3 id="pacific-motorway" className="mt-8 scroll-mt-24 font-heading text-[22px] font-semibold leading-tight text-navy">Along the Pacific Motorway</h3>
         <p className="mt-3 text-[18px] leading-relaxed">
-          Eastern Logan sits on the Pacific Motorway, reached via Kessels Road: Springwood, Shailer Park, Loganholme, Beenleigh and Eagleby. Springwood is about 18 km by road. Beenleigh is about 31 km by road.
+          Eastern Logan sits on the Pacific Motorway, reached via Kessels Road: Springwood, Shailer Park, Loganholme, Beenleigh and Eagleby. Springwood is about 18 km by road. Beenleigh is about 31 km by road. Cash for cars in Springwood is part of this Logan service, including nearby Daisy Hill, Slacks Creek and Underwood. If the car is in Springwood, the same free tow and the same price guide apply.
         </p>
         <h3 className="mt-8 font-heading text-[22px] font-semibold leading-tight text-navy">Acreage and the semi-rural south</h3>
         <p className="mt-3 text-[18px] leading-relaxed">
@@ -123,6 +129,16 @@ export default function LoganLocationPage() {
           <a href="#logan-suburbs" className="font-semibold text-navy underline underline-offset-4">
             See every Logan suburb we cover ↓
           </a>
+        </p>
+
+        <h2 id="car-removal-logan" className="h-content mt-12 scroll-mt-24">
+          Car removal in Logan
+        </h2>
+        <p className="mt-4 text-[18px] leading-relaxed">
+          <RichText
+            text="Yes, this page is the car removal service for the City of Logan, and the towing is always free and never deducted from your price. We collect from all 69 Logan suburbs. The truck comes from our Rocklea yard, which is on Brisbane's southside and is not a Logan address. Pickups are usually within a day or two. You are paid in cash or by bank transfer before the car leaves. If the car is on the Brisbane side of the boundary, see free car removal in Brisbane."
+            links={[{ phrase: "free car removal in Brisbane", href: "/car-removal-brisbane" }]}
+          />
         </p>
 
         <h2 className="h-content mt-12 scroll-mt-24">How much will I get for my car in Logan?</h2>

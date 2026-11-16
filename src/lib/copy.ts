@@ -25,10 +25,17 @@ export type Block = {
 
 export type ContentPage = {
   slug: string;
+  /** The page's H1. */
   title: string;
+  /** Short name for the breadcrumb, related links, the FAQ heading and schema. Defaults to `title`. */
+  label?: string;
   metaTitle: string;
   description: string;
   intro?: string;
+  /** One line under the intro, usually a hand-off link to a neighbouring page. */
+  introNote?: CopyParagraph;
+  /** Related-link labels used on this page only, keyed by href. */
+  relatedLabels?: Record<string, string>;
   blocks: Block[];
   /** Visible long-form copy. When set, the page renders this instead of accordion blocks. */
   sections?: CopySection[];

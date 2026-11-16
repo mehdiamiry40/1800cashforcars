@@ -8,7 +8,16 @@ import { QuoteLink } from "./QuoteLink";
 
 const linkClass = "font-semibold text-navy underline underline-offset-4";
 
-export function RichText({ text, links = [] }: { text: string; links?: { phrase: string; href: string }[] }) {
+export function RichText({
+  text,
+  links = [],
+  linkClassName = linkClass,
+}: {
+  text: string;
+  links?: { phrase: string; href: string }[];
+  /** Link styling, for text that sits on a dark background. */
+  linkClassName?: string;
+}) {
   const chunks: { text: string; href?: string }[] = [];
   let rest = text;
   while (rest.length) {
@@ -36,14 +45,14 @@ export function RichText({ text, links = [] }: { text: string; links?: { phrase:
         if (!chunk.href) return <span key={i}>{chunk.text}</span>;
         if (chunk.href.startsWith("/")) {
           return (
-            <Link key={i} href={chunk.href} className={linkClass}>
+            <Link key={i} href={chunk.href} className={linkClassName}>
               {chunk.text}
             </Link>
           );
         }
         const external = chunk.href.startsWith("http");
         return (
-          <a key={i} href={chunk.href} className={linkClass} {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}>
+          <a key={i} href={chunk.href} className={linkClassName} {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}>
             {chunk.text}
           </a>
         );

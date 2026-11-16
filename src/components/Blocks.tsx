@@ -261,13 +261,22 @@ export function ContentBlocks({ blocks }: { blocks: Block[] }) {
 }
 
 // Links to the other service and area pages, so every page passes visitors (and Google) on to its neighbours.
-export function RelatedLinks({ current }: { current: string }) {
+export function RelatedLinks({
+  current,
+  labels = {},
+}: {
+  current: string;
+  /** Labels for this page only, keyed by href. */
+  labels?: Record<string, string>;
+}) {
   const services = [
     ...pages
       .filter((p) => p.slug !== "services")
-      .map((p) => ({ href: `/${p.slug}`, label: p.title })),
+      .map((p) => ({ href: `/${p.slug}`, label: p.label ?? p.title })),
     { href: "/scrap-car-prices-brisbane", label: "Scrap car prices Brisbane" },
-  ].filter((l) => l.href !== current);
+  ]
+    .filter((l) => l.href !== current)
+    .map((l) => ({ ...l, label: labels[l.href] ?? l.label }));
   const places = [
     { href: "/", label: "Cash for cars Brisbane" },
     { href: "/car-removal-brisbane", label: "Car removal Brisbane" },

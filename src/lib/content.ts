@@ -57,17 +57,25 @@ export const pages: ContentPage[] = [
   truckRemovalPage,
   {
     slug: "scrap-car-removal",
-    intro: "End-of-life cars. The metal sets the price floor.",
-    title: "Scrap car removal",
-    metaTitle: "Scrap Car Removal Brisbane & Gold Coast",
+    // This page owns "cash for scrap cars". The price guide owns how-much and price queries, so no price table here.
+    intro:
+      "Yes, we pay cash for scrap cars in Brisbane and across South East Queensland, including the Gold Coast, Logan, Ipswich and the Sunshine Coast. In Tweed Heads, in NSW, payment is by bank transfer only. Towing is always free and never taken off the price, and we pay you before the car leaves. Pickups are usually within a day or two.",
+    introNote: {
+      text: "For guide ranges by car type and condition, see scrap car prices in Brisbane. That page is the price guide; this page is how we collect the car and pay you.",
+      links: [{ phrase: "scrap car prices in Brisbane", href: "/scrap-car-prices-brisbane" }],
+    },
+    title: "Cash for scrap cars and free scrap car removal",
+    label: "Scrap car removal",
+    metaTitle: "Cash for Scrap Cars Brisbane",
     description:
-      "Free scrap car removal across Brisbane, the Gold Coast and South East QLD. We pay for scrap, junk and wrecked cars. Pickups are usually within a day or two.",
+      "Cash for scrap cars in Brisbane and South East QLD. We collect scrap, junk and wrecked cars, pay you before they leave, and the tow is free.",
+    relatedLabels: { "/scrap-car-prices-brisbane": "How much is a scrap car worth in Brisbane?" },
     blocks: [
       {
         heading: "What is a scrap car worth?",
         summary:
-          "The metal sets the floor. The weight of the car and what scrap metal is worth this week set the minimum we pay. We pay you before it is towed. The tow is free and is never taken off that price. Tell us the make, model, year and what is wrong, and a firm price is usually within the hour. For guide ranges by car type and condition, see our scrap car prices in Brisbane.",
-        links: [{ phrase: "scrap car prices in Brisbane", href: "/scrap-car-prices-brisbane" }],
+          "The metal sets the floor. The weight of the car and what scrap metal is worth this week set the minimum we pay, and the free tow is never taken off it. Tell us the make, model, year and what is wrong, and a firm price is usually within the hour. This page does not list prices. The ranges by car type and condition are in our Brisbane scrap car price guide.",
+        links: [{ phrase: "Brisbane scrap car price guide", href: "/scrap-car-prices-brisbane" }],
         icon: "car",
         paras: [
           "A car that isn't worth fixing still has value in its metal. Rust, missing parts, flat tyres or no keys: tell us about it and we'll still make you an offer.",
@@ -123,6 +131,11 @@ export const pages: ContentPage[] = [
       },
     ],
     faqs: [
+      {
+        q: "Do you pay cash for scrap cars in Brisbane?",
+        a: "Yes. In Queensland, including Brisbane, you can choose cash or bank transfer, paid before the car leaves. In NSW, including Tweed Heads, payment is by bank transfer only. Towing is free and never deducted. For how much a scrap car might be worth, see scrap car prices in Brisbane.",
+        links: [{ phrase: "scrap car prices in Brisbane", href: "/scrap-car-prices-brisbane" }],
+      },
       {
         q: "Will I get paid for a scrap car?",
         a: "Yes. Even a car that will never run again is worth something for its metal. We pay you before we tow it away, and the tow is free.",
