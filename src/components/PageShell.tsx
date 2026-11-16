@@ -10,16 +10,25 @@ import type { RooProps } from "./Roo";
 import { ArrowIcon, PhoneIcon } from "./icons";
 import { site } from "@/lib/site";
 
+/** Link styling for text in the navy page hero. */
+export const heroLinkClass = "font-semibold text-white underline underline-offset-4";
+
 export function PageShell({
   title,
+  crumb = title,
   path,
   intro,
+  introNote,
   forms = true,
   children,
 }: {
   title: string;
+  /** Breadcrumb name, when the H1 is longer than the page's short name. */
+  crumb?: string;
   path: string;
   intro?: string;
+  /** One line under the intro. Links in it should use `heroLinkClass`. */
+  introNote?: React.ReactNode;
   roo?: RooProps;
   forms?: boolean;
   children: React.ReactNode;
@@ -27,7 +36,7 @@ export function PageShell({
   const visual = serviceVisuals[path];
   return (
     <>
-      <Breadcrumbs trail={[{ name: title, path }]} />
+      <Breadcrumbs trail={[{ name: crumb, path }]} />
       <section className="page-hero relative bg-navy text-white">
         <div className="mx-auto grid max-w-7xl md:grid-cols-[1.2fr_1fr]">
           <div className="page-hero-media relative aspect-[16/9] overflow-hidden bg-white md:order-2 md:aspect-auto md:min-h-80">
@@ -56,6 +65,11 @@ export function PageShell({
                 {intro}
               </p>
             )}
+            {introNote && (
+              <p className="mt-3 max-w-xl text-[16px] leading-relaxed">
+                {introNote}
+              </p>
+            )}
             {forms && (
               <div className="page-hero-actions mt-7 flex flex-wrap gap-3">
                 <QuoteLink from="page-title" className="btn-brand">
@@ -82,7 +96,7 @@ export function PageShell({
           <span aria-hidden="true" className="text-brand">
             ›
           </span>
-          <span className="font-semibold">{title}</span>
+          <span className="font-semibold">{crumb}</span>
         </div>
       </nav>
       <section

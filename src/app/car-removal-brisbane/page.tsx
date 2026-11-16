@@ -2,13 +2,13 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { BrisbaneSuburbs, ContentBlocks, Faq, RelatedLinks } from "@/components/Blocks";
 import { JsonLd } from "@/components/JsonLd";
-import { PageShell } from "@/components/PageShell";
+import { heroLinkClass, PageShell } from "@/components/PageShell";
 import { brisbaneSuburbs, pageOpenGraph, site } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Free Car Removal Brisbane, Cash Paid",
   description:
-    "Free car removal Brisbane wide. We pick up scrap, old and unwanted cars and pay you before they leave. Pickups are usually within a day or two.",
+    "Free car removal in Brisbane: we collect scrap, old and unwanted cars and pay you before they leave. Pickups are usually within a day or two.",
   alternates: { canonical: "/car-removal-brisbane" },
   openGraph: pageOpenGraph("/car-removal-brisbane"),
 };
@@ -17,6 +17,10 @@ const faqs = [
   {
     q: "Is car removal in Brisbane really free?",
     a: "Yes. We don't charge for pickup or towing anywhere in Brisbane, and we don't take it off the price we pay you.",
+  },
+  {
+    q: "What does free car removal in Brisbane include?",
+    a: "Free towing from the collection address anywhere in Brisbane, no deduction from the price, and payment in cash or by bank transfer before the car leaves. You still need photo ID and proof of ownership. Pickups are usually within a day or two.",
   },
   {
     q: "How quickly can you remove my car?",
@@ -50,6 +54,18 @@ const faqs = [
     q: "What should I do with the rego after you take the car?",
     a: "Cancel the registration with Transport and Main Roads (you can do it online) and you may get a refund for the time left. We'll give you a receipt for your records.",
   },
+  {
+    // Keeps the generic "free car removal" query honest about where the truck goes.
+    q: "Do you offer free car removal outside Brisbane?",
+    a: "Yes, in the rest of South East Queensland and just over the NSW border. From the same Rocklea yard we cover Logan, Ipswich, the Gold Coast, the Sunshine Coast and Tweed Heads. Towing is free in each of them. Payment over the border is by bank transfer only. We do not collect outside these areas.",
+    links: [
+      { phrase: "Logan", href: "/locations/logan" },
+      { phrase: "Ipswich", href: "/locations/ipswich" },
+      { phrase: "Gold Coast", href: "/locations/gold-coast" },
+      { phrase: "Sunshine Coast", href: "/locations/sunshine-coast" },
+      { phrase: "Tweed Heads", href: "/locations/tweed-heads" },
+    ],
+  },
 ];
 
 const faqLd = {
@@ -77,7 +93,16 @@ export default function CarRemovalBrisbane() {
     <PageShell
       title="Free car removal in Brisbane"
       path="/car-removal-brisbane"
-      intro="Free pickup across Brisbane. Paid before your car leaves."
+      intro="Yes, car removal in Brisbane is free. We collect scrap, old and unwanted cars from across the city, the towing is never charged or taken off your price, and we pay you in cash or by bank transfer before the car leaves. Pickups are usually within a day or two from our Rocklea yard."
+      introNote={
+        <>
+          Guide prices are on our{" "}
+          <Link href="/scrap-car-prices-brisbane" className={heroLinkClass}>
+            scrap car prices in Brisbane
+          </Link>{" "}
+          page.
+        </>
+      }
       roo={{ pouchCar: true, hop: true }}
     >
       <JsonLd data={faqLd} />
@@ -97,7 +122,11 @@ export default function CarRemovalBrisbane() {
         blocks={[
           {
             heading: "Is car removal in Brisbane free?",
-            summary: "Yes. Clearing a Brisbane car costs you nothing on our side. Rocklea does not invoice a call-out, and the figure agreed for the vehicle stays intact. A shell that is only fit for scrap is paid as well. Name any day from Monday through to Saturday.",
+            summary: "Yes. Free car removal in Brisbane means no pickup fee, no call-out fee and nothing taken off the price. Towing is always free on the northside, the southside, in the west and on the bayside, not only near our Rocklea yard. We still pay you for the car, in cash or by bank transfer before it leaves, even when it is only fit for scrap. That case is covered on scrap car removal, and we also collect cars with no keys or no wheels. Pickups are usually within a day or two.",
+            links: [
+              { phrase: "scrap car removal", href: "/scrap-car-removal" },
+              { phrase: "cars with no keys or no wheels", href: "/car-removal-no-keys-no-wheels" },
+            ],
             icon: "truck",
             paras: [
               "Our yard is in Rocklea, on Brisbane's southside, so we can get a tow truck or tilt tray to most Brisbane suburbs, usually within a day or two. We'll collect the car from your driveway, the street, a workshop, a car park or the side of the road.",
@@ -106,7 +135,7 @@ export default function CarRemovalBrisbane() {
           },
           {
             heading: "Do you remove cars with no keys or no wheels?",
-            summary: "Yes. A Brisbane car missing its key, its wheels, or both is still purchased. Say which when you ask, so the truck that leaves Rocklea can deal with it. It need not roll. The journey is not billed, and settlement happens before we drive off.",
+            summary: "Yes. A Brisbane car that is missing its keys, its wheels, or both is still bought. Tell us which when you ask for a price, so the right truck is sent. The car does not need to roll. The tow is free, and you are paid before the car leaves.",
             icon: "car",
             list: [
               { bold: "Scrap and wrecked cars", text: "rusted out, stripped or sitting in the yard for years." },
@@ -119,7 +148,7 @@ export default function CarRemovalBrisbane() {
           },
           {
             heading: "How fast can you collect a car in Brisbane?",
-            summary: "Pickups are usually within a day or two. The yard is in Rocklea, so most of this city is a short hop. You set the meeting, Monday to Saturday. A firm price is usually within the hour.",
+            summary: "Pickups are usually within a day or two. The yard is in Rocklea, on Brisbane's southside, and you set the time, Monday to Saturday. A firm price is usually within the hour.",
             icon: "cash",
             list: [
               { bold: "Get a quote", text: "fill in the quick form with the car's details (or call us) and we'll text you a price." },
@@ -129,7 +158,11 @@ export default function CarRemovalBrisbane() {
           },
           {
             heading: "Why our car removal is free",
-            summary: "We make our money from parts and metal, not towing fees.",
+            summary: "Because the car itself has value. Even one that does not run is worth its metal, and the price we quote covers whatever else the vehicle is worth as it stands. That is why the tow is included and never taken off the price, and why there is no removal fee. Guide ranges are in the Brisbane scrap car price guide. A car at the end of its life is covered on cash for scrap cars.",
+            links: [
+              { phrase: "Brisbane scrap car price guide", href: "/scrap-car-prices-brisbane" },
+              { phrase: "cash for scrap cars", href: "/scrap-car-removal" },
+            ],
             icon: "recycle",
             paras: [
               "We wreck and recycle the cars we collect, so a car is worth something to us even when it doesn't run. That's why we can tow it away for free and still pay you for it, instead of charging a removal fee.",
@@ -138,7 +171,11 @@ export default function CarRemovalBrisbane() {
           },
           {
             heading: "Car removal anywhere in Brisbane",
-            summary: "Northside, southside, west and bayside, Monday to Saturday.",
+            summary: "Free car removal covers all four sides of Brisbane: the northside, the southside, the western suburbs and the bayside, Monday to Saturday. The suburb groups are listed below. Logan and Ipswich are separate cities served from the same Rocklea yard, and each has its own page. Car removal in Logan carries on south from the southside, and car removal in Ipswich carries on west from Oxley, Darra, Inala and Forest Lake.",
+            links: [
+              { phrase: "Car removal in Logan", href: "/locations/logan" },
+              { phrase: "car removal in Ipswich", href: "/locations/ipswich" },
+            ],
             icon: "truck",
             paras: [
               "From Rocklea we cover the southside suburbs like Moorooka, Sunnybank and Mt Gravatt, and we cover the northside (Chermside, Aspley, Nundah), the western suburbs (Indooroopilly, Kenmore, Forest Lake) and the bayside (Wynnum, Manly, Carindale) too.",
@@ -150,14 +187,11 @@ export default function CarRemovalBrisbane() {
 
       <div className="mt-12">
         <h2 className="h-content">Brisbane suburbs we cover</h2>
+        {/* Logan and Ipswich are linked once, in "Car removal anywhere in Brisbane" above. */}
         <p className="mt-3">
-          Brisbane, plus Logan and Ipswich. Select a region for suburbs. Southside pickups continue{" "}
-          <Link href="/locations/logan" className="font-semibold text-navy underline underline-offset-2">
-            heading south into Logan
-          </Link>
-          . From Oxley, Darra, Inala and Forest Lake we also collect{" "}
-          <Link href="/locations/ipswich" className="font-semibold text-navy underline underline-offset-2">
-            further west into Ipswich
+          Select a region to see the suburbs. Toowong and the inner west have their own page:{" "}
+          <Link href="/locations/toowong" className="font-semibold text-navy underline underline-offset-2">
+            free car removal in Toowong
           </Link>
           .
         </p>
@@ -177,6 +211,8 @@ export default function CarRemovalBrisbane() {
         Want to know what your car is worth first? See{" "}
         <Link href="/" className="font-bold text-navy underline underline-offset-2">cash for cars Brisbane</Link>, or check out{" "}
         <Link href="/truck-removal" className="font-bold text-navy underline underline-offset-2">cash for trucks</Link>.
+        The sale itself, step by step, is on{" "}
+        <Link href="/cash-for-cars" className="font-bold text-navy underline underline-offset-2">sell your car for cash in Brisbane</Link>.
       </p>
       <RelatedLinks current="/car-removal-brisbane" />
     </PageShell>

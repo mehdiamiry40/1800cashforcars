@@ -89,6 +89,11 @@ const faqs: { q: string; a: string }[] = [
     a: "You're paid by cash or bank transfer when we pick the car up, before it leaves. You choose which, except in NSW. Tweed Heads is in NSW, so payment there is by bank transfer only. We confirm the pickup time after you accept the price. Have photo ID and proof of ownership ready on the day.",
   },
   {
+    // Hands the service query to the removal page. This page stays the price guide.
+    q: "Do you pay cash for scrap cars in Brisbane?",
+    a: "Yes, and the collection service is on our scrap car removal page. This page explains the guide ranges. In Queensland you can choose cash or bank transfer, paid before the car leaves. In NSW, including Tweed Heads, it is bank transfer only.",
+  },
+  {
     q: "Is the AutoVal estimate the same as your cash offer?",
     a: "No. AutoVal estimates trade-in, private-sale and dealer prices from live listings. Our cash offer is a firm price to buy your car as it is, including scrap or damaged cars. You can check your car's market value with AutoVal if you might sell privately, or get a firm quote for your car from us. The two numbers are not the same.",
   },
@@ -97,6 +102,7 @@ const faqs: { q: string; a: string }[] = [
 const inlineLinks: { phrase: string; href: string }[] = [
   { phrase: "check your car's market value with AutoVal", href: "/autoval" },
   { phrase: "get a firm quote for your car", href: "/quote" },
+  { phrase: "scrap car removal page", href: "/scrap-car-removal" },
   { phrase: site.phoneDisplay, href: site.phoneHref },
 ];
 
@@ -257,6 +263,14 @@ export default function ScrapCarPricesBrisbane() {
             <p className="mt-5 max-w-2xl text-[18px] leading-relaxed sm:text-[20px]">{DIRECT_ANSWER}</p>
             <p className="mt-4 text-[16px] font-semibold">
               Prices updated <time dateTime={UPDATED_ISO}>{UPDATED_LABEL}</time> · Set by our Rocklea yard team
+            </p>
+            {/* This page is the guide. The collection service, and "cash for scrap cars", belong to /scrap-car-removal. */}
+            <p className="mt-4 max-w-2xl text-[16px] leading-relaxed">
+              This page is the price guide. If you want the scrap car collected and to be paid for it, go to{" "}
+              <Link href="/scrap-car-removal" className="font-semibold text-white underline underline-offset-4">
+                cash for scrap cars and scrap car removal
+              </Link>
+              . Towing is free, and payment is made before the car leaves.
             </p>
             <PriceActions from="price-hero" light sms speed />
           </div>
@@ -434,7 +448,7 @@ export default function ScrapCarPricesBrisbane() {
           <p>Indicative rates seen {UPDATED_LABEL} from OnlineScrapYard and OzScrap.</p>
           <p>
             Our own towing is still free, and it is never deducted from the price we quote. If the car is only worth the metal, we still collect it. Read about{" "}
-            <Link href="/scrap-car-removal">scrap car removal</Link>.
+            <Link href="/scrap-car-removal">scrap car removal</Link> if you want the car collected.
           </p>
 
           <h2 className="h-content mt-12">How do we work out your offer?</h2>

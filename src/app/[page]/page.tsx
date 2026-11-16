@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { CopySections } from "@/components/AreaPage";
+import { CopySections, RichText } from "@/components/AreaPage";
 import { CallUsAndTerms, ContentBlocks, Faq, RelatedLinks } from "@/components/Blocks";
 import { ServiceGrid } from "@/components/HomeSections";
 import { JsonLd, ServiceLd } from "@/components/JsonLd";
-import { PageShell } from "@/components/PageShell";
+import { heroLinkClass, PageShell } from "@/components/PageShell";
 import type { RooProps } from "@/components/Roo";
 import { pages } from "@/lib/content";
 import { areas, pageOpenGraph } from "@/lib/site";
@@ -106,19 +106,25 @@ export default async function ContentPageRoute({
   const { page } = await params;
   const p = pages.find((x) => x.slug === page);
   if (!p) notFound();
+  // The H1 can be a full phrase. The breadcrumb, schema and FAQ heading keep the short name.
+  const name = p.label ?? p.title;
 
   return (
     <PageShell
       title={p.title}
+      crumb={name}
       path={`/${p.slug}`}
       intro={p.intro ?? p.description}
+      introNote={
+        p.introNote && <RichText text={p.introNote.text} links={p.introNote.links} linkClassName={heroLinkClass} />
+      }
       roo={poses[p.slug]}
       forms={p.slug !== "services"}
     >
       {p.slug !== "services" && (
         <ServiceLd
-          name={p.title}
-          serviceType={p.title}
+          name={name}
+          serviceType={name}
           description={p.description}
           path={`/${p.slug}`}
           areaServed={areas.map((a) => `${a.name}, ${a.state}`)}
@@ -140,13 +146,13 @@ export default async function ContentPageRoute({
               mainEntity: p.faqs.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
             }}
           />
-          <h2 className="h-content">{p.title} FAQs</h2>
+          <h2 className="h-content">{name} FAQs</h2>
           <div className="mt-6">
             <Faq bare items={p.faqs} />
           </div>
         </div>
       )}
-      <RelatedLinks current={`/${p.slug}`} />
+      <RelatedLinks current={`/${p.slug}`} labels={p.relatedLabels} />
       <div className="mt-12">
         <CallUsAndTerms />
       </div>

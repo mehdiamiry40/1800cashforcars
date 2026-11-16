@@ -7,18 +7,26 @@ const PHONE = "tel:+61423514111";
 
 export const cashForCarsPage: ContentPage = {
   slug: "cash-for-cars",
-  intro: "Sell any car or work vehicle. Free pickup, paid on collection.",
-  title: "Cash for cars",
-  metaTitle: "Sell Your Car for Cash in QLD",
+  // The process page for "sell your car for cash in Brisbane". The homepage owns "cash for cars
+  // Brisbane", so that phrase is never this page's title or H1, and it links back to "/".
+  intro:
+    "Yes, you can sell your car for cash in Brisbane. Tell us the make, model, year and condition, and we send a firm price, usually within the hour. If you accept, we collect from your address, pay you in cash or by bank transfer before the car leaves, and towing is free. Pickups are usually within a day or two.",
+  introNote: {
+    text: "For the Brisbane service overview, see cash for cars Brisbane.",
+    links: [{ phrase: "cash for cars Brisbane", href: "/" }],
+  },
+  title: "Sell your car for cash in Brisbane",
+  label: "Cash for cars",
+  metaTitle: "Sell Your Car for Cash in Brisbane",
   description:
-    "How selling a car for cash works in Queensland and the Tweed. We price it from the details you send, pay on pickup, and the tow is free.",
+    "Sell your car for cash in Brisbane: we quote from the details you send, pay cash or transfer before the car leaves, and the tow is free.",
   blocks: [],
   sections: [
     {
       heading: "How do I sell my car for cash?",
       paragraphs: [
         {
-          text: "Tell us what the car is, running or not, and we send a firm price, usually within the hour. If you accept, we book a time Monday to Saturday, check the car matches what you said, pay you, and tow it free.",
+          text: "To sell your car for cash in Brisbane, tell us what the car is, running or not, and we send a firm price, usually within the hour. If you accept, we book a time Monday to Saturday, check the car matches what you said, pay you, and tow it free.",
         },
         {
           text: "Selling privately means ads, phone calls, people not turning up and haggling over the price. 1800-CASH-FOR-CARS skips that. Tell us what you've got, running or not, and we'll give you a firm price, usually within the hour.",
@@ -27,10 +35,10 @@ export const cashForCarsPage: ContentPage = {
           text: "If you're happy with it, we book a pickup time that suits you, Monday to Saturday. The driver checks the car matches what you told us, pays you, and tows it away. There's no charge for the tow, and nothing is taken off at the kerb when the car is as described.",
         },
         {
-          text: "Where the truck can come is on the free car removal page. Brisbane addresses are on car removal Brisbane.",
+          text: "Where the truck can come is on the free car removal page. Brisbane addresses are on free car removal in Brisbane.",
           links: [
             { phrase: "free car removal page", href: "/car-removals" },
-            { phrase: "car removal Brisbane", href: "/car-removal-brisbane" },
+            { phrase: "free car removal in Brisbane", href: "/car-removal-brisbane" },
           ],
         },
       ],
@@ -42,8 +50,11 @@ export const cashForCarsPage: ContentPage = {
           text: "Cars and hatchbacks, 4WDs and SUVs, utes and vans. Makes we see every week include Toyota, Holden, Ford, Mazda, Hyundai, Nissan, Mitsubishi and Kia, and we buy the rest as well. Registered or not makes no difference to whether we can collect it.",
         },
         {
-          text: "That includes cars that run and cars that don't, crashed and written-off cars, flood and hail damage, rusty cars, and cars that failed a roadworthy. When the repair quote is more than the car is worth, you don't have to fix it before we price it. Trucks are quoted on the cash for trucks page.",
-          links: [{ phrase: "cash for trucks page", href: "/truck-removal" }],
+          text: "That includes cars that run and cars that don't, crashed and written-off cars, flood and hail damage, rusty cars, and cars that failed a roadworthy. When the repair quote is more than the car is worth, you don't have to fix it before we price it. Trucks are quoted on the cash for trucks page. A car that is only worth scrap is covered on cash for scrap cars.",
+          links: [
+            { phrase: "cash for trucks page", href: "/truck-removal" },
+            { phrase: "cash for scrap cars", href: "/scrap-car-removal" },
+          ],
         },
       ],
     },
@@ -75,7 +86,7 @@ export const cashForCarsPage: ContentPage = {
       heading: "How do I get paid?",
       paragraphs: [
         {
-          text: "In Queensland, including Brisbane, the Gold Coast, Logan, Ipswich and the Sunshine Coast, you choose cash or a bank transfer. We pay before the car leaves and give you a receipt. In NSW, including Tweed Heads, scrap vehicles are paid by bank transfer only.",
+          text: "If you sell your car for cash in Brisbane, you choose cash or a bank transfer. We pay before the car leaves and give you a receipt. The same applies across Queensland, including the Gold Coast, Logan, Ipswich and the Sunshine Coast. In NSW, including Tweed Heads, scrap vehicles are paid by bank transfer only.",
         },
         {
           text: "In Queensland, including Brisbane, the Gold Coast, Logan, Ipswich and the Sunshine Coast, you choose cash or bank transfer. We pay before the car leaves, and we give you a receipt.",
@@ -106,12 +117,13 @@ export const cashForCarsPage: ContentPage = {
       heading: "Where we buy",
       paragraphs: [
         {
-          text: "The yard is at 79B Breadwell St, Rocklea. Pickups in Brisbane, Logan, Ipswich, the Gold Coast and the Sunshine Coast are usually within a day or two. The Sunshine Coast is further away, so that run is booked rather than promised for the same hour. Local notes are on the Gold Coast, Sunshine Coast, Logan and Ipswich pages. Start with the quote form.",
+          text: "We buy cars across Brisbane from our yard at 79B Breadwell St, Rocklea, on the city's southside. Pickups are usually within a day or two. From the same yard we also buy in Logan, Ipswich, the Gold Coast and Tweed Heads, and each has its own page with local notes. So does the Sunshine Coast, which is further away, so that run is booked rather than promised for the same hour. Start with the quote form.",
           links: [
-            { phrase: "Gold Coast", href: "/locations/gold-coast" },
-            { phrase: "Sunshine Coast", href: "/locations/sunshine-coast" },
             { phrase: "Logan", href: "/locations/logan" },
             { phrase: "Ipswich", href: "/locations/ipswich" },
+            { phrase: "Gold Coast", href: "/locations/gold-coast" },
+            { phrase: "Tweed Heads", href: "/locations/tweed-heads" },
+            { phrase: "Sunshine Coast", href: "/locations/sunshine-coast" },
             { phrase: "quote form", href: QUOTE },
           ],
         },
@@ -119,6 +131,14 @@ export const cashForCarsPage: ContentPage = {
     },
   ],
   faqs: [
+    {
+      q: "Can I sell my car for cash in Brisbane?",
+      a: "Yes. We buy cars in Brisbane in any of the conditions listed on this page, pay cash or bank transfer before the car leaves, and the tow is free. A firm price is usually within the hour, and pickups are usually within a day or two. The tow is covered on free car removal in Brisbane, and the local overview is on cash for cars Brisbane.",
+      links: [
+        { phrase: "free car removal in Brisbane", href: "/car-removal-brisbane" },
+        { phrase: "cash for cars Brisbane", href: "/" },
+      ],
+    },
     {
       q: "How much will I get for my car?",
       a: "It depends on the make, model, year, condition, and what parts and scrap metal are worth at the moment. Tell us about the car and we'll give you a firm price, usually within the hour. Towing fees are not taken off. Scrap and non-running ranges are on the scrap car prices page.",
