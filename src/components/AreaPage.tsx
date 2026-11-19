@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import heroPhoto from "@/assets/hero-car-truck-cash.png";
 import type { CopySection } from "@/lib/copy";
+import { valuationNotes, type ValuationNotePath } from "@/lib/valuation-notes";
 import { QuoteForm, QuoteFormHeading } from "./QuoteForm";
 import { QuoteLink } from "./QuoteLink";
 
@@ -58,6 +59,16 @@ export function RichText({
         );
       })}
     </>
+  );
+}
+
+/** The paragraph that links a location page to AutoVal. The wording for each page is in valuationNotes. */
+export function ValuationNote({ path, className = "mt-4 text-[18px] leading-relaxed" }: { path: ValuationNotePath; className?: string }) {
+  const note = valuationNotes[path];
+  return (
+    <p className={className || undefined}>
+      <RichText text={note.text} links={note.links} />
+    </p>
   );
 }
 

@@ -39,16 +39,19 @@ const SERVICE_COPY_FILES = [
   "src/app/[page]/page.tsx",
 ];
 
+// Each location page shows its AutoVal line from this file.
+const VALUATION_NOTES = "src/lib/valuation-notes.ts";
+
 function locationUpdated(slug: string): Date {
   if (slug === "logan") {
     return updated(
-      ["src/app/locations/logan/page.tsx", "src/lib/areas/logan-suburbs.ts"],
+      ["src/app/locations/logan/page.tsx", "src/lib/areas/logan-suburbs.ts", VALUATION_NOTES],
       LOCATION_CONTENT_UPDATED,
     );
   }
   if (slug === "ipswich") {
     return updated(
-      ["src/app/locations/ipswich/page.tsx", "src/lib/areas/ipswich-suburbs.ts"],
+      ["src/app/locations/ipswich/page.tsx", "src/lib/areas/ipswich-suburbs.ts", VALUATION_NOTES],
       LOCATION_CONTENT_UPDATED,
     );
   }
@@ -57,6 +60,7 @@ function locationUpdated(slug: string): Date {
       `src/lib/areas/${slug}.ts`,
       "src/app/locations/[slug]/page.tsx",
       "src/components/AreaPage.tsx",
+      VALUATION_NOTES,
     ]);
   }
   return updated(["src/app/locations/[slug]/page.tsx"]);
@@ -70,8 +74,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${site.url}/car-removal-brisbane`, lastModified: updated(["src/app/car-removal-brisbane/page.tsx"]), changeFrequency: "monthly", priority: 0.95 },
     { url: `${site.url}/car-removal-no-keys-no-wheels`, lastModified: updated(["src/app/car-removal-no-keys-no-wheels/page.tsx"]), changeFrequency: "monthly", priority: 0.85 },
     { url: `${site.url}/scrap-car-prices-brisbane`, lastModified: updated(["src/app/scrap-car-prices-brisbane/page.tsx"]), changeFrequency: "monthly", priority: 0.9 },
-    { url: `${site.url}/locations`, lastModified: updated(["src/app/locations/page.tsx"]), changeFrequency: "monthly", priority: 0.7 },
-    { url: `${site.url}/locations/toowong`, lastModified: updated(["src/app/locations/toowong/page.tsx"]), changeFrequency: "monthly", priority: 0.8 },
+    { url: `${site.url}/locations`, lastModified: updated(["src/app/locations/page.tsx", VALUATION_NOTES]), changeFrequency: "monthly", priority: 0.7 },
+    { url: `${site.url}/locations/toowong`, lastModified: updated(["src/app/locations/toowong/page.tsx", VALUATION_NOTES]), changeFrequency: "monthly", priority: 0.8 },
     { url: `${site.url}/car-wreckers-gold-coast`, lastModified: updated(["src/app/car-wreckers-gold-coast/page.tsx"]), changeFrequency: "monthly", priority: 0.8 },
     ...pages.map((p) => ({ url: `${site.url}/${p.slug}`, lastModified: serviceUpdated, changeFrequency: "monthly" as const, priority: 0.8 })),
     ...areas.filter((a) => !a.href).map((a) => ({ url: `${site.url}${areaHref(a)}`, lastModified: locationUpdated(a.slug), changeFrequency: "monthly" as const, priority: 0.8 })),

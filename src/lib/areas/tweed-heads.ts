@@ -1,4 +1,5 @@
 import type { CopyFaq, CopySection } from "../copy";
+import { valuationNotes } from "../valuation-notes";
 
 const QUOTE = "/quote";
 const PRICES = "/scrap-car-prices-brisbane";
@@ -82,6 +83,7 @@ export const tweedHeadsLocal = {
           text: "The yard we leave from is 79B Breadwell St, Rocklea, on Brisbane's southside. The Tweed is over the border from that yard, which is why we agree a time with you. The tow is still free across Tweed Heads, Banora Point, Kingscliff, Pottsville, Terranora and Murwillumbah. The office line is open through the working day until 5pm, and until 2pm Saturday. How the sale itself is priced is on the cash for cars page.",
           links: [{ phrase: "cash for cars page", href: "/cash-for-cars" }],
         },
+        valuationNotes["/locations/tweed-heads"],
       ],
     },
   ] satisfies CopySection[],

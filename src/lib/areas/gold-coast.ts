@@ -1,4 +1,5 @@
 import type { CopyFaq, CopySection } from "../copy";
+import { valuationNotes } from "../valuation-notes";
 
 const QUOTE = "/quote";
 const PRICES = "/scrap-car-prices-brisbane";
@@ -99,6 +100,7 @@ export const goldCoastLocal = {
           text: "Gold Coast cars are priced on the same guide we use in Brisbane. Free towing is never deducted. The figures are on our scrap car prices page. Selling before a move? Tell us the moving date and we will book around it.",
           links: [{ phrase: "scrap car prices page", href: PRICES }],
         },
+        valuationNotes["/locations/gold-coast"],
       ],
     },
     {

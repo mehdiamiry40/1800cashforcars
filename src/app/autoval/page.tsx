@@ -12,15 +12,21 @@ import { AutoValuer } from "./AutoValuer";
 // time: after adding or removing the variable, redeploy.
 const regoLookup = regoLookupEnabled();
 
+// The searches this page is found for are "car valuation brisbane", "free car valuation" and "value my car qld".
+// The root layout appends " | 1800-CASH-FOR-CARS", so the title stays under 60 characters.
 export const metadata: Metadata = {
-  title: "Free Car Valuation | AutoVal",
+  title: "Free Car Valuation Brisbane & QLD",
   description:
-    `${regoLookup ? "Free car valuation by rego or VIN for Australian cars." : "Free car valuation for Australian cars, from a VIN or the car's details."} AutoVal is an estimate, not a cash offer. For a damaged car, ask us for a quote.`,
+    `${regoLookup ? "Free car valuation by rego or VIN for Brisbane and Queensland cars." : "Free car valuation for Brisbane and Queensland cars, from a VIN or the car's details."} An estimate, not a cash offer. For a damaged car, ask us for a quote.`,
   alternates: { canonical: "/autoval" },
   openGraph: pageOpenGraph("/autoval"),
 };
 
 const autovalFaqs = [
+  {
+    q: "How do I get a free car valuation in Brisbane?",
+    a: `Use the form on this page. ${regoLookup ? "Enter a number plate, a VIN or the car's details" : "Enter the make, model and year, or a VIN"}, then the kilometres and the condition. The form starts on Queensland, so a Brisbane car needs no change there. The estimate is free, there is no sign-up, and it is usually ready in about a minute. You do not bring the car to our Rocklea yard for it.`,
+  },
   {
     q: "Is AutoVal free?",
     a: `Yes. ${regoLookup ? "Looking up a rego, decoding a VIN" : "Decoding a VIN"} and reading the estimate are free. You do not pay to see the result, and you do not have to sell the car to us afterwards.`,
@@ -36,6 +42,10 @@ const autovalFaqs = [
   {
     q: "Is the valuation an offer?",
     a: `No. AutoVal is an estimate, not an offer to buy the car. It uses ${regoLookup ? "a registration lookup or a VIN decode" : "the details you enter or a VIN decode"}, then an estimate that searches current Australian listings and price guides. The condition is what you report yourself. A cash offer is a separate price we send after you describe the car.`,
+  },
+  {
+    q: "How accurate is the valuation?",
+    a: "It is a guide, not a formal appraisal. Each report shows a confidence level of high, medium or low, with the reason for it. The condition is whatever you report and nobody inspects the car, so a buyer may see it differently. If few similar cars are advertised, the estimate has less to go on.",
   },
   {
     q: "What if my car doesn't run?",
@@ -63,10 +73,10 @@ export default function AutoValPage() {
           <div>
             <p className="font-sans text-[14px] font-bold uppercase tracking-[0.14em] text-white">AutoVal · Free AI valuation</p>
             <h1 className="mt-4 font-heading text-[40px] font-bold leading-[1.05] tracking-[-0.02em] sm:text-[56px] lg:text-[64px]">
-              What&apos;s your car <span className="text-white">really</span> worth?
+              Free car valuation for Brisbane and Queensland
             </h1>
             <p className="mt-5 max-w-xl text-[18px] leading-relaxed text-white/85 sm:text-[20px]">
-              {regoLookup ? "Enter your rego, VIN or just the details." : "Enter your car's details, or a VIN."} AutoVal checks live Australian listings and price guides, then
+              What&apos;s your car really worth? {regoLookup ? "Enter your rego, VIN or just the details." : "Enter your car's details, or a VIN."} AutoVal checks live Australian listings and price guides, then
               shows what it&apos;s worth and what to fix before you sell.
             </p>
             <p className="mt-4 max-w-xl text-[16px] leading-relaxed text-white sm:text-[18px]">
@@ -111,6 +121,34 @@ export default function AutoValPage() {
           The result is a guide to a private sale, a trade-in and a dealer price for a car in the condition you described. It is meant for someone who still might sell the car themselves. It is not a contract, and it is not the amount {site.name} will pay.
         </p>
 
+        <h2 className="h-content mt-12">What do I need to value my car?</h2>
+        <p className="mt-4 text-[18px] leading-relaxed">
+          Four things: the make, the model, the year and the kilometres on the odometer. {regoLookup ? "A number plate or a VIN can fill in some of the car's details for you." : "A VIN can fill in some of the car's details for you."} You
+          also pick a condition, from excellent to poor. That rating is your own call, and the form starts on good.
+        </p>
+        <p className="mt-4 text-[18px] leading-relaxed">
+          The rest is optional: the variant, body, transmission, fuel, engine and colour, the number of owners, the service history, whether the car has been in an accident or had panel repairs, any extras, and any known issues. The more of it you fill in, the more the estimate has to go on.
+        </p>
+        <p className="mt-4 text-[18px] leading-relaxed">
+          You are not asked for a name, a phone number or an email address to see the result.
+        </p>
+
+        <h2 className="h-content mt-12">What the valuation shows</h2>
+        <p className="mt-4 text-[18px] leading-relaxed">
+          The headline is a private-sale price range with a suggested asking price. With it are a trade-in range and a dealer retail range, so you can see the gap between selling the car yourself and trading it in. The report also has:
+        </p>
+        <ul className="mt-4 list-disc space-y-2 pl-5 text-[18px] leading-relaxed">
+          <li>a confidence level of high, medium or low, with the reason for it</li>
+          <li>what pushes the price up or down for your car</li>
+          <li>parts worth checking before you sell, each with a typical repair cost and whether to fix it first or disclose it</li>
+          <li>the engine fitted, its service items and its known faults</li>
+          <li>known issues for the model, and the paperwork for the state you chose</li>
+          <li>a draft ad you can copy, and the listings or price guides the estimate drew on when the search found any</li>
+        </ul>
+        <p className="mt-4 text-[18px] leading-relaxed">
+          The report is written by an AI model from those search results and your answers. It is for guidance only and is not a formal appraisal. Use it as a starting point for your own checks.
+        </p>
+
         <h2 className="h-content mt-12">What it can&apos;t tell you</h2>
         <p className="mt-4 text-[18px] leading-relaxed">
           It is an estimate, not an offer. Condition is self-reported, so a car you describe as good will be estimated as good even if a buyer would mark it down. Rust, a noisy gearbox, a warning light or worn tyres only affect the figure if you include them. The tool cannot see photos and it cannot drive the car.
@@ -134,8 +172,20 @@ export default function AutoValPage() {
           </Link>{" "}
           if you want that offer. Towing on the offer is free and is never deducted. We pay before the car leaves.
         </p>
+
+        <h2 className="h-content mt-12">Car valuation in Brisbane and across Queensland</h2>
         <p className="mt-4 text-[18px] leading-relaxed">
-          Cash offers cover {areas.map((area) => area.name).join(", ")} only. AutoVal can estimate a car registered in another state, and we cannot collect a car outside those areas. If the car is in range and it is scrap, old or damaged, ask for the offer rather than treating the estimate as the price.
+          AutoVal is a free online tool from {site.name}. Our yard is in Rocklea, on Brisbane&apos;s southside, and you do not bring the car in for a valuation. It is done on this page, whether the car is in Brisbane, elsewhere in Queensland or in another state.
+        </p>
+        <p className="mt-4 text-[18px] leading-relaxed">
+          The form starts on Queensland, so to value a car registered in QLD you leave the state as it is. For a car registered somewhere else, change it. The state you choose goes into the estimate with the rest of the car&apos;s details, and the paperwork list in the report is written for that state.
+        </p>
+        <p className="mt-4 text-[18px] leading-relaxed">
+          Cash offers cover {areas.map((area) => area.name).join(", ")} only. The suburbs are listed under the{" "}
+          <Link href="/locations" className="font-semibold text-navy underline underline-offset-4">
+            areas we cover
+          </Link>
+          . AutoVal can estimate a car registered in another state, and we cannot collect a car outside those areas. If the car is in range and it is scrap, old or damaged, ask for the offer rather than treating the estimate as the price.
         </p>
 
         <h2 className="h-content mt-12">AutoVal questions</h2>

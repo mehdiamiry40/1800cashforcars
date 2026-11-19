@@ -1,4 +1,5 @@
 import type { CopyFaq, CopySection } from "../copy";
+import { valuationNotes } from "../valuation-notes";
 
 const QUOTE = "/quote";
 const PRICES = "/scrap-car-prices-brisbane";
@@ -96,6 +97,7 @@ export const sunshineCoastLocal = {
             { phrase: "cash for cars page", href: "/cash-for-cars" },
           ],
         },
+        valuationNotes["/locations/sunshine-coast"],
       ],
     },
     {
