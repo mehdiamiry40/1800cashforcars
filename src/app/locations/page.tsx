@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { ValuationNote } from "@/components/AreaPage";
 import { BrisbaneSuburbs, CallUsAndTerms } from "@/components/Blocks";
 import { ArrowIcon, PinIcon } from "@/components/icons";
 import { PageShell } from "@/components/PageShell";
@@ -35,6 +36,7 @@ export default function LocationsPage() {
           We buy cars, utes, vans, 4WDs and trucks in any condition and tow them away for free from our yard in Rocklea.
           Pick your area to see the suburbs we cover and anything local to know.
         </p>
+        <ValuationNote path="/locations" className="" />
       </div>
       <ul className="grid gap-5">
         {areas.map((a) => (

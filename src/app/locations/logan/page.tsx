@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { FinalCta, RelatedLinks, ReviewsBand } from "@/components/Blocks";
-import { AreaHero, FaqList, GuideTable, RichText, SuburbGroups, TextCta } from "@/components/AreaPage";
+import { AreaHero, FaqList, GuideTable, RichText, SuburbGroups, TextCta, ValuationNote } from "@/components/AreaPage";
 import { PhoneIcon } from "@/components/icons";
 import { Breadcrumbs, JsonLd } from "@/components/JsonLd";
 import { QuoteLink } from "@/components/QuoteLink";
@@ -156,6 +156,7 @@ export default function LoganLocationPage() {
           }
         />
         <p className="mt-4 text-[18px] leading-relaxed">The same guide applies in Logan as in Brisbane. Distance does not add a towing fee.</p>
+        <ValuationNote path={PATH} />
         <h3 className="mt-8 font-heading text-[22px] font-semibold leading-tight text-navy">Old utes and 4x4s</h3>
         <p className="mt-3 text-[18px] leading-relaxed">
           A scrap ute is $300 to $1,400, and a running or damaged ute is $1,000 to $5,500. A scrap SUV or 4WD is $500 to $1,200, and a late-model damaged SUV or 4WD is $2,500 to $6,000+. A complete ute or 4x4 sits higher in that range when the engine and gearbox are intact and the parts are in demand.

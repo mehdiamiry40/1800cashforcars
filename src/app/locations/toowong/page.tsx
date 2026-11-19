@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { FinalCta, RelatedLinks, ReviewsBand } from "@/components/Blocks";
-import { AreaHero, FaqList, GuideTable, RichText, TextCta } from "@/components/AreaPage";
+import { AreaHero, FaqList, GuideTable, RichText, TextCta, ValuationNote } from "@/components/AreaPage";
 import { PhoneIcon } from "@/components/icons";
 import { Breadcrumbs, JsonLd } from "@/components/JsonLd";
 import { QuoteLink } from "@/components/QuoteLink";
@@ -174,6 +174,7 @@ export default function ToowongLocationPage() {
         <p className="mt-4 text-[18px] leading-relaxed">
           Make, model and year move the price, along with whether the car runs, whether the engine, gearbox and catalytic converter are still there, and the type of damage.
         </p>
+        <ValuationNote path={PATH} />
         <TextCta from="toowong-price">Not sure which row fits? Send the rego and a few photos.</TextCta>
 
         <h2 id="unregistered-toowong" className="h-content mt-12 scroll-mt-24">

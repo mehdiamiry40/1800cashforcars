@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { FinalCta, RelatedLinks, ReviewsBand } from "@/components/Blocks";
-import { AreaHero, FaqList, GuideTable, RichText, SuburbGroups, TextCta } from "@/components/AreaPage";
+import { AreaHero, FaqList, GuideTable, RichText, SuburbGroups, TextCta, ValuationNote } from "@/components/AreaPage";
 import { PhoneIcon } from "@/components/icons";
 import { Breadcrumbs, JsonLd } from "@/components/JsonLd";
 import { QuoteLink } from "@/components/QuoteLink";
@@ -167,6 +167,7 @@ export default function IpswichLocationPage() {
           </Link>{" "}
           if the car is only scrap.
         </p>
+        <ValuationNote path={PATH} className="mt-3 text-[18px] leading-relaxed" />
         <h3 className="mt-8 font-heading text-[22px] font-semibold leading-tight text-navy">Work vans and farm trucks</h3>
         <p className="mt-3 text-[18px] leading-relaxed">
           Vans start from $500 and trucks from $1,000, each quoted on its own, including a farm truck parked up for years. See{" "}
