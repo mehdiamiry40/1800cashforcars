@@ -25,6 +25,12 @@ export type Block = {
 
 export type ContentPage = {
   slug: string;
+  /**
+   * When this page's own visible copy last changed, as an ISO date and time in Brisbane time
+   * (+10:00). It is the page's lastmod in the sitemap. Several pages share one copy file, so the
+   * date is kept per page: change it only on the page you edit, and leave the others alone.
+   */
+  updated: string;
   /** The page's H1. */
   title: string;
   /** Short name for the breadcrumb, related links, the FAQ heading and schema. Defaults to `title`. */

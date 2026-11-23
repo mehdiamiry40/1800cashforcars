@@ -7,6 +7,7 @@ const PHONE = "tel:+61423514111";
 
 export const cashForCarsPage: ContentPage = {
   slug: "cash-for-cars",
+  updated: "2026-11-16T10:35:14+10:00",
   // The process page for "sell your car for cash in Brisbane". The homepage owns "cash for cars
   // Brisbane", so that phrase is never this page's title or H1, and it links back to "/".
   intro:
@@ -163,6 +164,7 @@ export const cashForCarsPage: ContentPage = {
 
 export const carRemovalsPage: ContentPage = {
   slug: "car-removals",
+  updated: "2026-11-16T10:35:14+10:00",
   intro: "Free car pickup across South East Queensland and the Tweed. Any condition.",
   title: "Free car removal across South East Queensland",
   // Overview for every area. Brisbane stays on /car-removal-brisbane. No redirect or canonical between them.
@@ -287,11 +289,16 @@ export const carRemovalsPage: ContentPage = {
 
 export const truckRemovalPage: ContentPage = {
   slug: "truck-removal",
-  intro: "Light, medium and heavy trucks. Running or not.",
-  title: "Cash for trucks",
-  metaTitle: "Cash for Trucks Brisbane & Gold Coast",
+  updated: "2026-11-24T09:45:00+10:00",
+  // This page owns "cash for old trucks". Those searches were landing on the homepage, which now
+  // links here. The Gold Coast and the other areas stay in the copy, not in the title.
+  intro:
+    "Yes, we pay cash for old trucks in Brisbane and South East Queensland. Light, medium and heavy trucks are bought, running or not, including retired work trucks that have sat for years. Payment is before the truck leaves. Pickup is free for most trucks, and pickups are usually within a day or two.",
+  title: "Cash for old trucks in Brisbane",
+  label: "Cash for trucks",
+  metaTitle: "Cash for Old Trucks Brisbane",
   description:
-    "Cash for light, medium and heavy trucks across South East Queensland and the Tweed. Tippers, trays, pantechs and rigids, running or not. Paid on pickup.",
+    "Cash for old trucks in Brisbane and South East QLD. Light, medium and heavy trucks, running or not. Paid before the truck leaves. Pickup free for most trucks.",
   blocks: [],
   sections: [
     {
@@ -310,6 +317,18 @@ export const truckRemovalPage: ContentPage = {
         {
           text: "Light, medium or heavy, running or not. A retired work truck, one that's failed its inspection, or a wreck that's been sitting in the yard: tell us about it and we'll give you a price. Photos help a lot with trucks, so text a few through to 0423 514 111 if you can.",
           links: [{ phrase: "0423 514 111", href: PHONE }],
+        },
+      ],
+    },
+    {
+      heading: "Cash for old trucks",
+      paragraphs: [
+        {
+          text: "Old trucks are in scope: a retired work truck, a truck that failed an inspection, a wreck that has been sitting, or a truck that has been off the road for years. Running or not does not rule a truck out. Say what is wrong and what is missing, so the price we give is the price we pay.",
+        },
+        {
+          text: "Payment is before the truck leaves: cash or bank transfer in Queensland, bank transfer only in NSW. Pickup is free for most trucks. For a large heavy vehicle, pickup details are confirmed with the price. Brisbane, Logan, Ipswich and Gold Coast trucks are usually collected within a day or two. For Logan suburbs, see cash for trucks in Logan.",
+          links: [{ phrase: "cash for trucks in Logan", href: "/locations/logan" }],
         },
       ],
     },
@@ -388,6 +407,10 @@ export const truckRemovalPage: ContentPage = {
     },
   ],
   faqs: [
+    {
+      q: "Do you pay cash for old trucks?",
+      a: "Yes. In Queensland, including Brisbane, you can choose cash or bank transfer, paid before the truck leaves. In NSW, including Tweed Heads, payment is by bank transfer only. We buy light, medium and heavy trucks, running or not, including old trucks that have been off the road for years. Pickup is free for most trucks.",
+    },
     {
       q: "Do you buy trucks that don't run?",
       a: "Yes. Blown engines, crash damage, flood damage and trucks that have been off the road for years. Tell us what's wrong, and send photos if you can, so the quote matches the truck.",
