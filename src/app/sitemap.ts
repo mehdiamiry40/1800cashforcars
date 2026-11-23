@@ -32,13 +32,6 @@ function updated(files: string[], fallback = FALLBACK_UPDATED): Date {
   return new Date(max || new Date(fallback).getTime());
 }
 
-const SERVICE_COPY_FILES = [
-  "src/lib/content.ts",
-  "src/lib/service-copy.ts",
-  "src/lib/copy.ts",
-  "src/app/[page]/page.tsx",
-];
-
 // Each location page shows its AutoVal line from this file.
 const VALUATION_NOTES = "src/lib/valuation-notes.ts";
 
@@ -67,7 +60,6 @@ function locationUpdated(slug: string): Date {
 }
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const serviceUpdated = updated(SERVICE_COPY_FILES);
   return [
     { url: site.url, lastModified: updated(["src/app/page.tsx", "src/components/HomeSections.tsx"]), changeFrequency: "weekly", priority: 1 },
     { url: `${site.url}/about`, lastModified: updated(["src/app/about/page.tsx"]), changeFrequency: "monthly", priority: 0.6 },
@@ -77,7 +69,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${site.url}/locations`, lastModified: updated(["src/app/locations/page.tsx", VALUATION_NOTES]), changeFrequency: "monthly", priority: 0.7 },
     { url: `${site.url}/locations/toowong`, lastModified: updated(["src/app/locations/toowong/page.tsx", VALUATION_NOTES]), changeFrequency: "monthly", priority: 0.8 },
     { url: `${site.url}/car-wreckers-gold-coast`, lastModified: updated(["src/app/car-wreckers-gold-coast/page.tsx"]), changeFrequency: "monthly", priority: 0.8 },
-    ...pages.map((p) => ({ url: `${site.url}/${p.slug}`, lastModified: serviceUpdated, changeFrequency: "monthly" as const, priority: 0.8 })),
+    // The service pages share two copy files, so a git date for those files moved every one of these
+    // URLs when a single page was edited. Each page carries its own `updated` date, set next to its copy.
+    ...pages.map((p) => ({ url: `${site.url}/${p.slug}`, lastModified: new Date(p.updated), changeFrequency: "monthly" as const, priority: 0.8 })),
     ...areas.filter((a) => !a.href).map((a) => ({ url: `${site.url}${areaHref(a)}`, lastModified: locationUpdated(a.slug), changeFrequency: "monthly" as const, priority: 0.8 })),
     { url: `${site.url}/autoval`, lastModified: updated(["src/app/autoval/page.tsx"]), changeFrequency: "monthly", priority: 0.7 },
     { url: `${site.url}/contact-us`, lastModified: updated(["src/app/contact-us/page.tsx"]), changeFrequency: "yearly", priority: 0.6 },

@@ -175,6 +175,8 @@ export const faqs = [
   {
     q: "Do you buy cars that don't run?",
     a: "Yes. We buy cars that run and cars that don't, plus crashed, flood-damaged, unregistered, rusty and scrap cars. We buy trucks too, from light trucks to heavy rigids.",
+    // Turns the phrase into a link wherever this FAQ is shown. The FAQ schema uses the plain answer text.
+    links: [{ phrase: "We buy trucks too", href: "/truck-removal" }],
   },
   {
     q: "Is the towing really free?",

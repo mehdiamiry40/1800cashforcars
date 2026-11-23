@@ -1,4 +1,6 @@
 // Copy for the inner content pages. Each entry becomes a page at /<slug>.
+// Each page's `updated` date is its lastmod in the sitemap. When you edit one page's copy,
+// change that page's date and leave the other pages' dates as they are.
 
 import type { ContentPage } from "./copy";
 import { carRemovalsPage, cashForCarsPage, truckRemovalPage } from "./service-copy";
@@ -28,6 +30,9 @@ export const pages: ContentPage[] = [
   carRemovalsPage,
   {
     slug: "services",
+    // The card grid on this page comes from serviceCards in HomeSections.tsx. If a card title
+    // changes there, this page has changed, so change this date as well.
+    updated: "2026-11-24T09:45:00+10:00",
     intro: "Cars, scrap and work vehicles. Quote, pickup, payment.",
     title: "Our services",
     metaTitle: "Car Removal & Cash For Cars Services",
@@ -57,6 +62,7 @@ export const pages: ContentPage[] = [
   truckRemovalPage,
   {
     slug: "scrap-car-removal",
+    updated: "2026-11-16T10:35:14+10:00",
     // This page owns "cash for scrap cars". The price guide owns how-much and price queries, so no price table here.
     intro:
       "Yes, we pay cash for scrap cars in Brisbane and across South East Queensland, including the Gold Coast, Logan, Ipswich and the Sunshine Coast. In Tweed Heads, in NSW, payment is by bank transfer only. Towing is always free and never taken off the price, and we pay you before the car leaves. Pickups are usually within a day or two.",
@@ -166,6 +172,7 @@ export const pages: ContentPage[] = [
   },
   {
     slug: "car-wreckers",
+    updated: "2026-11-16T10:35:14+10:00",
     intro: "Damaged cars, where parts can be worth more than the metal.",
     title: "Car wreckers",
     metaTitle: "Car Wreckers Brisbane, Cash for Damaged Cars",
@@ -265,6 +272,7 @@ export const pages: ContentPage[] = [
   },
   {
     slug: "car-disposal",
+    updated: "2026-11-16T10:35:14+10:00",
     intro: "The steps to get an unwanted car collected and paid for.",
     title: "Car disposal",
     metaTitle: "Car Disposal Brisbane & Gold Coast",

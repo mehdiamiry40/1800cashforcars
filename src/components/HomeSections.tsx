@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import pickupPhoto from "@/assets/hero-kangaroo-tow.jpg";
+import type { CopyFaq } from "@/lib/copy";
 import { areaHref, areas, site } from "@/lib/site";
 import {
   advicePhotos,
@@ -25,8 +26,10 @@ import {
   TruckIcon,
 } from "./icons";
 
-// `homeTitle` is the label on the homepage only. It sends the how-to and scrap queries to
-// their own pages, so the homepage can stay the "cash for cars Brisbane" hub.
+// `homeTitle` is the label on the homepage only. It sends the how-to, old-truck and scrap queries
+// to their own pages, so the homepage can stay the "cash for cars Brisbane" hub.
+// `title` is the label on /services. If you change one, also change the `updated` date of the
+// services page in src/lib/content.ts.
 const serviceCards: {
   title: string;
   homeTitle?: string;
@@ -49,12 +52,13 @@ const serviceCards: {
   },
   {
     title: "Truck removal",
+    homeTitle: "Cash for old trucks in Brisbane",
     href: "/truck-removal",
     visual: servicePhotos.truck,
     Icon: TruckIcon,
   },
   {
-    title: "Scrap car removal",
+    title: "Cash for scrap cars",
     homeTitle: "Cash for scrap cars in Brisbane",
     href: "/scrap-car-removal",
     visual: servicePhotos.scrap,
@@ -204,8 +208,11 @@ export function BrisbaneCashForCars() {
         "That includes crashed and written-off cars, flood and hail damaged cars, cars that failed a roadworthy, cars with a blown engine or no keys, and old cars that have been sitting in the backyard for years.",
       ],
       note: {
-        text: "We also collect cars with no keys or no wheels.",
-        links: [{ phrase: "cars with no keys or no wheels", href: "/car-removal-no-keys-no-wheels" }],
+        text: "We also collect cars with no keys or no wheels. Selling a truck? See cash for old trucks.",
+        links: [
+          { phrase: "cars with no keys or no wheels", href: "/car-removal-no-keys-no-wheels" },
+          { phrase: "cash for old trucks", href: "/truck-removal" },
+        ],
       },
     },
     {
@@ -361,7 +368,7 @@ export function SellerSection() {
       title: "For businesses",
       text: "Utes, vans and trucks. Arrange collection for a work vehicle or fleet.",
       href: "/truck-removal",
-      link: "Explore truck removal",
+      link: "Explore cash for old trucks",
       visual: sellerPhotos.business,
       Icon: TruckIcon,
     },
@@ -604,7 +611,7 @@ export function SellingAdvice() {
   );
 }
 
-export function HomeFaq({ items }: { items?: { q: string; a: string }[] }) {
+export function HomeFaq({ items }: { items?: CopyFaq[] }) {
   return (
     <section id="faq" className="section-site scroll-mt-32">
       <div className="container-site grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">

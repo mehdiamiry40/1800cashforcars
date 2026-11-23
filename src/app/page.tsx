@@ -38,6 +38,15 @@ const homeFaqs = [
     q: "Do you buy cars all over Brisbane?",
     a: "Yes. Northside, southside, the western suburbs and the bayside, plus Logan and Ipswich. Our yard is in Rocklea, so Brisbane pickups are usually within a day or two.",
   },
+  {
+    // A hand-off, not a target. The scrap car removal page owns this search and the price guide owns the ranges.
+    q: "Do you pay cash for scrap cars in Brisbane?",
+    a: "Yes. In Queensland, including Brisbane, you can choose cash or bank transfer, paid before the car leaves. Towing is free and never deducted. How we collect the car and pay you is on the cash for scrap cars in Brisbane page, and the guide ranges are on scrap car prices in Brisbane.",
+    links: [
+      { phrase: "cash for scrap cars in Brisbane", href: "/scrap-car-removal" },
+      { phrase: "scrap car prices in Brisbane", href: "/scrap-car-prices-brisbane" },
+    ],
+  },
   ...faqs,
 ];
 

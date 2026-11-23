@@ -72,6 +72,19 @@ export default function ContactPage() {
         <div className="md:col-start-1 md:row-start-2">
           <ParentBrandLine className="mb-4" />
           <dl className="space-y-5 border-t border-line pt-6">
+            {/* The yard comes first, so the street address and directions sit above the hours. */}
+            {site.address && (
+              <div>
+                <dt className="text-[16px] font-semibold">Our yard</dt>
+                <dd className="mt-1">
+                  {site.address}
+                  <br />
+                  <a href={site.mapsUrl} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center font-semibold underline underline-offset-4">
+                    Get directions
+                  </a>
+                </dd>
+              </div>
+            )}
             {site.showEmail && (
               <div>
                 <dt className="text-[16px] font-semibold">Email</dt>
@@ -106,18 +119,6 @@ export default function ContactPage() {
                 {site.licenceLine} ABN {site.abn}.
               </dd>
             </div>
-            {site.address && (
-              <div>
-                <dt className="text-[16px] font-semibold">Our yard</dt>
-                <dd className="mt-1">
-                  {site.address}
-                  <br />
-                  <a href={site.mapsUrl} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center font-semibold underline underline-offset-4">
-                    Get directions
-                  </a>
-                </dd>
-              </div>
-            )}
             <div>
               <dt className="text-[16px] font-semibold">Areas we cover</dt>
               <dd className="mt-1">

@@ -34,7 +34,11 @@ export default function AboutPage() {
         <p className="eyebrow">About us</p>
         <h1 className="h-page mt-3">About our Rocklea yard</h1>
         <p className="mt-5 text-[18px] leading-relaxed">
-          {site.name} buys scrap, old and damaged cars, and it also buys utes, vans and trucks. The business is part of A Plus Car Removal. Both names use the same yard. This page says who we are, how a car is priced, and how to reach the yard.
+          {site.name} buys scrap, old and damaged cars, and it also buys utes, vans and trucks. The business is part of A Plus Car Removal. Both names use the same yard, at{" "}
+          <a href={site.mapsUrl} className={linkClass} target="_blank" rel="noopener noreferrer">
+            {site.address}
+          </a>
+          . This page says who we are, how a car is priced, and how to reach the yard.
         </p>
 
         <h2 className="h-content mt-12">Who is {site.name}?</h2>
@@ -58,6 +62,11 @@ export default function AboutPage() {
             {site.address}
           </a>
           . Rocklea sits on Brisbane&apos;s southside. Brisbane, Logan and Ipswich collections are usually within a day or two. Visits are to this address. We do not describe a second yard on this site.
+        </p>
+        <p className="mt-2 text-[18px]">
+          <a href={site.mapsUrl} className={`inline-flex min-h-11 items-center ${linkClass}`} target="_blank" rel="noopener noreferrer">
+            Get directions
+          </a>
         </p>
 
         <h2 className="h-content mt-12">What do you buy?</h2>

@@ -187,11 +187,11 @@ export default function LoganLocationPage() {
           No wheels, or it cannot roll: we buy cars with no wheels and cars with no keys. Tell us when you ask for a price, so the right truck comes.
         </p>
         <p className="mt-4 text-[18px] leading-relaxed">
-          Work utes, vans and trucks from Logan businesses are welcome, one vehicle or several. Vans start from $500 and trucks from $1,000. See{" "}
+          Work utes, vans and trucks from Logan businesses are welcome, one vehicle or several. Vans start from $500 and trucks from $1,000. Cash for old trucks, including cash for trucks in Logan, is on the{" "}
           <Link href="/truck-removal" className="font-semibold text-navy underline underline-offset-4">
             cash for trucks
-          </Link>
-          .
+          </Link>{" "}
+          page.
         </p>
         <p className="mt-4 text-[18px] leading-relaxed">
           Junk and written-off cars are bought as well. See{" "}
