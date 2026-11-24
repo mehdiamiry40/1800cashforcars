@@ -68,6 +68,7 @@ export const tweedHeadsLocal = {
       paragraphs: [
         {
           text: "Yes. A Tweed vehicle missing its key, its wheels, or both is still purchased. It need not roll, and current registration is irrelevant because we take it away. Flag what is absent when you ask. The account transfer still happens first, and the journey down from Rocklea is not billed.",
+          links: [{ phrase: "missing its key, its wheels, or both", href: "/car-removal-no-keys-no-wheels" }],
         },
         {
           text: "Cars, 4WDs, utes and vans, running or not. Rust, a blown engine, accident damage, flood damage or years in the weather do not rule a vehicle out. Describe the condition so the quote holds on the day. Trucks are priced on cash for trucks. A car that will not be repaired is covered on the scrap car removal page.",

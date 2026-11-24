@@ -79,6 +79,7 @@ export function Header() {
             >
               <PhoneIcon aria-hidden="true" className="h-5 w-5" />
             </a>
+            {/* The name is the same open or closed. aria-expanded carries the state. */}
             <button
               type="button"
               onClick={() => {
@@ -87,7 +88,7 @@ export function Header() {
               }}
               aria-expanded={open}
               aria-controls="mobile-navigation"
-              aria-label="Open menu"
+              aria-label="Menu"
               className="grid h-11 w-11 place-items-center border border-line"
             >
               <MenuIcon aria-hidden="true" className="h-6 w-6" />

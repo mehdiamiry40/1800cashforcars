@@ -84,6 +84,7 @@ export const goldCoastLocal = {
       paragraphs: [
         {
           text: "Yes. Gold Coast cars with no keys or no wheels are still bought. The car does not have to run or roll. Tell us what is missing, and mention a basement, a height limit or a backyard, so the truck that arrives can load it. The tow stays free.",
+          links: [{ phrase: "cars with no keys or no wheels", href: "/car-removal-no-keys-no-wheels" }],
         },
         {
           text: "We buy cars and hatchbacks, 4WDs and SUVs, utes and vans, registered or not. Salt air is hard on older Gold Coast cars. Rust lowers the price, but we still buy rusty cars and pay for the metal and parts. A car that has sat in a garage or on a driveway without rego is fine, because we tow it and it does not need a roadworthy.",

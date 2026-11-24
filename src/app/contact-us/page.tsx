@@ -5,15 +5,27 @@ import { Faq } from "@/components/Blocks";
 import { Breadcrumbs, JsonLd } from "@/components/JsonLd";
 import { ParentBrandLine } from "@/components/ParentBrand";
 import { PhoneIcon, SmsIcon } from "@/components/icons";
-import { areaHref, areas, faqs, pageOpenGraph, site } from "@/lib/site";
+import { areaHref, areas, pageOpenGraph, site, yardHoursSentence } from "@/lib/site";
 
 const PATH = "/contact-us";
 
+// Questions about getting in touch, written for this page. The price, paperwork and payment answers
+// are the homepage's, and they stay there. Nothing here is new: the yard hours, the phone number and the
+// two turnaround lines come from site.ts, and the pickup days are the ones in `site.pickups`.
 const contactFaqs = [
-  faqs.find((faq) => faq.q === "How much will I get for my car?"),
-  faqs.find((faq) => faq.q === "What paperwork do I need?"),
-  faqs.find((faq) => faq.q === "How do I get paid?"),
-].filter((faq): faq is (typeof faqs)[number] => Boolean(faq));
+  {
+    q: "When is the yard open, and when do you pick up?",
+    a: `The yard is open ${yardHoursSentence()}. Pickups run Monday to Saturday, at a time that suits you.`,
+  },
+  {
+    q: "What should I send to get a price?",
+    a: `Send the make, model and year, the suburb the car is in, and what condition it is in. A few photos help. Say if the car has no keys or no wheels. You can put all of that in the quote form on this page, or text it to ${site.phoneDisplay}.`,
+  },
+  {
+    q: "How soon will I hear back?",
+    a: `We text or call you with a price, ${site.quoteTurnaround}. Once you accept it, pickups are ${site.pickupTurnaround}, and you choose the time.`,
+  },
+];
 
 export const metadata: Metadata = {
   title: "Contact Us, Rocklea Yard",
@@ -62,7 +74,11 @@ export default function ContactPage() {
             </p>
           )}
           <p className="mt-4 text-[18px] leading-relaxed">
-            A text can include the make, model, year, suburb and a few photos. Say if the car has no keys or no wheels. We use that to price the car you actually have.
+            A text can include the make, model, year, suburb and a few photos. Say if the car has{" "}
+            <Link href="/car-removal-no-keys-no-wheels" className="font-semibold underline underline-offset-4">
+              no keys or no wheels
+            </Link>
+            . We use that to price the car you actually have.
           </p>
         </div>
         <div id="quote" data-quote className="quote-box min-w-0 scroll-mt-32 self-start md:col-start-2 md:row-span-2 md:row-start-1">
@@ -122,10 +138,10 @@ export default function ContactPage() {
             <div>
               <dt className="text-[16px] font-semibold">Areas we cover</dt>
               <dd className="mt-1">
-                <ul className="space-y-1">
+                <ul>
                   {areas.map((area) => (
                     <li key={area.slug}>
-                      <Link href={areaHref(area)} className="font-semibold underline underline-offset-4">
+                      <Link href={areaHref(area)} className="inline-flex min-h-11 items-center font-semibold underline underline-offset-4">
                         {area.name}
                       </Link>
                     </li>
@@ -137,7 +153,7 @@ export default function ContactPage() {
           <div className="mt-8">
             <h2 className="h-sub">Contact questions</h2>
             <p className="mt-3 text-[18px] leading-relaxed">
-              These are the same answers we give for a price, the paperwork to have ready, and how you get paid. Towing is always free and is never deducted. Payment is before the car leaves.
+              When the yard is open, what to send us, and how soon you hear back. Towing is always free and is never deducted. Payment is before the car leaves.
             </p>
             <Faq bare items={contactFaqs} />
           </div>

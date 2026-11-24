@@ -168,14 +168,14 @@ export function WhatWeBuy() {
         <p className="mt-8 text-center">
           <Link
             href="/truck-removal"
-            className="text-[15px] font-semibold text-navy underline underline-offset-4"
+            className="inline-flex min-h-11 items-center text-[15px] font-semibold text-navy underline underline-offset-4"
           >
             Truck removal
           </Link>
           <span className="mx-3 text-line">|</span>
           <Link
             href="/scrap-car-removal"
-            className="text-[15px] font-semibold text-navy underline underline-offset-4"
+            className="inline-flex min-h-11 items-center text-[15px] font-semibold text-navy underline underline-offset-4"
           >
             Scrap car removal
           </Link>
@@ -226,10 +226,10 @@ export function ContentBlocks({ blocks }: { blocks: Block[] }) {
               </ul>
             )}
             {b.paras?.length || b.list?.length ? (
-              <details className="group mt-4 border-t border-line pt-3">
+              <details className="group mt-4 border-t border-line pt-1">
                 <summary
                   aria-label={`Full details about ${b.heading}`}
-                  className="flex w-fit cursor-pointer list-none items-center gap-2 text-[14px] font-semibold text-navy"
+                  className="flex min-h-11 w-fit cursor-pointer list-none items-center gap-2 text-[14px] font-semibold text-navy"
                 >
                   Full details{" "}
                   <ChevronRight

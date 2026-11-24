@@ -82,6 +82,7 @@ export const sunshineCoastLocal = {
       paragraphs: [
         {
           text: "Yes. Cars that do not run are bought across the Sunshine Coast, including a blown engine, flat tyres, or one that has sat for years. It does not need keys and it does not need rego. Tell us the condition so the quote matches the car on the day.",
+          links: [{ phrase: "does not need keys", href: "/car-removal-no-keys-no-wheels" }],
         },
         {
           text: "Salt air takes a toll on older cars parked near Mooloolaba, Coolum and Noosa. We still pay for rusty cars, based on the metal and the parts. A second car you no longer drive, sitting in a Buderim garage or a Kawana lock-up, is a straightforward collection: we pick it up and give you a receipt.",

@@ -14,7 +14,7 @@ import {
   WhyChooseSection,
 } from "@/components/HomeSections";
 import { ReviewsBand } from "@/components/Blocks";
-import { JsonLd } from "@/components/JsonLd";
+import { JsonLd, websiteNode } from "@/components/JsonLd";
 import { brisbaneSuburbs, faqs, pageOpenGraph, site } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -50,16 +50,8 @@ const homeFaqs = [
   ...faqs,
 ];
 
-// Home page only. Google reads this WebSite node for the site name on every result.
-const websiteLd = {
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "@id": `${site.url}/#website`,
-  name: site.name,
-  alternateName: site.domain,
-  url: `${site.url}/`,
-  publisher: { "@id": `${site.url}/#business` },
-};
+// Google reads this WebSite node on the home page for the site name on every result.
+const websiteLd = { "@context": "https://schema.org", ...websiteNode };
 
 const faqLd = {
   "@context": "https://schema.org",
@@ -74,10 +66,12 @@ const faqLd = {
 const serviceLd = {
   "@context": "https://schema.org",
   "@type": "Service",
+  "@id": `${site.url}/#service`,
   serviceType: "Cash for cars",
   name: "Cash for Cars Brisbane",
   description:
     "We buy scrap, old, damaged and unwanted cars for cash across Brisbane, with free car removal.",
+  url: `${site.url}/`,
   provider: { "@id": `${site.url}/#business` },
   areaServed: [
     { "@type": "City", name: "Brisbane" },

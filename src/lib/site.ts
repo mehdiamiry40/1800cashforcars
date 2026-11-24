@@ -40,7 +40,8 @@ export const site = {
   // This brand is part of A Plus Car Removal; they share this yard. Blank hides the reviews link.
   googleBusinessUrl: "https://www.google.com/maps?cid=873860773398367904",
   googleBusinessName: "A Plus Car Removal",
-  parentUrl: "https://apluscarremoval.com.au",
+  // The www address is the one that answers. The bare domain redirects to it.
+  parentUrl: "https://www.apluscarremoval.com.au",
   // Star rating and review count on the A Plus Car Removal Google listing. Update now and then; blank count hides the quote-card line.
   // The quote card shows the count as plain text. It is not in structured data.
   // Do not mark it up as AggregateRating or Review.
@@ -55,6 +56,23 @@ export const site = {
     instagram: "",
   },
 };
+
+function clock(time: string) {
+  const [h, m] = time.split(":").map(Number);
+  const suffix = h >= 12 ? "pm" : "am";
+  const hour = h % 12 || 12;
+  return m ? `${hour}:${String(m).padStart(2, "0")}${suffix}` : `${hour}${suffix}`;
+}
+
+/** The yard hours above in words, e.g. "Monday to Friday, 8am to 5pm, and Saturday, 8am to 2pm". */
+export function yardHoursSentence(): string {
+  return site.hours
+    .map((h) => {
+      const days = h.days.length > 1 ? `${h.days[0]} to ${h.days[h.days.length - 1]}` : h.days[0];
+      return `${days}, ${clock(h.opens)} to ${clock(h.closes)}`;
+    })
+    .join(", and ");
+}
 
 // ChatGPT Ads Measurement Pixel. Change this one constant to point the site at a different pixel.
 export const OPENAI_ADS_PIXEL_ID = "Tf8BpfGnY6eFM4ukchfyy3";

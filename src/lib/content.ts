@@ -172,10 +172,12 @@ export const pages: ContentPage[] = [
   },
   {
     slug: "car-wreckers",
-    updated: "2026-11-16T10:35:14+10:00",
+    updated: "2026-11-24T14:10:00+10:00",
     intro: "Damaged cars, where parts can be worth more than the metal.",
-    title: "Car wreckers",
-    metaTitle: "Car Wreckers Brisbane, Cash for Damaged Cars",
+    title: "Car wreckers in Brisbane: cash for damaged cars",
+    label: "Car wreckers",
+    // With " | 1800-CASH-FOR-CARS" this is 56 characters. "Cash for damaged cars" is in the H1 instead.
+    metaTitle: "Car Wreckers Brisbane, Damaged Cars",
     description:
       "Local car wreckers buying wrecked, damaged and unwanted cars across Brisbane. We pay for usable parts as well as metal, with free removal.",
     blocks: [
@@ -272,9 +274,10 @@ export const pages: ContentPage[] = [
   },
   {
     slug: "car-disposal",
-    updated: "2026-11-16T10:35:14+10:00",
+    updated: "2026-11-24T14:10:00+10:00",
     intro: "The steps to get an unwanted car collected and paid for.",
-    title: "Car disposal",
+    title: "Free car disposal in Brisbane and on the Gold Coast",
+    label: "Car disposal",
     metaTitle: "Car Disposal Brisbane & Gold Coast",
     description:
       "Free car disposal across Brisbane, the Gold Coast and South East QLD. We collect unwanted cars and pay you before they leave. You cancel the rego afterwards.",
@@ -327,6 +330,7 @@ export const pages: ContentPage[] = [
         heading: "What do I need on the day?",
         summary:
           "Photo ID and proof the car is yours. The car does not need to run, and it does not need rego. The tow is free and is never taken off what we pay you. If keys or wheels are missing, say so when you ask for a price.",
+        links: [{ phrase: "keys or wheels are missing", href: "/car-removal-no-keys-no-wheels" }],
         icon: "car",
         paras: [
           "If the papers are lost, say so when you ask for a price. We still need photo ID and to be sure the car is yours. We collect from home, work, a mechanic's or the roadside, across Brisbane, Logan, Ipswich, the Gold Coast, the Sunshine Coast and Tweed Heads.",

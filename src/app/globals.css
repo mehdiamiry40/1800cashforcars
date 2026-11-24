@@ -19,9 +19,12 @@
   --color-line: #1e25a4;
   --color-control: #1e25a4;
   --color-muted: #555ab2;
-  --font-sans: var(--font-barlow);
-  --font-heading: var(--font-barlow);
-  --font-display: var(--font-barlow);
+  /* Barlow, then its size-matched fallback (both from next/font), then any sans-serif. The last one matters
+     because Barlow loads with font-display: optional: a page view that misses it keeps the fallback, and on
+     a device with no Arial that would otherwise be the browser's default serif. */
+  --font-sans: var(--font-barlow), sans-serif;
+  --font-heading: var(--font-barlow), sans-serif;
+  --font-display: var(--font-barlow), sans-serif;
   /* Only 400, 600 and 700 are loaded. Map the unused faces onto those files. */
   --font-weight-medium: 600;
   --font-weight-extrabold: 700;
@@ -238,8 +241,8 @@ textarea {
     padding: 1.35rem 1.35rem 1.15rem;
   }
 }
-/* The quote turnaround from site.ts, as a tag after the heading. It wraps under the heading on a narrow box. */
-.quote-turnaround {
+/* "(Instant)" in the quote heading, as a tag. It is part of the heading text: "Get a free quote (Instant)". */
+.quote-instant {
   display: inline-block;
   padding: 0.12em 0.45em 0.16em;
   background: var(--color-logo);
@@ -248,9 +251,6 @@ textarea {
   font-weight: 700;
   line-height: 1.35;
   vertical-align: 0.15em;
-}
-.quote-turnaround::first-letter {
-  text-transform: uppercase;
 }
 .quote-form .btn-brand {
   min-height: 52px;
@@ -275,42 +275,20 @@ textarea {
 .hero-quote textarea.field {
   min-height: 76px;
 }
-/* The rating sits under the quote heading. Keep the gap tight so the first field stays in view. */
+/* The rating sits under the quote heading. Keep the gap tight so the first field stays in view.
+   The line is a link, so its box is 44px tall for a thumb. The negative top margin takes the extra
+   height back, which leaves the words and the first field exactly where a 20px line put them. */
 .hero-quote > .hero-quote-title {
   margin-bottom: 0.25rem;
 }
 .hero-quote .google-reviews-signal {
-  min-height: 1.25rem;
-  margin-bottom: 0.75rem;
+  min-height: 44px;
+  margin-top: -12px;
+  margin-bottom: 0;
 }
 /* Full-width call control under the quote form. btn is content-sized from the small breakpoint. */
 .quote-call {
   width: 100%;
-}
-/* Email and price, the two quote fields most people leave empty. On a phone they are folded away until the
-   visitor asks for them, so the send button is closer. The condition field is not folded: the price is
-   worked out from it. `display: contents` keeps the two in the form's own grid, with its gaps, on every
-   screen. They are always in the page, so anything typed in them is sent whether or not they are showing. */
-.quote-more {
-  display: contents;
-}
-.quote-more-toggle {
-  display: none;
-}
-@media (max-width: 639px) {
-  .quote-more:not([data-open]) {
-    display: none;
-  }
-  .quote-more-toggle {
-    display: inline-flex;
-    min-height: 44px;
-    align-items: center;
-    gap: 0.4rem;
-    justify-self: start;
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--color-navy);
-  }
 }
 /* Field pairs respond to their available width, including narrow tablet sidebars. */
 .quote-form {
@@ -415,7 +393,7 @@ textarea {
     margin-bottom: 2px;
   }
   .hero-quote .google-reviews-signal {
-    margin-bottom: 8px;
+    margin-bottom: -4px;
     font-size: 13px;
     line-height: 1.2;
   }

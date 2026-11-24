@@ -186,13 +186,15 @@ export function AutoValuer({ regoLookup }: { regoLookup: boolean }) {
   const found = lookup && [lookup.vehicle.year, lookup.vehicle.make, lookup.vehicle.model].filter(Boolean).join(" ");
 
   return (
-    <div className="space-y-8">
+    // Spacing here is kept tight on purpose: with the short page heading it puts the first field of step 2
+    // on the first screen. The step heading and the tabs share one row whenever there is room for both.
+    <div className="space-y-4 sm:space-y-5">
       {/* Step 1: identify the car */}
-      <section className="border border-line/15 bg-white p-6 shadow-[0_24px_60px_-30px_rgba(30,37,164,0.45)] sm:p-10">
-        <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+      <section className="border border-line/15 bg-white p-5 shadow-[0_24px_60px_-30px_rgba(30,37,164,0.45)] sm:px-8 sm:py-7">
+        <div className="flex flex-wrap items-end justify-between gap-x-4 gap-y-4">
           <div>
             <p className="eyebrow text-logo">Step 1</p>
-            <h2 className="h-sub mt-1 sm:text-[34px]">Find your car</h2>
+            <h2 className="h-sub mt-1 text-[24px] sm:text-[34px]">Find your car</h2>
           </div>
           <div role="tablist" aria-label="How to find your car" className={`grid border border-navy ${regoLookup ? "grid-cols-3" : "grid-cols-2"}`}>
             {tabs.map((t, index) => (
@@ -206,7 +208,7 @@ export function AutoValuer({ regoLookup }: { regoLookup: boolean }) {
                 tabIndex={mode === t.id ? 0 : -1}
                 onKeyDown={(e) => onTabKey(e, index)}
                 onClick={() => switchMode(t.id)}
-                className={`min-h-12 px-4 text-[16px] font-bold transition-colors sm:px-7 ${
+                className={`min-h-12 px-2.5 text-[16px] font-bold transition-colors sm:px-7 ${
                   mode === t.id ? "bg-navy text-white" : "bg-white text-navy hover:bg-[#f2f3fb]"
                 }`}
               >
@@ -216,7 +218,7 @@ export function AutoValuer({ regoLookup }: { regoLookup: boolean }) {
           </div>
         </div>
 
-        <div className="mt-8" role="tabpanel" id="autoval-tabpanel" aria-labelledby={`autoval-tab-${mode}`}>
+        <div className="mt-4" role="tabpanel" id="autoval-tabpanel" aria-labelledby={`autoval-tab-${mode}`}>
           {mode === "rego" && (
             <form onSubmit={runLookup} className="flex flex-col gap-5 md:flex-row md:items-end">
               <PlateInput value={rego} onChange={setRego} state={regoState} />
@@ -264,10 +266,10 @@ export function AutoValuer({ regoLookup }: { regoLookup: boolean }) {
           )}
 
           {mode === "details" && (
-            <p className="max-w-xl text-[18px]">
+            <p className="text-[16px] sm:text-[18px]">
               {regoLookup
                 ? "No rego or VIN handy? Fill in the details below and we'll do the rest."
-                : "Fill in the details below and we'll do the rest. Have the VIN handy? The VIN tab can fill some of them in for you."}
+                : "Fill in the details below. Have the VIN handy? The VIN tab can fill some of them in for you."}
             </p>
           )}
 
@@ -297,12 +299,11 @@ export function AutoValuer({ regoLookup }: { regoLookup: boolean }) {
 
       {/* Step 2: details */}
       {showForm && (
-        <form onSubmit={runValuation} className="border border-line/15 bg-white p-6 sm:p-10">
+        <form onSubmit={runValuation} className="border border-line/15 bg-white p-5 sm:px-8 sm:py-7">
           <p className="eyebrow text-logo">Step 2</p>
-          <h2 className="h-sub mt-1 sm:text-[34px]">Tell us about it</h2>
-          <p className="mt-1 text-[16px] text-muted">Kilometres and condition make the biggest difference to the price.</p>
+          <h2 className="h-sub mt-1 text-[24px] sm:text-[34px]">Tell us about it</h2>
 
-          <FormSection title="The car">
+          <FormSection title="The car" first>
             <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
               <Field label="Make" required><input className="field" required maxLength={VEHICLE_TEXT_MAX} value={form.make ?? ""} onChange={(e) => set("make", e.target.value)} placeholder="Toyota" /></Field>
               <Field label="Model" required><input className="field" required maxLength={VEHICLE_TEXT_MAX} value={form.model ?? ""} onChange={(e) => set("model", e.target.value)} placeholder="Corolla" /></Field>
@@ -337,6 +338,7 @@ export function AutoValuer({ regoLookup }: { regoLookup: boolean }) {
           </FormSection>
 
           <FormSection title="Condition">
+            <p className="-mt-1 mb-4 text-[16px] text-muted">Kilometres and condition make the biggest difference to the price.</p>
             <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
               {CONDITIONS.map((c) => (
                 <button
@@ -477,9 +479,9 @@ function ResearchProgress() {
   );
 }
 
-function FormSection({ title, children }: { title: string; children: React.ReactNode }) {
+function FormSection({ title, first, children }: { title: string; first?: boolean; children: React.ReactNode }) {
   return (
-    <fieldset className="mt-10">
+    <fieldset className={first ? "mt-5" : "mt-10"}>
       <legend className="mb-4 flex w-full items-center gap-4 text-[14px] font-bold uppercase tracking-[0.14em] text-navy">
         {title}
         <span className="h-px flex-1 bg-line/15" />

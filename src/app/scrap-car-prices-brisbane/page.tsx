@@ -2,22 +2,26 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { ReviewsBand } from "@/components/Blocks";
-import { Breadcrumbs, JsonLd } from "@/components/JsonLd";
+import { Breadcrumbs, JsonLd, websiteNode } from "@/components/JsonLd";
 import { ParentBrandLine } from "@/components/ParentBrand";
 import { QuoteForm, QuoteFormHeading } from "@/components/QuoteForm";
 import { QuoteLink } from "@/components/QuoteLink";
 import { ArrowIcon, PhoneIcon, SmsIcon } from "@/components/icons";
-import { pageOpenGraph, site } from "@/lib/site";
+import { pageOpenGraph, site, yardHoursSentence } from "@/lib/site";
+import { PRICE_GUIDE_SOURCES, lastModified } from "@/lib/sitemap-dates";
 import { servicePhotos } from "@/lib/vehicle-visuals";
 
 const PATH = "/scrap-car-prices-brisbane";
 // The date the yard last reviewed these prices. It is the only date to change when they are reviewed
-// again: the title, description, headings, wording and schema dates below all follow it.
+// again: the title, description, headings, wording and the schema's datePublished below all follow it.
 const UPDATED_ISO = "2026-10-20";
 const MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 const [UPDATED_YEAR, updatedMonth, updatedDay] = UPDATED_ISO.split("-");
 const UPDATED_MONTH = `${MONTHS[Number(updatedMonth) - 1]} ${UPDATED_YEAR}`;
 const UPDATED_LABEL = `${Number(updatedDay)} ${UPDATED_MONTH}`;
+// When the page itself last changed, which can be after the prices were last reviewed. It is the same
+// date the sitemap gives as this URL's lastmod, and it is only used for dateModified in the schema.
+const MODIFIED_ISO = lastModified(PRICE_GUIDE_SOURCES).toISOString();
 const DESCRIPTION =
   `Scrap car prices in Brisbane for ${UPDATED_YEAR}: guide ranges by car type and condition, what changes the price, and free towing. Quotes on ${site.phoneDisplay}.`;
 const H1 = "How much is my scrap car worth in Brisbane?";
@@ -156,25 +160,11 @@ function AnswerText({ text }: { text: string }) {
   );
 }
 
-function clock(time: string) {
-  const [h, m] = time.split(":").map(Number);
-  const suffix = h >= 12 ? "pm" : "am";
-  const hour = h % 12 || 12;
-  return m ? `${hour}:${String(m).padStart(2, "0")}${suffix}` : `${hour}${suffix}`;
-}
-
-function hoursSentence() {
-  return site.hours
-    .map((h) => {
-      const days = h.days.length > 1 ? `${h.days[0]} to ${h.days[h.days.length - 1]}` : h.days[0];
-      return `${days}, ${clock(h.opens)} to ${clock(h.closes)}`;
-    })
-    .join(", and ");
-}
-
 const pageLd = {
   "@context": "https://schema.org",
   "@graph": [
+    // The WebPage below says it is part of this node, so the node is on the page too.
+    websiteNode,
     {
       "@type": "WebPage",
       "@id": `${site.url}${PATH}#webpage`,
@@ -186,7 +176,7 @@ const pageLd = {
       about: { "@id": `${site.url}/#business` },
       publisher: { "@id": `${site.url}/#business` },
       datePublished: UPDATED_ISO,
-      dateModified: UPDATED_ISO,
+      dateModified: MODIFIED_ISO,
     },
     {
       "@type": "FAQPage",
@@ -532,7 +522,7 @@ export default function ScrapCarPricesBrisbane() {
           <h2 className="h-content mt-12">Who is {site.name}?</h2>
           <ParentBrandLine />
           <p>
-            We share the yard at {site.address}. The yard is open {hoursSentence()}. Call{" "}
+            We share the yard at {site.address}. The yard is open {yardHoursSentence()}. Call{" "}
             <a href={site.phoneHref}>{site.phoneDisplay}</a>.{" "}
             <a href={site.googleBusinessUrl} target="_blank" rel="noopener noreferrer">
               Our yard is on Google as {site.googleBusinessName}

@@ -164,7 +164,7 @@ export const cashForCarsPage: ContentPage = {
 
 export const carRemovalsPage: ContentPage = {
   slug: "car-removals",
-  updated: "2026-11-16T10:35:14+10:00",
+  updated: "2026-11-24T14:10:00+10:00",
   intro: "Free car pickup across South East Queensland and the Tweed. Any condition.",
   title: "Free car removal across South East Queensland",
   // Overview for every area. Brisbane stays on /car-removal-brisbane. No redirect or canonical between them.
@@ -242,7 +242,8 @@ export const carRemovalsPage: ContentPage = {
       heading: "What we can remove",
       paragraphs: [
         {
-          text: "No keys, flat tyres, or a car that will not roll: we bring a tilt tray and winch it on. Tell us about tight access when you ask for a price. A steep driveway, a basement car park, a height bar, or a car in the backyard all change which truck we send. They don't add a removal fee.",
+          text: "No keys, flat tyres, or a car that will not roll: we bring a tilt tray and winch it on. Tell us about tight access when you ask for a price. A steep driveway, a basement car park, a height bar, or a car in the backyard all change which truck we send. They don't add a removal fee. Cars with no keys or no wheels have their own page.",
+          links: [{ phrase: "Cars with no keys or no wheels", href: "/car-removal-no-keys-no-wheels" }],
         },
       ],
       list: [

@@ -126,7 +126,7 @@ export default function LoganLocationPage() {
           Munruben, Chambers Flat, Logan Village, Cedar Vale and Jimboomba acreage are larger blocks. A car or farm ute in a paddock can still be priced. Mention a gate, a long track or soft ground.
         </p>
         <p className="mt-4 text-[18px] leading-relaxed">
-          <a href="#logan-suburbs" className="font-semibold text-navy underline underline-offset-4">
+          <a href="#logan-suburbs" className="inline-flex min-h-11 items-center font-semibold text-navy underline underline-offset-4">
             See every Logan suburb we cover ↓
           </a>
         </p>
@@ -184,7 +184,11 @@ export default function LoganLocationPage() {
           If it has failed a roadworthy and the repair quote is more than the car is worth, we price it as it is. You do not have to pay for those repairs first.
         </p>
         <p className="mt-4 text-[18px] leading-relaxed">
-          No wheels, or it cannot roll: we buy cars with no wheels and cars with no keys. Tell us when you ask for a price, so the right truck comes.
+          No wheels, or it cannot roll: we buy{" "}
+          <Link href="/car-removal-no-keys-no-wheels" className="font-semibold text-navy underline underline-offset-4">
+            cars with no wheels and cars with no keys
+          </Link>
+          . Tell us when you ask for a price, so the right truck comes.
         </p>
         <p className="mt-4 text-[18px] leading-relaxed">
           Work utes, vans and trucks from Logan businesses are welcome, one vehicle or several. Vans start from $500 and trucks from $1,000. Cash for old trucks, including cash for trucks in Logan, is on the{" "}
@@ -212,7 +216,7 @@ export default function LoganLocationPage() {
           Describe the car accurately, including damage and anything missing, so the price does not change when we arrive.
         </p>
         <TextCta from="logan-process">
-          <QuoteLink from="logan-process-text" className="font-semibold text-navy underline underline-offset-4">
+          <QuoteLink from="logan-process-text" className="inline-flex min-h-11 items-center font-semibold text-navy underline underline-offset-4">
             Send us your car&apos;s details
           </QuoteLink>
         </TextCta>

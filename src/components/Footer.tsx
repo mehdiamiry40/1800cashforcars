@@ -55,6 +55,7 @@ export function Footer() {
             <li><Link href="/" className="inline-flex min-h-11 items-center hover:underline">Cash for cars Brisbane</Link></li>
             <li><Link href="/car-removal-brisbane" className="inline-flex min-h-11 items-center hover:underline">Car removal Brisbane</Link></li>
             <li><Link href="/scrap-car-prices-brisbane" className="inline-flex min-h-11 items-center hover:underline">Scrap car prices Brisbane</Link></li>
+            <li><Link href="/autoval" className="inline-flex min-h-11 items-center hover:underline">Free car valuation Brisbane</Link></li>
             <li><Link href="/locations/toowong" className="inline-flex min-h-11 items-center hover:underline">Car removal Toowong</Link></li>
             <li><Link href="/car-wreckers-gold-coast" className="inline-flex min-h-11 items-center hover:underline">Car wreckers Gold Coast</Link></li>
             {areas.filter((a) => !a.href).map((a) => (
@@ -77,12 +78,13 @@ export function Footer() {
             Privacy policy
           </Link>
         </div>
-        <p className="mt-3 text-[14px]">
+        {/* The address link is 44px tall, like the links above it. That height replaces the paragraph's top margin. */}
+        <p className="text-[14px]">
           <a
             href={site.mapsUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="underline underline-offset-4"
+            className="inline-flex min-h-11 items-center underline underline-offset-4"
           >
             {site.address}
           </a>{" "}
