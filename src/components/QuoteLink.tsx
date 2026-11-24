@@ -4,7 +4,9 @@ import { track } from "@vercel/analytics";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { rememberAdSource } from "@/lib/ad-source";
 import { measureOpenAiCallClick } from "@/lib/openai-ads";
+import { reportCallTap } from "@/lib/quote-conversion";
 import { site } from "@/lib/site";
 import { PhoneIcon } from "./icons";
 
@@ -85,12 +87,22 @@ export function ContactTracker() {
       if (href.startsWith("tel:")) {
         track("call_click", { page: location.pathname });
         measureOpenAiCallClick();
+        reportCallTap();
         return;
       }
       track("sms_click", { page: location.pathname });
     };
     document.addEventListener("click", onClick);
     return () => document.removeEventListener("click", onClick);
+  }, []);
+  return null;
+}
+
+// Notes where the visitor came from on the first page of the visit, so the quote form can send it.
+// The layout stays mounted between pages, so this runs once per full page load.
+export function AdSourceTracker() {
+  useEffect(() => {
+    rememberAdSource();
   }, []);
   return null;
 }

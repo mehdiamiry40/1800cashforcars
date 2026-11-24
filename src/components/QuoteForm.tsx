@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useId, useRef, useState, useSyncExternalStore, type FormEvent, type MouseEvent, type ReactNode } from "react";
 import { flushSync } from "react-dom";
+import { AD_SOURCE_FIELD, storedAdSource } from "@/lib/ad-source";
 import { quoteLeadEventId } from "@/lib/openai-ads";
 import { reportQuoteLead } from "@/lib/quote-conversion";
 import { quoteEmailError } from "@/lib/quote-email";
@@ -30,10 +31,10 @@ export function QuoteForm({
   const [state, setState] = useState<QuoteState>(null);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [pending, setPending] = useState(false);
-  // The three optional fields (email, price, condition). On a phone they are folded away until asked
-  // for; on wider screens they always show (globals.css). A condition filled in for the visitor, as
-  // AutoVal does, starts them open so it can be seen and changed.
-  const [showMore, setShowMore] = useState(Boolean(defaults?.description));
+  // Email and price, the two fields most people skip. On a phone they are folded away until asked for;
+  // on wider screens they always show (globals.css). The condition stays in view on every screen: it is
+  // what the price is worked out from, and most people fill it in when they can see it.
+  const [showMore, setShowMore] = useState(false);
   const moreId = useId();
   function openMore(event: MouseEvent<HTMLButtonElement>) {
     const form = event.currentTarget.form;
@@ -70,6 +71,9 @@ export function QuoteForm({
     setPending(true);
     const body = new FormData(form);
     if (mountedAt.current) body.set("e", String(Math.round(performance.now() - mountedAt.current)));
+    // Which ad, search or site brought the visitor, noted when they arrived (AdSourceTracker).
+    const source = storedAdSource();
+    if (source) body.set(AD_SOURCE_FIELD, source);
     try {
       const res = await fetch("/api/quote", { method: "POST", body });
       const data = (await res.json().catch(() => null)) as QuoteState | null;
@@ -154,6 +158,13 @@ export function QuoteForm({
           <input name="expected" inputMode="decimal" className={`${input} pl-7`} placeholder="Price you're hoping for (optional)" maxLength={40} autoComplete="off" enterKeyHint="next" aria-invalid={errors.expected ? true : undefined} aria-describedby={errors.expected ? "quote-error-expected" : undefined} />
         </span>
       </Field>
+      </div>
+      {!showMore && (
+        <button type="button" className="quote-more-toggle" aria-expanded="false" aria-controls={moreId} onClick={openMore}>
+          <span aria-hidden="true">+</span>
+          <span className="underline underline-offset-4">Add email or price (optional)</span>
+        </button>
+      )}
       <Field name="description" error={errors.description}>
         <span className="field-float">Car condition (optional)</span>
         <textarea
@@ -168,13 +179,6 @@ export function QuoteForm({
           aria-describedby={errors.description ? "quote-error-description" : undefined}
         />
       </Field>
-      </div>
-      {!showMore && (
-        <button type="button" className="quote-more-toggle" aria-expanded="false" aria-controls={moreId} onClick={openMore}>
-          <span aria-hidden="true">+</span>
-          <span className="underline underline-offset-4">Add email, price or condition (optional)</span>
-        </button>
-      )}
       {Object.keys(errors).length > 0 && (
         <div role="alert" className="bg-red-50 px-3 py-2 text-[14px] font-semibold text-red-800">
           <p>Check the highlighted fields.</p>

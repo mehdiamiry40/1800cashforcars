@@ -4,7 +4,7 @@ import Script from "next/script";
 import { Barlow } from "next/font/google";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
-import { ContactTracker, StickyQuoteBar } from "@/components/QuoteLink";
+import { AdSourceTracker, ContactTracker, StickyQuoteBar } from "@/components/QuoteLink";
 import { openAiAdsBootstrapScript } from "@/lib/openai-ads";
 import { areas, pageTwitter, shareImage, site } from "@/lib/site";
 import "./globals.css";
@@ -109,6 +109,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <Footer />
         <StickyQuoteBar />
         <ContactTracker />
+        <AdSourceTracker />
         <Analytics />
         {/* ChatGPT Ads Measurement Pixel. The queue and init run from the initial HTML, before hydration, and the SDK loads asynchronously. */}
         <Script id="openai-ads-pixel" strategy="beforeInteractive">

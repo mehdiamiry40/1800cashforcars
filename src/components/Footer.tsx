@@ -55,6 +55,8 @@ export function Footer() {
             <li><Link href="/" className="inline-flex min-h-11 items-center hover:underline">Cash for cars Brisbane</Link></li>
             <li><Link href="/car-removal-brisbane" className="inline-flex min-h-11 items-center hover:underline">Car removal Brisbane</Link></li>
             <li><Link href="/scrap-car-prices-brisbane" className="inline-flex min-h-11 items-center hover:underline">Scrap car prices Brisbane</Link></li>
+            <li><Link href="/locations/toowong" className="inline-flex min-h-11 items-center hover:underline">Car removal Toowong</Link></li>
+            <li><Link href="/car-wreckers-gold-coast" className="inline-flex min-h-11 items-center hover:underline">Car wreckers Gold Coast</Link></li>
             {areas.filter((a) => !a.href).map((a) => (
               <li key={a.slug}>
                 <Link href={areaHref(a)} className="inline-flex min-h-11 items-center hover:underline">Cash for cars {a.name}</Link>

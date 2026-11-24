@@ -287,10 +287,10 @@ textarea {
 .quote-call {
   width: 100%;
 }
-/* The three optional quote fields (email, price, condition). On a phone they are folded away until the
-   visitor asks for them, so the send button is in reach without scrolling past fields most people leave
-   empty. `display: contents` keeps them in the form's own grid, with its gaps, on every screen. They are
-   always in the page, so anything typed in them is sent whether or not they are showing. */
+/* Email and price, the two quote fields most people leave empty. On a phone they are folded away until the
+   visitor asks for them, so the send button is closer. The condition field is not folded: the price is
+   worked out from it. `display: contents` keeps the two in the form's own grid, with its gaps, on every
+   screen. They are always in the page, so anything typed in them is sent whether or not they are showing. */
 .quote-more {
   display: contents;
 }

@@ -69,7 +69,7 @@ export default function LocationsPage() {
       <div className="mt-12">
         <h2 className="h-content">Brisbane suburbs we cover</h2>
         <p className="mt-3">Select a region for suburbs.</p>
-        <BrisbaneSuburbs narrow links={{ Toowong: "/locations/toowong" }} />
+        <BrisbaneSuburbs narrow />
       </div>
       <div className="mt-12">
         <CallUsAndTerms />

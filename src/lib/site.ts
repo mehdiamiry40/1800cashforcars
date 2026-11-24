@@ -204,6 +204,9 @@ export const faqs = [
   },
 ];
 
+// Suburbs with their own page. The Brisbane suburb list links these names wherever it is shown.
+export const suburbPages: Record<string, string> = { Toowong: "/locations/toowong" };
+
 // Brisbane suburbs we cover, grouped for the Brisbane pages (our yard is in Rocklea).
 export const brisbaneSuburbs: { region: string; suburbs: string[] }[] = [
   {

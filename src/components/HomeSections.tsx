@@ -162,7 +162,7 @@ export function PickupSection() {
           />
           <h2 className="h-section !text-brand">Is the towing really free?</h2>
           <p className="mt-4 text-[18px] sm:text-[20px]">
-            Yes. The run out from Rocklea is not a line item, and it is not shaved off after you accept. Engines that turn over and engines that do not are both paid. Name a collecting day, Saturday included. The meeting point can be a house, a workplace or a repair shop. Cash, or a transfer, changes hands while the vehicle is still on your ground.
+            Yes. We don&apos;t charge for the tow from our Rocklea yard, and we don&apos;t take it off your price after you accept. That&apos;s the same whether the car runs or not. We pick up from homes, workplaces and repair shops, Monday to Saturday.
           </p>
           <p className="mb-6 mt-3">
             Tell us where it is and choose a time that suits you. You&apos;re
@@ -500,7 +500,7 @@ export function WhyChooseSection() {
         <div>
           <h2 className="h-section !text-brand">How do I get paid?</h2>
           <p className="mt-4 max-w-3xl text-[18px] sm:text-[20px]">
-            Settlement is notes in hand or a transfer into your account, completed at collection, and you leave with a receipt. Queensland sellers pick which of those two. Across the border, including around Tweed Heads, scrap-vehicle rules bar notes, so only a transfer is used. The drive is not subtracted from that settlement.
+            We pay you when we collect the car, before it leaves, and give you a receipt. In Queensland you choose cash or a bank transfer. In NSW, including Tweed Heads, the law doesn&apos;t allow cash for scrap vehicles, so we pay by bank transfer there. Nothing comes off the price for towing.
           </p>
           <ul className="my-7 space-y-6">
             {promises.map(({ Icon, title, text }) => (
@@ -561,7 +561,7 @@ export function SellingAdvice() {
   const advice = [
     {
       title: "What is your car worth?",
-      text: "Year, badge and what still works all move the figure, and a sound engine or panel can lift it. A starter is worth more than a non-starter. The journey out is not subtracted. Describe the car and a firm figure is usually within the hour.",
+      text: "The price depends on the make, model and year, and on what still works. A sound engine or good panels add to it, and a car that starts is worth more than one that doesn't. Towing isn't taken off. Tell us about the car and we'll send a firm price, usually within the hour.",
       href: "/cash-for-cars",
       visual: advicePhotos.value,
       link: "How pricing works",

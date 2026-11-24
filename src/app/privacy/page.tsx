@@ -10,9 +10,10 @@ export const metadata: Metadata = {
 };
 
 // Keep this page matching what the site actually does. Update it, and the date below, whenever a
-// provider that receives visitor or lead data is added or removed: src/lib/quote.ts (email, database,
-// logs), src/lib/openai-ads-capi.ts and src/app/layout.tsx (ad tags), and src/app/api/autoval (AutoVal).
-const LAST_UPDATED = "15 November 2026";
+// provider that receives visitor or lead data is added or removed, or when the site starts keeping
+// something new: src/lib/quote.ts (email, database, logs), src/lib/ad-source.ts (how a visitor reached
+// the site), src/lib/openai-ads-capi.ts and src/app/layout.tsx (ad tags), and src/app/api/autoval (AutoVal).
+const LAST_UPDATED = "23 November 2026";
 
 // The number plate only goes to the lookup service while that service is switched on.
 const regoLookup = regoLookupEnabled();
@@ -33,7 +34,9 @@ export default function PrivacyPage() {
       <h2>What we collect</h2>
       <p>
         When you request a quote we collect your name, phone number, email address (if provided), suburb, details
-        about your vehicle, the price you&apos;re hoping for (if you tell us) and the page you sent the form from. Our
+        about your vehicle, the price you&apos;re hoping for (if you tell us) and the page you sent the form from. We
+        also note how you reached our website: the first page you opened, the website that linked you to it, and
+        any ad or campaign tag on that link, such as a Google Ads click ID. Our
         website also receives technical details your browser sends, such as your IP address and browser type. When
         we buy your car we may also record your ID and proof of ownership, as required by law.
       </p>
@@ -90,6 +93,12 @@ export default function PrivacyPage() {
         We advertise on Google and in ChatGPT. Our website uses a Google Ads tag and OpenAI&apos;s ChatGPT ads
         measurement tag, and the cookies they set, to measure which ads lead to quote requests and calls. We use
         Vercel Web Analytics (which doesn&apos;t use cookies) to count visits.
+      </p>
+      <p>
+        So we can see which ad, search or website a quote request came from, our website notes the first page you
+        opened, the website that linked you to it and any ad or campaign tag on that link. It keeps this in your
+        browser until you close the tab and sends it with the quote form. It is saved with your quote request and
+        included in the email to our business inbox.
       </p>
       <p>
         When you send a quote request, our server also tells OpenAI that a request was made, so it can be matched

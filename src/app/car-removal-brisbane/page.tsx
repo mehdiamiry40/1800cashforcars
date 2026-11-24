@@ -195,7 +195,7 @@ export default function CarRemovalBrisbane() {
           </Link>
           .
         </p>
-        <BrisbaneSuburbs narrow links={{ Toowong: "/locations/toowong" }} />
+        <BrisbaneSuburbs narrow />
       </div>
 
       <div className="mt-12">
