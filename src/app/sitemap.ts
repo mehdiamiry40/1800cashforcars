@@ -1,32 +1,19 @@
-import { execFileSync } from "node:child_process";
 import type { MetadataRoute } from "next";
 import { pages } from "@/lib/content";
 import { areaHref, areas, site } from "@/lib/site";
+import { sourceDate } from "@/lib/sitemap-dates";
 
-// Last content commit, used only when git history is not available in the build.
+// Last resort, for a file with neither a trustworthy git date nor a recorded one.
 const FALLBACK_UPDATED = "2026-10-18T11:03:00.000Z";
 
-// Logan and Ipswich were rewritten on 22 October 2026. Use that date if git is missing.
+// Logan and Ipswich were rewritten on 22 October 2026. Their last resort.
 const LOCATION_CONTENT_UPDATED = "2026-10-22T00:00:00.000+10:00";
 
-function gitDate(file: string): Date | null {
-  try {
-    const iso = execFileSync("git", ["log", "-1", "--format=%cI", "--", file], {
-      encoding: "utf8",
-      stdio: ["ignore", "pipe", "ignore"],
-    }).trim();
-    if (iso) return new Date(iso);
-  } catch {
-    // Shallow or git-less builds keep a stable date instead of the deploy time.
-  }
-  return null;
-}
-
-/** Latest git date across the files that actually feed a URL. */
+/** Latest change across the files that actually feed a URL. Never the deploy time. */
 function updated(files: string[], fallback = FALLBACK_UPDATED): Date {
   let max = 0;
   for (const file of files) {
-    const date = gitDate(file);
+    const date = sourceDate(file);
     if (date) max = Math.max(max, date.getTime());
   }
   return new Date(max || new Date(fallback).getTime());

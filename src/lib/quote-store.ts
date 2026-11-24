@@ -1,3 +1,5 @@
+import type { AdSource } from "@/lib/ad-source";
+
 export const QUOTE_FIELDS = [
   ["ref", "Reference"],
   ["name", "Name"],
@@ -34,10 +36,16 @@ export function isQuoteRefConflict(err: unknown): boolean {
   return err instanceof QuoteInsertError && (err.status === 409 || err.body.includes("23505"));
 }
 
+/** The table has no `attribution` column yet: the migration that adds it has not been applied. */
+export function isAttributionColumnMissing(err: unknown): boolean {
+  return err instanceof QuoteInsertError && err.status === 400 && err.body.includes("attribution");
+}
+
 /**
  * Inserts one quote. Resolves to false, without a request, when either Supabase env var is missing.
  * `spamReason` marks a suspected-spam submission that was kept instead of emailed. It is only
  * sent when set, so a normal quote never depends on the spam_reason column existing.
+ * `attribution` is where the visitor came from (src/lib/ad-source.ts). It is also only sent when set.
  */
 export async function insertQuoteSubmission(
   lead: QuoteLead,
@@ -45,6 +53,7 @@ export async function insertQuoteSubmission(
   env: NodeJS.ProcessEnv = process.env,
   fetchImpl: FetchLike = fetch,
   spamReason?: string,
+  attribution?: AdSource | null,
 ): Promise<boolean> {
   const url = env.SUPABASE_URL?.trim();
   const key = env.SUPABASE_SERVICE_ROLE_KEY?.trim();
@@ -72,6 +81,7 @@ export async function insertQuoteSubmission(
       page: lead.page,
       user_agent: userAgent,
       ...(spamReason ? { spam_reason: spamReason } : {}),
+      ...(attribution ? { attribution } : {}),
     }),
     signal: AbortSignal.timeout(8_000),
   });

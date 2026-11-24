@@ -38,7 +38,7 @@ export default function AboutPage() {
           <a href={site.mapsUrl} className={linkClass} target="_blank" rel="noopener noreferrer">
             {site.address}
           </a>
-          . This page says who we are, how a car is priced, and how to reach the yard.
+          .
         </p>
 
         <h2 className="h-content mt-12">Who is {site.name}?</h2>
@@ -52,7 +52,7 @@ export default function AboutPage() {
 
         <h2 className="h-content mt-12">Are you licensed?</h2>
         <p className="mt-4 text-[18px] leading-relaxed">
-          {site.licenceLine} The licence belongs to the parent company. {site.name} does not hold that dealer licence in its own name, and this page does not say that it does. The ABN for {site.name} is {site.abn}. That is the number printed with this brand.
+          {site.licenceLine} The licence belongs to the parent company. {site.name} does not hold that dealer licence in its own name. The ABN for {site.name} is {site.abn}.
         </p>
 
         <h2 className="h-content mt-12">Where is your yard?</h2>
@@ -61,7 +61,7 @@ export default function AboutPage() {
           <a href={site.mapsUrl} className={linkClass} target="_blank" rel="noopener noreferrer">
             {site.address}
           </a>
-          . Rocklea sits on Brisbane&apos;s southside. Brisbane, Logan and Ipswich collections are usually within a day or two. Visits are to this address. We do not describe a second yard on this site.
+          . Rocklea sits on Brisbane&apos;s southside. Brisbane, Logan and Ipswich collections are usually within a day or two. Visits are to this address.
         </p>
         <p className="mt-2 text-[18px]">
           <a href={site.mapsUrl} className={`inline-flex min-h-11 items-center ${linkClass}`} target="_blank" rel="noopener noreferrer">

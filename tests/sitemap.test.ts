@@ -4,6 +4,8 @@ import { describe, it } from "node:test";
 import sitemap from "../src/app/sitemap";
 import { pages } from "../src/lib/content";
 import { site } from "../src/lib/site";
+import recorded from "../src/lib/sitemap-dates.json";
+import { isShallowClone, requestedSourceFiles, trustedCommitDate } from "../src/lib/sitemap-dates";
 
 function gitDate(file: string): number {
   const iso = execFileSync("git", ["log", "-1", "--format=%cI", "--", file], { encoding: "utf8" }).trim();
@@ -40,6 +42,29 @@ describe("sitemap lastmod", () => {
   it("writes each service page's date with a Brisbane time, not a bare day", () => {
     for (const page of pages) {
       assert.match(page.updated, /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\+10:00$/, `/${page.slug}`);
+    }
+  });
+
+  it("does not trust the commit where a shallow clone's history is cut", () => {
+    const boundary = "2026-10-31T09:13:48+10:00\t";
+    const ordinary = "2026-11-16T10:35:14+10:00\tda8dba9f0c1e";
+    // A full clone: every commit is real, including the first one, which has no parents.
+    assert.equal(trustedCommitDate(boundary, false)?.toISOString(), "2026-10-30T23:13:48.000Z");
+    assert.equal(trustedCommitDate(ordinary, false)?.toISOString(), "2026-11-16T00:35:14.000Z");
+    // A shallow clone: the commit with no parents only looks as if it added the file.
+    assert.equal(trustedCommitDate(boundary, true), null);
+    assert.equal(trustedCommitDate(ordinary, true)?.toISOString(), "2026-11-16T00:35:14.000Z");
+    assert.equal(trustedCommitDate("", true), null);
+    assert.equal(trustedCommitDate("not a date\tabc", false), null);
+  });
+
+  it("records a date for every file behind the sitemap, and never one later than its last commit", (t) => {
+    if (isShallowClone()) return t.skip("needs the full git history");
+    sitemap();
+    const dates: Record<string, string> = recorded;
+    for (const file of requestedSourceFiles()) {
+      assert.ok(dates[file], `${file} has no recorded date. Run: npm run sitemap:dates`);
+      assert.ok(new Date(dates[file]).getTime() <= gitDate(file), `${file} is recorded as changed after its last commit`);
     }
   });
 });

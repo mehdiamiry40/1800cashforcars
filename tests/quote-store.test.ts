@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import { afterEach, beforeEach, describe, it } from "node:test";
+import { AD_SOURCE_FIELD } from "@/lib/ad-source";
 import { processQuote } from "@/lib/quote";
 import { QUOTE_HONEYPOT_FIELD } from "@/lib/quote-spam";
 import { QUOTE_LIMIT } from "@/lib/rate-limit";
@@ -215,7 +216,106 @@ describe("quote submissions in Supabase", () => {
     const sent = JSON.parse(String(calls[0].init?.body)) as { subject: string };
     assert.equal(sent.subject.startsWith(`[${exhausted.ref}]`), true);
   });
+
+  it("saves where the visitor came from and adds it to the lead email", async () => {
+    process.env.SUPABASE_URL = "https://example.supabase.co";
+    process.env.SUPABASE_SERVICE_ROLE_KEY = "service-role-test";
+    process.env.RESEND_API_KEY = "re_test_key";
+    process.env.LEAD_TO_EMAIL = "leads@example.com";
+
+    const source = JSON.stringify({
+      gclid: "Cj0KCQtest",
+      utm_source: "google",
+      utm_medium: "cpc",
+      utm_campaign: "brisbane-cash-for-cars",
+      landing: "/",
+      referrer: "www.google.com",
+      unknown: "dropped",
+    });
+    const { inserts, emails } = splitInsertsAndEmails();
+    const result = await processQuote(quoteForm({ [AD_SOURCE_FIELD]: source }), quoteHeaders("203.0.113.90"), 1_950_000_000_000);
+
+    assert.equal(result.ok, true);
+    assert.equal(inserts.length, 1);
+    assert.equal(emails.length, 1);
+    assert.deepEqual(inserts[0].attribution, {
+      gclid: "Cj0KCQtest",
+      utm_source: "google",
+      utm_medium: "cpc",
+      utm_campaign: "brisbane-cash-for-cars",
+      landing: "/",
+      referrer: "www.google.com",
+    });
+    const email = emails[0] as { text: string; html: string };
+    assert.match(email.text, /\nCame from: Google Ads \(google \/ cpc\) · campaign brisbane-cash-for-cars · landed on \/$/);
+    assert.match(email.html, /Came from<\/td>/);
+  });
+
+  it("leaves the source out when the form sends none, or sends something unreadable", async () => {
+    process.env.SUPABASE_URL = "https://example.supabase.co";
+    process.env.SUPABASE_SERVICE_ROLE_KEY = "service-role-test";
+    process.env.RESEND_API_KEY = "re_test_key";
+    process.env.LEAD_TO_EMAIL = "leads@example.com";
+
+    const { inserts, emails } = splitInsertsAndEmails();
+    await processQuote(quoteForm(), quoteHeaders("203.0.113.91"), 1_960_000_000_000);
+    await processQuote(quoteForm({ [AD_SOURCE_FIELD]: "{not json" }), quoteHeaders("203.0.113.92"), 1_960_000_000_000);
+    await processQuote(quoteForm({ [AD_SOURCE_FIELD]: '{"landing":"<script>"}' }), quoteHeaders("203.0.113.93"), 1_960_000_000_000);
+
+    assert.equal(inserts.length, 3);
+    assert.equal(emails.length, 3);
+    for (const insert of inserts) assert.equal("attribution" in insert, false);
+    for (const email of emails) assert.doesNotMatch(String(email.text), /Came from/);
+  });
+
+  it("saves the quote without the source when the attribution column has not been added yet", async () => {
+    process.env.SUPABASE_URL = "https://example.supabase.co";
+    process.env.SUPABASE_SERVICE_ROLE_KEY = "service-role-test";
+    process.env.RESEND_API_KEY = "re_test_key";
+    process.env.LEAD_TO_EMAIL = "leads@example.com";
+
+    // What Supabase answers when a row names a column the table does not have.
+    const { inserts, emails } = splitInsertsAndEmails((row) =>
+      "attribution" in row
+        ? new Response(
+            JSON.stringify({ code: "PGRST204", message: "Could not find the 'attribution' column of 'quote_submissions' in the schema cache" }),
+            { status: 400 },
+          )
+        : null,
+    );
+
+    const source = JSON.stringify({ utm_source: "chatgpt", landing: "/cash-for-cars" });
+    const result = await processQuote(quoteForm({ [AD_SOURCE_FIELD]: source }), quoteHeaders("203.0.113.94"), 1_970_000_000_000);
+
+    assert.equal(result.ok, true);
+    assert.equal(result.lead, true);
+    assert.equal(inserts.length, 2);
+    assert.equal("attribution" in inserts[0], true);
+    assert.equal("attribution" in inserts[1], false);
+    assert.equal(result.ref, inserts[1].ref);
+    // The email still says where the quote came from.
+    assert.match(String(emails[0].text), /Came from: chatgpt · landed on \/cash-for-cars/);
+  });
 });
+
+/**
+ * Replaces fetch with one that keeps database rows and emails apart, and answers each the way its
+ * service does. `rejectInsert` can return a response to refuse a row. The suite restores fetch.
+ */
+function splitInsertsAndEmails(rejectInsert?: (row: Record<string, unknown>) => Response | null) {
+  const inserts: Record<string, unknown>[] = [];
+  const emails: Record<string, unknown>[] = [];
+  globalThis.fetch = (async (input: RequestInfo | URL, init?: RequestInit) => {
+    const body = JSON.parse(String(init?.body)) as Record<string, unknown>;
+    if (String(input).includes("/rest/v1/quote_submissions")) {
+      inserts.push(body);
+      return rejectInsert?.(body) ?? new Response(null, { status: 201 });
+    }
+    emails.push(body);
+    return new Response(JSON.stringify({ id: "email_123" }), { status: 200, headers: { "content-type": "application/json" } });
+  }) as typeof fetch;
+  return { inserts, emails };
+}
 
 function quoteHeaders(ip: string) {
   return {

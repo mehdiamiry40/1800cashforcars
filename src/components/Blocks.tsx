@@ -24,6 +24,7 @@ import {
   areaHref,
   areas,
   brisbaneSuburbs,
+  suburbPages,
   faqs,
   reviews,
   site,
@@ -604,10 +605,10 @@ export function FinalCta() {
 
 export function BrisbaneSuburbs({
   narrow = false,
-  links = {},
+  links = suburbPages,
 }: {
   narrow?: boolean;
-  /** Suburb name to an internal page. Other callers leave the list as plain text. */
+  /** Suburb name to its own page. Defaults to every suburb that has one. */
   links?: Record<string, string>;
 }) {
   return (

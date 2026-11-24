@@ -1,12 +1,13 @@
 import { after } from "next/server";
 import { Resend } from "resend";
+import { AD_SOURCE_FIELD, describeAdSource, parseAdSource, type AdSource } from "@/lib/ad-source";
 import { scheduleOpenAiServerLead } from "@/lib/openai-ads-capi";
 import { site } from "@/lib/site";
 import type { QuoteState } from "@/lib/quote-state";
 import { quoteEmailError } from "@/lib/quote-email";
 import { generateQuoteRef } from "@/lib/quote-ref";
 import { MIN_SUBMIT_MS, QUOTE_HONEYPOT_FIELD } from "@/lib/quote-spam";
-import { insertQuoteSubmission, isQuoteRefConflict, QUOTE_FIELDS, type QuoteLead } from "@/lib/quote-store";
+import { insertQuoteSubmission, isAttributionColumnMissing, isQuoteRefConflict, QUOTE_FIELDS, type QuoteLead } from "@/lib/quote-store";
 import { quoteYearError } from "@/lib/quote-year";
 import { QUOTE_LIMIT, clientIp, rateLimit, type HeaderSource } from "@/lib/rate-limit";
 
@@ -109,15 +110,22 @@ function leadProblem(lead: QuoteLead, yearInput: string, now: number): string | 
 
 /**
  * Saves the lead under a new reference. A duplicate reference (409 / 23505) gets a new code, up to 3 retries.
- * Resolves to whether a row was saved.
+ * If the table has no attribution column yet, the lead is saved without where it came from, so a
+ * migration that has not been applied never costs a saved lead. Resolves to whether a row was saved.
  */
-async function storeLead(lead: QuoteLead, userAgent: string | null, spamReason?: string): Promise<boolean> {
+async function storeLead(lead: QuoteLead, userAgent: string | null, spamReason?: string, adSource?: AdSource | null): Promise<boolean> {
+  let attribution = adSource;
   for (let attempt = 0; attempt < 4; attempt++) {
     lead.ref = generateQuoteRef();
     try {
-      return await insertQuoteSubmission(lead, userAgent, undefined, undefined, spamReason);
+      return await insertQuoteSubmission(lead, userAgent, undefined, undefined, spamReason, attribution);
     } catch (err) {
       if (isQuoteRefConflict(err) && attempt < 3) continue;
+      if (attribution && isAttributionColumnMissing(err) && attempt < 3) {
+        console.warn("[lead] attribution column missing, saving without the ad source");
+        attribution = null;
+        continue;
+      }
       console.error(spamReason ? "[lead] suspected spam not stored" : "[lead] supabase insert failed", err);
       return false;
     }
@@ -185,19 +193,25 @@ export async function processQuote(formData: FormData, headerSource: HeaderSourc
       return { ok: false, message: QUOTE_RATE_LIMIT_MESSAGE, status: 429, retryAfter: decision.retryAfter };
     }
 
+    // Where the visitor came from, noted by the form's script. Missing when the browser sent the form itself.
+    const adSource = parseAdSource(String(formData.get(AD_SOURCE_FIELD) ?? ""));
+    const cameFrom = describeAdSource(adSource);
+
     // Honeypot, timing, validation and the rate limit have all passed. A failed insert must not block the email.
-    const stored = await storeLead(lead, headerSource.get("user-agent"));
+    const stored = await storeLead(lead, headerSource.get("user-agent"), undefined, adSource);
 
     const subject = `[${lead.ref}] New quote request: ${lead.vehicle.split("\n")[0].slice(0, 60)}${lead.description ? ` (${lead.description.split("\n")[0].slice(0, 40)})` : ""}${lead.address ? ` — ${lead.address}` : ""}${lead.expected ? ` — wants ${lead.expected}` : ""}`;
-    const rows = QUOTE_FIELDS.filter(([k]) => lead[k])
-      .map(([k, label]) => `<tr><td style="padding:6px 12px;color:#555;vertical-align:top">${label}</td><td style="padding:6px 12px;font-weight:600;white-space:pre-wrap">${escape(lead[k])}</td></tr>`)
+    const details: [label: string, value: string][] = QUOTE_FIELDS.filter(([k]) => lead[k]).map(([k, label]) => [label, lead[k]]);
+    if (cameFrom) details.push(["Came from", cameFrom]);
+    const rows = details
+      .map(([label, value]) => `<tr><td style="padding:6px 12px;color:#555;vertical-align:top">${label}</td><td style="padding:6px 12px;font-weight:600;white-space:pre-wrap">${escape(value)}</td></tr>`)
       .join("");
-    const text = QUOTE_FIELDS.filter(([k]) => lead[k]).map(([k, label]) => `${label}: ${lead[k]}`).join("\n");
+    const text = details.map(([label, value]) => `${label}: ${value}`).join("\n");
 
     // The saved row is the record of the lead. Its details go to the function logs only when there is no
     // saved row, so nothing is lost if the email also fails and names and numbers are not logged otherwise.
     if (stored) console.log("[lead] saved", lead.ref);
-    else console.log("[lead]", JSON.stringify(lead));
+    else console.log("[lead]", JSON.stringify(cameFrom ? { ...lead, cameFrom } : lead));
 
     const apiKey = process.env.RESEND_API_KEY;
     const to = process.env.LEAD_TO_EMAIL;
