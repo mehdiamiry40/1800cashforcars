@@ -5,7 +5,7 @@ import sitemap from "../src/app/sitemap";
 import { pages } from "../src/lib/content";
 import { site } from "../src/lib/site";
 import recorded from "../src/lib/sitemap-dates.json";
-import { isShallowClone, requestedSourceFiles, trustedCommitDate } from "../src/lib/sitemap-dates";
+import { PRICE_GUIDE_SOURCES, isShallowClone, lastModified, requestedSourceFiles, trustedCommitDate } from "../src/lib/sitemap-dates";
 
 function gitDate(file: string): number {
   const iso = execFileSync("git", ["log", "-1", "--format=%cI", "--", file], { encoding: "utf8" }).trim();
@@ -36,6 +36,22 @@ describe("sitemap lastmod", () => {
       assert.ok(!Number.isNaN(time), `/${page.slug} has an updated value that is not a date`);
       assert.equal(time, new Date(page.updated).getTime(), `/${page.slug} is not dated from its own copy`);
       assert.ok(time <= Date.now(), `/${page.slug} is dated in the future`);
+    }
+  });
+
+  // The price guide's schema states a dateModified. It reads the same files through the same function,
+  // so it is the date in the sitemap.
+  it("dates the price guide from the files its schema uses for dateModified", () => {
+    const entry = sitemap().find((item) => item.url === `${site.url}/scrap-car-prices-brisbane`);
+    assert.ok(entry?.lastModified instanceof Date);
+    assert.equal(entry.lastModified.toISOString(), lastModified(PRICE_GUIDE_SOURCES).toISOString());
+  });
+
+  // Search results cut a title off at about 60 characters, and " | 1800-CASH-FOR-CARS" is 21 of them.
+  it("keeps each service page's title, with the site name, to 60 characters", () => {
+    for (const page of pages) {
+      const title = `${page.metaTitle} | ${site.name}`;
+      assert.ok(title.length <= 60, `/${page.slug}: "${title}" is ${title.length} characters`);
     }
   });
 

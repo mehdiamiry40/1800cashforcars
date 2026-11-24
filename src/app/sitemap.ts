@@ -1,23 +1,10 @@
 import type { MetadataRoute } from "next";
 import { pages } from "@/lib/content";
 import { areaHref, areas, site } from "@/lib/site";
-import { sourceDate } from "@/lib/sitemap-dates";
-
-// Last resort, for a file with neither a trustworthy git date nor a recorded one.
-const FALLBACK_UPDATED = "2026-10-18T11:03:00.000Z";
+import { PRICE_GUIDE_SOURCES, lastModified as updated } from "@/lib/sitemap-dates";
 
 // Logan and Ipswich were rewritten on 22 October 2026. Their last resort.
 const LOCATION_CONTENT_UPDATED = "2026-10-22T00:00:00.000+10:00";
-
-/** Latest change across the files that actually feed a URL. Never the deploy time. */
-function updated(files: string[], fallback = FALLBACK_UPDATED): Date {
-  let max = 0;
-  for (const file of files) {
-    const date = sourceDate(file);
-    if (date) max = Math.max(max, date.getTime());
-  }
-  return new Date(max || new Date(fallback).getTime());
-}
 
 // Each location page shows its AutoVal line from this file.
 const VALUATION_NOTES = "src/lib/valuation-notes.ts";
@@ -52,7 +39,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${site.url}/about`, lastModified: updated(["src/app/about/page.tsx"]), changeFrequency: "monthly", priority: 0.6 },
     { url: `${site.url}/car-removal-brisbane`, lastModified: updated(["src/app/car-removal-brisbane/page.tsx"]), changeFrequency: "monthly", priority: 0.95 },
     { url: `${site.url}/car-removal-no-keys-no-wheels`, lastModified: updated(["src/app/car-removal-no-keys-no-wheels/page.tsx"]), changeFrequency: "monthly", priority: 0.85 },
-    { url: `${site.url}/scrap-car-prices-brisbane`, lastModified: updated(["src/app/scrap-car-prices-brisbane/page.tsx"]), changeFrequency: "monthly", priority: 0.9 },
+    { url: `${site.url}/scrap-car-prices-brisbane`, lastModified: updated(PRICE_GUIDE_SOURCES), changeFrequency: "monthly", priority: 0.9 },
     { url: `${site.url}/locations`, lastModified: updated(["src/app/locations/page.tsx", VALUATION_NOTES]), changeFrequency: "monthly", priority: 0.7 },
     { url: `${site.url}/locations/toowong`, lastModified: updated(["src/app/locations/toowong/page.tsx", VALUATION_NOTES]), changeFrequency: "monthly", priority: 0.8 },
     { url: `${site.url}/car-wreckers-gold-coast`, lastModified: updated(["src/app/car-wreckers-gold-coast/page.tsx"]), changeFrequency: "monthly", priority: 0.8 },

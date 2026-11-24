@@ -63,7 +63,8 @@ const places = [
 ];
 
 export const metadata: Metadata = {
-  title: "Free Car Removal Toowong & Cash for Cars",
+  // 60 characters with " | 1800-CASH-FOR-CARS". A comma, not " & ", keeps "Free" inside that limit.
+  title: "Free Car Removal Toowong, Cash for Cars",
   description: DESCRIPTION,
   alternates: { canonical: PATH },
   openGraph: pageOpenGraph(PATH),
@@ -228,7 +229,7 @@ export default function ToowongLocationPage() {
         </ol>
         <p className="mt-4 text-[18px] leading-relaxed">Describe the car accurately and the price we quote is the price we pay.</p>
         <TextCta from="toowong-process">
-          <QuoteLink from="toowong-process-text" className="font-semibold text-navy underline underline-offset-4">
+          <QuoteLink from="toowong-process-text" className="inline-flex min-h-11 items-center font-semibold text-navy underline underline-offset-4">
             Send us the car&apos;s details
           </QuoteLink>
         </TextCta>

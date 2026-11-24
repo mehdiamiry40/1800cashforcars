@@ -24,11 +24,14 @@ const GOOGLE_TAG_CONNECT_HOSTS = [
 // Google's Ads CSP guidance lists www.googleadservices.com on img-src for
 // conversion and remarketing pixels. The same host is also on connect-src
 // because a successful quote fires a conversion fetch, not only an image.
+// The tag reaches ad.doubleclick.net with a fetch (connect-src). It is on img-src as
+// well, so the hit is not blocked if the tag falls back to an image pixel.
 const GOOGLE_TAG_IMG_HOSTS = [
   "https://www.google.com",
   "https://www.google.com.au",
   "https://www.googleadservices.com",
   "https://www.googletagmanager.com",
+  "https://ad.doubleclick.net",
   "https://googleads.g.doubleclick.net",
 ];
 

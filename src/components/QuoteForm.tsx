@@ -2,8 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useId, useRef, useState, useSyncExternalStore, type FormEvent, type MouseEvent, type ReactNode } from "react";
-import { flushSync } from "react-dom";
+import { useEffect, useRef, useState, useSyncExternalStore, type FormEvent, type ReactNode } from "react";
 import { AD_SOURCE_FIELD, storedAdSource } from "@/lib/ad-source";
 import { quoteLeadEventId } from "@/lib/openai-ads";
 import { reportQuoteLead } from "@/lib/quote-conversion";
@@ -31,17 +30,6 @@ export function QuoteForm({
   const [state, setState] = useState<QuoteState>(null);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [pending, setPending] = useState(false);
-  // Email and price, the two fields most people skip. On a phone they are folded away until asked for;
-  // on wider screens they always show (globals.css). The condition stays in view on every screen: it is
-  // what the price is worked out from, and most people fill it in when they can see it.
-  const [showMore, setShowMore] = useState(false);
-  const moreId = useId();
-  function openMore(event: MouseEvent<HTMLButtonElement>) {
-    const form = event.currentTarget.form;
-    // Rendered straight away, so focus can move to the first of the fields. The button it was on is gone.
-    flushSync(() => setShowMore(true));
-    form?.querySelector<HTMLElement>('[name="email"]')?.focus();
-  }
   const pathname = usePathname();
   // Until this script runs, the browser sends the form itself, so its own checks of the required
   // fields are left on. Once it runs, they are replaced by the messages below.
@@ -61,8 +49,6 @@ export function QuoteForm({
     const found = invalidFields(form);
     setErrors(found);
     if (Object.keys(found).length) {
-      // Email is the one optional field that can be wrong. Unfold it so its message and the field show.
-      if (found.email) flushSync(() => setShowMore(true));
       form.querySelector<HTMLElement>(`[name="${Object.keys(found)[0]}"]`)?.focus();
       return;
     }
@@ -146,7 +132,7 @@ export function QuoteForm({
         <input name="phone" type="tel" inputMode="tel" className={input} placeholder="Mobile" required autoComplete="tel" enterKeyHint="next" pattern={"[0-9\\s\\(\\)\\+\\-]{8,}"} title="Enter a mobile number with at least 8 digits. Spaces are fine." aria-invalid={errors.phone ? true : undefined} aria-describedby={errors.phone ? "quote-error-phone" : undefined} />
       </Field>
       </div>
-      <div id={moreId} className="quote-more" data-open={showMore || undefined}>
+      {/* Every field shows on every screen. The price is never folded away or put behind a toggle. */}
       <Field name="email" error={errors.email}>
         <span className="field-float">Email (optional)</span>
         <input name="email" type="email" inputMode="email" className={input} placeholder="Email (optional)" autoComplete="email" autoCapitalize="none" autoCorrect="off" spellCheck={false} enterKeyHint="next" aria-invalid={errors.email ? true : undefined} aria-describedby={errors.email ? "quote-error-email" : undefined} />
@@ -158,13 +144,6 @@ export function QuoteForm({
           <input name="expected" inputMode="decimal" className={`${input} pl-7`} placeholder="Price you're hoping for (optional)" maxLength={40} autoComplete="off" enterKeyHint="next" aria-invalid={errors.expected ? true : undefined} aria-describedby={errors.expected ? "quote-error-expected" : undefined} />
         </span>
       </Field>
-      </div>
-      {!showMore && (
-        <button type="button" className="quote-more-toggle" aria-expanded="false" aria-controls={moreId} onClick={openMore}>
-          <span aria-hidden="true">+</span>
-          <span className="underline underline-offset-4">Add email or price (optional)</span>
-        </button>
-      )}
       <Field name="description" error={errors.description}>
         <span className="field-float">Car condition (optional)</span>
         <textarea
@@ -253,10 +232,12 @@ function Field({ name, error, children }: { name: string; error?: string; childr
   );
 }
 
+// Owner requirement: the heading reads exactly "Get a free quote (Instant)" on every screen, and nothing
+// else goes inside it. The turnaround line (site.quoteTurnaround) stays in the body copy, not beside it.
 export function QuoteFormHeading({ className = "" }: { className?: string }) {
   return (
     <h2 className={className}>
-      Get a free quote <span className="quote-turnaround">{site.quoteTurnaround}</span>
+      Get a free quote <span className="quote-instant">(Instant)</span>
     </h2>
   );
 }

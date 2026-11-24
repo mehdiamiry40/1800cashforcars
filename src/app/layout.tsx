@@ -11,7 +11,11 @@ import "./globals.css";
 
 // Barlow is shared by navigation, headings, forms and body copy.
 // 400 body, 600 headings, 700 buttons. Medium and extrabold are mapped onto these in globals.css so only three files are preloaded.
-const barlow = Barlow({ variable: "--font-barlow", subsets: ["latin"], weight: ["400", "600", "700"], display: "swap" });
+// `optional`, not `swap`: the three files are preloaded, so they are normally ready for the first paint. With `swap`,
+// a paint that beat them was redrawn in Barlow a moment later, and on a page of plain text (/about) the paragraphs
+// re-wrapped and everything under them moved. With `optional` a page is never redrawn in another font. When the
+// files do arrive too late, that page view keeps the size-matched fallback, and Barlow is cached for the next one.
+const barlow = Barlow({ variable: "--font-barlow", subsets: ["latin"], weight: ["400", "600", "700"], display: "optional" });
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),

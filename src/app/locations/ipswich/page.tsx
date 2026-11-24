@@ -192,7 +192,11 @@ export default function IpswichLocationPage() {
         </p>
         <h3 className="mt-8 font-heading text-[22px] font-semibold leading-tight text-navy">A car that hasn&apos;t moved in years</h3>
         <p className="mt-3 text-[18px] leading-relaxed">
-          Flat tyres or a seized engine are fine. Missing wheels or a missing key does not stop the purchase. Mention either one in the request and we will send a truck that can load the car. Describe shed or backyard access and we will set a time that suits you.
+          Flat tyres or a seized engine are fine.{" "}
+          <Link href="/car-removal-no-keys-no-wheels" className="font-semibold text-navy underline underline-offset-4">
+            Missing wheels or a missing key
+          </Link>{" "}
+          does not stop the purchase. Mention either one in the request and we will send a truck that can load the car. Describe shed or backyard access and we will set a time that suits you.
         </p>
 
         <h2 id="ipswich-steps" className="h-content mt-12 scroll-mt-24">

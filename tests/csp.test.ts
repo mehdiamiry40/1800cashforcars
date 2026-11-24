@@ -62,6 +62,19 @@ describe("content security policy", () => {
     assert.equal(uncoveredInlineScripts("<script>var ready = true;</script>", policy).length, 0);
   });
 
+  // The Google tag reaches ad.doubleclick.net with a fetch. If it falls back to an image pixel,
+  // img-src has to allow the same host, or the hit is blocked.
+  it("allows ad.doubleclick.net as an image as well as a fetch", () => {
+    const sources = (directive: string) => directive.split(/\s+/);
+    for (const policy of [buildContentSecurityPolicy([sha256Source("var ready = true;")]), buildDevContentSecurityPolicy()]) {
+      assert.equal(sources(directiveValue(policy, "img-src")).includes("https://ad.doubleclick.net"), true);
+      assert.equal(sources(directiveValue(policy, "connect-src")).includes("https://ad.doubleclick.net"), true);
+      assert.equal(sources(directiveValue(policy, "script-src")).includes("https://ad.doubleclick.net"), false);
+      assert.equal(policy.includes("report-uri"), false);
+      assert.equal(policy.includes("report-to"), false);
+    }
+  });
+
   it("ships a placeholder until the post-build step fills hashes", () => {
     const policy = buildContentSecurityPolicy([]);
     assert.ok(policy.includes(CSP_HASH_PLACEHOLDER));

@@ -51,7 +51,8 @@ const faqs = [
 ];
 
 export const metadata: Metadata = {
-  title: "Car Wreckers Gold Coast, We Buy Your Car",
+  // 57 characters with " | 1800-CASH-FOR-CARS".
+  title: "Car Wreckers Gold Coast, We Buy Cars",
   description: DESCRIPTION,
   alternates: { canonical: PATH },
   openGraph: pageOpenGraph(PATH),

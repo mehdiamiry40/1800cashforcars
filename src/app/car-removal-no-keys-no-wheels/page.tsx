@@ -128,10 +128,10 @@ export default function NoKeysNoWheelsPage() {
           <p className="mt-4 text-[18px] leading-relaxed">
             From home, work, a mechanic, a backyard or the roadside, if we can reach the car. The yard we leave from is {site.address}, shared with A Plus Car Removal. {site.licenceLine} Put the suburb in the quote.
           </p>
-          <ul className="mt-4 space-y-2 text-[18px]">
+          <ul className="mt-2 text-[18px]">
             {areas.map((area) => (
               <li key={area.slug}>
-                <Link href={areaHref(area)} className={linkClass}>
+                <Link href={areaHref(area)} className={`inline-flex min-h-11 items-center ${linkClass}`}>
                   {area.name}
                 </Link>
               </li>

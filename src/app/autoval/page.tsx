@@ -68,44 +68,47 @@ export default function AutoValPage() {
     <>
       <Breadcrumbs trail={[{ name: "AutoVal car valuation", path: "/autoval" }]} />
 
+      {/* A short heading band, so the form's first field is on the first screen of a phone and of a laptop.
+          The three promises that used to sit here are under the tool, with the scrap car link. */}
       <section className="relative overflow-hidden bg-navy text-white">
-        <div className="container-site grid items-end gap-8 pb-28 pt-10 sm:pb-36 sm:pt-16 md:grid-cols-[1.4fr_1fr]">
-          <div>
-            <p className="font-sans text-[14px] font-bold uppercase tracking-[0.14em] text-white">AutoVal · Free AI valuation</p>
-            <h1 className="mt-4 font-heading text-[40px] font-bold leading-[1.05] tracking-[-0.02em] sm:text-[56px] lg:text-[64px]">
-              Free car valuation for Brisbane and Queensland
-            </h1>
-            <p className="mt-5 max-w-xl text-[18px] leading-relaxed text-white/85 sm:text-[20px]">
-              What&apos;s your car really worth? {regoLookup ? "Enter your rego, VIN or just the details." : "Enter your car's details, or a VIN."} AutoVal checks live Australian listings and price guides, then
-              shows what it&apos;s worth and what to fix before you sell.
-            </p>
-            <p className="mt-4 max-w-xl text-[16px] leading-relaxed text-white sm:text-[18px]">
-              For a scrap or wrecked car, see our{" "}
-              <Link href="/scrap-car-prices-brisbane" className="font-semibold underline underline-offset-4">
-                scrap car prices in Brisbane
-              </Link>
-              .
-            </p>
-            <ul className="mt-7 flex flex-wrap gap-x-6 gap-y-2 text-[16px] font-semibold">
-              {["Free, no sign-up", "Ready in about a minute", "Live Australian market data"].map((t) => (
-                <li key={t} className="flex items-center gap-2">
-                  <CheckIcon aria-hidden="true" className="h-5 w-5 text-white" />
-                  {t}
-                </li>
-              ))}
-            </ul>
-          </div>
-          <Roo hand="cash" className="mx-auto hidden h-56 w-auto md:block lg:h-64" />
+        <div className="container-site pb-14 pt-5 sm:pb-[4.5rem] sm:pt-7">
+          <p className="font-sans text-[14px] font-bold uppercase tracking-[0.14em] text-white">AutoVal · Free AI valuation</p>
+          <h1 className="mt-1.5 font-heading text-[28px] font-bold leading-[1.1] tracking-[-0.02em] sm:mt-2 sm:text-[40px] lg:text-[44px]">
+            Free car valuation for Brisbane and Queensland
+          </h1>
+          <p className="mt-2.5 max-w-3xl text-[16px] leading-normal text-white/85 sm:mt-3 sm:text-[18px] sm:leading-relaxed">
+            What&apos;s your car really worth? {regoLookup ? "Enter your rego, VIN or just the details." : "Enter your car's details, or a VIN."} AutoVal checks live Australian listings and price guides, then
+            shows what it&apos;s worth and what to fix before you sell.
+          </p>
         </div>
+        <Roo hand="cash" className="pointer-events-none absolute bottom-16 right-[max(3rem,calc((100vw-80rem)/2+3rem))] hidden h-36 w-auto xl:block" />
       </section>
 
       <nav aria-label="Breadcrumb" className="sr-only">
         <Link href="/">Home</Link> › <span>AutoVal car valuation</span>
       </nav>
 
-      <div className="container-site relative -mt-20 pb-16 sm:-mt-28 sm:pb-24">
+      <div className="container-site relative -mt-10 pb-10 sm:-mt-12 sm:pb-14">
         <AutoValuer regoLookup={regoLookup} />
       </div>
+
+      <section className="container-site max-w-3xl pb-12 sm:pb-16">
+        <ul className="flex flex-wrap gap-x-6 gap-y-2 text-[16px] font-semibold">
+          {["Free, no sign-up", "Ready in about a minute", "Live Australian market data"].map((t) => (
+            <li key={t} className="flex items-center gap-2">
+              <CheckIcon aria-hidden="true" className="h-5 w-5 text-brand" />
+              {t}
+            </li>
+          ))}
+        </ul>
+        <p className="mt-4 text-[16px] leading-relaxed sm:text-[18px]">
+          For a scrap or wrecked car, see our{" "}
+          <Link href="/scrap-car-prices-brisbane" className="font-semibold text-navy underline underline-offset-4">
+            scrap car prices in Brisbane
+          </Link>
+          .
+        </p>
+      </section>
 
       <section className="container-site max-w-3xl pb-16 sm:pb-24">
         <h2 className="h-content">How AutoVal works</h2>

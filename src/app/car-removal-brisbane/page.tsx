@@ -77,9 +77,11 @@ const faqLd = {
 const serviceLd = {
   "@context": "https://schema.org",
   "@type": "Service",
+  "@id": `${site.url}/car-removal-brisbane#service`,
   serviceType: "Car removal",
   name: "Car Removal Brisbane",
   description: "Free car removal across Brisbane. We pay for scrap, old and unwanted cars and tow them away at no cost.",
+  url: `${site.url}/car-removal-brisbane`,
   provider: { "@id": `${site.url}/#business` },
   areaServed: [
     { "@type": "City", name: "Brisbane" },

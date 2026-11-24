@@ -24,6 +24,20 @@ export function isVercelNonProductionHost(host: string): boolean {
   return host.endsWith(".vercel.app") && host !== PRODUCTION_VERCEL_ALIAS;
 }
 
+// Pages whose name is written with capitals in copy, so people type the address that way: "AutoVal".
+// Next.js matches routes by exact case, so /AutoVal would be a 404. A redirect in next.config.ts cannot
+// do this job: its `source` is matched without regard to case, so /AutoVal -> /autoval would also catch
+// /autoval and loop. The proxy compares the exact path instead.
+const LOWERCASE_PATHS = new Set(["/autoval"]);
+
+/** The path with its capitals put right, or the same path when there is nothing to fix. */
+export function canonicalCasePath(pathname: string): string {
+  if (pathname === "/") return pathname;
+  const bare = pathname.replace(/\/+$/, "");
+  const lower = bare.toLowerCase();
+  return LOWERCASE_PATHS.has(lower) && bare !== lower ? lower : pathname;
+}
+
 /**
  * Permanent redirect target for a non-canonical host, or null when the request should be served.
  * Local dev, `next dev`, Vercel preview deployments, and non-production *.vercel.app hosts are left alone.

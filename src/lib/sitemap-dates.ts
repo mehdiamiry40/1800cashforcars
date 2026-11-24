@@ -54,3 +54,23 @@ export function sourceDate(file: string): Date | null {
   const iso = RECORDED[file];
   return iso ? new Date(iso) : null;
 }
+
+// Last resort, for a file with neither a trustworthy git date nor a recorded one.
+const FALLBACK_UPDATED = "2026-10-18T11:03:00.000Z";
+
+/**
+ * Latest change across the files that actually feed a URL. Never the deploy time.
+ * It is the URL's lastmod in the sitemap, and a page that states a dateModified takes it from here too,
+ * so the two cannot disagree.
+ */
+export function lastModified(files: string[], fallback = FALLBACK_UPDATED): Date {
+  let max = 0;
+  for (const file of files) {
+    const date = sourceDate(file);
+    if (date) max = Math.max(max, date.getTime());
+  }
+  return new Date(max || new Date(fallback).getTime());
+}
+
+/** The files behind /scrap-car-prices-brisbane, shared by the sitemap and that page's schema. */
+export const PRICE_GUIDE_SOURCES = ["src/app/scrap-car-prices-brisbane/page.tsx"];
