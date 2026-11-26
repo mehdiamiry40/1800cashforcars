@@ -38,7 +38,7 @@ const serviceCards: {
   Icon: typeof CashIcon;
 }[] = [
   {
-    title: "Cash for cars",
+    title: "Sell your car for cash",
     homeTitle: "Sell your car for cash in Brisbane",
     href: "/cash-for-cars",
     visual: servicePhotos.cash,
@@ -335,7 +335,7 @@ export function QuoteOptions() {
   return (
     <section className="section-site">
       <div className="container-site">
-        <h2 className="h-section !text-brand">Your car. Your way.</h2>
+        <h2 className="h-section !text-brand">How to get a quote for your car</h2>
         <p className="mb-8 max-w-3xl text-[18px]">
           Call, text, or send the car&apos;s details. If you want a market estimate before a cash offer,{" "}
           <Link href="/autoval" className="font-semibold underline underline-offset-4">
@@ -409,7 +409,7 @@ export function SellerSection() {
     <section className="section-site">
       <div className="container-site">
         <h2 className="h-section mb-8 !text-brand sm:mb-10">
-          Your vehicle. Our expertise.
+          Cash for cars for owners and businesses
         </h2>
         <div className="grid gap-9 md:grid-cols-2 md:gap-8">
           {sellers.map(({ title, text, href, link, visual, Icon }) => (
@@ -609,7 +609,7 @@ export function SellingAdvice() {
   return (
     <section className="section-site">
       <div className="container-site">
-        <h2 className="h-section mb-8 !text-brand">Sell with confidence.</h2>
+        <h2 className="h-section mb-8 !text-brand">Before you sell your car in Brisbane</h2>
         <div className="grid gap-8 md:grid-cols-2">
           {advice.map(({ title, text, href, visual, link }) => (
             <Link key={href} href={href} className="advice-card group block">

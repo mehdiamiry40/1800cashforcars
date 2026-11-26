@@ -81,8 +81,8 @@ export const tweedHeadsLocal = {
           text: "Pickups in the Tweed are usually within a day or two. You pick the time, Monday to Saturday. We collect from home, from work, from a mechanic, or from the roadside. Mention a tight driveway in Terranora or Banora Point, or a car at Murwillumbah that cannot roll.",
         },
         {
-          text: "The yard we leave from is 79B Breadwell St, Rocklea, on Brisbane's southside. The Tweed is over the border from that yard, which is why we agree a time with you. The tow is still free across Tweed Heads, Banora Point, Kingscliff, Pottsville, Terranora and Murwillumbah. The office line is open through the working day until 5pm, and until 2pm Saturday. How the sale itself is priced is on the cash for cars page.",
-          links: [{ phrase: "cash for cars page", href: "/cash-for-cars" }],
+          text: "The yard we leave from is 79B Breadwell St, Rocklea, on Brisbane's southside. The Tweed is over the border from that yard, which is why we agree a time with you. The tow is still free across Tweed Heads, Banora Point, Kingscliff, Pottsville, Terranora and Murwillumbah. The office line is open through the working day until 5pm, and until 2pm Saturday. How the sale itself is priced is on the sell your car for cash page.",
+          links: [{ phrase: "sell your car for cash page", href: "/cash-for-cars" }],
         },
         valuationNotes["/locations/tweed-heads"],
       ],

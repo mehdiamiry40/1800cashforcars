@@ -193,7 +193,7 @@ export function AutoValuer({ regoLookup }: { regoLookup: boolean }) {
       {/* The two steps, with the cash offer block beside them on a wide screen and under them on a narrower
           one. Beside, it adds no height, so the first field of step 2 stays where it was. */}
       <div className="grid gap-4 sm:gap-5 xl:grid-cols-[minmax(0,1fr)_18rem] xl:items-start">
-      <div className="min-w-0 space-y-4 sm:space-y-5">
+      <div className="autoval-tool min-w-0 space-y-4 sm:space-y-5">
       {/* Step 1: identify the car */}
       <section className="border border-line/15 bg-white p-5 shadow-[0_24px_60px_-30px_rgba(30,37,164,0.45)] sm:px-8 sm:py-7">
         <div className="flex flex-wrap items-end justify-between gap-x-4 gap-y-4">
@@ -313,6 +313,23 @@ export function AutoValuer({ regoLookup }: { regoLookup: boolean }) {
               <Field label="Make" required><input className="field" required maxLength={VEHICLE_TEXT_MAX} value={form.make ?? ""} onChange={(e) => set("make", e.target.value)} placeholder="Toyota" /></Field>
               <Field label="Model" required><input className="field" required maxLength={VEHICLE_TEXT_MAX} value={form.model ?? ""} onChange={(e) => set("model", e.target.value)} placeholder="Corolla" /></Field>
               <Field label="Year" required><input className="field" required inputMode="numeric" value={form.year} onChange={(e) => set("year", e.target.value)} placeholder="2018" /></Field>
+              <Field label="Kilometres" required>
+                <input className="field" required inputMode="numeric" value={form.odometerKm} onChange={(e) => set("odometerKm", e.target.value)} placeholder="85,000" />
+              </Field>
+            </div>
+          </FormSection>
+
+          {/* Those four are all a valuation needs, so the button is here. It used to be two screens down. */}
+          <ValuationSubmit valuing={valuing} error={valuationError} className="mt-6" />
+
+          {/* Everything from here is optional. A second button at the end saves scrolling back up. */}
+          <div className="mt-10 border-t border-line/15 pt-8">
+            <h3 className="h-sub text-[22px] sm:text-[26px]">More detail (optional)</h3>
+            <p className="mt-2 text-[16px] text-muted">The more of it you fill in, the more the estimate has to go on.</p>
+          </div>
+
+          <FormSection title="Car details" first>
+            <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
               <Field label="Variant"><input className="field" maxLength={VEHICLE_TEXT_MAX} value={form.variant ?? ""} onChange={(e) => set("variant", e.target.value)} placeholder="Ascent Sport" /></Field>
               <Field label="Body"><input className="field" maxLength={VEHICLE_TEXT_MAX} value={form.bodyType ?? ""} onChange={(e) => set("bodyType", e.target.value)} placeholder="Hatch" /></Field>
               <Field label="Transmission">
@@ -335,9 +352,6 @@ export function AutoValuer({ regoLookup }: { regoLookup: boolean }) {
                 </select>
               </Field>
               <Field label="Colour"><input className="field" maxLength={VEHICLE_TEXT_MAX} value={form.colour ?? ""} onChange={(e) => set("colour", e.target.value)} placeholder="White" /></Field>
-              <Field label="Kilometres" required>
-                <input className="field" required inputMode="numeric" value={form.odometerKm} onChange={(e) => set("odometerKm", e.target.value)} placeholder="85,000" />
-              </Field>
               <Field label="Owners"><input className="field" inputMode="numeric" value={form.owners} onChange={(e) => set("owners", e.target.value)} placeholder="2" /></Field>
             </div>
           </FormSection>
@@ -379,13 +393,21 @@ export function AutoValuer({ regoLookup }: { regoLookup: boolean }) {
               ))}
             </div>
 
-            <label className="mt-6 flex min-h-11 cursor-pointer items-center gap-3 text-[16px] font-semibold">
+            {/* The checkbox covers the whole 44px row, so the row is the target for a thumb. It is see-through,
+                and the box drawn after it shows its state and its keyboard focus. */}
+            <label className="relative mt-6 flex min-h-11 cursor-pointer items-center gap-3 text-[16px] font-semibold">
               <input
                 type="checkbox"
-                className="h-5 w-5 accent-[var(--color-brand)]"
+                className="peer absolute inset-0 h-full w-full cursor-pointer opacity-0"
                 checked={form.accidentHistory}
                 onChange={(e) => set("accidentHistory", e.target.checked)}
               />
+              <span
+                aria-hidden="true"
+                className="grid h-5 w-5 shrink-0 place-items-center border-2 border-navy bg-white text-white peer-checked:border-logo peer-checked:bg-logo peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-brand"
+              >
+                <CheckIcon className="h-3.5 w-3.5" />
+              </span>
               It&apos;s been in an accident or had panel repairs
             </label>
           </FormSection>
@@ -401,21 +423,7 @@ export function AutoValuer({ regoLookup }: { regoLookup: boolean }) {
             </div>
           </FormSection>
 
-          <div className="mt-10 border-t border-line/15 pt-8">
-            {valuing ? (
-              <ResearchProgress />
-            ) : (
-              <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-                <p className="text-[16px] text-muted">We check live Australian listings. It usually takes under a minute.</p>
-                <button type="submit" className="btn-brand">
-                  Get my valuation <ArrowIcon aria-hidden="true" className="h-5 w-5" />
-                </button>
-              </div>
-            )}
-            {valuationError && (
-              <p role="alert" className="mt-6 bg-red-50 px-4 py-3 text-[16px] font-semibold text-red-800">{valuationError}</p>
-            )}
-          </div>
+          <ValuationSubmit valuing={valuing} error={valuationError} repeat className="mt-10 border-t border-line/15 pt-8" />
         </form>
       )}
       </div>
@@ -423,6 +431,35 @@ export function AutoValuer({ regoLookup }: { regoLookup: boolean }) {
       </div>
 
       {result && <ValuationReport valuation={result.valuation} car={result.car} />}
+    </div>
+  );
+}
+
+/**
+ * The "Get my valuation" button, the progress list that replaces it while the valuation runs, and any
+ * error. The form shows it twice: after the required fields and at the end. `repeat` marks the second one.
+ * Its progress and error are for the eye only, so a screen reader hears each of them once.
+ */
+function ValuationSubmit({ valuing, error, repeat = false, className = "" }: { valuing: boolean; error: string | null; repeat?: boolean; className?: string }) {
+  return (
+    <div className={className}>
+      {valuing ? (
+        <div aria-hidden={repeat || undefined}>
+          <ResearchProgress />
+        </div>
+      ) : (
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-[16px] text-muted">We check live Australian listings. It usually takes under a minute.</p>
+          <button type="submit" className="btn-brand">
+            Get my valuation <ArrowIcon aria-hidden="true" className="h-5 w-5" />
+          </button>
+        </div>
+      )}
+      {error && (
+        <p role={repeat ? undefined : "alert"} aria-hidden={repeat || undefined} className="mt-6 bg-red-50 px-4 py-3 text-[16px] font-semibold text-red-800">
+          {error}
+        </p>
+      )}
     </div>
   );
 }

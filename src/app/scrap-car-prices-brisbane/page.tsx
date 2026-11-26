@@ -2,26 +2,25 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { ReviewsBand } from "@/components/Blocks";
-import { Breadcrumbs, JsonLd, websiteNode } from "@/components/JsonLd";
+import { Breadcrumbs, BreadcrumbTrail, JsonLd, websiteNode } from "@/components/JsonLd";
 import { ParentBrandLine } from "@/components/ParentBrand";
+import { GoogleReviewsSignal } from "@/components/GoogleReviewsSignal";
 import { QuoteForm, QuoteFormHeading } from "@/components/QuoteForm";
 import { QuoteLink } from "@/components/QuoteLink";
 import { ArrowIcon, PhoneIcon, SmsIcon } from "@/components/icons";
 import { pageOpenGraph, site, yardHoursSentence } from "@/lib/site";
-import { PRICE_GUIDE_SOURCES, lastModified } from "@/lib/sitemap-dates";
 import { servicePhotos } from "@/lib/vehicle-visuals";
 
 const PATH = "/scrap-car-prices-brisbane";
 // The date the yard last reviewed these prices. It is the only date to change when they are reviewed
-// again: the title, description, headings, wording and the schema's datePublished below all follow it.
+// again: the title, description, headings, wording and both schema dates below all follow it. The page
+// prints this date, so the schema's dateModified is this date too and the two cannot disagree. When the
+// page's other copy last changed is the sitemap's business (src/lib/page-dates.ts).
 const UPDATED_ISO = "2026-10-20";
 const MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 const [UPDATED_YEAR, updatedMonth, updatedDay] = UPDATED_ISO.split("-");
 const UPDATED_MONTH = `${MONTHS[Number(updatedMonth) - 1]} ${UPDATED_YEAR}`;
 const UPDATED_LABEL = `${Number(updatedDay)} ${UPDATED_MONTH}`;
-// When the page itself last changed, which can be after the prices were last reviewed. It is the same
-// date the sitemap gives as this URL's lastmod, and it is only used for dateModified in the schema.
-const MODIFIED_ISO = lastModified(PRICE_GUIDE_SOURCES).toISOString();
 const DESCRIPTION =
   `Scrap car prices in Brisbane for ${UPDATED_YEAR}: guide ranges by car type and condition, what changes the price, and free towing. Quotes on ${site.phoneDisplay}.`;
 const H1 = "How much is my scrap car worth in Brisbane?";
@@ -93,11 +92,6 @@ const faqs: { q: string; a: string }[] = [
     a: "You're paid by cash or bank transfer when we pick the car up, before it leaves. You choose which, except in NSW. Tweed Heads is in NSW, so payment there is by bank transfer only. We confirm the pickup time after you accept the price. Have photo ID and proof of ownership ready on the day.",
   },
   {
-    // Hands the service query to the removal page. This page stays the price guide.
-    q: "Do you pay cash for scrap cars in Brisbane?",
-    a: "Yes, and the collection service is on our scrap car removal page. This page explains the guide ranges. In Queensland you can choose cash or bank transfer, paid before the car leaves. In NSW, including Tweed Heads, it is bank transfer only.",
-  },
-  {
     q: "Is the AutoVal estimate the same as your cash offer?",
     a: "No. AutoVal estimates trade-in, private-sale and dealer prices from live listings. Our cash offer is a firm price to buy your car as it is, including scrap or damaged cars. You can check your car's market value with AutoVal if you might sell privately, or get a firm quote for your car from us. The two numbers are not the same.",
   },
@@ -106,7 +100,6 @@ const faqs: { q: string; a: string }[] = [
 const inlineLinks: { phrase: string; href: string }[] = [
   { phrase: "check your car's market value with AutoVal", href: "/autoval" },
   { phrase: "get a firm quote for your car", href: "/quote" },
-  { phrase: "scrap car removal page", href: "/scrap-car-removal" },
   { phrase: site.phoneDisplay, href: site.phoneHref },
 ];
 
@@ -176,7 +169,7 @@ const pageLd = {
       about: { "@id": `${site.url}/#business` },
       publisher: { "@id": `${site.url}/#business` },
       datePublished: UPDATED_ISO,
-      dateModified: MODIFIED_ISO,
+      dateModified: UPDATED_ISO,
     },
     {
       "@type": "FAQPage",
@@ -227,11 +220,13 @@ function PriceActions({
   );
 }
 
+const TRAIL = [{ name: "Scrap car prices Brisbane", path: PATH }];
+
 export default function ScrapCarPricesBrisbane() {
   const photo = servicePhotos.scrap;
   return (
     <>
-      <Breadcrumbs trail={[{ name: "Scrap car prices Brisbane", path: PATH }]} />
+      <Breadcrumbs trail={TRAIL} />
       <JsonLd data={pageLd} />
 
       <section className="page-hero relative bg-navy text-white">
@@ -267,22 +262,13 @@ export default function ScrapCarPricesBrisbane() {
         </div>
       </section>
 
-      <nav aria-label="Breadcrumb" className="border-b border-line">
-        <div className="container-site flex flex-wrap items-center gap-2 py-4 text-[16px]">
-          <Link href="/" className="inline-flex min-h-11 items-center">
-            Home
-          </Link>
-          <span aria-hidden="true" className="text-brand">
-            ›
-          </span>
-          <span className="font-semibold">Scrap car prices Brisbane</span>
-        </div>
-      </nav>
+      <BreadcrumbTrail band trail={TRAIL} />
 
       <section className="container-site section-site grid gap-12 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)] lg:gap-16">
         <aside className="min-w-0 lg:col-start-2 lg:row-start-1">
           <div id="quote" data-quote className="quote-box page-quote quote-panel scroll-mt-32 lg:sticky lg:top-32">
-            <QuoteFormHeading className="h-sub mb-5" />
+            <QuoteFormHeading className="h-sub quote-head" />
+            <GoogleReviewsSignal />
             <QuoteForm />
           </div>
         </aside>

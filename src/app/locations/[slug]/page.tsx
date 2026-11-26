@@ -5,7 +5,7 @@ import { CopySections, TextCta } from "@/components/AreaPage";
 import { AskForPrice, Faq, FinalCta, HowItWorks, RelatedLinks, ReviewsBand, SectionHead, WhatWeBuy } from "@/components/Blocks";
 import { ArrowIcon, ChevronRight, PinIcon } from "@/components/icons";
 import { Hero } from "@/components/Hero";
-import { Breadcrumbs, JsonLd, ServiceLd } from "@/components/JsonLd";
+import { Breadcrumbs, BreadcrumbTrail, JsonLd, ServiceLd } from "@/components/JsonLd";
 import { areas, pageOpenGraph } from "@/lib/site";
 
 export const dynamicParams = false;
@@ -33,10 +33,14 @@ export default async function LocationPage({ params }: PageProps<"/locations/[sl
   const { slug } = await params;
   const area = areas.find((a) => a.slug === slug);
   if (!area) notFound();
+  const trail = [
+    { name: "Areas", path: "/locations" },
+    { name: area.name, path: `/locations/${area.slug}` },
+  ];
 
   return (
     <>
-      <Breadcrumbs trail={[{ name: "Areas", path: "/locations" }, { name: area.name, path: `/locations/${area.slug}` }]} />
+      <Breadcrumbs trail={trail} />
       <ServiceLd
         name={`Cash for Cars ${area.name}`}
         serviceType="Cash for cars and free car removal"
@@ -45,6 +49,7 @@ export default async function LocationPage({ params }: PageProps<"/locations/[sl
         areaServed={[`${area.name}, ${area.state}`, ...area.suburbs.map((s) => `${s}, ${area.state}`)]}
       />
       <Hero where={area.where} title={`Cash for cars ${area.where}`} />
+      <BreadcrumbTrail band trail={trail} />
       {area.local?.sections && area.local.faqs && (
         <section className="container-site section-site">
           <div className="max-w-3xl">
@@ -74,7 +79,7 @@ export default async function LocationPage({ params }: PageProps<"/locations/[sl
           <PinIcon aria-hidden="true" className="mx-auto mb-5 h-16 w-16 text-brand" strokeWidth={1.5} />
           <SectionHead title={`Pickup ${area.where}`} intro="Home, work, mechanic or roadside." />
           <details className="group mx-auto mt-6 max-w-3xl border border-line bg-white p-5">
-            <summary className="flex cursor-pointer list-none items-center justify-between gap-3 text-[15px] font-semibold text-navy">View covered suburbs <ChevronRight aria-hidden="true" className="h-4 w-4 text-brand transition-transform group-open:rotate-90" /></summary>
+            <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between gap-3 text-[15px] font-semibold text-navy">View covered suburbs <ChevronRight aria-hidden="true" className="h-4 w-4 text-brand transition-transform group-open:rotate-90" /></summary>
             <ul className="mt-5 flex flex-wrap gap-2.5">
               {area.suburbs.map((s) => <li key={s} className="border border-line bg-sand px-3 py-2 text-[14px]">{s}</li>)}
             </ul>

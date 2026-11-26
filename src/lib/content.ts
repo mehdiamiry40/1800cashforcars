@@ -32,7 +32,7 @@ export const pages: ContentPage[] = [
     slug: "services",
     // The card grid on this page comes from serviceCards in HomeSections.tsx. If a card title
     // changes there, this page has changed, so change this date as well.
-    updated: "2026-11-24T09:45:00+10:00",
+    updated: "2026-11-26T12:40:00+10:00",
     intro: "Cars, scrap and work vehicles. Quote, pickup, payment.",
     title: "Our services",
     metaTitle: "Car Removal & Cash For Cars Services",

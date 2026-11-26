@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
+import { GoogleReviewsSignal } from "@/components/GoogleReviewsSignal";
 import { QuoteTrustLine } from "@/components/ParentBrand";
 import { QuoteForm, QuoteFormHeading } from "@/components/QuoteForm";
-import { Breadcrumbs } from "@/components/JsonLd";
+import { Breadcrumbs, BreadcrumbTrail } from "@/components/JsonLd";
 import { CheckIcon, PhoneIcon } from "@/components/icons";
 import { pageOpenGraph, site } from "@/lib/site";
 
@@ -15,11 +16,15 @@ export const metadata: Metadata = {
   robots: { index: false, follow: true },
 };
 
+const TRAIL = [{ name: "Get a free quote", path: "/quote" }];
+
 export default function QuotePage() {
   return (
     <>
-      <Breadcrumbs trail={[{ name: "Get a free quote", path: "/quote" }]} />
-      <section className="container-site grid gap-8 py-10 sm:py-14 md:grid-cols-[1fr_1.5fr] md:gap-x-16 md:py-20">
+      <Breadcrumbs trail={TRAIL} />
+      {/* The trail is 44px tall and stands where that much of the section's top padding was, so the form stays put. */}
+      <BreadcrumbTrail trail={TRAIL} className="container-site" />
+      <section className="container-site grid gap-8 pb-10 pt-1 sm:pb-14 sm:pt-3 md:grid-cols-[1fr_1.5fr] md:gap-x-16 md:pb-20 md:pt-9">
         <div className="md:col-start-1 md:row-start-1">
           <p className="eyebrow">Free quote</p>
           <h1 className="h-page mt-3">
@@ -35,7 +40,8 @@ export default function QuotePage() {
           data-quote
           className="quote-box min-w-0 scroll-mt-32 self-start md:col-start-2 md:row-span-2 md:row-start-1"
         >
-          <QuoteFormHeading className="h-sub mb-6" />
+          <QuoteFormHeading className="h-sub quote-head" />
+          <GoogleReviewsSignal />
           <QuoteForm />
           <QuoteTrustLine className="mt-4" />
         </div>

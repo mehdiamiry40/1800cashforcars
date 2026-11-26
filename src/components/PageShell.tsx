@@ -1,9 +1,10 @@
 import Image from "next/image";
-import Link from "next/link";
 import pickupPhoto from "@/assets/hero-kangaroo-tow.jpg";
 import { serviceVisuals } from "@/lib/vehicle-visuals";
+import { AreaHero } from "./AreaPage";
 import { AskForPrice, FinalCta, ReviewsBand } from "./Blocks";
-import { Breadcrumbs } from "./JsonLd";
+import { GoogleReviewsSignal } from "./GoogleReviewsSignal";
+import { BreadcrumbTrail, Breadcrumbs } from "./JsonLd";
 import { QuoteForm, QuoteFormHeading } from "./QuoteForm";
 import { QuoteLink } from "./QuoteLink";
 import type { RooProps } from "./Roo";
@@ -20,6 +21,7 @@ export function PageShell({
   intro,
   introNote,
   forms = true,
+  cardFirst = false,
   children,
 }: {
   title: string;
@@ -31,12 +33,47 @@ export function PageShell({
   introNote?: React.ReactNode;
   roo?: RooProps;
   forms?: boolean;
+  /**
+   * The location-page layout: the copy on the left and the quote card on the right, in the first desktop
+   * screen. The standard layout puts the card under the hero, about 820px down a 1280 screen.
+   */
+  cardFirst?: boolean;
   children: React.ReactNode;
 }) {
   const visual = serviceVisuals[path];
+  const trail = [{ name: crumb, path }];
+  if (cardFirst) {
+    return (
+      <>
+        <Breadcrumbs trail={trail} />
+        <AreaHero h1={title}>
+          {intro && <p className="mt-4 text-[18px] leading-relaxed">{intro}</p>}
+          {introNote && <p className="mt-3 text-[18px] leading-relaxed">{introNote}</p>}
+          <div className="mt-4 flex flex-wrap gap-3" data-cta>
+            <QuoteLink from="page-title" className="btn-brand">
+              Get a free quote <ArrowIcon aria-hidden="true" className="h-5 w-5" />
+            </QuoteLink>
+            <a href={site.phoneHref} className="btn-line">
+              <PhoneIcon aria-hidden="true" className="h-5 w-5" />
+              Call {site.phoneDisplay}
+            </a>
+          </div>
+        </AreaHero>
+        <BreadcrumbTrail band trail={trail} />
+        <section className="container-site section-site">
+          <div className="min-w-0 max-w-3xl">{children}</div>
+        </section>
+        <div className="hidden lg:block">
+          <AskForPrice />
+        </div>
+        <ReviewsBand />
+        <FinalCta />
+      </>
+    );
+  }
   return (
     <>
-      <Breadcrumbs trail={[{ name: crumb, path }]} />
+      <Breadcrumbs trail={trail} />
       <section className="page-hero relative bg-navy text-white">
         <div className="mx-auto grid max-w-7xl md:grid-cols-[1.2fr_1fr]">
           <div className="page-hero-media relative aspect-[16/9] overflow-hidden bg-white md:order-2 md:aspect-auto md:min-h-80">
@@ -88,17 +125,7 @@ export function PageShell({
           </div>
         </div>
       </section>
-      <nav aria-label="Breadcrumb" className="border-b border-line">
-        <div className="container-site flex flex-wrap items-center gap-2 py-4 text-[16px]">
-          <Link href="/" className="inline-flex min-h-11 items-center">
-            Home
-          </Link>
-          <span aria-hidden="true" className="text-brand">
-            ›
-          </span>
-          <span className="font-semibold">{crumb}</span>
-        </div>
-      </nav>
+      <BreadcrumbTrail band trail={trail} />
       <section
         className={`container-site section-site grid gap-12 lg:gap-16 ${forms ? "lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)]" : ""}`}
       >
@@ -109,7 +136,8 @@ export function PageShell({
               data-quote
               className="quote-box page-quote quote-panel scroll-mt-32 lg:sticky lg:top-32"
             >
-              <QuoteFormHeading className="h-sub mb-5" />
+              <QuoteFormHeading className="h-sub quote-head" />
+              <GoogleReviewsSignal />
               <QuoteForm />
             </div>
           </aside>

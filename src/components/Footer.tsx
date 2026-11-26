@@ -13,7 +13,7 @@ export function Footer() {
           {site.showEmail && (
             <a
               href={`mailto:${site.email}`}
-              className="inline-flex min-w-0 items-center gap-3 text-[18px] font-semibold sm:text-[24px] lg:text-[28px]"
+              className="inline-flex min-h-11 min-w-0 items-center gap-3 text-[18px] font-semibold sm:text-[24px] lg:text-[28px]"
             >
               <MailIcon aria-hidden="true" className="h-6 w-6 shrink-0" />
               <span className="break-all">{site.email}</span>
@@ -30,7 +30,7 @@ export function Footer() {
       </div>
       <div className="container-site py-9">
         <div className="flex flex-wrap items-center justify-between gap-7">
-          <Link href="/" className="inline-flex items-center">
+          <Link href="/" className="inline-flex min-h-11 items-center">
             <Logo />
             <span className="sr-only">home</span>
           </Link>

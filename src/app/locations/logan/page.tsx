@@ -3,7 +3,7 @@ import Link from "next/link";
 import { FinalCta, RelatedLinks, ReviewsBand } from "@/components/Blocks";
 import { AreaHero, FaqList, GuideTable, RichText, SuburbGroups, TextCta, ValuationNote } from "@/components/AreaPage";
 import { PhoneIcon } from "@/components/icons";
-import { Breadcrumbs, JsonLd } from "@/components/JsonLd";
+import { Breadcrumbs, BreadcrumbTrail, JsonLd } from "@/components/JsonLd";
 import { QuoteLink } from "@/components/QuoteLink";
 import { areaServiceGraph } from "@/lib/area-schema";
 import { loganSuburbGroups, loganSuburbLabel, loganSuburbs } from "@/lib/areas/logan-suburbs";
@@ -91,10 +91,15 @@ export const metadata: Metadata = {
   openGraph: pageOpenGraph(PATH),
 };
 
+const TRAIL = [
+  { name: "Areas", path: "/locations" },
+  { name: "Logan", path: PATH },
+];
+
 export default function LoganLocationPage() {
   return (
     <>
-      <Breadcrumbs trail={[{ name: "Areas", path: "/locations" }, { name: "Logan", path: PATH }]} />
+      <Breadcrumbs trail={TRAIL} />
       <JsonLd data={areaServiceGraph({ path: PATH, name: "Cash for cars and free car removal in Logan", description: DESCRIPTION, city: "Logan, QLD", suburbs: loganSuburbs, faqs })} />
 
       <AreaHero h1="Cash for cars in Logan, with free car removal">
@@ -123,6 +128,7 @@ export default function LoganLocationPage() {
           . We share its yard at 79B Breadwell St, Rocklea.
         </p>
       </AreaHero>
+      <BreadcrumbTrail band trail={TRAIL} />
 
       <article className="container-site section-site max-w-3xl text-body" data-prose>
         <h2 id="where-logan" className="h-content scroll-mt-24">

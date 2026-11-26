@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Fragment, type ReactNode } from "react";
-import { Breadcrumbs, JsonLd } from "@/components/JsonLd";
+import { Breadcrumbs, BreadcrumbTrail, JsonLd } from "@/components/JsonLd";
 import { plainText } from "@/lib/plain-text";
 import { areaHref, areas, pageOpenGraph, site } from "@/lib/site";
 
@@ -126,8 +126,9 @@ const questions: { q: string; answer: ReactNode; more?: ReactNode }[] = [
       <ul className="mt-2 text-[18px]">
         {areas.map((area) => (
           <li key={area.slug}>
+            {/* Brisbane's own page is the removal page. "Cash for cars Brisbane" is the homepage's name, so it is not used for it. */}
             <Link href={areaHref(area)} className={`inline-flex min-h-11 items-center ${linkClass}`}>
-              Cash for cars {area.name}
+              {area.href ? "Car removal" : "Cash for cars"} {area.name}
             </Link>
           </li>
         ))}
@@ -176,14 +177,18 @@ const faqLd = {
   })),
 };
 
+const TRAIL = [{ name: "About", path: PATH }];
+
 export default function AboutPage() {
   return (
     <>
-      <Breadcrumbs trail={[{ name: "About", path: PATH }]} />
+      <Breadcrumbs trail={TRAIL} />
       <JsonLd data={aboutLd} />
       <JsonLd data={faqLd} />
       {/* TODO(owner): yard, truck and team photos, a founding year, and reviews you are allowed to quote. */}
       <article className="container-site section-site max-w-3xl">
+        {/* Pulled up into the space above the page, so the heading moves down by less than the trail's own height. */}
+        <BreadcrumbTrail trail={TRAIL} className="-mt-6 mb-2" />
         <p className="eyebrow">About us</p>
         <h1 className="h-page mt-3">About our Rocklea yard</h1>
         <p className="mt-5 text-[18px] leading-relaxed">

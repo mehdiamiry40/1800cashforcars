@@ -13,7 +13,7 @@ import {
   VehicleGallery,
   WhyChooseSection,
 } from "@/components/HomeSections";
-import { ReviewsBand } from "@/components/Blocks";
+import { FinalCta, ReviewsBand } from "@/components/Blocks";
 import { JsonLd, websiteNode } from "@/components/JsonLd";
 import { brisbaneSuburbs, faqs, pageOpenGraph, site } from "@/lib/site";
 
@@ -52,15 +52,6 @@ const homeFaqs = [
     links: [
       { phrase: "Logan", href: "/locations/logan" },
       { phrase: "Ipswich", href: "/locations/ipswich" },
-    ],
-  },
-  {
-    // A hand-off, not a target. The scrap car removal page owns this search and the price guide owns the ranges.
-    q: "Do you pay cash for scrap cars in Brisbane?",
-    a: "Yes. In Queensland, including Brisbane, you can choose cash or bank transfer, paid before the car leaves. Towing is free and never deducted. How we collect the car and pay you is on the cash for scrap cars in Brisbane page, and the guide ranges are on scrap car prices in Brisbane.",
-    links: [
-      { phrase: "cash for scrap cars in Brisbane", href: "/scrap-car-removal" },
-      { phrase: "scrap car prices in Brisbane", href: "/scrap-car-prices-brisbane" },
     ],
   },
   {
@@ -122,6 +113,8 @@ export default function Home() {
       <SellingAdvice />
       <HomeFaq items={homeFaqs} />
       <HomeAreas />
+      {/* The last quote and call prompt was less than halfway down the page. This is the one every other page ends on. */}
+      <FinalCta />
     </>
   );
 }

@@ -3,7 +3,7 @@ import Link from "next/link";
 import { FinalCta, RelatedLinks, ReviewsBand } from "@/components/Blocks";
 import { AreaHero, FaqList, GuideTable, RichText, TextCta } from "@/components/AreaPage";
 import { PhoneIcon } from "@/components/icons";
-import { Breadcrumbs, JsonLd } from "@/components/JsonLd";
+import { Breadcrumbs, BreadcrumbTrail, JsonLd } from "@/components/JsonLd";
 import { QuoteLink } from "@/components/QuoteLink";
 import { areaServiceGraph } from "@/lib/area-schema";
 import { pageOpenGraph, site } from "@/lib/site";
@@ -64,15 +64,15 @@ export const metadata: Metadata = {
   openGraph: pageOpenGraph(PATH),
 };
 
+const TRAIL = [
+  { name: "Car wreckers", path: "/car-wreckers" },
+  { name: "Gold Coast", path: PATH },
+];
+
 export default function GoldCoastWreckersPage() {
   return (
     <>
-      <Breadcrumbs
-        trail={[
-          { name: "Car wreckers", path: "/car-wreckers" },
-          { name: "Gold Coast", path: PATH },
-        ]}
-      />
+      <Breadcrumbs trail={TRAIL} />
       <JsonLd
         data={areaServiceGraph({
           path: PATH,
@@ -120,6 +120,7 @@ export default function GoldCoastWreckersPage() {
         </p>
         <p className="mt-3 text-[18px] leading-relaxed">{site.licenceLine}</p>
       </AreaHero>
+      <BreadcrumbTrail band trail={TRAIL} />
 
       <article className="container-site section-site max-w-3xl text-body" data-prose>
         <h2 className="h-content scroll-mt-24">What will a wrecker pay for my car on the Gold Coast?</h2>

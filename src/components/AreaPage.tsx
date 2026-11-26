@@ -4,6 +4,7 @@ import Link from "next/link";
 import heroPhoto from "@/assets/hero-car-truck-cash.png";
 import type { CopySection } from "@/lib/copy";
 import { valuationNotes, type ValuationNotePath } from "@/lib/valuation-notes";
+import { GoogleReviewsSignal } from "./GoogleReviewsSignal";
 import { QuoteForm, QuoteFormHeading } from "./QuoteForm";
 import { QuoteLink } from "./QuoteLink";
 
@@ -131,7 +132,8 @@ export function AreaHero({ h1, children }: { h1: string; children: ReactNode }) 
           />
         </div>
         <div id="quote" data-quote className="quote-box hero-quote min-w-0 scroll-mt-32">
-          <QuoteFormHeading className="mb-5 text-[25px] font-semibold leading-tight" />
+          <QuoteFormHeading className="hero-quote-title text-[25px] font-semibold leading-tight" />
+          <GoogleReviewsSignal />
           <QuoteForm variant="compact" />
         </div>
       </div>
