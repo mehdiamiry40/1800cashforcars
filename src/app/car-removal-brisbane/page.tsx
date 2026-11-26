@@ -3,12 +3,12 @@ import Link from "next/link";
 import { BrisbaneSuburbs, ContentBlocks, Faq, RelatedLinks } from "@/components/Blocks";
 import { JsonLd } from "@/components/JsonLd";
 import { heroLinkClass, PageShell } from "@/components/PageShell";
-import { brisbaneSuburbs, pageOpenGraph, site } from "@/lib/site";
+import { brisbaneSuburbs, pageOpenGraph, site, yardHoursSentence } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Free Car Removal Brisbane, Cash Paid",
   description:
-    "Free car removal in Brisbane: we collect scrap, old and unwanted cars and pay you before they leave. Pickups are usually within a day or two.",
+    "Free car removal in Brisbane: no towing fee and nothing taken off your price. We collect scrap, old and unwanted cars and pay you before they leave.",
   alternates: { canonical: "/car-removal-brisbane" },
   openGraph: pageOpenGraph("/car-removal-brisbane"),
 };
@@ -21,6 +21,14 @@ const faqs = [
   {
     q: "What does free car removal in Brisbane include?",
     a: "Free towing from the collection address anywhere in Brisbane, no deduction from the price, and payment in cash or by bank transfer before the car leaves. You still need photo ID and proof of ownership. Pickups are usually within a day or two.",
+  },
+  {
+    q: "How do I book free car removal in Brisbane?",
+    a: `Send the car's make, model, year and condition through the quote form, or call or text ${site.phoneDisplay}. A firm price is ${site.quoteTurnaround}. If you accept it, choose a pickup time, Monday to Saturday. Pickups are ${site.pickupTurnaround}, and you are paid before the car leaves.`,
+    links: [
+      { phrase: "quote form", href: "/quote" },
+      { phrase: site.phoneDisplay, href: site.phoneHref },
+    ],
   },
   {
     q: "How quickly can you remove my car?",
@@ -45,6 +53,18 @@ const faqs = [
   {
     q: "Can you remove a car with no keys or no papers?",
     a: "No keys is fine, we winch it on. If you've lost the rego papers, tell us when you ask for a price. We still need to see photo ID and be sure the car is yours, but we can usually sort it out.",
+  },
+  {
+    q: "Can you remove a car from a backyard, a basement car park or a steep driveway?",
+    a: "Usually, yes. Tell us about the access when you ask for a price, so the right truck is sent. A steep driveway, a basement car park, a height bar or a car in the backyard changes which truck we bring. It does not add a removal fee.",
+  },
+  {
+    q: "Which days do you remove cars in Brisbane?",
+    a: `Monday to Saturday, at a time that suits you. The Rocklea yard is open ${yardHoursSentence()}.`,
+  },
+  {
+    q: "Do you remove old or unwanted cars that still run?",
+    a: "Yes. A car does not have to be scrap to be removed free. An old or unwanted car that still runs is collected the same way, and a car that starts is worth more than one that doesn't. The tow is still free, and you are paid before it leaves.",
   },
   {
     q: "What happens to my car after it's removed?",
@@ -136,6 +156,26 @@ export default function CarRemovalBrisbane() {
             ],
           },
           {
+            heading: "What you get with free car removal in Brisbane",
+            summary: "The tow from where the car sits to our Rocklea yard, a tilt tray and winch when the car cannot be driven, and payment for the car before it leaves. There is no call-out fee, no charge by the kilometre and nothing taken off the price. Removal runs Monday to Saturday, and pickups are usually within a day or two.",
+            icon: "truck",
+            list: [
+              { bold: "The tow", text: "from your driveway, the street, a workshop, a car park or the roadside, anywhere in Brisbane." },
+              { bold: "The right truck", text: "a tow truck or a tilt tray with a winch, so the car does not need to run, roll or have keys." },
+              { bold: "Payment", text: "cash or bank transfer, before the car leaves." },
+              { bold: "A receipt", text: "for your records, and for when you cancel the rego." },
+            ],
+          },
+          {
+            heading: "What should I have ready for the tow truck?",
+            summary: "Photo ID and proof that the car is yours, such as the rego papers, and the keys if you have them. Take out your belongings and any toll tag. Tell us about tight access, like a steep driveway, a basement car park, a height bar or a car in the backyard, so the right truck is sent. Access does not add a removal fee.",
+            icon: "paperwork",
+            paras: [
+              "If the rego papers are lost, say so when you ask for a price. We still need to see photo ID and be sure the car is yours.",
+              "After the car has gone, cancel the registration with Transport and Main Roads and tell your insurer. You may get a refund for the rego you haven't used.",
+            ],
+          },
+          {
             heading: "Do you remove cars with no keys or no wheels?",
             summary: "Yes. A Brisbane car that is missing its keys, its wheels, or both is still bought. Tell us which when you ask for a price, so the right truck is sent. The car does not need to roll. The tow is free, and you are paid before the car leaves.",
             icon: "car",
@@ -215,6 +255,9 @@ export default function CarRemovalBrisbane() {
         <Link href="/truck-removal" className="font-bold text-navy underline underline-offset-2">cash for trucks</Link>.
         The sale itself, step by step, is on{" "}
         <Link href="/cash-for-cars" className="font-bold text-navy underline underline-offset-2">sell your car for cash in Brisbane</Link>.
+        If the car still runs and you might sell it privately, a free{" "}
+        <Link href="/autoval" className="font-bold text-navy underline underline-offset-2">car valuation in Brisbane</Link>{" "}
+        gives a market estimate first. That estimate is not our cash offer.
       </p>
       <RelatedLinks current="/car-removal-brisbane" />
     </PageShell>

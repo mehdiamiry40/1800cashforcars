@@ -62,21 +62,49 @@ export const pages: ContentPage[] = [
   truckRemovalPage,
   {
     slug: "scrap-car-removal",
-    updated: "2026-11-16T10:35:14+10:00",
-    // This page owns "cash for scrap cars". The price guide owns how-much and price queries, so no price table here.
+    updated: "2026-11-26T11:35:18+10:00",
+    // This page owns "cash for scrap cars Brisbane". The homepage hands that search here. The price guide
+    // owns how-much and price queries, so there is no price table and no dollar figure on this page.
     intro:
       "Yes, we pay cash for scrap cars in Brisbane and across South East Queensland, including the Gold Coast, Logan, Ipswich and the Sunshine Coast. In Tweed Heads, in NSW, payment is by bank transfer only. Towing is always free and never taken off the price, and we pay you before the car leaves. Pickups are usually within a day or two.",
     introNote: {
       text: "For guide ranges by car type and condition, see scrap car prices in Brisbane. That page is the price guide; this page is how we collect the car and pay you.",
       links: [{ phrase: "scrap car prices in Brisbane", href: "/scrap-car-prices-brisbane" }],
     },
-    title: "Cash for scrap cars and free scrap car removal",
+    title: "Cash for scrap cars in Brisbane, with free scrap car removal",
     label: "Scrap car removal",
     metaTitle: "Cash for Scrap Cars Brisbane",
     description:
       "Cash for scrap cars in Brisbane and South East QLD. We collect scrap, junk and wrecked cars, pay you before they leave, and the tow is free.",
     relatedLabels: { "/scrap-car-prices-brisbane": "How much is a scrap car worth in Brisbane?" },
     blocks: [
+      {
+        heading: "Do you pay cash for scrap cars in Brisbane?",
+        summary:
+          "Yes. We pay cash for scrap cars in every part of Brisbane: the northside, the southside, the western suburbs and the bayside. You choose cash or a bank transfer, and you are paid before the car leaves. We collect it from where it sits, the tow is free, and nothing is taken off the price for it. The suburb list is on free car removal in Brisbane.",
+        links: [{ phrase: "free car removal in Brisbane", href: "/car-removal-brisbane" }],
+        icon: "cash",
+        paras: [
+          "The yard that buys the car is ours, at 79B Breadwell St, Rocklea, on Brisbane's southside. We wreck and recycle the cars we collect, which is why a car that will never drive again is still worth paying for.",
+          "You get a receipt with the payment. The car does not need to run, and it does not need rego or a roadworthy.",
+        ],
+      },
+      {
+        heading: "How do I sell my scrap car in Brisbane?",
+        summary:
+          "Tell us the make, model, year and what is wrong with the car. A firm price is usually within the hour. If you accept it, pick a time, Monday to Saturday, and the pickup is usually within a day or two. We pay you before the car leaves and tow it away free. Then you cancel the rego.",
+        icon: "paperwork",
+        list: [
+          { bold: "Describe the car", text: "the make, model and year, what is wrong with it and what is missing. Photos help." },
+          { bold: "Get a firm price", text: "usually within the hour. The tow is not taken off it." },
+          { bold: "Book the pickup", text: "Monday to Saturday, usually within a day or two, at a time that suits you." },
+          { bold: "Get paid", text: "cash or bank transfer in Queensland, before the car leaves, with a receipt." },
+          { bold: "Cancel the rego", text: "if the car is still registered, cancel it once the car has gone, then tell your insurer." },
+        ],
+        paras: [
+          "Have photo ID and proof that the car is yours. If the papers are lost, say so when you ask for a price.",
+        ],
+      },
       {
         heading: "What is a scrap car worth?",
         summary:
@@ -91,7 +119,7 @@ export const pages: ContentPage[] = [
       {
         heading: "What counts as a scrap car?",
         summary:
-          "A car at the end of the road: rusted out, written off, not running, failed a roadworthy, sitting for years, or stripped. No keys, no wheels or flat tyres are still bought. Say what is missing so we send a truck that can load it. The tow stays free and is never deducted.",
+          "A car at the end of the road, which some people call a junk car: rusted out, written off, not running, failed a roadworthy, sitting for years, or stripped. No keys, no wheels or flat tyres are still bought. Say what is missing so we send a truck that can load it. The tow stays free and is never deducted.",
         icon: "car",
         list: [
           { bold: "Rusted out", text: "body rust, rusted floors or a rusty chassis." },
@@ -143,6 +171,15 @@ export const pages: ContentPage[] = [
         links: [{ phrase: "scrap car prices in Brisbane", href: "/scrap-car-prices-brisbane" }],
       },
       {
+        q: "How do I sell my scrap car in Brisbane?",
+        a: "Tell us the make, model, year and what is wrong with it. A firm price is usually within the hour. If you accept, we book a pickup, usually within a day or two, pay you before the car leaves and tow it free. You need photo ID and proof the car is yours.",
+      },
+      {
+        q: "Is scrap car removal free in Brisbane?",
+        a: "Yes. Scrap car removal is free in every Brisbane suburb, and the tow is never taken off the price. We pay you for the car as well. The suburbs are listed on free car removal in Brisbane.",
+        links: [{ phrase: "free car removal in Brisbane", href: "/car-removal-brisbane" }],
+      },
+      {
         q: "Will I get paid for a scrap car?",
         a: "Yes. Even a car that will never run again is worth something for its metal. We pay you before we tow it away, and the tow is free.",
       },
@@ -168,11 +205,17 @@ export const pages: ContentPage[] = [
         q: "What if I've lost the papers?",
         a: "Tell us when you ask for a price. We still need to see photo ID and be sure the car is yours, but we can usually sort it out.",
       },
+      {
+        // The hand-off for a car that is not scrap after all. AutoVal owns the valuation searches.
+        q: "Is my car scrap, or could I sell it privately?",
+        a: "If the car still runs and you could advertise it, it may be worth more than its metal. A free car valuation estimates private-sale, trade-in and dealer prices for a car like that. That estimate is not our cash offer. If the car doesn't run, or the repair quote is more than the car is worth, ask us for a price instead.",
+        links: [{ phrase: "free car valuation", href: "/autoval" }],
+      },
     ],
   },
   {
     slug: "car-wreckers",
-    updated: "2026-11-24T14:10:00+10:00",
+    updated: "2026-11-26T11:35:18+10:00",
     intro: "Damaged cars, where parts can be worth more than the metal.",
     title: "Car wreckers in Brisbane: cash for damaged cars",
     label: "Car wreckers",
@@ -206,7 +249,8 @@ export const pages: ContentPage[] = [
       {
         heading: "Wrecker, private sale or trade-in?",
         summary:
-          "A private sale usually brings more for a clean car that still runs, though it means an ad and test drives. A dealer trade-in is quick when you are buying another car, and it pays little for something damaged or old. A wrecker suits a damaged, non-running or end-of-life car: we pay for the parts and the metal, and the tow is free.",
+          "A private sale usually brings more for a clean car that still runs, though it means an ad and test drives. A dealer trade-in is quick when you are buying another car, and it pays little for something damaged or old. A wrecker suits a damaged, non-running or end-of-life car: we pay for the parts and the metal, and the tow is free. For a car that still runs, you can value your car online to see the private-sale and trade-in estimates first. Those estimates are not our cash offer.",
+        links: [{ phrase: "value your car online", href: "/autoval" }],
         icon: "cash",
         list: [
           { bold: "Private sale", text: "usually gets the most for a clean car that runs well, but it means ads, calls and test drives." },
@@ -274,13 +318,13 @@ export const pages: ContentPage[] = [
   },
   {
     slug: "car-disposal",
-    updated: "2026-11-24T14:10:00+10:00",
+    updated: "2026-11-26T11:37:26+10:00",
     intro: "The steps to get an unwanted car collected and paid for.",
     title: "Free car disposal in Brisbane and on the Gold Coast",
     label: "Car disposal",
     metaTitle: "Car Disposal Brisbane & Gold Coast",
     description:
-      "Free car disposal across Brisbane, the Gold Coast and South East QLD. We collect unwanted cars and pay you before they leave. You cancel the rego afterwards.",
+      "Free car disposal across Brisbane, the Gold Coast and South East QLD. We collect unwanted cars and pay you before they leave. Then you cancel the rego.",
     blocks: [
       {
         heading: "Does car disposal cost anything?",

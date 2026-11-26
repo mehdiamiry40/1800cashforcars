@@ -10,7 +10,7 @@ const PATH = "/about";
 export const metadata: Metadata = {
   title: "About Us, Our Rocklea Yard",
   description:
-    `${site.name} is part of A Plus Car Removal and shares the Rocklea yard. Free towing, payment before the car leaves, and cash offers across South East QLD.`,
+    `${site.name} is part of A Plus Car Removal and shares the Rocklea yard. Free towing, paid before the car leaves, cash offers across South East QLD.`,
   alternates: { canonical: PATH },
   openGraph: pageOpenGraph(PATH),
 };
