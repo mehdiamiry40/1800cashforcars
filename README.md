@@ -71,7 +71,7 @@ Make, model and year are separate required form fields. The live table has no co
 - www redirects to the bare domain. Security headers, including a strict Content-Security-Policy, are set in `next.config.ts`. On Vercel, `scripts/csp-adapter.mjs` fills inline-script hashes into the routing object before the deployment config is written. `scripts/csp-hashes.ts` checks that output. Production bundles may mention `vercel.live` only behind the `__vercel_toolbar=1` cookie; that opt-in is not allowlisted and is not loaded for public visitors.
 - Structured data: AutomotiveBusiness, FAQPage and BreadcrumbList.
 - Sitemap, robots, social share image, app icons and web manifest are generated in `src/app`.
-- Sitemap dates: the service pages carry their own `updated` date (see above). Every other URL's last-modified date is the last commit to the files behind it. Vercel builds from a clone that holds only the newest few commits, so for older files the date comes from `src/lib/sitemap-dates.json` instead. After changing one of those pages, run `npm run sitemap:dates` from a full clone and commit the file. A stale entry only makes a date older than the truth, never newer.
+- Sitemap dates: every date is set by hand and none comes from git or the build. The service pages carry their own `updated` date (see above). Every other page has a date in `src/lib/page-dates.ts`. Change a page's date only when its copy, its title or description, or its schema changes, and only for that page. A styling, layout or shared-component change is not a reason. On the price guide, the schema's `dateModified` is the date printed on the page (`UPDATED_ISO`).
 
 ## Develop
 ```bash

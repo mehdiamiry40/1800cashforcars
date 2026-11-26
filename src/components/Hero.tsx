@@ -2,6 +2,7 @@ import Image from "next/image";
 import heroPhoto from "@/assets/hero-car-truck-cash.png";
 import { heroCopy } from "@/lib/slides";
 import { GoogleReviewsSignal } from "./GoogleReviewsSignal";
+import { QuoteTrustLine } from "./ParentBrand";
 import { QuoteForm, QuoteFormHeading } from "./QuoteForm";
 import { CashIcon, PinIcon, TruckIcon } from "./icons";
 
@@ -31,12 +32,12 @@ export function Hero({
   return (
     <section
       aria-label="Cash for cars and free quote"
-      className="hero-section bg-white text-navy"
+      className="hero-section hero-tight bg-white text-navy"
     >
       <div className="container-site grid items-center gap-5 py-6 sm:gap-7 sm:py-9 lg:grid-cols-[minmax(0,1fr)_420px] lg:gap-10 lg:py-8">
         <div className="min-w-0">
           <h1 className="hero-heading">{copy.title.replace(/\.$/, "")}</h1>
-          <p className="mt-3 text-[24px] font-medium leading-snug text-brand">
+          <p className="hero-lead mt-3 text-[24px] font-medium leading-snug text-brand">
             {copy.lead}
           </p>
           <Image
@@ -71,6 +72,8 @@ export function Hero({
           <QuoteFormHeading className="hero-quote-title text-[25px] font-semibold leading-tight" />
           <GoogleReviewsSignal />
           <QuoteForm variant="compact" />
+          {/* Under the form, so no field or button moves down the first screen. */}
+          <QuoteTrustLine className="mt-3" />
         </div>
       </div>
     </section>

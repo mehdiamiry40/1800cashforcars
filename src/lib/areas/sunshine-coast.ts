@@ -92,10 +92,10 @@ export const sunshineCoastLocal = {
           links: [{ phrase: "Car disposal", href: "/car-disposal" }],
         },
         {
-          text: "Vans and trucks from Sunshine Coast businesses are welcome, one vehicle or several. Heavier trucks are quoted on cash for trucks. If you want the detail on how we decide a price, that sits on the cash for cars page. This page is about getting the vehicle collected up here.",
+          text: "Vans and trucks from Sunshine Coast businesses are welcome, one vehicle or several. Heavier trucks are quoted on cash for trucks. If you want the detail on how we decide a price, that sits on the sell your car for cash page. This page is about getting the vehicle collected up here.",
           links: [
             { phrase: "cash for trucks", href: "/truck-removal" },
-            { phrase: "cash for cars page", href: "/cash-for-cars" },
+            { phrase: "sell your car for cash page", href: "/cash-for-cars" },
           ],
         },
         valuationNotes["/locations/sunshine-coast"],

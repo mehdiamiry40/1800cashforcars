@@ -481,7 +481,8 @@ export function ReviewsBand() {
       <section className="section-site border-y border-line bg-sand">
         <div className="container-site flex flex-col items-start justify-between gap-5 md:flex-row md:items-center">
           <div>
-            <h2 className="h-content">See what our customers say</h2>
+            {/* No customer words are shown until the owner supplies real reviews, so the heading names what is here. */}
+            <h2 className="h-content">Our Google reviews</h2>
             {rating}
             <ParentBrandLine className="mt-2" />
             {listedAs && <p className="mt-2">{listedAs}</p>}
@@ -640,7 +641,8 @@ export function BrisbaneSuburbs({
                 <span key={suburb}>
                   {index > 0 ? ", " : null}
                   {href ? (
-                    <Link href={href} className="font-semibold underline underline-offset-2">
+                    // Padding on an inline link makes it 44px tall for a thumb and leaves the line as it was.
+                    <Link href={href} className="py-3.5 font-semibold underline underline-offset-2">
                       {suburb}
                     </Link>
                   ) : (

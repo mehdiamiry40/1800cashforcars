@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ValuationNote } from "@/components/AreaPage";
-import { BrisbaneSuburbs, CallUsAndTerms } from "@/components/Blocks";
+import { CallUsAndTerms } from "@/components/Blocks";
 import { ArrowIcon, PinIcon } from "@/components/icons";
 import { PageShell } from "@/components/PageShell";
 import { areaHref, areas, pageOpenGraph } from "@/lib/site";
@@ -17,6 +17,10 @@ export const metadata: Metadata = {
 // Brisbane has no `local` copy (it has dedicated pages), so it gets its own blurb here.
 const brisbaneIntro =
   "Our yard is in Rocklea, so we cover every part of Brisbane: northside, southside, the western suburbs and the bayside. Pickups are usually within a day or two.";
+
+// The hub names a few suburbs for each area and leaves the full list to that area's own page. With every
+// suburb printed here, the hub was outranking the Logan and Ipswich pages for their own searches.
+const SUBURB_SAMPLE = 6;
 
 // Pages that sit under an area without being its main page. Listed here so the hub links to them.
 const morePages: Record<string, { href: string; label: string }[]> = {
@@ -34,7 +38,7 @@ export default function LocationsPage() {
       <div className="prose-site mb-10 text-[18px] [&>p:first-child]:mt-0">
         <p>
           We buy cars, utes, vans, 4WDs and trucks in any condition and tow them away for free from our yard in Rocklea.
-          Pick your area to see the suburbs we cover and anything local to know.
+          Pick your area for the full list of suburbs we cover and anything local to know.
         </p>
         <ValuationNote path="/locations" className="" />
       </div>
@@ -47,7 +51,8 @@ export default function LocationsPage() {
             </h2>
             <p className="mt-3">{a.local?.intro ?? brisbaneIntro}</p>
             <p className="mt-3 text-[15px]">
-              <span className="font-semibold">Suburbs include:</span> {a.suburbs.join(", ")}
+              <span className="font-semibold">Suburbs include:</span> {a.suburbs.slice(0, SUBURB_SAMPLE).join(", ")}.
+              {a.suburbs.length > SUBURB_SAMPLE || a.href ? ` The full list is on the ${a.name} ${a.href ? "pages" : "page"}:` : null}
             </p>
             <div className="mt-3 flex flex-wrap gap-x-6">
               {/* Brisbane's cash-for-cars page is the homepage; its removal page is the area link. */}
@@ -66,11 +71,6 @@ export default function LocationsPage() {
           </li>
         ))}
       </ul>
-      <div className="mt-12">
-        <h2 className="h-content">Brisbane suburbs we cover</h2>
-        <p className="mt-3">Select a region for suburbs.</p>
-        <BrisbaneSuburbs narrow />
-      </div>
       <div className="mt-12">
         <CallUsAndTerms />
       </div>

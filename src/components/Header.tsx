@@ -10,6 +10,9 @@ import { QuoteLink } from "./QuoteLink";
 import { ArrowIcon, MailIcon, MenuIcon, PhoneIcon } from "./icons";
 
 const links = [{ href: "/", label: "Home" }, ...nav];
+// AutoVal was linked from the footer only. The phone menu has room for one more row. The desktop menu
+// is full, so it stays as it was.
+const menuLinks = [...links, { href: "/autoval", label: "Free car valuation" }];
 
 export function Header() {
   const pathname = usePathname();
@@ -57,6 +60,10 @@ export function Header() {
                   {site.email}
                 </a>
               )}
+              {/* The header follows a desktop visitor down the page, so the quote button does too. */}
+              <QuoteLink from="header" className="btn-brand min-h-10 px-4 py-1.5 text-[16px]">
+                Get a free quote
+              </QuoteLink>
             </div>
             <nav aria-label="Main navigation" className="flex items-center">
               {links.map((n) => (
@@ -131,7 +138,7 @@ export function Header() {
           className="container-site overflow-y-auto pb-8 pt-4"
         >
           <ul className="divide-y divide-line">
-            {links.map((n) => (
+            {menuLinks.map((n) => (
               <li key={n.href}>
                 <Link
                   href={n.href}

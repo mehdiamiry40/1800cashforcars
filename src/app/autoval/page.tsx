@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Breadcrumbs, JsonLd } from "@/components/JsonLd";
+import { Breadcrumbs, BreadcrumbTrail, JsonLd } from "@/components/JsonLd";
 import { Roo } from "@/components/Roo";
 import { CheckIcon } from "@/components/icons";
 import { regoLookupEnabled } from "@/lib/autoval/rego";
@@ -79,10 +79,12 @@ const faqLd = {
   })),
 };
 
+const TRAIL = [{ name: "AutoVal car valuation", path: "/autoval" }];
+
 export default function AutoValPage() {
   return (
     <>
-      <Breadcrumbs trail={[{ name: "AutoVal car valuation", path: "/autoval" }]} />
+      <Breadcrumbs trail={TRAIL} />
 
       {/* A short heading band, so the form's first field is on the first screen of a phone and of a laptop.
           The three promises that used to sit here are under the tool, with the scrap car link. */}
@@ -100,15 +102,14 @@ export default function AutoValPage() {
         <Roo hand="cash" className="pointer-events-none absolute bottom-16 right-[max(3rem,calc((100vw-80rem)/2+3rem))] hidden h-36 w-auto xl:block" />
       </section>
 
-      <nav aria-label="Breadcrumb" className="sr-only">
-        <Link href="/">Home</Link> › <span>AutoVal car valuation</span>
-      </nav>
-
       <div className="container-site relative -mt-10 pb-10 sm:-mt-12 sm:pb-14">
         <AutoValuer regoLookup={regoLookup} />
       </div>
 
       <section className="container-site max-w-3xl pb-12 sm:pb-16">
+        {/* Under the tool, so the tool's first field stays on the first screen. It was a screen-reader-only
+            trail, which left a keyboard user tabbing to a link they could not see. */}
+        <BreadcrumbTrail trail={TRAIL} className="mb-3" />
         <ul className="flex flex-wrap gap-x-6 gap-y-2 text-[16px] font-semibold">
           {["Free, no sign-up", "Ready in about a minute", "Live Australian market data"].map((t) => (
             <li key={t} className="flex items-center gap-2">

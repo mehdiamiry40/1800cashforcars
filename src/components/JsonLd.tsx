@@ -1,3 +1,5 @@
+import Link from "next/link";
+import { Fragment } from "react";
 import { site } from "@/lib/site";
 
 export function JsonLd({ data }: { data: object }) {
@@ -37,14 +39,21 @@ export function ServiceLd({ name, serviceType, description, path, areaServed }: 
   );
 }
 
+export type Crumb = { name: string; path: string };
+
+const withHome = (trail: Crumb[]): Crumb[] => [{ name: "Home", path: "/" }, ...trail];
+
 // Breadcrumb trail for search results, e.g. Home › Areas › Gold Coast.
-export function Breadcrumbs({ trail }: { trail: { name: string; path: string }[] }) {
-  const items = [{ name: "Home", path: "/" }, ...trail];
+// Search Console listed these as "Unnamed item" while the list had no name of its own. The name is the
+// trail as the page shows it, so it adds nothing a reader cannot see.
+export function Breadcrumbs({ trail }: { trail: Crumb[] }) {
+  const items = withHome(trail);
   return (
     <JsonLd
       data={{
         "@context": "https://schema.org",
         "@type": "BreadcrumbList",
+        name: items.map((it) => it.name).join(" › "),
         itemListElement: items.map((it, i) => ({
           "@type": "ListItem",
           position: i + 1,
@@ -53,5 +62,38 @@ export function Breadcrumbs({ trail }: { trail: { name: string; path: string }[]
         })),
       }}
     />
+  );
+}
+
+/**
+ * The same trail on the page, from the same list, so the markup never describes a trail the reader
+ * cannot see. `band` is the full-width row under a page hero. Without it the trail is one line to put
+ * inside a page's own column.
+ */
+export function BreadcrumbTrail({ trail, band = false, className = "" }: { trail: Crumb[]; band?: boolean; className?: string }) {
+  const items = withHome(trail);
+  return (
+    <nav aria-label="Breadcrumb" className={`${band ? "border-b border-line" : ""} ${className}`.trim() || undefined}>
+      <div className={`flex flex-wrap items-center gap-2 text-[16px] ${band ? "container-site py-4" : ""}`.trim()}>
+        {items.map((it, i) => (
+          <Fragment key={it.path}>
+            {i > 0 && (
+              <span aria-hidden="true" className="text-brand">
+                ›
+              </span>
+            )}
+            {i < items.length - 1 ? (
+              <Link href={it.path} className="inline-flex min-h-11 items-center">
+                {it.name}
+              </Link>
+            ) : (
+              <span aria-current="page" className="inline-flex min-h-11 items-center font-semibold">
+                {it.name}
+              </span>
+            )}
+          </Fragment>
+        ))}
+      </div>
+    </nav>
   );
 }

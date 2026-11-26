@@ -3,7 +3,7 @@ import Link from "next/link";
 import { FinalCta, RelatedLinks, ReviewsBand } from "@/components/Blocks";
 import { AreaHero, FaqList, GuideTable, RichText, SuburbGroups, TextCta, ValuationNote } from "@/components/AreaPage";
 import { PhoneIcon } from "@/components/icons";
-import { Breadcrumbs, JsonLd } from "@/components/JsonLd";
+import { Breadcrumbs, BreadcrumbTrail, JsonLd } from "@/components/JsonLd";
 import { QuoteLink } from "@/components/QuoteLink";
 import { areaServiceGraph } from "@/lib/area-schema";
 import { ipswichSuburbGroups, ipswichSuburbs } from "@/lib/areas/ipswich-suburbs";
@@ -89,10 +89,15 @@ export const metadata: Metadata = {
   openGraph: pageOpenGraph(PATH),
 };
 
+const TRAIL = [
+  { name: "Areas", path: "/locations" },
+  { name: "Ipswich", path: PATH },
+];
+
 export default function IpswichLocationPage() {
   return (
     <>
-      <Breadcrumbs trail={[{ name: "Areas", path: "/locations" }, { name: "Ipswich", path: PATH }]} />
+      <Breadcrumbs trail={TRAIL} />
       <JsonLd
         data={areaServiceGraph({
           path: PATH,
@@ -130,6 +135,7 @@ export default function IpswichLocationPage() {
           and work from the same yard at 79B Breadwell St, Rocklea.
         </p>
       </AreaHero>
+      <BreadcrumbTrail band trail={TRAIL} />
 
       <article className="container-site section-site max-w-3xl" data-prose>
         <h2 className="h-content scroll-mt-24">How far into Ipswich do we come?</h2>

@@ -159,9 +159,11 @@ export function QuoteForm({
         />
       </Field>
       {Object.keys(errors).length > 0 && (
+        // Each message is already on screen under its own field, so the box shows one line. The list stays in
+        // it for a screen reader, which reads the whole box out when it appears.
         <div role="alert" className="bg-red-50 px-3 py-2 text-[14px] font-semibold text-red-800">
           <p>Check the highlighted fields.</p>
-          <ul className="mt-1 list-disc pl-5 font-medium">
+          <ul className="sr-only">
             {Object.entries(errors).map(([name, message]) => (
               <li key={name}>{message}</li>
             ))}
@@ -175,7 +177,8 @@ export function QuoteForm({
       </button>
       <p className="text-[14px] text-body">
         Free, no obligation. Pickups across South East QLD and the Tweed.{" "}
-        <Link href="/privacy" className="inline-flex min-h-6 items-center underline">Privacy</Link>
+        {/* 44px tall for a thumb. The negative margin keeps the line of text the height it was. */}
+        <Link href="/privacy" className="-my-2.5 inline-flex min-h-11 items-center underline">Privacy</Link>
       </p>
     </form>
     <CallQuoteButton />

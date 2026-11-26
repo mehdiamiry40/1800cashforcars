@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { GoogleReviewsSignal } from "@/components/GoogleReviewsSignal";
 import { QuoteForm, QuoteFormHeading } from "@/components/QuoteForm";
-import { Breadcrumbs, JsonLd, ServiceLd } from "@/components/JsonLd";
+import { Breadcrumbs, BreadcrumbTrail, JsonLd, ServiceLd } from "@/components/JsonLd";
+import { QuoteLink } from "@/components/QuoteLink";
+import { PhoneIcon } from "@/components/icons";
 import { areaHref, areas, pageOpenGraph, site } from "@/lib/site";
 
 const PATH = "/car-removal-no-keys-no-wheels";
@@ -49,10 +52,12 @@ const faqLd = {
 
 const linkClass = "font-semibold text-navy underline underline-offset-4";
 
+const TRAIL = [{ name: "Car removal with no keys or no wheels", path: PATH }];
+
 export default function NoKeysNoWheelsPage() {
   return (
     <>
-      <Breadcrumbs trail={[{ name: "Car removal with no keys or no wheels", path: PATH }]} />
+      <Breadcrumbs trail={TRAIL} />
       <JsonLd data={faqLd} />
       <ServiceLd
         name="Car removal with no keys or no wheels"
@@ -64,11 +69,23 @@ export default function NoKeysNoWheelsPage() {
       {/* TODO(owner): confirm how a car that cannot roll is loaded before describing any equipment. */}
       <article className="container-site section-site grid gap-12 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)] lg:gap-16">
         <div className="min-w-0 max-w-3xl">
+          {/* Pulled up into the space above the page, so the heading moves down by less than the trail's own height. */}
+          <BreadcrumbTrail trail={TRAIL} className="-mt-6 mb-2" />
           <p className="eyebrow">No keys, no wheels</p>
           <h1 className="h-page mt-3">Car removal with no keys or no wheels</h1>
           <p className="mt-5 text-[18px] leading-relaxed">
             Yes. {site.name} buys cars with no keys, cars with no wheels, and cars missing both. The car does not have to start, and it does not have to roll. Tell us what is missing and where the car is sitting.
           </p>
+          {/* The form is at the foot of this page on a phone, so the way to it is here, under the answer. */}
+          <div className="mt-4 flex flex-wrap gap-3" data-cta>
+            <QuoteLink from="no-keys-intro" className="btn-brand">
+              Get your price
+            </QuoteLink>
+            <a href={site.phoneHref} className="btn-line">
+              <PhoneIcon aria-hidden="true" className="h-5 w-5" />
+              Call {site.phoneDisplay}
+            </a>
+          </div>
 
           <h2 className="h-content mt-12">Do you buy cars with no keys?</h2>
           <p className="mt-4 text-[18px] leading-relaxed">
@@ -149,7 +166,8 @@ export default function NoKeysNoWheelsPage() {
           </div>
         </div>
         <div id="quote" data-quote className="quote-box min-w-0 scroll-mt-32 self-start lg:sticky lg:top-28">
-          <QuoteFormHeading className="h-sub mb-6" />
+          <QuoteFormHeading className="h-sub quote-head" />
+          <GoogleReviewsSignal />
           <QuoteForm />
         </div>
       </article>

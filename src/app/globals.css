@@ -286,6 +286,16 @@ textarea {
   margin-top: -12px;
   margin-bottom: 0;
 }
+/* The same line on the other quote cards: heading, reviews line, form. The line is a link, so its box is
+   44px tall for a thumb. Pulling it up under the heading means the card grows by one short line. */
+.quote-box > .quote-head {
+  margin-bottom: 0;
+}
+.quote-box > .quote-head + .google-reviews-signal {
+  min-height: 44px;
+  margin-top: -10px;
+  margin-bottom: 0;
+}
 /* Full-width call control under the quote form. btn is content-sized from the small breakpoint. */
 .quote-call {
   width: 100%;
@@ -305,6 +315,24 @@ textarea {
 @media (max-width: 639px) {
   body {
     font-size: 16px;
+  }
+  /* The hero that opens straight onto the quote card (the homepage and the templated area pages). On a
+     phone it gives up about 80px above the card, so the send button and the note under it are on the
+     first screen of a 390×844 phone. The card itself is not changed. */
+  .hero-tight > .container-site {
+    padding-top: 8px;
+    gap: 10px;
+  }
+  .hero-tight .hero-lead {
+    margin-top: 4px;
+  }
+  .hero-tight .hero-image {
+    margin-top: 8px;
+    height: clamp(96px, 24vw, 140px);
+  }
+  .hero-tight .hero-benefits {
+    margin-top: 6px;
+    padding-top: 8px;
   }
 }
 
@@ -392,8 +420,13 @@ textarea {
   .hero-quote > .hero-quote-title {
     margin-bottom: 2px;
   }
+  /* The link's 44px box used to hang 4px over the Make, Model and Year row. It now ends where that row
+     starts. The box sits 4px higher and the words are pushed down by the same amount, so they and the
+     form are where they were. */
   .hero-quote .google-reviews-signal {
-    margin-bottom: -4px;
+    margin-top: -16px;
+    margin-bottom: 0;
+    padding-top: 8px;
     font-size: 13px;
     line-height: 1.2;
   }
@@ -420,7 +453,9 @@ textarea {
   .mobile-actions {
     display: grid;
   }
-  body:has(.quote-form:focus-within) .mobile-actions {
+  /* The bar is hidden while someone is typing, in the quote form or in an AutoVal field. */
+  body:has(.quote-form:focus-within) .mobile-actions,
+  body:has(.autoval-tool :is(input:not([type="checkbox"]), select, textarea):focus) .mobile-actions {
     visibility: hidden;
     pointer-events: none;
   }

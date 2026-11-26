@@ -8,8 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
-    "test": "tsx --test tests/*.test.ts",
-    "sitemap:dates": "tsx scripts/sitemap-dates.ts"
+    "test": "tsx --test tests/*.test.ts"
   },
   "dependencies": {
     "@vercel/analytics": "^2.0.1",

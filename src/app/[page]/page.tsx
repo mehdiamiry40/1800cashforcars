@@ -108,6 +108,9 @@ export default async function ContentPageRoute({
   if (!p) notFound();
   // The H1 can be a full phrase. The breadcrumb, schema and FAQ heading keep the short name.
   const name = p.label ?? p.title;
+  // The first service page to get the quote card in the first desktop screen, as the location pages have it.
+  // The other service pages keep the standard layout until this one has been measured.
+  const cardFirst = p.slug === "cash-for-cars";
 
   return (
     <PageShell
@@ -116,10 +119,12 @@ export default async function ContentPageRoute({
       path={`/${p.slug}`}
       intro={p.intro ?? p.description}
       introNote={
-        p.introNote && <RichText text={p.introNote.text} links={p.introNote.links} linkClassName={heroLinkClass} />
+        // The standard hero is navy, so its links are white. The card-first hero is white.
+        p.introNote && <RichText text={p.introNote.text} links={p.introNote.links} linkClassName={cardFirst ? undefined : heroLinkClass} />
       }
       roo={poses[p.slug]}
       forms={p.slug !== "services"}
+      cardFirst={cardFirst}
     >
       {p.slug !== "services" && (
         <ServiceLd

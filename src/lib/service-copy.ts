@@ -200,7 +200,7 @@ export const cashForCarsPage: ContentPage = {
 
 export const carRemovalsPage: ContentPage = {
   slug: "car-removals",
-  updated: "2026-11-24T14:10:00+10:00",
+  updated: "2026-11-26T12:40:00+10:00",
   intro: "Free car pickup across South East Queensland and the Tweed. Any condition.",
   title: "Free car removal across South East Queensland",
   // Overview for every area. Brisbane stays on /car-removal-brisbane. No redirect or canonical between them.
@@ -220,8 +220,8 @@ export const carRemovalsPage: ContentPage = {
           links: [{ phrase: "car removal Brisbane", href: "/car-removal-brisbane" }],
         },
         {
-          text: "If you want to know how a car is priced before you book the truck, start with cash for cars. Removal and payment happen on the same visit. We pay you for the car, then we take it.",
-          links: [{ phrase: "cash for cars", href: "/cash-for-cars" }],
+          text: "If you want to know how a car is priced before you book the truck, start with sell your car for cash. Removal and payment happen on the same visit. We pay you for the car, then we take it.",
+          links: [{ phrase: "sell your car for cash", href: "/cash-for-cars" }],
         },
       ],
     },
