@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { QuoteForm } from "@/components/QuoteForm";
+import { QuoteTrustLine } from "@/components/ParentBrand";
+import { QuoteForm, QuoteFormHeading } from "@/components/QuoteForm";
 import { Breadcrumbs } from "@/components/JsonLd";
 import { CheckIcon, PhoneIcon } from "@/components/icons";
 import { pageOpenGraph, site } from "@/lib/site";
@@ -34,8 +35,9 @@ export default function QuotePage() {
           data-quote
           className="quote-box min-w-0 scroll-mt-32 self-start md:col-start-2 md:row-span-2 md:row-start-1"
         >
-          <h2 className="h-sub mb-6">Tell us about your vehicle</h2>
+          <QuoteFormHeading className="h-sub mb-6" />
           <QuoteForm />
+          <QuoteTrustLine className="mt-4" />
         </div>
         <div className="md:col-start-1 md:row-start-2">
           <ul className="space-y-3">

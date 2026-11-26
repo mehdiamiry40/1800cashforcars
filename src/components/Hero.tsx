@@ -2,6 +2,7 @@ import Image from "next/image";
 import heroPhoto from "@/assets/hero-car-truck-cash.png";
 import { heroCopy } from "@/lib/slides";
 import { GoogleReviewsSignal } from "./GoogleReviewsSignal";
+import { QuoteTrustLine } from "./ParentBrand";
 import { QuoteForm, QuoteFormHeading } from "./QuoteForm";
 import { CashIcon, PinIcon, TruckIcon } from "./icons";
 
@@ -71,6 +72,8 @@ export function Hero({
           <QuoteFormHeading className="hero-quote-title text-[25px] font-semibold leading-tight" />
           <GoogleReviewsSignal />
           <QuoteForm variant="compact" />
+          {/* Under the form, so no field or button moves down the first screen. */}
+          <QuoteTrustLine className="mt-3" />
         </div>
       </div>
     </section>

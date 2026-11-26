@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { ArrowIcon, CheckIcon } from "@/components/icons";
 import { AU_STATES, VEHICLE_TEXT_MAX, type LookupResult, type VehicleDetails } from "@/lib/autoval/types";
 import type { Valuation, ValuationRequest } from "@/lib/autoval/valuation";
+import { CashOfferPrompt } from "./CashOfferPrompt";
 import { ValuationReport, type ValuedCar } from "./ValuationReport";
 
 type Mode = "rego" | "vin" | "details";
@@ -189,6 +190,10 @@ export function AutoValuer({ regoLookup }: { regoLookup: boolean }) {
     // Spacing here is kept tight on purpose: with the short page heading it puts the first field of step 2
     // on the first screen. The step heading and the tabs share one row whenever there is room for both.
     <div className="space-y-4 sm:space-y-5">
+      {/* The two steps, with the cash offer block beside them on a wide screen and under them on a narrower
+          one. Beside, it adds no height, so the first field of step 2 stays where it was. */}
+      <div className="grid gap-4 sm:gap-5 xl:grid-cols-[minmax(0,1fr)_18rem] xl:items-start">
+      <div className="min-w-0 space-y-4 sm:space-y-5">
       {/* Step 1: identify the car */}
       <section className="border border-line/15 bg-white p-5 shadow-[0_24px_60px_-30px_rgba(30,37,164,0.45)] sm:px-8 sm:py-7">
         <div className="flex flex-wrap items-end justify-between gap-x-4 gap-y-4">
@@ -413,6 +418,9 @@ export function AutoValuer({ regoLookup }: { regoLookup: boolean }) {
           </div>
         </form>
       )}
+      </div>
+      <CashOfferPrompt className="xl:sticky xl:top-32" />
+      </div>
 
       {result && <ValuationReport valuation={result.valuation} car={result.car} />}
     </div>
