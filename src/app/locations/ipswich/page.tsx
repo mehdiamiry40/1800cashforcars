@@ -57,6 +57,24 @@ const faqs = [
     links: [{ phrase: "car removal across Brisbane", href: "/car-removal-brisbane" }],
   },
   {
+    q: "Is car removal in Ipswich free?",
+    a: "Yes. Towing is free in every Ipswich locality, including the rural west, and it is never deducted from the price. There is no removal fee, and distance from the yard does not add one. We pay you for the car as well, before it is loaded.",
+  },
+  {
+    q: "How soon can you pick up a car in Ipswich?",
+    a: `Collection is ${site.pickupTurnaround}, Monday to Saturday, and you choose the time. A firm price is ${site.quoteTurnaround}. The truck leaves from our Rocklea yard, at the Brisbane end of the Ipswich Motorway.`,
+  },
+  {
+    // Redbank Plains searches reach this page. It is covered here, not on a page of its own.
+    q: "Do you buy cars in Redbank Plains?",
+    a: "Yes. Redbank Plains is one of the City of Ipswich localities we collect from, and it is covered on this page. The same free tow and the same price guide apply. Every locality is listed under Ipswich suburbs we collect from.",
+    links: [{ phrase: "Ipswich suburbs we collect from", href: "#ipswich-suburbs" }],
+  },
+  {
+    q: "Can I sell a car in Ipswich that doesn't run?",
+    a: "Yes. A car that will not start, has a seized engine or has not moved in years is still bought. Tell us that it doesn't run, and whether the wheels and the key are there, so we send a truck that can load it.",
+  },
+  {
     q: "What documents do I need to sell my car in Ipswich?",
     a: "Bring photo ID and proof of ownership, such as the registration papers. If the papers are lost, tell us when you ask for a price. We can usually still sort it out once it is clear the car is yours. After collection, cancel the registration and your insurance. Use the Queensland registration cancellation page for the steps. You are paid before the car leaves.",
     links: [{ phrase: "Queensland registration cancellation page", href: QLD_CANCEL }],
@@ -178,6 +196,19 @@ export default function IpswichLocationPage() {
         </p>
         <TextCta from="ipswich-price">Not sure which row fits? Send a few photos.</TextCta>
 
+        <h2 className="h-content mt-12 scroll-mt-24">Which cars do we buy in Ipswich?</h2>
+        <p className="mt-4 text-[18px] leading-relaxed">
+          Cars, utes, vans and trucks, in the state they are in. One that runs, one that stopped years ago, one that has been in a crash and one that has been through a flood are all quoted. It does not need to be registered, roadworthy or driveable.
+        </p>
+        <p className="mt-4 text-[18px] leading-relaxed">
+          An older car with a repair quote bigger than its value is priced as it stands. You do not pay for the repairs first. Work vehicles are bought too, one or several: a ute, a van, or a farm truck that has been parked up.
+        </p>
+
+        <h2 className="h-content mt-12 scroll-mt-24">Sell my car in Ipswich: private sale or cash?</h2>
+        <p className="mt-4 text-[18px] leading-relaxed">
+          A private sale usually brings more for a tidy car that runs well, and it means an ad, phone calls and test drives. Selling to us suits a car you want gone without that, and a car that is damaged, unregistered or not worth repairing. It is one price and one visit, and you are paid before the car leaves.
+        </p>
+
         <h2 className="h-content mt-12 scroll-mt-24">Flood-damaged, unregistered and long-parked cars</h2>
         <h3 className="mt-8 font-heading text-[22px] font-semibold leading-tight text-navy">Flood-damaged cars</h3>
         <p className="mt-3 text-[18px] leading-relaxed">
@@ -197,6 +228,16 @@ export default function IpswichLocationPage() {
             Missing wheels or a missing key
           </Link>{" "}
           does not stop the purchase. Mention either one in the request and we will send a truck that can load the car. Describe shed or backyard access and we will set a time that suits you.
+        </p>
+
+        <h2 id="car-removal-ipswich" className="h-content mt-12 scroll-mt-24">
+          Free car removal in Ipswich
+        </h2>
+        <p className="mt-4 text-[18px] leading-relaxed">
+          Car removal in Ipswich is free, in every locality on the list below, from Goodna and Springfield to Rosewood and Marburg. We do not charge a removal fee, and the tow is never taken off the price. You are paid for the car as well, in cash or by bank transfer, before it is loaded.
+        </p>
+        <p className="mt-4 text-[18px] leading-relaxed">
+          The truck leaves from our Rocklea yard, at the Brisbane end of the Ipswich Motorway. A car that cannot be driven is winched onto a tilt tray, so a flat battery, flat tyres or a seized engine do not stop the pickup. Collection is {site.pickupTurnaround}, Monday to Saturday, at a time you choose.
         </p>
 
         <h2 id="ipswich-steps" className="h-content mt-12 scroll-mt-24">

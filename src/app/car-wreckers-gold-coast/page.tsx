@@ -12,10 +12,12 @@ const PATH = "/car-wreckers-gold-coast";
 const PRICE = "/scrap-car-prices-brisbane";
 const QLD_CANCEL = "https://www.qld.gov.au/transport/registration/cancel";
 const COUNCIL = "https://www.goldcoast.qld.gov.au/Services/Neighbourhood-issues/Abandoned-vehicles-goods";
+// "Unwanted cars Gold Coast" already reaches this page on the first page of results, so the title,
+// the description, the H1 and the opening lines say it.
 const DESCRIPTION =
-  "Sell your damaged, dead or old car to a Gold Coast car wrecker. Cars, utes, vans and trucks, keys or no keys. Free towing, paid before it leaves.";
+  "Gold Coast car wreckers paying cash for unwanted, damaged and dead cars, utes and vans. Free towing from Ormeau to Coolangatta, paid before it leaves.";
 const DIRECT_ANSWER =
-  "We buy whole cars, utes, vans and trucks for cash, damaged or not. If your car is crashed, dead, flooded or worn out, we will pay for it anywhere on the Gold Coast, from Ormeau to Coolangatta. Towing is free and never deducted, and you are paid by cash or bank transfer before the car leaves.";
+  "Got an unwanted car on the Gold Coast? We buy whole cars, utes, vans and trucks for cash, damaged or not. Crashed, dead, flooded, worn out or simply no longer needed, we will pay for it anywhere from Ormeau to Coolangatta. Towing is free and never deducted, and you are paid by cash or bank transfer before the car leaves.";
 
 const priceRows = [
   { vehicle: "Stripped shell", price: "$150 – $500" },
@@ -29,6 +31,10 @@ const faqs = [
   {
     q: "Do car wreckers on the Gold Coast pay for cars?",
     a: "Yes. A damaged or dead car usually still has value in its parts and its metal. We quote every car individually and pay before it leaves. The tow is free on the Gold Coast and is never taken off the price. Cash or bank transfer is your choice, with a receipt. A crashed, flooded or worn-out car can still be quoted.",
+  },
+  {
+    q: "Do you buy unwanted cars on the Gold Coast that still run?",
+    a: "Yes. A car does not have to be damaged for us to buy it. An old or unwanted car that still runs is quoted on its own, and a car that starts is worth more than one that doesn't. The Gold Coast tow is still free and never deducted, and you are paid before the car leaves.",
   },
   {
     q: "How much will a wrecker pay for my car?",
@@ -51,8 +57,8 @@ const faqs = [
 ];
 
 export const metadata: Metadata = {
-  // 57 characters with " | 1800-CASH-FOR-CARS".
-  title: "Car Wreckers Gold Coast, We Buy Cars",
+  // 59 characters with " | 1800-CASH-FOR-CARS".
+  title: "Car Wreckers Gold Coast, Unwanted Cars",
   description: DESCRIPTION,
   alternates: { canonical: PATH },
   openGraph: pageOpenGraph(PATH),
@@ -87,7 +93,7 @@ export default function GoldCoastWreckersPage() {
         })}
       />
 
-      <AreaHero h1="Car wreckers on the Gold Coast: sell us your damaged car">
+      <AreaHero h1="Car wreckers on the Gold Coast: cash for unwanted and damaged cars">
         <p className="mt-4 text-[18px] leading-relaxed">{DIRECT_ANSWER}</p>
         <p className="mt-3 text-[18px] leading-relaxed">
           Guide prices from our{" "}
@@ -148,6 +154,9 @@ export default function GoldCoastWreckersPage() {
         </TextCta>
 
         <h2 className="h-content mt-12 scroll-mt-24">What condition can the car be in?</h2>
+        <p className="mt-4 text-[18px] leading-relaxed">
+          Any. An unwanted car that still runs is bought as well as a wreck: an old car you have replaced, or one that has sat unused, is quoted the same way.
+        </p>
         <p className="mt-4 text-[18px] leading-relaxed">
           Crash damage and insurance write-offs are bought as they are. Tell us what is damaged, and the quote follows that description.
         </p>

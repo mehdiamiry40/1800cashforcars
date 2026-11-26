@@ -17,7 +17,7 @@ const regoLookup = regoLookupEnabled();
 export const metadata: Metadata = {
   title: "Free Car Valuation Brisbane & QLD",
   description:
-    `${regoLookup ? "Free car valuation by rego or VIN for Brisbane and Queensland cars." : "Free car valuation for Brisbane and Queensland cars, from a VIN or the car's details."} An estimate, not a cash offer. For a damaged car, ask us for a quote.`,
+    `${regoLookup ? "Free car valuation for Brisbane and QLD by rego, VIN or the car's details." : "Free car valuation for Brisbane and QLD from a VIN or the car's details."} Private-sale, trade-in and dealer price ranges. An estimate, not a cash offer.`,
   alternates: { canonical: "/autoval" },
   openGraph: pageOpenGraph("/autoval"),
 };
@@ -26,6 +26,10 @@ const autovalFaqs = [
   {
     q: "How do I get a free car valuation in Brisbane?",
     a: `Use the form on this page. ${regoLookup ? "Enter a number plate, a VIN or the car's details" : "Enter the make, model and year, or a VIN"}, then the kilometres and the condition. The form starts on Queensland, so a Brisbane car needs no change there. The estimate is free, there is no sign-up, and it is usually ready in about a minute. You do not bring the car to our Rocklea yard for it.`,
+  },
+  {
+    q: "How do I value my car in QLD?",
+    a: `Leave the state on Queensland, then ${regoLookup ? "enter the number plate, the VIN, or the make, model and year" : "enter the make, model and year, or the VIN"}. Add the kilometres and pick a condition from excellent to poor. The report gives a private-sale range, a trade-in range and a dealer retail range for the car, and its paperwork list is written for Queensland.`,
   },
   {
     q: "Is AutoVal free?",
@@ -46,6 +50,18 @@ const autovalFaqs = [
   {
     q: "How accurate is the valuation?",
     a: "It is a guide, not a formal appraisal. Each report shows a confidence level of high, medium or low, with the reason for it. The condition is whatever you report and nobody inspects the car, so a buyer may see it differently. If few similar cars are advertised, the estimate has less to go on.",
+  },
+  {
+    q: "Does the valuation show a trade-in value?",
+    a: "Yes. The report has a trade-in range next to the private-sale range and the dealer retail range, so you can see the gap between trading the car in and selling it yourself. It is an estimate. A dealer makes its own offer once it has seen the car.",
+  },
+  {
+    q: "Is AutoVal a car value calculator?",
+    a: "It does the job of one: you enter the car's details and get price ranges back. To work them out, AutoVal searches current Australian listings and price guides for similar cars, and an AI model writes the estimate from what the search found and from your answers. When the search finds little, the estimate has less to go on and the confidence level is lower.",
+  },
+  {
+    q: "Can I use AutoVal for an insurance or finance valuation?",
+    a: "No. AutoVal is a guide for someone who is thinking about selling a car. It is not a formal appraisal, and it is not written for an insurer, a lender or a court.",
   },
   {
     q: "What if my car doesn't run?",
@@ -136,6 +152,35 @@ export default function AutoValPage() {
           You are not asked for a name, a phone number or an email address to see the result.
         </p>
 
+        <h2 className="h-content mt-12">How do I value my car in Queensland, step by step?</h2>
+        <p className="mt-4 text-[18px] leading-relaxed">
+          The tool at the top of this page has two steps, and the report follows them.
+        </p>
+        <ol className="mt-4 list-decimal space-y-3 pl-5 text-[18px] leading-relaxed">
+          <li>
+            Find the car.{" "}
+            {regoLookup
+              ? "Use the Rego tab with the number plate and the state the car is registered in, the VIN tab with the 17-character VIN, or the Details tab to type the car in yourself."
+              : "Type the car in on the Details tab, or use the VIN tab with the 17-character VIN."}{" "}
+            The VIN is on the compliance plate, at the bottom of the windscreen, or on the rego papers.
+          </li>
+          <li>
+            Check the car&apos;s details. The make, model, year and kilometres are needed. The variant, body, transmission, fuel, engine and colour are optional, and you can correct anything a lookup got wrong.
+          </li>
+          <li>
+            Leave the state on Queensland for a QLD car. Change it only if the car is registered somewhere else.
+          </li>
+          <li>
+            Describe the condition. Pick excellent, good, fair or poor, then add the service history, whether the car has been in an accident or had panel repairs, any extras and any known issues.
+          </li>
+          <li>
+            Read the report. It is usually ready in about a minute, and you are not asked for a name, a phone number or an email address to see it.
+          </li>
+        </ol>
+        <p className="mt-4 text-[18px] leading-relaxed">
+          Kilometres and condition make the biggest difference to the figure, so those two are worth getting right.
+        </p>
+
         <h2 className="h-content mt-12">What the valuation shows</h2>
         <p className="mt-4 text-[18px] leading-relaxed">
           The headline is a private-sale price range with a suggested asking price. With it are a trade-in range and a dealer retail range, so you can see the gap between selling the car yourself and trading it in. The report also has:
@@ -150,6 +195,25 @@ export default function AutoValPage() {
         </ul>
         <p className="mt-4 text-[18px] leading-relaxed">
           The report is written by an AI model from those search results and your answers. It is for guidance only and is not a formal appraisal. Use it as a starting point for your own checks.
+        </p>
+
+        <h2 className="h-content mt-12">Private sale, trade-in or dealer retail: which figure do I use?</h2>
+        <p className="mt-4 text-[18px] leading-relaxed">
+          The report puts the three ranges on one scale, with trade-in at the low end, dealer retail at the high end and private sale between them. Which one matters depends on how you plan to sell.
+        </p>
+        <ul className="mt-4 list-disc space-y-2 pl-5 text-[18px] leading-relaxed">
+          <li>
+            <b className="text-navy">Private sale.</b> The headline range, with a suggested asking price. Use it if you plan to advertise the car yourself.
+          </li>
+          <li>
+            <b className="text-navy">Trade-in.</b> The range to compare a dealer&apos;s offer with when the car is going in as part of buying another one.
+          </li>
+          <li>
+            <b className="text-navy">Dealer retail.</b> What a similar car might be advertised for by a dealer. It is there for comparison, and it is not what a dealer would pay you.
+          </li>
+        </ul>
+        <p className="mt-4 text-[18px] leading-relaxed">
+          None of the three is a cash offer from {site.name}, and none is a formal appraisal for an insurer or a lender.
         </p>
 
         <h2 className="h-content mt-12">What it can&apos;t tell you</h2>
@@ -174,6 +238,29 @@ export default function AutoValPage() {
             quote form
           </Link>{" "}
           if you want that offer. Towing on the offer is free and is never deducted. We pay before the car leaves.
+        </p>
+
+        <h2 className="h-content mt-12">Does my car need a valuation or a quote?</h2>
+        <p className="mt-4 text-[18px] leading-relaxed">
+          A valuation suits a car that runs and that you could advertise or trade in. It tells you what to ask, and what a trade-in might look like, before you decide how to sell.
+        </p>
+        <p className="mt-4 text-[18px] leading-relaxed">
+          A quote suits a car that does not run, has been written off, has a repair bill bigger than its value, or has sat for years. AutoVal will still give a figure for a car like that, but the figure is a market estimate, and a car in that state is priced on its parts and its metal. For that price, ask us. How we collect and pay for an end-of-life car is on{" "}
+          <Link href="/scrap-car-removal" className="font-semibold text-navy underline underline-offset-4">
+            cash for scrap cars in Brisbane
+          </Link>
+          , and a damaged car with usable parts is covered by our{" "}
+          <Link href="/car-wreckers" className="font-semibold text-navy underline underline-offset-4">
+            car wreckers
+          </Link>{" "}
+          page.
+        </p>
+        <p className="mt-4 text-[18px] leading-relaxed">
+          If the car runs and you would still rather not advertise it,{" "}
+          <Link href="/cash-for-cars" className="font-semibold text-navy underline underline-offset-4">
+            sell your car for cash in Brisbane
+          </Link>{" "}
+          sets out the cash sale, step by step.
         </p>
 
         <h2 className="h-content mt-12">Car valuation in Brisbane and across Queensland</h2>

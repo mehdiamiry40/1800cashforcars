@@ -184,9 +184,18 @@ export function PickupSection() {
   );
 }
 
-// The main written content for "cash for cars Brisbane". Kept visible (not behind accordions) so it reads as the page's core copy.
+// The main written content for "cash for cars Brisbane", the search the homepage owns. Kept visible
+// (not behind accordions) so it reads as the page's core copy. Free car removal, scrap cars, selling
+// step by step and the valuation tool each have their own page, so they get a link here, not a heading.
 export function BrisbaneCashForCars() {
-  const topics = [
+  const topics: { title: string; paras: string[]; note?: { text: string; links: { phrase: string; href: string }[] } }[] = [
+    {
+      title: "Who we buy cars from in Brisbane",
+      paras: [
+        "Car owners and businesses. An owner might be clearing the driveway, moving on from a second car nobody drives, or holding a repair quote that is more than the car is worth. A business might have a work ute, a van or a small fleet that has reached the end of its working life.",
+        "You don't need to bring the car anywhere. We come to your home, your workplace or the repair shop, anywhere in Brisbane.",
+      ],
+    },
     {
       title: "What we pay for cars in Brisbane",
       paras: [
@@ -194,10 +203,11 @@ export function BrisbaneCashForCars() {
         "Tell us about the car and we'll give you a firm price, usually within the hour. The price we quote is the price we pay when the car is as described. Nothing comes off for towing.",
       ],
       note: {
-        text: "Wondering how much your scrap car is worth? Our current Brisbane guide sets out the ranges, and cash for scrap cars in Brisbane is handled on the scrap car removal page.",
+        text: "Wondering how much your scrap car is worth? Our current Brisbane guide sets out the ranges, and cash for scrap cars in Brisbane is handled on the scrap car removal page. If the car still runs and you might sell it privately, a Brisbane car valuation gives you a market estimate first. That estimate is not our cash offer.",
         links: [
           { phrase: "how much your scrap car is worth", href: "/scrap-car-prices-brisbane" },
           { phrase: "cash for scrap cars in Brisbane", href: "/scrap-car-removal" },
+          { phrase: "Brisbane car valuation", href: "/autoval" },
         ],
       },
     },
@@ -216,13 +226,14 @@ export function BrisbaneCashForCars() {
       },
     },
     {
-      title: "Free car removal, usually within a day or two",
+      title: "How fast can you pick up in Brisbane?",
       paras: [
-        "Our yard is in Rocklea, on Brisbane's southside, so a tow truck or tilt tray is usually at your place within a day or two. We pick up from houses, units, workshops, car parks and the roadside, Monday to Saturday.",
+        "Pickups are usually within a day or two. Our yard is in Rocklea, on Brisbane's southside, and you set the time, Monday to Saturday. A firm price is usually within the hour.",
+        "We pick up from houses, units, workshops, car parks and the roadside. The pickup is free, and nothing comes off your price for it.",
       ],
       note: {
-        text: "More about our free car removal Brisbane service.",
-        links: [{ phrase: "free car removal Brisbane", href: "/car-removal-brisbane" }],
+        text: "The tow itself, and the suburbs it covers, is on free car removal in Brisbane.",
+        links: [{ phrase: "free car removal in Brisbane", href: "/car-removal-brisbane" }],
       },
     },
     {
@@ -231,6 +242,24 @@ export function BrisbaneCashForCars() {
         "Have your photo ID and proof of ownership ready, such as the rego papers. The car shouldn't have finance owing on it. We pay you in cash or by bank transfer before the car leaves, and give you a receipt.",
         "After pickup, cancel the registration with Transport and Main Roads (you can do it online) and you may get a refund on the rego you haven't used. Then cancel your insurance.",
       ],
+      note: {
+        text: "Each step of the sale, from the quote to the receipt, is on sell your car for cash in Brisbane.",
+        links: [{ phrase: "sell your car for cash", href: "/cash-for-cars" }],
+      },
+    },
+    {
+      title: "Logan, Ipswich and the rest of South East Queensland",
+      paras: [
+        "The same Rocklea yard buys cars outside Brisbane as well: in Logan and Ipswich, on the Gold Coast and the Sunshine Coast, and over the border in Tweed Heads. The pickup is free in each of them.",
+      ],
+      note: {
+        text: "The suburbs and local notes are on cash for cars in Logan and cash for cars in Ipswich. The rest are listed under the areas we cover.",
+        links: [
+          { phrase: "cash for cars in Logan", href: "/locations/logan" },
+          { phrase: "cash for cars in Ipswich", href: "/locations/ipswich" },
+          { phrase: "areas we cover", href: "/locations" },
+        ],
+      },
     },
   ];
 
@@ -238,9 +267,12 @@ export function BrisbaneCashForCars() {
     <section id="brisbane" className="section-site scroll-mt-32 border-t border-line">
       <div className="container-site">
         <div className="max-w-3xl">
-          <h2 className="h-section !text-brand">How fast can you pick up in Brisbane?</h2>
+          <h2 className="h-section !text-brand">Cash for cars in Brisbane, paid on pickup</h2>
           <p className="mt-4 text-[18px] sm:text-[20px]">
-            Pickups are usually within a day or two. Rocklea sits on the south side of Brisbane. You set the time, Monday to Saturday. A firm price is usually within the hour.
+            {site.name} pays cash for cars across Brisbane and South East Queensland, from our own yard in Rocklea. We buy cars, utes, vans and 4WDs in any condition: running or not, registered or not, damaged, rusted or simply no longer needed.
+          </p>
+          <p className="mt-3 text-[18px]">
+            Tell us the make, model, year and condition, and we send a firm price, usually within the hour. If you accept it, we collect the car, usually within a day or two, and pay you in cash or by bank transfer before it leaves. The pickup is free.
           </p>
         </div>
         <div className="mt-10 grid gap-x-14 gap-y-10 md:grid-cols-2">
@@ -263,7 +295,7 @@ export function BrisbaneCashForCars() {
         <div className="mt-12">
           <h3 className="h-sub">Brisbane suburbs we buy cars in</h3>
           <p className="mt-3">
-            Every Brisbane suburb, plus Logan and Ipswich. Select a region to see the suburbs.
+            Every Brisbane suburb: the northside, the southside, the western suburbs and the bayside. Select a region to see the suburbs.
           </p>
           <BrisbaneSuburbs />
         </div>

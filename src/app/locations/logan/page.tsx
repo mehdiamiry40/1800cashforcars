@@ -14,7 +14,7 @@ const PRICE = "/scrap-car-prices-brisbane";
 const QLD_CANCEL = "https://www.qld.gov.au/transport/registration/cancel";
 const COUNCIL = "https://www.logan.qld.gov.au/community/vehicles-and-parking/abandoned-vehicles";
 const DESCRIPTION =
-  "Cash for cars in Logan: scrap, old and damaged cars, utes, 4x4s, vans and trucks. Free towing, never deducted. Quotes usually within the hour on 0423 514 111.";
+  "Cash for cars in Logan: scrap, old and damaged cars, utes, vans and trucks. Free towing, never deducted. Quotes usually within the hour on 0423 514 111.";
 const DIRECT_ANSWER =
   `${site.name} buys scrap, old and damaged cars, utes, vans and trucks right across the City of Logan, from Springwood and Beenleigh to Browns Plains, Jimboomba and Yarrabilba. Towing is always free and never taken off your price. Most scrap or non-running cars fetch $150 to $800, and running or damaged utes $1,000 to $5,500.`;
 
@@ -54,6 +54,27 @@ const faqs = [
     q: "Which parts of Logan do you cover?",
     a: "All 69 suburbs, from Rochedale South and Springwood down to Jimboomba, Flagstone and Yarrabilba. The names follow Logan City Council, including Beenleigh, Browns Plains and the southern acreage. Towing is free across that area and is never deducted. See Logan suburbs we cover for every name.",
     links: [{ phrase: "Logan suburbs we cover", href: "#logan-suburbs" }],
+  },
+  {
+    q: "Do you buy cars in Beenleigh, Browns Plains and Jimboomba?",
+    a: "Yes. All three are in the City of Logan and are covered on this page. Browns Plains is about 17 km by road from our Rocklea yard, Beenleigh about 31 km and Jimboomba about 36 km. The distance does not add a towing fee.",
+  },
+  {
+    q: "How quickly can you collect a car in Logan?",
+    a: `Pickups are ${site.pickupTurnaround}, Monday to Saturday, at a time you choose. A firm price is ${site.quoteTurnaround}. The truck comes from our Rocklea yard, on Brisbane's southside.`,
+  },
+  {
+    q: "How do I get paid for my car in Logan?",
+    a: "In cash or by bank transfer, whichever you choose, before the car leaves. You get a receipt, and nothing is taken off the quoted price for the tow.",
+  },
+  {
+    q: "What do I need to sell my car in Logan?",
+    a: "Photo ID and proof of ownership, such as the rego papers. If the papers are lost, tell us when you ask for a price. The car does not need registration, a roadworthy or a running engine. Keys help, and a car without them is still bought.",
+  },
+  {
+    q: "Do you pay cash for trucks and work vans in Logan?",
+    a: "Yes. Work utes, vans and trucks from Logan are bought, one vehicle or several, running or not. Each is quoted on its own. Larger trucks are covered on the cash for trucks page.",
+    links: [{ phrase: "cash for trucks page", href: "/truck-removal" }],
   },
   {
     // Springwood searches were landing on the homepage. It is covered here, not on a page of its own.
@@ -121,6 +142,10 @@ export default function LoganLocationPage() {
         <p className="mt-3 text-[18px] leading-relaxed">
           Eastern Logan sits on the Pacific Motorway, reached via Kessels Road: Springwood, Shailer Park, Loganholme, Beenleigh and Eagleby. Springwood is about 18 km by road. Beenleigh is about 31 km by road. Cash for cars in Springwood is part of this Logan service, including nearby Daisy Hill, Slacks Creek and Underwood. If the car is in Springwood, the same free tow and the same price guide apply.
         </p>
+        <h3 className="mt-8 font-heading text-[22px] font-semibold leading-tight text-navy">Woodridge, Kingston and central Logan</h3>
+        <p className="mt-3 text-[18px] leading-relaxed">
+          Woodridge, Logan Central, Kingston, Marsden, Crestmead, Loganlea and Meadowbrook are covered as well. A car in a driveway, under a carport or in a unit car park is collected the same way. Say which it is when you ask for a price, and mention a locked gate or a height bar.
+        </p>
         <h3 className="mt-8 font-heading text-[22px] font-semibold leading-tight text-navy">Acreage and the semi-rural south</h3>
         <p className="mt-3 text-[18px] leading-relaxed">
           Munruben, Chambers Flat, Logan Village, Cedar Vale and Jimboomba acreage are larger blocks. A car or farm ute in a paddock can still be priced. Mention a gate, a long track or soft ground.
@@ -139,6 +164,21 @@ export default function LoganLocationPage() {
             text="Yes, this page is the car removal service for the City of Logan, and the towing is always free and never deducted from your price. We collect from all 69 Logan suburbs. The truck comes from our Rocklea yard, which is on Brisbane's southside and is not a Logan address. Pickups are usually within a day or two. You are paid in cash or by bank transfer before the car leaves. If the car is on the Brisbane side of the boundary, see free car removal in Brisbane."
             links={[{ phrase: "free car removal in Brisbane", href: "/car-removal-brisbane" }]}
           />
+        </p>
+
+        <h3 className="mt-8 font-heading text-[22px] font-semibold leading-tight text-navy">What free car removal in Logan includes</h3>
+        <p className="mt-3 text-[18px] leading-relaxed">
+          The truck, the driver and the tow back to Rocklea. There is no removal fee, no call-out fee and no charge by the kilometre, from Rochedale South down to Jimboomba. A car that cannot be driven is winched onto a tilt tray, so flat tyres, a dead battery or a seized engine do not stop the pickup. Pickups run Monday to Saturday.
+        </p>
+
+        <h2 id="unwanted-logan" className="h-content mt-12 scroll-mt-24">
+          Cash for unwanted cars in Logan
+        </h2>
+        <p className="mt-4 text-[18px] leading-relaxed">
+          A car does not have to be wrecked for us to buy it. An unwanted car in Logan might be a second car nobody drives, one that has sat since the rego ran out, or one you have replaced and would rather not advertise. We quote it as it is, running or not.
+        </p>
+        <p className="mt-4 text-[18px] leading-relaxed">
+          A car that still starts and drives is worth more than one that doesn&apos;t, so say so when you ask. If it is still registered, cancel the rego after we have collected it. You may get a refund for the unused time.
         </p>
 
         <h2 className="h-content mt-12 scroll-mt-24">How much will I get for my car in Logan?</h2>
@@ -220,6 +260,14 @@ export default function LoganLocationPage() {
             Send us your car&apos;s details
           </QuoteLink>
         </TextCta>
+
+        <h2 className="h-content mt-12 scroll-mt-24">What do I need on pickup day in Logan?</h2>
+        <p className="mt-4 text-[18px] leading-relaxed">
+          Photo ID, such as a driver&apos;s licence or passport, and proof that the car is yours, such as the rego papers. Bring the keys if you have them, and take out your belongings and any toll tag. If the papers are lost, tell us when you ask for a price.
+        </p>
+        <p className="mt-4 text-[18px] leading-relaxed">
+          The driver checks the car against what you told us and pays you before it is loaded, in cash or by bank transfer. You get a receipt. Keep it for when you cancel the registration.
+        </p>
 
         <h2 id="logan-suburbs" className="h-content mt-12 scroll-mt-24">
           Which Logan suburbs do we cover?
