@@ -99,7 +99,8 @@ const serviceLd = {
   "@type": "Service",
   "@id": `${site.url}/car-removal-brisbane#service`,
   serviceType: "Car removal",
-  name: "Car Removal Brisbane",
+  // The page's own name, as in its H1 and breadcrumb. The bare "car removal Brisbane" is not this page's search.
+  name: "Free car removal in Brisbane",
   description: "Free car removal across Brisbane. We pay for scrap, old and unwanted cars and tow them away at no cost.",
   url: `${site.url}/car-removal-brisbane`,
   provider: { "@id": `${site.url}/#business` },
@@ -241,7 +242,7 @@ export default function CarRemovalBrisbane() {
       </div>
 
       <div className="mt-12">
-        <h2 className="h-content">Car removal Brisbane FAQs</h2>
+        <h2 className="h-content">Free car removal Brisbane FAQs</h2>
         <div className="mt-6">
           <Faq bare items={faqs} />
         </div>

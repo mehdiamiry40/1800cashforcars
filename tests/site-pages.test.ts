@@ -3,6 +3,7 @@ import { readFileSync } from "node:fs";
 import { describe, it } from "node:test";
 import { createElement } from "react";
 import { AutoValuer } from "../src/app/autoval/AutoValuer";
+import { GET as llmsTxt } from "../src/app/llms.txt/route";
 import { Footer } from "../src/components/Footer";
 import { Header } from "../src/components/Header";
 import { nav } from "../src/lib/navigation";
@@ -113,6 +114,89 @@ describe("the homepage owns 'cash for cars Brisbane'", () => {
 
   it("links to the homepage as 'Cash for cars Brisbane' from the footer of every page", () => {
     assert.ok(linksIn(footer).some((link) => link.href === "/" && link.label === "Cash for cars Brisbane"));
+  });
+
+  // The tests above check /cash-for-cars. Since the 28 November 2026 ownership pass every other page is held to the same rule.
+  it("leaves the phrase out of every other page's title, h1, description and schema name", async () => {
+    for (const route of routes.filter((r) => r.path !== "/")) {
+      const meta = await metadataOf(route.path);
+      const html = await htmlOf(route.path);
+      assert.doesNotMatch(JSON.stringify(meta.title), headTerm, `${route.path}: the title carries the homepage's phrase`);
+      assert.doesNotMatch(meta.description ?? "", headTerm, `${route.path}: the description carries the homepage's phrase`);
+      for (const h1 of headings(html, 1)) assert.doesNotMatch(h1, headTerm, `${route.path}: the h1 carries the homepage's phrase`);
+      for (const node of jsonLdIn(html).filter((n) => n["@type"] === "Service" || n["@type"] === "WebPage")) {
+        assert.doesNotMatch(String(node.name), headTerm, `${route.path}: its ${node["@type"]} schema is named "${node.name}"`);
+      }
+    }
+  });
+
+  it("gives the phrase to no menu link but one to the homepage", () => {
+    for (const item of nav) {
+      if (/cash for cars/i.test(item.label)) assert.equal(item.href, "/", `the menu calls ${item.href} "${item.label}"`);
+    }
+  });
+
+  it("lists only the homepage under the phrase in llms.txt", async () => {
+    const entries = [...(await llmsTxt().text()).matchAll(/^- \[([^\]]+)\]\(([^)]+)\)/gm)].map((m) => ({ label: m[1], url: m[2] }));
+    assert.ok(entries.length >= 20, `only ${entries.length} pages are listed in llms.txt`);
+    assert.deepEqual(entries.filter((entry) => headTerm.test(entry.label)), [{ label: "Cash for cars Brisbane", url: `${site.url}/` }]);
+    assert.equal(entries.find((entry) => entry.url === `${site.url}/cash-for-cars`)?.label, "Sell your car for cash in Brisbane");
+  });
+});
+
+// "Car removal Brisbane" and "car removals Brisbane" are searches the parent company's site answers, on the
+// A Plus Car Removal homepage. This site's two removal pages are about free car removal, and are named that
+// way wherever the site names them. Until 28 November 2026 the footer of every page, the related links, the
+// areas hub, the about page and the Brisbane page's own schema called it "Car removal Brisbane".
+describe("the removal pages keep to 'free car removal'", () => {
+  const bareTerm = /^car removals?\s+(in\s+)?brisbane\b/i;
+  const bareLabel = /^car removals?\s+(in\s+)?brisbane$/i;
+  const serviceOf = (html: string) => jsonLdIn(html).find((node) => node["@type"] === "Service");
+
+  it("leads the title, h1 and schema name of both pages with 'Free car removal'", async () => {
+    const brisbane = await htmlOf("/car-removal-brisbane");
+    assert.equal((await metadataOf("/car-removal-brisbane")).title, "Free Car Removal Brisbane, Cash Paid");
+    assert.deepEqual(headings(brisbane, 1), ["Free car removal in Brisbane"]);
+    assert.equal(serviceOf(brisbane)?.name, "Free car removal in Brisbane");
+    assert.ok(headings(brisbane, 2).includes("Free car removal Brisbane FAQs"));
+
+    const region = await htmlOf("/car-removals");
+    assert.equal((await metadataOf("/car-removals")).title, "Free Car Removal Across SEQ");
+    assert.deepEqual(headings(region, 1), ["Free car removal across South East Queensland"]);
+    assert.equal(serviceOf(region)?.name, "Free car removal across South East Queensland");
+  });
+
+  it("opens no page's title, heading or schema name with the bare phrase", async () => {
+    for (const route of routes) {
+      const { title } = await metadataOf(route.path);
+      const html = await htmlOf(route.path);
+      const shown = typeof title === "string" ? title : title && "absolute" in title ? title.absolute : "";
+      assert.doesNotMatch(shown, bareTerm, `${route.path}: the title opens with "${shown}"`);
+      for (const level of [1, 2]) {
+        for (const heading of headings(html, level)) assert.doesNotMatch(heading, bareTerm, `${route.path}: an h${level} reads "${heading}"`);
+      }
+      const service = serviceOf(html);
+      if (service) assert.doesNotMatch(String(service.name), bareTerm, `${route.path}: its Service schema is named "${service.name}"`);
+    }
+  });
+
+  it("never names a page with the bare phrase in a link", async () => {
+    const check = (where: string, html: string) => {
+      for (const link of linksIn(html)) assert.doesNotMatch(link.label, bareLabel, `${where}: a link to ${link.href} reads "${link.label}"`);
+    };
+    check("header", header);
+    check("footer", footer);
+    await everyPage(check);
+    const listed = [...(await llmsTxt().text()).matchAll(/^- \[([^\]]+)\]/gm)].map((m) => m[1]);
+    for (const label of listed) assert.doesNotMatch(label, bareLabel, `llms.txt lists a page as "${label}"`);
+  });
+
+  it("links to the Brisbane page as 'Free car removal Brisbane' from the footer, the related links, the areas hub and the about page", async () => {
+    const named = (html: string) => linksIn(html).some((link) => link.href === "/car-removal-brisbane" && link.label === "Free car removal Brisbane");
+    assert.ok(named(footer), "the footer does not name the Brisbane removal page");
+    for (const path of ["/cash-for-cars", "/car-removals", "/locations", "/about"]) assert.ok(named(await htmlOf(path)), `${path} does not name the Brisbane removal page`);
+    // The short menu label is the topic, not the search.
+    assert.equal(nav.find((item) => item.href === "/car-removal-brisbane")?.label, "Car removal");
   });
 });
 

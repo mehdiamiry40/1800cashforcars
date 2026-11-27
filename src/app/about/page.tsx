@@ -128,7 +128,7 @@ const questions: { q: string; answer: ReactNode; more?: ReactNode }[] = [
           <li key={area.slug}>
             {/* Brisbane's own page is the removal page. "Cash for cars Brisbane" is the homepage's name, so it is not used for it. */}
             <Link href={areaHref(area)} className={`inline-flex min-h-11 items-center ${linkClass}`}>
-              {area.href ? "Car removal" : "Cash for cars"} {area.name}
+              {area.href ? "Free car removal" : "Cash for cars"} {area.name}
             </Link>
           </li>
         ))}

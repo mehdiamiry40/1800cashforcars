@@ -200,7 +200,7 @@ export const cashForCarsPage: ContentPage = {
 
 export const carRemovalsPage: ContentPage = {
   slug: "car-removals",
-  updated: "2026-11-26T12:40:00+10:00",
+  updated: "2026-11-28T09:31:00+10:00",
   intro: "Free car pickup across South East Queensland and the Tweed. Any condition.",
   title: "Free car removal across South East Queensland",
   // Overview for every area. Brisbane stays on /car-removal-brisbane. No redirect or canonical between them.
@@ -216,8 +216,8 @@ export const carRemovalsPage: ContentPage = {
           text: "Yes. Logan, Ipswich, both coasts, Brisbane and the border town are all on the free run. No removal invoice is raised, and the agreed figure is not trimmed afterwards. Scrap, damaged and unregistered vehicles are paid for, not merely hauled away.",
         },
         {
-          text: "This is the free car removal overview for South East Queensland and the Tweed. It sets out where we collect, what the tow includes, and what to have ready. Brisbane has its own page, with that city's suburbs and the notes for pickups from our Rocklea yard: car removal Brisbane.",
-          links: [{ phrase: "car removal Brisbane", href: "/car-removal-brisbane" }],
+          text: "This is the free car removal overview for South East Queensland and the Tweed. It sets out where we collect, what the tow includes, and what to have ready. Brisbane has its own page, with that city's suburbs and the notes for pickups from our Rocklea yard: free car removal in Brisbane.",
+          links: [{ phrase: "free car removal in Brisbane", href: "/car-removal-brisbane" }],
         },
         {
           text: "If you want to know how a car is priced before you book the truck, start with sell your car for cash. Removal and payment happen on the same visit. We pay you for the car, then we take it.",
@@ -310,8 +310,8 @@ export const carRemovalsPage: ContentPage = {
     },
     {
       q: "Should I use this page or the Brisbane car removal page?",
-      a: "Use car removal Brisbane if the car is in Brisbane. It lists the Brisbane suburbs and the pickup timing from our Rocklea yard. Use this page for the full service across South East Queensland and the Tweed.",
-      links: [{ phrase: "car removal Brisbane", href: "/car-removal-brisbane" }],
+      a: "Use free car removal in Brisbane if the car is in Brisbane. It lists the Brisbane suburbs and the pickup timing from our Rocklea yard. Use this page for the full service across South East Queensland and the Tweed.",
+      links: [{ phrase: "free car removal in Brisbane", href: "/car-removal-brisbane" }],
     },
     {
       q: "How do I get paid outside Queensland?",

@@ -278,9 +278,10 @@ export function RelatedLinks({
   ]
     .filter((l) => l.href !== current)
     .map((l) => ({ ...l, label: labels[l.href] ?? l.label }));
+  // Same names as the footer: the homepage is "Cash for cars Brisbane", the Brisbane removal page is "Free car removal Brisbane".
   const places = [
     { href: "/", label: "Cash for cars Brisbane" },
-    { href: "/car-removal-brisbane", label: "Car removal Brisbane" },
+    { href: "/car-removal-brisbane", label: "Free car removal Brisbane" },
     ...areas.filter((a) => !a.href).map((a) => ({ href: areaHref(a), label: `Cash for cars ${a.name}` })),
   ].filter((l) => l.href !== current);
   const linkClass = "inline-flex min-h-11 items-center font-semibold text-navy underline underline-offset-2 hover:decoration-brand";
