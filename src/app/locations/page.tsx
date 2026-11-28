@@ -58,7 +58,7 @@ export default function LocationsPage() {
               {/* Brisbane's cash-for-cars page is the homepage; its removal page is the area link. */}
               {[
                 ...(a.href
-                  ? [{ href: "/", label: `Cash for cars ${a.name}` }, { href: areaHref(a), label: `Car removal ${a.name}` }]
+                  ? [{ href: "/", label: `Cash for cars ${a.name}` }, { href: areaHref(a), label: `Free car removal ${a.name}` }]
                   : [{ href: areaHref(a), label: `Cash for cars ${a.name}` }]),
                 ...(morePages[a.slug] ?? []),
               ].map((l) => (

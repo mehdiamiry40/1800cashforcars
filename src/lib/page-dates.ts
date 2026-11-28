@@ -9,11 +9,11 @@
 // copy, as `updated`. Write each date and time in Brisbane time (+10:00), and never in the future.
 export const pageUpdated = {
   "/": "2026-11-26T12:39:00+10:00",
-  "/about": "2026-11-26T12:53:00+10:00",
-  "/car-removal-brisbane": "2026-11-26T11:39:05+10:00",
+  "/about": "2026-11-28T09:31:00+10:00",
+  "/car-removal-brisbane": "2026-11-28T09:31:00+10:00",
   "/car-removal-no-keys-no-wheels": "2026-11-15T23:40:04+10:00",
   "/scrap-car-prices-brisbane": "2026-11-26T12:39:00+10:00",
-  "/locations": "2026-11-26T12:39:00+10:00",
+  "/locations": "2026-11-28T09:31:00+10:00",
   "/locations/toowong": "2026-11-24T14:22:44+10:00",
   "/car-wreckers-gold-coast": "2026-11-26T11:39:05+10:00",
   "/locations/gold-coast": "2026-11-24T14:22:44+10:00",

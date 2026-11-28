@@ -50,10 +50,12 @@ export function Footer() {
           </nav>
         </div>
         {/* Descriptive links to the main local pages, so every page points at them with the words people search. */}
+        {/* The Brisbane removal page is linked as "Free car removal Brisbane", the name in its own title. The bare
+            "car removal Brisbane" is the search the A Plus Car Removal homepage answers. */}
         <nav aria-label="Popular pages" className="mt-7 border-t border-line pt-5 text-[14px]">
           <ul className="flex flex-wrap gap-x-5 gap-y-1">
             <li><Link href="/" className="inline-flex min-h-11 items-center hover:underline">Cash for cars Brisbane</Link></li>
-            <li><Link href="/car-removal-brisbane" className="inline-flex min-h-11 items-center hover:underline">Car removal Brisbane</Link></li>
+            <li><Link href="/car-removal-brisbane" className="inline-flex min-h-11 items-center hover:underline">Free car removal Brisbane</Link></li>
             <li><Link href="/scrap-car-prices-brisbane" className="inline-flex min-h-11 items-center hover:underline">Scrap car prices Brisbane</Link></li>
             <li><Link href="/autoval" className="inline-flex min-h-11 items-center hover:underline">Free car valuation Brisbane</Link></li>
             <li><Link href="/locations/toowong" className="inline-flex min-h-11 items-center hover:underline">Car removal Toowong</Link></li>
